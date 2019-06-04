@@ -1,0 +1,20 @@
+{
+    "name": "cordova-plugin-bandyer",
+    "version": "0.0.1",
+    "description": "Bandyer as simple as making a phone call",
+    "_location": "/cordova-plugin-bandyer",
+    "cordova": {
+        "id": "cordova-plugin-bandyer",
+        "platforms": [
+            "ios",
+            "android"
+        ]
+    },
+    "keywords": [
+        "ecosystem:cordova",
+        "cordova-ios",
+        "cordova-android"
+    ],
+    "author": "Bandyer",
+    "license": "Copyright © 2018 Bandyer S.r.l. All rights reserved."
+}

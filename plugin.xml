@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-bandyer" version="0.0.1"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>BandyerPlugin</name>
+
+<!--    <js-module name="BandyerPlugin" src="www/BandyerPlugin.js">-->
+<!--        <clobbers target="cordova.plugins.BandyerPlugin" />-->
+<!--    </js-module>-->
+
+    <platform name="ios">
+        <js-module name="BandyerPlugin" src="www/ios/BandyerPlugin.js">
+            <clobbers target="cordova.plugins.BandyerPlugin" />
+        </js-module>
+
+        <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge" overwrite="true">
+            <string>Necessaria per l'utilizzo della libreria</string>
+        </edit-config>
+        <edit-config target="NSMicrophoneUsageDescription" file="*-Info.plist" mode="merge" overwrite="true">
+            <string>Necessaria per l'utilizzo della libreria</string>
+        </edit-config>
+        <config-file parent="/*" target="config.xml">
+            <feature name="BandyerPlugin">
+                <param name="ios-package" value="BandyerPlugin" />
+            </feature>
+        </config-file>
+        <config-file target="*-Info.plist" parent="UIBackgroundModes">
+            <array>
+                <string>remote-notification</string>
+            </array>
+        </config-file>
+        <config-file target="*-Debug.plist" parent="aps-environment">
+            <string>development</string>
+        </config-file>
+        <config-file target="*-Release.plist" parent="aps-environment">
+            <string>production</string>
+        </config-file>
+        <header-file src="src/ios/BandyerConstants.h" />
+        <header-file src="src/ios/BandyerHeader.h" />
+        <header-file src="src/ios/BandyerManager.h" />
+        <source-file src="src/ios/BandyerManager.m" />
+        <source-file src="src/ios/BandyerPlugin.m" />
+        <header-file src="src/ios/NSString+BandyerPlugin.h" />
+        <source-file src="src/ios/NSString+BandyerPlugin.m" />
+        <header-file src="src/ios/AppDelegate+BandyerPlugin.h" />
+        <source-file src="src/ios/AppDelegate+BandyerPlugin.m" />
+        <framework src="PushKit.framework" weak="true"/>
+        <podspec>
+            <config>
+                <source url="https://github.com/CocoaPods/Specs.git"/>
+            </config>
+            <pods use-frameworks="true">
+                <pod name="BandyerSDK" git="https://github.com/Bandyer/Bandyer-iOS-SDK.git" />
+            </pods>
+        </podspec>
+    </platform>
+
+    <platform name="android">
+        <js-module name="BandyerPlugin" src="www/android/BandyerPlugin.js">
+            <clobbers target="cordova.plugins.BandyerPlugin" />
+        </js-module>
+
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="BandyerPlugin">
+                <param name="android-package" value="it.reply.bandyerplugin.BandyerPlugin" />
+            </feature>
+        </config-file>
+        
+        <source-file src="src/android/BandyerPlugin.java" target-dir="src/it/reply/bandyerplugin/" />
+        <source-file src="src/android/BandyerPluginManager.java" target-dir="src/it/reply/bandyerplugin/" />
+        <source-file src="src/android/PluginMethodNotValidException.java" target-dir="src/it/reply/bandyerplugin/" />
+        <source-file src="src/android/Constants.java" target-dir="src/it/reply/bandyerplugin/" />
+        <source-file src="src/android/input/InitInput.java" target-dir="src/it/reply/bandyerplugin/input" />
+        <source-file src="src/android/input/HandleNotificationInput.java" target-dir="src/it/reply/bandyerplugin/input" />
+        <source-file src="src/android/input/PluginInputNotValidException.java" target-dir="src/it/reply/bandyerplugin/input" />
+        <source-file src="src/android/input/StartCallInput.java" target-dir="src/it/reply/bandyerplugin/input" />
+        <source-file src="src/android/input/StartChatInput.java" target-dir="src/it/reply/bandyerplugin/input" />
+        <source-file src="src/android/input/StartInput.java" target-dir="src/it/reply/bandyerplugin/input" />
+        <source-file src="src/android/listener/PluginChatNotificationListener.java" target-dir="src/it/reply/bandyerplugin/listener" />
+        
+        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <framework src="com.bandyer:bandyer-android-sdk:1.1.15" />
+    </platform>
+
+</plugin>
