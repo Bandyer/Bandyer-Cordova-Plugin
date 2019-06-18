@@ -23,18 +23,26 @@ import com.bandyer.android_sdk.module.BandyerModuleObserver;
 import com.bandyer.android_sdk.module.BandyerModuleStatus;
 import com.bandyer.android_sdk.notification.NotificationAction;
 import com.bandyer.android_sdk.utils.BandyerSDKLogger;
+import com.bandyer.android_sdk.utils.provider.OnUserInformationProviderListener;
+import com.bandyer.android_sdk.utils.provider.UserContactProvider;
+import com.bandyer.android_sdk.utils.provider.UserDetails;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import it.reply.bandyerplugin.input.CallType;
 import it.reply.bandyerplugin.input.HandleNotificationInput;
 import it.reply.bandyerplugin.input.InitInput;
 import it.reply.bandyerplugin.input.StartCallInput;
 import it.reply.bandyerplugin.input.StartChatInput;
 import it.reply.bandyerplugin.input.StartInput;
+import it.reply.bandyerplugin.input.UserContactDetailInput;
 import it.reply.bandyerplugin.listener.PluginChatNotificationListener;
 
 import static it.reply.bandyerplugin.Constants.BANDYER_LOG_TAG;
@@ -42,6 +50,7 @@ import static it.reply.bandyerplugin.Constants.BANDYER_LOG_TAG;
 public class BandyerPluginManager {
 
     private static InitInput myInitInput;
+    private static final Map<String, UserContactDetailInput> usersDetailMap = new HashMap<>();
 
     private static final BandyerSDKClientObserver clientObserver = new BandyerSDKClientObserver() {
         @Override
@@ -136,6 +145,33 @@ public class BandyerPluginManager {
                 }
             });
         }
+        builder.withUserContactProvider(new UserContactProvider() {
+
+            @Override
+            public void provideUserDetails(List<String> userAliases, OnUserInformationProviderListener<UserDetails> onProviderListener) {
+
+                ArrayList<UserDetails> details = new ArrayList<>();
+
+                UserContactDetailInput detail;
+                for(String userAlias : userAliases) {
+                    UserDetails.Builder builder = new UserDetails.Builder(userAlias);
+                    if(usersDetailMap.containsKey(userAlias)){
+                        detail = usersDetailMap.get(userAlias);
+                        builder.withNickName(detail.getNickName())
+                                .withFirstName(detail.getFirstName())
+                                .withLastName(detail.getLastName())
+                                .withEmail(detail.getEmail())
+                                .withImageUrl(detail.getProfileImageUrl()) // or .withImageUri(uri) or .withResId(resId)
+                                .build();
+
+                    }
+                    details.add(builder.build());
+                }
+
+                // provide results on the OnUserInformationProviderListener object
+                onProviderListener.onProvided(details);
+            }
+        });
         myInitInput = input;
         BandyerSDK.init(builder);
     }
@@ -217,9 +253,22 @@ public class BandyerPluginManager {
                         .startFromJoinCallUrl(bandyerPlugin.cordova.getActivity(), input.getJoinUrl());
             } else {
                 ArrayList<String> calleeList = input.getCalleeList();
-                options = builder
-                        .startWithAudioVideoCall(bandyerPlugin.cordova.getActivity(), false /* call recording */)
-                        .with(calleeList);
+                if (input.getCallType() == CallType.AUDIO) {
+                    options = builder.startWithAudioCall(bandyerPlugin.cordova.getActivity(),
+                            input.isRecordingEnabled(), false)
+                            .with(calleeList);
+                } else if (input.getCallType() == CallType.AUDIO_UPGRADABLE) {
+                    options = builder.startWithAudioCall(bandyerPlugin.cordova.getActivity(),
+                            input.isRecordingEnabled(), true)
+                            .with(calleeList);
+                } else {
+                    options = builder
+                            .startWithAudioVideoCall(bandyerPlugin.cordova.getActivity(),
+                                    input.isRecordingEnabled() /* call recording */)
+                            .with(calleeList);
+                }
+
+
                 if (isChatEnabled) {
                     options.withChatCapability();
                 }
@@ -253,10 +302,22 @@ public class BandyerPluginManager {
                     .startWithChat(bandyerPlugin.cordova.getActivity())
                     .with(addressee);
 
-            if (callEnabled) {
-                intentOptions.withAudioCallCapability(false, false)
-                        .withAudioVideoCallCapability(false);
+            if (input.getCallType() == CallType.AUDIO) {
+                if (callEnabled) {
+                    intentOptions.withAudioCallCapability(input.isRecordingEnabled(), false);
+                }
+            } else if (input.getCallType() == CallType.AUDIO_UPGRADABLE) {
+                if (callEnabled) {
+                    intentOptions.withAudioCallCapability(input.isRecordingEnabled(), true);
+                }
+            } else if (input.getCallType() == CallType.AUDIO_VIDEO) {
+                if (callEnabled) {
+                    intentOptions.withAudioVideoCallCapability(input.isRecordingEnabled());
+                }
+            } else {
+                //chat only
             }
+
             if (whiteboardEnabled) {
                 intentOptions.withWhiteboardInCallCapability();
             }
@@ -270,6 +331,18 @@ public class BandyerPluginManager {
             throw new PluginMethodNotValidException("Cannot manage a 'start chat' request: chat feature is not enabled!");
         }
     }
+
+    public static void setUserDetails(List<UserContactDetailInput> input) {
+        clearUserDetails();
+        for (UserContactDetailInput item :input) {
+            usersDetailMap.put(item.getAlias(), item);
+        }
+    }
+
+    public static void clearUserDetails() {
+        usersDetailMap.clear();
+    }
+
 
     public static boolean isLogEnabled() {
         return myInitInput != null && myInitInput.isLogEnabled();

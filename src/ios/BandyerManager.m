@@ -7,6 +7,7 @@
 @interface BandyerManager() <BCXCallClientObserver, BDKCallViewControllerDelegate>
 
 @property (nonatomic, strong) BandyerSDK *bandyer;
+@property (nonatomic, strong) BandyerUserInfoFetch *userInfoFetch;
 
 @end
 
@@ -138,24 +139,62 @@
 
 - (bool)makeCallWithParams:(NSDictionary * _Nonnull)params {
     NSArray *calle = [params valueForKey:kBandyerCallee];
+    NSString *joinUrl = [params valueForKey:kBandyerJoinUrl];
+    BDKCallType typeCall = [[params valueForKey:kBandyerTypeCall] convertIntoBallType];
+    BOOL recording = [[params valueForKey:kBandyerRecording] boolValue];
     
-    if ([calle count] == 0) {
+    BOOL isCalle = NO;
+    
+    if ([calle count] == 0 && [joinUrl length] == 0) {
         return NO;
     }
     
+    if ([calle count] > 0) {
+        isCalle = YES;
+    }
+    
     BDKCallViewControllerConfiguration *config = [BDKCallViewControllerConfiguration new];
+    
+    if ([self userInfoFetch]) {
+        [config setUserInfoFetcher:[self userInfoFetch]];
+    }
+    
+    NSString *pathSampleVideo = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"];
+    
+    if (pathSampleVideo != NULL) {
+        [config setFakeCapturerFileURL:[NSURL fileURLWithPath:pathSampleVideo]];
+    }
+    
     BDKCallViewController *controller = [BDKCallViewController new];
     
     [controller setDelegate:self];
     [controller setConfiguration:config];
     
-    BDKMakeCallIntent *intent = [BDKMakeCallIntent intentWithCallee:calle type:BDKCallTypeAudioVideo record:NO maximumDuration:0];
-    
-    [controller handleIntent:intent];
+    if (isCalle) {
+        BDKMakeCallIntent *intent = [BDKMakeCallIntent intentWithCallee:calle type:typeCall record:recording maximumDuration:0];
+        
+        [controller handleIntent:intent];
+        
+    } else {
+        BDKJoinURLIntent *intent = [BDKJoinURLIntent intentWithURL:[NSURL URLWithString:joinUrl]];
+        
+        [controller handleIntent:intent];
+    }
     
     [self.viewController presentViewController:controller animated:YES completion:NULL];
     
     return YES;
+}
+
+- (void)createUserInfoFetchWithParams:(NSDictionary *)params {
+    NSArray *address = [params valueForKey:kBandyerAddress];
+    
+    [self setUserInfoFetch:[[BandyerUserInfoFetch alloc] initWithAddress:address]];
+}
+
+- (void)clearCache {
+    [self setPayload:nil];
+    [self setUserInfoFetch:nil];
 }
 
 #pragma mark - BCXCallClientObserver
@@ -168,6 +207,11 @@
     }];
     
     BDKCallViewControllerConfiguration *config = [BDKCallViewControllerConfiguration new];
+    
+    if ([self userInfoFetch]) {
+        [config setUserInfoFetcher:[self userInfoFetch]];
+    }
+    
     BDKCallViewController *controller = [BDKCallViewController new];
     
     [controller setDelegate:self];

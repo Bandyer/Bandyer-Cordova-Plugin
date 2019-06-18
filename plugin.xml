@@ -40,10 +40,15 @@
         <header-file src="src/ios/BandyerManager.h" />
         <source-file src="src/ios/BandyerManager.m" />
         <source-file src="src/ios/BandyerPlugin.m" />
+        <header-file src="src/ios/BandyerUserInfoFetch.h" />
+        <source-file src="src/ios/BandyerUserInfoFetch.m" />
+        <header-file src="src/ios/BandyerContact.h" />
+        <source-file src="src/ios/BandyerContact.m" />
         <header-file src="src/ios/NSString+BandyerPlugin.h" />
         <source-file src="src/ios/NSString+BandyerPlugin.m" />
         <header-file src="src/ios/AppDelegate+BandyerPlugin.h" />
         <source-file src="src/ios/AppDelegate+BandyerPlugin.m" />
+        <resource-file src="src/ios/Resources/sample.mp4" />
         <framework src="PushKit.framework" weak="true"/>
         <podspec>
             <config>
@@ -76,6 +81,8 @@
         <source-file src="src/android/input/StartCallInput.java" target-dir="src/it/reply/bandyerplugin/input" />
         <source-file src="src/android/input/StartChatInput.java" target-dir="src/it/reply/bandyerplugin/input" />
         <source-file src="src/android/input/StartInput.java" target-dir="src/it/reply/bandyerplugin/input" />
+        <source-file src="src/android/input/CallType.java" target-dir="src/it/reply/bandyerplugin/input" />
+        <source-file src="src/android/input/UserContactDetailInput.java" target-dir="src/it/reply/bandyerplugin/input" />
         <source-file src="src/android/listener/PluginChatNotificationListener.java" target-dir="src/it/reply/bandyerplugin/listener" />
         
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>

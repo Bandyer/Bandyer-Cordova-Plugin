@@ -24,5 +24,7 @@
 - (NSString * _Nullable)stateCallClient;
 - (bool)handlerPayloadWithParams:(NSDictionary * _Nonnull)params;
 - (bool)makeCallWithParams:(NSDictionary * _Nonnull)params;
+- (void)createUserInfoFetchWithParams:(NSDictionary * _Nonnull)params;
+- (void)clearCache;
 
 @end

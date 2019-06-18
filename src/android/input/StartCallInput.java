@@ -8,10 +8,16 @@ import java.util.List;
 
 import it.reply.bandyerplugin.Constants;
 
+import static it.reply.bandyerplugin.Constants.VALUE_CALL_TYPE_AUDIO;
+import static it.reply.bandyerplugin.Constants.VALUE_CALL_TYPE_AUDIO_UPGRADABLE;
+import static it.reply.bandyerplugin.Constants.VALUE_CALL_TYPE_AUDIO_VIDEO;
+
 public class StartCallInput {
 
     private final ArrayList<String> mCalleeList;
     private String mJoinUrl;
+    private boolean isRecordingEnabled;
+    private CallType callType;
 
     public static StartCallInput createFrom(JSONArray argsArray) throws PluginInputNotValidException {
         StartCallInput startInput = new StartCallInput();
@@ -33,7 +39,16 @@ public class StartCallInput {
             if(isThereAJoinUrl){
                 startInput.setJoinUrl(joinUrl);
             }
-
+            boolean rec = args.has(Constants.ARG_RECORDING) ? args.getBoolean(Constants.ARG_RECORDING) : false;
+            startInput.setRecordingEnabled(rec);
+            String type = args.has(Constants.ARG_CALL_TYPE) ? args.getString(Constants.ARG_CALL_TYPE) : VALUE_CALL_TYPE_AUDIO_VIDEO;
+            if(VALUE_CALL_TYPE_AUDIO.equals(type)){
+                startInput.setCallType(CallType.AUDIO);
+            } else if(VALUE_CALL_TYPE_AUDIO_UPGRADABLE.equals(type)){
+                startInput.setCallType(CallType.AUDIO_UPGRADABLE);
+            } else {
+                startInput.setCallType(CallType.AUDIO_VIDEO);
+            }
             return startInput;
         }catch (Throwable t) {
             throw new PluginInputNotValidException("error on InitInput " + t.getMessage(), t);
@@ -62,5 +77,21 @@ public class StartCallInput {
 
     public boolean hasJoinUrl() {
         return mJoinUrl != null && mJoinUrl.length() > 0;
+    }
+
+    public boolean isRecordingEnabled() {
+        return isRecordingEnabled;
+    }
+
+    public void setRecordingEnabled(boolean recordingEnabled) {
+        isRecordingEnabled = recordingEnabled;
+    }
+
+    public CallType getCallType() {
+        return callType;
+    }
+
+    public void setCallType(CallType callType) {
+        this.callType = callType;
     }
 }

@@ -6,7 +6,7 @@ var exec = require('cordova/exec')
  *          {
  *              environment: 'sandbox' or 'production' (mandatory)
  *              appId: application id (mandatory)
-*               logEnable: true or false
+ *              logEnable: true or false
  *              ios_callkitEnable: true or false
  *              android_isCallEnabled: boolean, on/off call feature
  *              android_isFileSharingEnabled: boolean, on/off file sharing feature
@@ -77,7 +77,9 @@ exports.state = function (callback, error) {
  *      [params] (object):
  *          {
  *              callee: array di utenti da chiamare
- *              android_joinUrl: url
+ *              joinUrl: url su cui effettuare il join
+ *              typeCall: tipo di chiamata (a = AUDIO ONLY, au = AUDIO UPGRADABLE, av = AUDIO/VIDEO)
+ *              recording: booleano che attiva il recording
  *          }
  *      [success] (callback)
  *      [error] (callback)
@@ -86,7 +88,9 @@ exports.makeCall = function (params, success, error) {
     exec(success, error, 'BandyerPlugin', 'makeCall', [
         {
             callee: (typeof(params.callee) == 'undefined') ? [] : params.callee,
-            android_joinUrl: (typeof(params.android_joinUrl) == 'undefined') ? '' : params.android_joinUrl
+            joinUrl: (typeof(params.joinUrl) == 'undefined') ? '' : params.joinUrl,
+            typeCall: (typeof(params.typeCall) == 'undefined') ? '' : params.typeCall,
+            recording: (typeof(params.recording) == 'undefined') ? false : params.recording
         }
     ])
 }
@@ -95,7 +99,53 @@ exports.makeCall = function (params, success, error) {
  *  Parameters:
  *      [params] (object):
  *          {
+ *              address:  array di address (mandatory)
+ *                  example
+ *                  address: [
+ *                  {
+ *                      alias: 'usr_88c63f7a1f81',
+ *                      nickName: 'nickName 1',
+ *                      firstName: 'firstName 1',
+ *                      lastName: 'lastName 1',
+ *                      email: 'email 1',
+ *                      age: 18,
+ *                      gender: 'M',
+ *                      profileImageUrl: 'https://avatarfiles.alphacoders.com/752/75205.png'
+ *                  },
+ *                  {
+ *                      alias: 'usr_4da08d134a37',
+ *                      nickName: 'nickName 2',
+ *                      firstName: 'firstName 2',
+ *                      lastName: 'lastName 2',
+ *                      email: 'email 2',
+ *                      age: 18,
+ *                      gender: 'M',
+ *                      profileImageUrl: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/f7/f7e50892cf0750e53d05776850361eb67eb641f1_full.jpg'
+ *                  }
+ *              ]
+ *          }
+ *      [success] (callback)
+ *      [error] (callback)
+ */
+exports.createUserInfoFetch = function (params, success, error) {
+    exec(success, error, 'BandyerPlugin', 'createUserInfoFetch', [
+        {
+            address: (typeof(params.address) == 'undefined') ? [] : params.address
+        }
+    ])
+}
+
+exports.clearCache = function (success, error) {
+    exec(success, error, 'BandyerPlugin', 'clearCache', [])
+}
+
+/*
+ *  Parameters:
+ *      [params] (object):
+ *          {
  *              addressee: indirizzo chat
+ *              typeCall: tipo di chiamata (a = AUDIO ONLY, au = AUDIO UPGRADABLE, av = AUDIO/VIDEO, c = CHAT ONLY)
+ *              recording: booleano che attiva il recording
  *          }
  *      [success] (callback)
  *      [error] (callback)
@@ -114,7 +164,6 @@ exports.makeChat = function (params, success, error) {
  *      [success] (callback)
  *      [error] (callback)
  */
-
 exports.handlerPayload = function (params, success, error) {
     exec(success, error, 'BandyerPlugin', 'handlerPayload', [{
         payload: (typeof(params.payload) == 'undefined') ? '' : params.payload,
@@ -126,7 +175,6 @@ exports.handlerPayload = function (params, success, error) {
 exports.clearUserCache = function (success, error) {
     error('method not supported.')
 }
-
 
 /*
  *  Messages Android:
@@ -154,8 +202,8 @@ exports.clearUserCache = function (success, error) {
  */
 
 exports.callClientListener = function (message) {
-    console.log('callClientListener [Log]: ' + {message: message});
-    cordova.fireDocumentEvent('callClientEvent', {message: message});
+    // console.log('callClientListener [Log]: ' + { message: message });
+    cordova.fireDocumentEvent('callClientEvent', { message: message });
 }
 
 /*
@@ -163,6 +211,6 @@ exports.callClientListener = function (message) {
  *  - ios_didReceiveIncomingPushWithPayload
  */
 exports.pushRegistryListener = function (message) {
-    console.log('pushRegistryListener [Log]: ' + {message: message});
-    cordova.fireDocumentEvent('pushRegistryEvent', {message: message});
+    // console.log('pushRegistryListener [Log]: ' + { message: message });
+    cordova.fireDocumentEvent('pushRegistryEvent', { message: message });
 }

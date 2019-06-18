@@ -23,10 +23,13 @@ import it.reply.bandyerplugin.input.InitInput;
 import it.reply.bandyerplugin.input.StartCallInput;
 import it.reply.bandyerplugin.input.StartChatInput;
 import it.reply.bandyerplugin.input.StartInput;
+import it.reply.bandyerplugin.input.UserContactDetailInput;
 
 import static it.reply.bandyerplugin.Constants.METHOD_ADD_CALL_CLIENT_LISTENER;
 import static it.reply.bandyerplugin.Constants.METHOD_CLEAR_USER_CACHE;
+import static it.reply.bandyerplugin.Constants.METHOD_CLEAR_USER_DETAILS;
 import static it.reply.bandyerplugin.Constants.METHOD_HANDLE_NOTIFICATION;
+import static it.reply.bandyerplugin.Constants.METHOD_HANDLE_SET_USER_DETAILS;
 import static it.reply.bandyerplugin.Constants.METHOD_INITIALIZE;
 import static it.reply.bandyerplugin.Constants.METHOD_MAKE_CALL;
 import static it.reply.bandyerplugin.Constants.METHOD_MAKE_CHAT;
@@ -91,7 +94,14 @@ public class BandyerPlugin extends CordovaPlugin {
             this.clearUserCache(callbackContext);
             return true;
         }
-
+        if (action.equals(METHOD_HANDLE_SET_USER_DETAILS)) {
+            this.setUserDetails(args, callbackContext);
+            return true;
+        }
+        if (action.equals(METHOD_CLEAR_USER_DETAILS)) {
+            this.clearUserDetails(callbackContext);
+            return true;
+        }
         return false;
     }
 
@@ -151,6 +161,15 @@ public class BandyerPlugin extends CordovaPlugin {
         }
     }
 
+    private void getCurrentState(CallbackContext callbackContext) {
+        try {
+            String currentState = BandyerPluginManager.getCurrentState();
+            callbackContext.success(currentState);
+        } catch (Throwable e) {
+            callbackContext.error(e.getMessage());
+        }
+    }
+
     private void clearUserCache(CallbackContext callbackContext) {
         try {
             BandyerPluginManager.clearUserCache();
@@ -160,10 +179,10 @@ public class BandyerPlugin extends CordovaPlugin {
         }
     }
 
-    private void getCurrentState(CallbackContext callbackContext) {
+    private void clearUserDetails(CallbackContext callbackContext) {
         try {
-            String currentState = BandyerPluginManager.getCurrentState();
-            callbackContext.success(currentState);
+            BandyerPluginManager.clearUserDetails();
+            callbackContext.success();
         } catch (Throwable e) {
             callbackContext.error(e.getMessage());
         }
@@ -218,6 +237,15 @@ public class BandyerPlugin extends CordovaPlugin {
         }
     }
 
+    private void setUserDetails(JSONArray args, CallbackContext callbackContext) {
+        try {
+            mCallCallback = callbackContext;
+            BandyerPluginManager.setUserDetails(UserContactDetailInput.createFrom(args));
+        } catch (Throwable e) {
+            mCallCallback = null;
+            callbackContext.error(e.getMessage());
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

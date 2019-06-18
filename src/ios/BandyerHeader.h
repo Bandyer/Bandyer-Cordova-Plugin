@@ -10,4 +10,6 @@
 #import "AppDelegate+BandyerPlugin.h"
 #import "NSString+BandyerPlugin.h"
 #import "BandyerConstants.h"
+#import "BandyerContact.h"
+#import "BandyerUserInfoFetch.h"
 #import "BandyerManager.h"

@@ -1,6 +1,6 @@
 {
     "name": "cordova-plugin-bandyer",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "Bandyer as simple as making a phone call",
     "_location": "/cordova-plugin-bandyer",
     "cordova": {

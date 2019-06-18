@@ -19,4 +19,16 @@
     return nil;
 }
 
+- (BDKCallType)convertIntoBallType {
+    if ([[self lowercaseString] isEqualToString:@"a"]) {
+        return BDKCallTypeAudioOnly;
+        
+    } else if ([[self lowercaseString] isEqualToString:@"au"]) {
+        return BDKCallTypeAudioUpgradable;
+        
+    } else {
+        return BDKCallTypeAudioVideo;
+    }
+}
+
 @end

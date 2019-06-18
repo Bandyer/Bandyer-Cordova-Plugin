@@ -17,6 +17,8 @@
 - (void)state:(CDVInvokedUrlCommand *)command;
 - (void)makeCall:(CDVInvokedUrlCommand *)command;
 - (void)handlerPayload:(CDVInvokedUrlCommand *)command;
+- (void)createUserInfoFetch:(CDVInvokedUrlCommand *)command;
+- (void)clearCache:(CDVInvokedUrlCommand *)command;
 
 @end
 
@@ -125,6 +127,28 @@
     }
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)createUserInfoFetch:(CDVInvokedUrlCommand *)command {
+    CDVPluginResult *pluginResult = nil;
+    NSDictionary *params = [command.arguments firstObject];
+    
+    if ([params count] == 0) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        
+    } else {
+        [[BandyerManager shared] createUserInfoFetchWithParams:params];
+        
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    }
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)clearCache:(CDVInvokedUrlCommand *)command {
+    [[BandyerManager shared] clearCache];
+    
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 
 @end

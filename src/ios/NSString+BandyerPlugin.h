@@ -8,5 +8,6 @@
 @interface NSString (BandyerPlugin)
 
 - (BDKEnvironment *)convertIntoBandyerEnvironment;
+- (BDKCallType)convertIntoBallType;
 
 @end
