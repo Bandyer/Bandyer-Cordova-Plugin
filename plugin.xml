@@ -85,7 +85,8 @@
         <source-file src="src/android/input/StartInput.java" target-dir="src/com/bandyer/cordova/plugin/input" />
         <source-file src="src/android/input/CallType.java" target-dir="src/com/bandyer/cordova/plugin/input" />
         <source-file src="src/android/input/UserContactDetailInput.java" target-dir="src/com/bandyer/cordova/plugin/input" />
-        <source-file src="src/android/listener/PluginChatNotificationListener.java" target-dir="src/com/bandyer/cordova/plugin/listener" />
+        <source-file src="src/android/listeners/PluginChatNotificationListener.java" target-dir="src/com/bandyer/cordova/plugin/listeners" />
+        <source-file src="src/android/listeners/PluginCallNotificationListener.java" target-dir="src/com/bandyer/cordova/plugin/listeners" />
         
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
         <framework src="com.bandyer:bandyer-android-sdk:1.1.20" />

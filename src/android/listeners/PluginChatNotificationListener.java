@@ -1,7 +1,7 @@
-package com.bandyer.cordova.plugin.listener;
+package com.bandyer.cordova.plugin.listeners;
 
 import android.app.Application;
-
+import com.bandyer.cordova.plugin.input.InitInput;
 import com.bandyer.android_sdk.chat.ChatInfo;
 import com.bandyer.android_sdk.chat.notification.ChatNotificationListener;
 import com.bandyer.android_sdk.chat.notification.ChatNotificationStyle;
@@ -9,30 +9,34 @@ import com.bandyer.android_sdk.intent.chat.ChatIntentOptions;
 import com.bandyer.android_sdk.intent.chat.IncomingChat;
 import com.bandyer.android_sdk.notification.NotificationAction;
 
-import com.bandyer.cordova.plugin.input.InitInput;
-
 public class PluginChatNotificationListener implements ChatNotificationListener {
 
-    private final Application mApplication;
-    private final boolean mIsCallENabled, mIsWhiteboardEnabled;
+    private Application mApplication;
+    private InitInput mInitInput;
 
     public PluginChatNotificationListener(Application application, InitInput input) {
         mApplication = application;
-        mIsCallENabled = input.isCallEnabled();
-        mIsWhiteboardEnabled = input.isWhiteboardEnabled();
+        mInitInput = input;
     }
 
     @Override
     public void onChatActivityStartedFromNotificationAction(ChatInfo chatInfo, ChatIntentOptions chatIntentOptions) {
-        chatIntentOptions
-                .withAudioCallCapability(false, true)
-                .withWhiteboardInCallCapability()
-                .withAudioVideoCallCapability(false);
+        if (mInitInput.isCallEnabled()) {
+            chatIntentOptions.withAudioCallCapability(false, true);
+            chatIntentOptions.withAudioVideoCallCapability(false);
+        }
+
+        if (mInitInput.isWhiteboardEnabled()) {
+            chatIntentOptions.withWhiteboardInCallCapability();
+        }
+        
+        if (mInitInput.isFileSharingEnabled()) {
+            chatIntentOptions.withFileSharingInCallCapability();
+        }
     }
 
     @Override
     public void onCreateNotification(ChatInfo chatInfo, ChatNotificationStyle chatNotificationStyle) {
-
     }
 
     @Override

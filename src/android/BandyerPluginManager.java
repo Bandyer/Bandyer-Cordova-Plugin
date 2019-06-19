@@ -105,7 +105,7 @@ public class BandyerPluginManager {
             builder.setEnvironment(Environment.Configuration.sandbox());
         }
         if (input.isCallEnabled()) {
-            builder.withCallEnabled(getCallNotificationListener(application));
+            builder.withCallEnabled(new PluginCallNotificationListener(application, input));
         }
         if (input.isWhiteboardEnabled()) {
             builder.withWhiteboardEnabled();
@@ -249,8 +249,7 @@ public class BandyerPluginManager {
             BandyerIntent.Builder builder = new BandyerIntent.Builder();
             CallIntentOptions options;
             if (isJoinCall) {
-                options = builder
-                        .startFromJoinCallUrl(bandyerPlugin.cordova.getActivity(), input.getJoinUrl());
+                options = builder.startFromJoinCallUrl(bandyerPlugin.cordova.getActivity(), input.getJoinUrl());
             } else {
                 ArrayList<String> calleeList = input.getCalleeList();
                 if (input.getCallType() == CallType.AUDIO) {
@@ -267,11 +266,9 @@ public class BandyerPluginManager {
                                     input.isRecordingEnabled() /* call recording */)
                             .with(calleeList);
                 }
-
-
-                if (isChatEnabled) {
-                    options.withChatCapability();
-                }
+            }
+            if (isChatEnabled) {
+                options.withChatCapability();
             }
             if (isWhiteboardEnabled) {
                 options.withWhiteboardCapability();
@@ -374,47 +371,4 @@ public class BandyerPluginManager {
     public static void setCurrentPlugin(BandyerPlugin bandyerPlugin) {
         currentBandyerPlugin = bandyerPlugin;
     }
-
-    private static CallNotificationListener getCallNotificationListener(final Application application) {
-        return new CallNotificationListener() {
-
-            public void onIncomingCall(IncomingCall call, boolean isDnd, boolean isScreenLocked) {
-                if (!isDnd || isScreenLocked) {
-                    application.startActivity(call.asActivityIntent(application));
-                } else {
-                    call.asNotification(application).show();
-                }
-            }
-
-            public void onCallActivityStartedFromNotificationAction(CallInfo callInfo, CallIntentOptions callIntentOptions) {
-                if (myInitInput.isChatEnabled()) {
-                    callIntentOptions
-                            .withChatCapability();
-                }
-                if (myInitInput.isWhiteboardEnabled()) {
-                    callIntentOptions
-                            .withWhiteboardCapability();
-                }
-                if (myInitInput.isFileSharingEnabled()) {
-                    callIntentOptions
-                            .withFileSharingCapability();
-                }
-            }
-
-            public void onCreateNotification(
-                    CallInfo callInfo,
-                    CallNotificationType type,
-                    CallNotificationStyle notificationStyle
-            ) {
-
-//                notificationStyle.setNotificationColor(Color.RED);
-            }
-
-            public void onNotificationAction(NotificationAction action) {
-                // Here you can execute your own code before executing the default action of the notification
-                action.execute();
-            }
-        };
-    }
-
 }
