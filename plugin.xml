@@ -73,6 +73,7 @@
             </feature>
         </config-file>
         
+        <source-file src="src/android/BuildConfig.java" target-dir="src/com/bandyer/cordova/plugin/" />
         <source-file src="src/android/BandyerPlugin.java" target-dir="src/com/bandyer/cordova/plugin/" />
         <source-file src="src/android/BandyerPluginManager.java" target-dir="src/com/bandyer/cordova/plugin/" />
         <source-file src="src/android/PluginMethodNotValidException.java" target-dir="src/com/bandyer/cordova/plugin/" />

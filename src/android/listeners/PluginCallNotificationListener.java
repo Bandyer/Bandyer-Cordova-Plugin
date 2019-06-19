@@ -5,6 +5,7 @@ import com.bandyer.cordova.plugin.input.InitInput;
 import com.bandyer.android_sdk.call.model.CallInfo;
 import com.bandyer.android_sdk.call.notification.CallNotificationListener;
 import com.bandyer.android_sdk.call.notification.CallNotificationStyle;
+import com.bandyer.android_sdk.call.notification.CallNotificationType;
 import com.bandyer.android_sdk.intent.call.CallIntentOptions;
 import com.bandyer.android_sdk.intent.call.IncomingCall;
 import com.bandyer.android_sdk.notification.NotificationAction;
@@ -21,9 +22,9 @@ public class PluginCallNotificationListener implements CallNotificationListener 
 
     public void onIncomingCall(IncomingCall call, boolean isDnd, boolean isScreenLocked) {
         if (!isDnd || isScreenLocked) {
-            application.startActivity(call.asActivityIntent(application));
+            mApplication.startActivity(call.asActivityIntent(mApplication));
         } else {
-            call.asNotification(application).show();
+            call.asNotification(mApplication).show();
         }
     }
 
@@ -39,11 +40,7 @@ public class PluginCallNotificationListener implements CallNotificationListener 
         }
     }
 
-    public void onCreateNotification(
-            CallInfo callInfo,
-            CallNotificationType type,
-            CallNotificationStyle notificationStyle
-    ) {
+    public void onCreateNotification(CallInfo callInfo, CallNotificationType type, CallNotificationStyle notificationStyle) {
     }
 
     public void onNotificationAction(NotificationAction action) {

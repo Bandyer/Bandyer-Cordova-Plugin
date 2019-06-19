@@ -39,7 +39,8 @@ import com.bandyer.cordova.plugin.input.StartCallInput;
 import com.bandyer.cordova.plugin.input.StartChatInput;
 import com.bandyer.cordova.plugin.input.StartInput;
 import com.bandyer.cordova.plugin.input.UserContactDetailInput;
-import com.bandyer.cordova.plugin.listener.PluginChatNotificationListener;
+import com.bandyer.cordova.plugin.listeners.PluginChatNotificationListener;
+import com.bandyer.cordova.plugin.listeners.PluginCallNotificationListener;
 
 import static com.bandyer.cordova.plugin.Constants.BANDYER_LOG_TAG;
 
