@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 #import "BandyerHeader.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface BandyerManager : NSObject
 
 @property (nonatomic, weak) UIViewController * _Nullable viewController;
@@ -15,17 +17,19 @@
 + (instancetype _Nullable)shared;
 - (instancetype _Nullable)init;
 
-- (bool)configureBandyerWithParams:(NSDictionary * _Nonnull)params;
+- (BOOL)configureBandyerWithParams:(NSDictionary * _Nonnull)params;
 - (void)addCallClient;
 - (void)removeCallClient;
-- (bool)startCallClientWithParams:(NSDictionary * _Nonnull)params;
+- (BOOL)startCallClientWithParams:(NSDictionary * _Nonnull)params;
 - (void)pauseCallClient;
 - (void)resumeCallClient;
 - (void)stopCallClient;
-- (NSString * _Nullable)stateCallClient;
-- (bool)handlerPayloadWithParams:(NSDictionary * _Nonnull)params;
-- (bool)makeCallWithParams:(NSDictionary * _Nonnull)params;
+- (NSString * _Nullable)callClientState;
+- (BOOL)handleNotificationPayloadWithParams:(NSDictionary * _Nonnull)params;
+- (BOOL)makeCallWithParams:(NSDictionary * _Nonnull)params;
 - (void)createUserInfoFetchWithParams:(NSDictionary * _Nonnull)params;
 - (void)clearCache;
 
 @end
+
+NS_ASSUME_NONNULL_END

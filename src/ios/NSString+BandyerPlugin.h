@@ -6,9 +6,13 @@
 #import <Foundation/Foundation.h>
 #import "BandyerHeader.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface NSString (BandyerPlugin)
 
-- (BDKEnvironment *)convertIntoBandyerEnvironment;
-- (BDKCallType)convertIntoBallType;
+- (nullable BDKEnvironment *)toBDKEnvironment;
+- (BDKCallType)toBDKCallType;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -7,7 +7,7 @@
 
 @implementation NSString (BandyerPlugin)
 
-- (BDKEnvironment *)convertIntoBandyerEnvironment {
+- (nullable BDKEnvironment *)toBDKEnvironment {
     NSString *environment = [self lowercaseString];
     
     if ([environment isEqualToString:@"sandbox"]) {
@@ -20,7 +20,7 @@
     return nil;
 }
 
-- (BDKCallType)convertIntoBallType {
+- (BDKCallType)toBDKCallType {
     if ([[self lowercaseString] isEqualToString:@"a"]) {
         return BDKCallTypeAudioOnly;
         
