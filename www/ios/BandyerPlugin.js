@@ -15,6 +15,7 @@ var exec = require('cordova/exec')
  *              ios_callkitEnabled: true or false
  *              android_isCallEnabled: boolean, on/off call feature
  *              android_isFileSharingEnabled: boolean, on/off file sharing feature
+ *              android_isScreenSharingEnabled: boolean, on/off screen sharing feature
  *              android_isChatEnabled: boolean, on/off chat feature
  *              android_isWhiteboardEnabled: boolean, on/off whiteboard feature
  *          }

@@ -33,6 +33,10 @@ public class PluginChatNotificationListener implements ChatNotificationListener 
         if (mInitInput.isFileSharingEnabled()) {
             chatIntentOptions.withFileSharingInCallCapability();
         }
+
+        //if (mInitInput.isScreenSharingEnabled()) {
+        //    chatIntentOptions.withScreenSharingInCallCapability();
+        //}
     }
 
     @Override
