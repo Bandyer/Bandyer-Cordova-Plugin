@@ -36,15 +36,14 @@
             <string>production</string>
         </config-file>
         <header-file src="src/ios/BCPConstants.h" />
-        <header-file src="src/ios/BandyerHeader.h" />
         <header-file src="src/ios/BCPBandyerManager.h" />
         <source-file src="src/ios/BCPBandyerManager.m" />
         <header-file src="src/ios/BCPBandyerPlugin.h" />
         <source-file src="src/ios/BCPBandyerPlugin.m" />
-        <header-file src="src/ios/BandyerUserInfoFetch.h" />
-        <source-file src="src/ios/BandyerUserInfoFetch.m" />
-        <header-file src="src/ios/BandyerContact.h" />
-        <source-file src="src/ios/BandyerContact.m" />
+        <header-file src="src/ios/BCPBandyerUserInfoFetch.h" />
+        <source-file src="src/ios/BCPBandyerUserInfoFetch.m" />
+        <header-file src="src/ios/BCPBandyerContact.h" />
+        <source-file src="src/ios/BCPBandyerContact.m" />
         <header-file src="src/ios/NSString+BandyerPlugin.h" />
         <source-file src="src/ios/NSString+BandyerPlugin.m" />
         <header-file src="src/ios/AppDelegate+BandyerPlugin.h" />

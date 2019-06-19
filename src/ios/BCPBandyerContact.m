@@ -3,9 +3,9 @@
 // See LICENSE for licensing information
 //
 
-#import "BandyerContact.h"
+#import "BCPBandyerContact.h"
 
-@implementation BandyerContact
+@implementation BCPBandyerContact
 
 - (NSString *)fullName {
     if (self.firstName && self.lastName)
@@ -23,7 +23,7 @@
 }
 
 - (id)copyWithZone:(nullable NSZone *)zone {
-    BandyerContact *copy = (BandyerContact *)[[[self class] allocWithZone:zone] init];
+    BCPBandyerContact *copy = (BCPBandyerContact *)[[[self class] allocWithZone:zone] init];
     
     if (copy != nil) {
         copy.alias = [self.alias copyWithZone:zone];

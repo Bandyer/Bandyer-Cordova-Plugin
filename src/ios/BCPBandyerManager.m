@@ -3,7 +3,12 @@
 // See LICENSE for licensing information
 //
 
+#import <BandyerSDK/BandyerSDK.h>
+
 #import "BCPBandyerManager.h"
+#import "BCPConstants.h"
+#import "BCPBandyerUserInfoFetch.h"
+#import "NSString+BandyerPlugin.h"
 
 @interface BCPBandyerManager() <BCXCallClientObserver, BDKCallViewControllerDelegate>
 

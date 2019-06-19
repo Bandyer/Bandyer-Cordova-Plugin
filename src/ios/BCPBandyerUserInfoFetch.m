@@ -3,15 +3,16 @@
 // See LICENSE for licensing information
 //
 
-#import "BandyerUserInfoFetch.h"
+#import "BCPBandyerUserInfoFetch.h"
+#import "BCPBandyerContact.h"
 
-@interface BandyerUserInfoFetch ()
+@interface BCPBandyerUserInfoFetch ()
 
-@property (nonatomic, strong) NSDictionary<NSString *, BandyerContact *> *aliasMap;
+@property (nonatomic, strong) NSDictionary<NSString *, BCPBandyerContact *> *aliasMap;
 
 @end
 
-@implementation BandyerUserInfoFetch
+@implementation BCPBandyerUserInfoFetch
 
 - (instancetype)initWithAddress:(NSArray *)address {
     if (self = [super init]) {
@@ -21,11 +22,11 @@
     return self;
 }
 
-- (NSDictionary<NSString *, BandyerContact *> *)createAliasMap:(NSArray *)addressBook {
+- (NSDictionary<NSString *, BCPBandyerContact *> *)createAliasMap:(NSArray *)addressBook {
     NSMutableDictionary *map = [NSMutableDictionary new];
     
     for (NSDictionary *dict in addressBook) {
-        BandyerContact *contact = [BandyerContact new];
+        BCPBandyerContact *contact = [BandyerContact new];
         
         contact.alias = [dict valueForKey:@"alias"];
         contact.nickName = [dict valueForKey:@"nickName"];
@@ -63,7 +64,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    BandyerUserInfoFetch *copy = (BandyerUserInfoFetch *)[[[self class] allocWithZone:zone] init];
+    BCPBandyerUserInfoFetch *copy = (BCPBandyerUserInfoFetch *)[[[self class] allocWithZone:zone] init];
     
     if (copy != nil) {
         copy->_aliasMap = [_aliasMap copyWithZone:zone];

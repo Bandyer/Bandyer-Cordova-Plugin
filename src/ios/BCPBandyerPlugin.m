@@ -4,20 +4,21 @@
 //
 
 #import "BCPBandyerPlugin.h"
+#import "BCPBandyerManager.h"
 
 @implementation BCPBandyerPlugin
 
 - (void)pluginInitialize {
     [super pluginInitialize];
     
-    [[BandyerManager shared] setViewController:self.viewController];
-    [[BandyerManager shared] setWebViewEngine:self.webViewEngine];
+    [[BCPBandyerManager shared] setViewController:self.viewController];
+    [[BCPBandyerManager shared] setWebViewEngine:self.webViewEngine];
 }
 
 - (void)initializeBandyer:(CDVInvokedUrlCommand *)command {
     CDVPluginResult *pluginResult = nil;
     NSDictionary *params = [command.arguments firstObject];
-    BOOL result = [[BandyerManager shared] configureBandyerWithParams:params];
+    BOOL result = [[BCPBandyerManager shared] configureBandyerWithParams:params];
     
     if (result) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -30,13 +31,13 @@
 }
 
 - (void)addCallClient:(CDVInvokedUrlCommand *)command {
-    [[BandyerManager shared] addCallClient];
+    [[BCPBandyerManager shared] addCallClient];
 
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 
 - (void)removeCallClient:(CDVInvokedUrlCommand *)command {
-    [[BandyerManager shared] removeCallClient];
+    [[BCPBandyerManager shared] removeCallClient];
     
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
@@ -44,38 +45,36 @@
 - (void)start:(CDVInvokedUrlCommand *)command {
     CDVPluginResult *pluginResult = nil;
     NSDictionary *params = [command.arguments firstObject];
-    BOOL result = [[BandyerManager shared] startCallClientWithParams:params];
+    BOOL result = [[BCPBandyerManager shared] startCallClientWithParams:params];
     
-    if (result) {
+    if (result) 
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        
-    } else {
+    else
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    
+        
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)stop:(CDVInvokedUrlCommand *)command {
-    [[BandyerManager shared] stopCallClient];
+    [[BCPBandyerManager shared] stopCallClient];
     
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 
 - (void)pause:(CDVInvokedUrlCommand *)command {
-    [[BandyerManager shared] pauseCallClient];
+    [[BCPBandyerManager shared] pauseCallClient];
     
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 
 - (void)resume:(CDVInvokedUrlCommand *)command {
-    [[BandyerManager shared] resumeCallClient];
+    [[BCPBandyerManager shared] resumeCallClient];
     
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 
 - (void)state:(CDVInvokedUrlCommand *)command {
-    NSString *state = [[BandyerManager shared] callClientState];
+    NSString *state = [[BCPBandyerManager shared] callClientState];
     
     if (state)
         [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:state] callbackId:command.callbackId];
@@ -85,7 +84,7 @@
 
 - (void)handlePushNotificationPayload:(CDVInvokedUrlCommand *)command {
     NSDictionary *params = [command.arguments firstObject];
-    BOOL result = [[BandyerManager shared] handleNotificationPayloadWithParams:params];
+    BOOL result = [[BCPBandyerManager shared] handleNotificationPayloadWithParams:params];
     
     if (result) 
         [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId]; 
@@ -96,7 +95,7 @@
 - (void)makeCall:(CDVInvokedUrlCommand *)command {
     CDVPluginResult *pluginResult = nil;
     NSDictionary *params = [command.arguments firstObject];
-    BOOL result = [[BandyerManager shared] makeCallWithParams:params];
+    BOOL result = [[BCPBandyerManager shared] makeCallWithParams:params];
     
     if (result)
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -115,7 +114,7 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];    
     } else 
     {
-        [[BandyerManager shared] createUserInfoFetchWithParams:params];    
+        [[BCPBandyerManager shared] createUserInfoFetchWithParams:params];    
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     }
     
@@ -123,7 +122,7 @@
 }
 
 - (void)clearCache:(CDVInvokedUrlCommand *)command {
-    [[BandyerManager shared] clearCache];
+    [[BCPBandyerManager shared] clearCache];
     
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }

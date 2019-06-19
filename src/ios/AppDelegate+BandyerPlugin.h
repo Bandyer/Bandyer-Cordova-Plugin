@@ -3,8 +3,7 @@
 // See LICENSE for licensing information
 //
 
-#import "AppDelegate.h"
-#import "BandyerHeader.h"
+#import <PushKit/PushKit.h>
 
 @interface AppDelegate (BandyerPlugin) <PKPushRegistryDelegate>
 

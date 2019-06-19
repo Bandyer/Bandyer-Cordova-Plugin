@@ -4,12 +4,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BandyerHeader.h"
+#import <BandyerSDK/BandyerSDK.h>
 
-@interface BandyerUserInfoFetch : NSObject <BDKUserInfoFetcher>
+NS_ASSUME_NONNULL_BEGIN
+
+@interface BCPBandyerUserInfoFetch : NSObject <BDKUserInfoFetcher>
 
 - (instancetype)initWithAddress:(NSArray *)address;
+
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

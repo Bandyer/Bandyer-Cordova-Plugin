@@ -11,7 +11,9 @@ typedef NS_ENUM(char, Gender) {
     GenderFemale = 1
 };
 
-@interface BandyerContact : NSObject <NSCopying>
+NS_ASSUME_NONNULL_BEGIN
+
+@interface BCPBandyerContact : NSObject <NSCopying>
 
 @property (nonatomic, strong, nullable) NSString *alias;
 @property (nonatomic, strong, nullable, readonly) NSString *fullName;
@@ -24,3 +26,5 @@ typedef NS_ENUM(char, Gender) {
 @property (nonatomic, strong, nullable) NSURL *profileImageURL;
 
 @end
+
+NS_ASSUME_NONNULL_END

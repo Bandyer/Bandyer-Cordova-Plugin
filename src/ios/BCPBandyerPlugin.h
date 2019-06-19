@@ -4,7 +4,6 @@
 //
 
 #import <Cordova/CDV.h>
-#import "BandyerHeader.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

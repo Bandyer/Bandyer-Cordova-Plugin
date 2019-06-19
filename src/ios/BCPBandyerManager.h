@@ -4,7 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BandyerHeader.h"
+#import <PushKit/PushKit.h>
+#import <Cordova/CDV.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
