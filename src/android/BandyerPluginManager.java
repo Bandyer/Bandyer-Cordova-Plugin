@@ -177,11 +177,26 @@ public class BandyerPluginManager {
         if (BandyerSDKClient.getInstance().getState() != BandyerSDKClientState.UNINITIALIZED) {
             return;
         }
-
         BandyerSDKClientOptions options = new BandyerSDKClientOptions.Builder()
                 .keepListeningForEventsInBackground(false)
                 .build();
         BandyerSDKClient.getInstance().init(input.getUserAlias(), options);
+        startListening();
+    }
+
+    public static void resume() {
+        BandyerSDKClient.getInstance().resume();
+        startListening();
+    }
+
+    public static void pause() {
+        stopListening();
+        BandyerSDKClient.getInstance().pause();
+    }
+
+    public static void stop() {
+        stopListening();
+        BandyerSDKClient.getInstance().dispose();
     }
 
     public static void startListening() {
@@ -191,10 +206,6 @@ public class BandyerPluginManager {
 
     public static void stopListening() {
         BandyerSDKClient.getInstance().stopListening();
-    }
-
-    public static void dispose() {
-        BandyerSDKClient.getInstance().dispose();
     }
 
     public static void clearUserCache() {
