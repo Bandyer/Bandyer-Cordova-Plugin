@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/xcode,macos,gradle,ionic3,cordova,cocoapods,appcode+all,intellij+all,apachecordova
-# Edit at https://www.gitignore.io/?templates=xcode,macos,gradle,ionic3,cordova,cocoapods,appcode+all,intellij+all,apachecordova
+# Created by https://www.gitignore.io/api/xcode,macos,gradle,ionic3,cordova,cocoapods,appcode+all,intellij+all,apachecordova,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=xcode,macos,gradle,ionic3,cordova,cocoapods,appcode+all,intellij+all,apachecordova,visualstudiocode
 
 ### ApacheCordova ###
 # Apache Cordova generated files and directories
@@ -170,6 +170,14 @@ Pods/
 
 # Sonarlint plugin
 
+### Ionic3 ###
+# Log an tmp data
+*~
+*.sw[mnpcod]
+*.log
+*.tmp
+*.tmp.*
+log.txt
 
 # NPM (Node Package Manager) files
 npm-debug.log*
@@ -182,6 +190,13 @@ temp/
 .sass-cache/
 .tmp/
 hooks/
+
+# Ionic 3 plugins files
+platforms/
+plugins/
+plugins/android.json
+plugins/ios.json
+www/
 
 # Trash data
 $RECYCLE.BIN/
@@ -215,6 +230,17 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
 
 ### Xcode ###
 # Xcode
@@ -266,4 +292,4 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
-# End of https://www.gitignore.io/api/xcode,macos,gradle,ionic3,cordova,cocoapods,appcode+all,intellij+all,apachecordova
+# End of https://www.gitignore.io/api/xcode,macos,gradle,ionic3,cordova,cocoapods,appcode+all,intellij+all,apachecordova,visualstudiocode

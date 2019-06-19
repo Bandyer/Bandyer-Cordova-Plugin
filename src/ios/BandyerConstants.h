@@ -1,5 +1,6 @@
 //
-//  Created by WhiteTiger "sgama la rete" on 23/05/2019.
+// Copyright © 2019 Bandyer S.r.l. All Rights Reserved.
+// See LICENSE for licensing information
 //
 
 #define kBandyerApplicationID           @"appId" // example appID: mAppId_4aad9ed1b6f25598cd54876edc87374a43c2a329ec0974f820b84bfc09bd"

@@ -1,5 +1,6 @@
 //
-//  Created by WhiteTiger "sgama la rete" on 21/05/2019.
+// Copyright © 2019 Bandyer S.r.l. All Rights Reserved.
+// See LICENSE for licensing information
 //
 
 #import <Cordova/CDV.h>
