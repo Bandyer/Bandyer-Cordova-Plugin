@@ -3,27 +3,9 @@
 // See LICENSE for licensing information
 //
 
-#import <Cordova/CDV.h>
-#import "BandyerHeader.h"
+#import "BCPBandyerPlugin.h"
 
-@interface BandyerPlugin: CDVPlugin
-
-- (void)initializeBandyer:(CDVInvokedUrlCommand *)command;
-- (void)addCallClient:(CDVInvokedUrlCommand *)command;
-- (void)removeCallClient:(CDVInvokedUrlCommand *)command;
-- (void)start:(CDVInvokedUrlCommand *)command;
-- (void)stop:(CDVInvokedUrlCommand *)command;
-- (void)pause:(CDVInvokedUrlCommand *)command;
-- (void)resume:(CDVInvokedUrlCommand *)command;
-- (void)state:(CDVInvokedUrlCommand *)command;
-- (void)makeCall:(CDVInvokedUrlCommand *)command;
-- (void)handlerPayload:(CDVInvokedUrlCommand *)command;
-- (void)createUserInfoFetch:(CDVInvokedUrlCommand *)command;
-- (void)clearCache:(CDVInvokedUrlCommand *)command;
-
-@end
-
-@implementation BandyerPlugin
+@implementation BCPBandyerPlugin
 
 - (void)pluginInitialize {
     [super pluginInitialize];
@@ -35,7 +17,7 @@
 - (void)initializeBandyer:(CDVInvokedUrlCommand *)command {
     CDVPluginResult *pluginResult = nil;
     NSDictionary *params = [command.arguments firstObject];
-    bool result = [[BandyerManager shared] configureBandyerWithParams:params];
+    BOOL result = [[BandyerManager shared] configureBandyerWithParams:params];
     
     if (result) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -62,7 +44,7 @@
 - (void)start:(CDVInvokedUrlCommand *)command {
     CDVPluginResult *pluginResult = nil;
     NSDictionary *params = [command.arguments firstObject];
-    bool result = [[BandyerManager shared] startCallClientWithParams:params];
+    BOOL result = [[BandyerManager shared] startCallClientWithParams:params];
     
     if (result) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -93,40 +75,34 @@
 }
 
 - (void)state:(CDVInvokedUrlCommand *)command {
-    NSString *state = [[BandyerManager shared] stateCallClient];
+    NSString *state = [[BandyerManager shared] callClientState];
     
-    if (state != nil) {
+    if (state)
         [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:state] callbackId:command.callbackId];
-        
-    } else {
+    else
         [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR] callbackId:command.callbackId];
-    }
 }
 
-- (void)handlerPayload:(CDVInvokedUrlCommand *)command {
+- (void)handlePushNotificationPayload:(CDVInvokedUrlCommand *)command {
     NSDictionary *params = [command.arguments firstObject];
-    bool result = [[BandyerManager shared] handlerPayloadWithParams:params];
+    BOOL result = [[BandyerManager shared] handleNotificationPayloadWithParams:params];
     
-    if (result) {
-        [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
-        
-    } else {
+    if (result) 
+        [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId]; 
+    else
         [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR] callbackId:command.callbackId];
-    }
 }
 
 - (void)makeCall:(CDVInvokedUrlCommand *)command {
     CDVPluginResult *pluginResult = nil;
     NSDictionary *params = [command.arguments firstObject];
-    bool result = [[BandyerManager shared] makeCallWithParams:params];
+    BOOL result = [[BandyerManager shared] makeCallWithParams:params];
     
-    if (result) {
+    if (result)
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        
-    } else {
+    else
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    }
-    
+        
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
@@ -134,12 +110,12 @@
     CDVPluginResult *pluginResult = nil;
     NSDictionary *params = [command.arguments firstObject];
     
-    if ([params count] == 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-        
-    } else {
-        [[BandyerManager shared] createUserInfoFetchWithParams:params];
-        
+    if ([params count] == 0) 
+    {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];    
+    } else 
+    {
+        [[BandyerManager shared] createUserInfoFetchWithParams:params];    
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     }
     

@@ -8,7 +8,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BandyerManager : NSObject
+@interface BCPBandyerManager : NSObject
 
 @property (nonatomic, weak) UIViewController * _Nullable viewController;
 @property (nonatomic, readwrite, weak) id <CDVWebViewEngineProtocol> _Nullable webViewEngine;

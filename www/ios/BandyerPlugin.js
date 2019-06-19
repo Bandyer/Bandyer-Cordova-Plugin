@@ -1,6 +1,5 @@
 //
-// Copyright © 2019
- Bandyer S.r.l. All Rights Reserved.
+// Copyright © 2019 Bandyer S.r.l. All Rights Reserved.
 // See LICENSE for licensing information
 //
 
@@ -12,8 +11,8 @@ var exec = require('cordova/exec')
  *          {
  *              environment: 'sandbox' or 'production' (mandatory)
  *              appId: application id (mandatory)
- *              logEnable: true or false
- *              ios_callkitEnable: true or false
+ *              logEnabled: true or false
+ *              ios_callkitEnabled: true or false
  *              android_isCallEnabled: boolean, on/off call feature
  *              android_isFileSharingEnabled: boolean, on/off file sharing feature
  *              android_isChatEnabled: boolean, on/off chat feature
@@ -23,12 +22,12 @@ var exec = require('cordova/exec')
  *      [error] (callback)
  */
 exports.setup = function (params, success, error) {
-    exec(success, error, 'BandyerPlugin', 'initializeBandyer', [
+    exec(success, error, 'BCPBandyerPlugin', 'initializeBandyer', [
         {
             environment: (typeof(params.environment) == 'undefined') ? '' : params.environment,
             appId: (typeof(params.appId) == 'undefined') ? '' : params.appId,
-            logEnable: (typeof(params.logEnable) == 'undefined') ? false : params.logEnable,
-            ios_callkitEnable: (typeof(params.ios_callkitEnable) == 'undefined') ? false : params.ios_callkitEnable,
+            logEnable: (typeof(params.logEnabled) == 'undefined') ? false : params.logEnabled,
+            ios_callkitEnable: (typeof(params.ios_callkitEnabled) == 'undefined') ? false : params.ios_callkitEnabled,
             android_isCallEnabled: (typeof(params.android_isCallEnabled) == 'undefined') ? false : params.android_isCallEnabled,
             android_isFileSharingEnabled: (typeof(params.android_isFileSharingEnabled) == 'undefined') ? false : params.android_isFileSharingEnabled,
             android_isChatEnabled: (typeof(params.android_isChatEnabled) == 'undefined') ? false : params.android_isChatEnabled,
@@ -38,11 +37,11 @@ exports.setup = function (params, success, error) {
 }
 
 exports.addCallClientListener = function (success, error) {
-    exec(success, error, 'BandyerPlugin', 'addCallClient', [])
+    exec(success, error, 'BCPBandyerPlugin', 'addCallClient', [])
 }
 
 exports.removeCallClientListener = function (success, error) {
-    exec(success, error, 'BandyerPlugin', 'removeCallClient', [])
+    exec(success, error, 'BCPBandyerPlugin', 'removeCallClient', [])
 }
 
 /*
@@ -55,7 +54,7 @@ exports.removeCallClientListener = function (success, error) {
  *      [error] (callback)
  */
 exports.start = function (params, success, error) {
-    exec(success, error, 'BandyerPlugin', 'start', [
+    exec(success, error, 'BCPBandyerPlugin', 'start', [
         {
             username: (typeof(params.username) == 'undefined') ? '' : params.username
         }
@@ -63,19 +62,19 @@ exports.start = function (params, success, error) {
 }
 
 exports.stop = function (success, error) {
-    exec(success, error, 'BandyerPlugin', 'stop', [])
+    exec(success, error, 'BCPBandyerPlugin', 'stop', [])
 }
 
 exports.pause = function (success, error) {
-    exec(success, error, 'BandyerPlugin', 'pause', [])
+    exec(success, error, 'BCPBandyerPlugin', 'pause', [])
 }
 
 exports.resume = function (success, error) {
-    exec(success, error, 'BandyerPlugin', 'resume', [])
+    exec(success, error, 'BCPBandyerPlugin', 'resume', [])
 }
 
 exports.state = function (callback, error) {
-    exec(callback, error, 'BandyerPlugin', 'state', [])
+    exec(callback, error, 'BCPBandyerPlugin', 'state', [])
 }
 
 /*
@@ -84,18 +83,18 @@ exports.state = function (callback, error) {
  *          {
  *              callee: array di utenti da chiamare
  *              joinUrl: url su cui effettuare il join
- *              typeCall: tipo di chiamata (a = AUDIO ONLY, au = AUDIO UPGRADABLE, av = AUDIO/VIDEO)
+ *              callType: tipo di chiamata (a = AUDIO ONLY, au = AUDIO UPGRADABLE, av = AUDIO/VIDEO)
  *              recording: booleano che attiva il recording
  *          }
  *      [success] (callback)
  *      [error] (callback)
  */
 exports.makeCall = function (params, success, error) {
-    exec(success, error, 'BandyerPlugin', 'makeCall', [
+    exec(success, error, 'BCPBandyerPlugin', 'makeCall', [
         {
             callee: (typeof(params.callee) == 'undefined') ? [] : params.callee,
             joinUrl: (typeof(params.joinUrl) == 'undefined') ? '' : params.joinUrl,
-            typeCall: (typeof(params.typeCall) == 'undefined') ? '' : params.typeCall,
+            typeCall: (typeof(params.callType) == 'undefined') ? '' : params.callType,
             recording: (typeof(params.recording) == 'undefined') ? false : params.recording
         }
     ])
@@ -134,7 +133,7 @@ exports.makeCall = function (params, success, error) {
  *      [error] (callback)
  */
 exports.createUserInfoFetch = function (params, success, error) {
-    exec(success, error, 'BandyerPlugin', 'createUserInfoFetch', [
+    exec(success, error, 'BCPBandyerPlugin', 'createUserInfoFetch', [
         {
             address: (typeof(params.address) == 'undefined') ? [] : params.address
         }
@@ -142,7 +141,7 @@ exports.createUserInfoFetch = function (params, success, error) {
 }
 
 exports.clearCache = function (success, error) {
-    exec(success, error, 'BandyerPlugin', 'clearCache', [])
+    exec(success, error, 'BCPBandyerPlugin', 'clearCache', [])
 }
 
 /*
@@ -171,7 +170,7 @@ exports.makeChat = function (params, success, error) {
  *      [error] (callback)
  */
 exports.handlerPayload = function (params, success, error) {
-    exec(success, error, 'BandyerPlugin', 'handlerPayload', [{
+    exec(success, error, 'BCPBandyerPlugin', 'handlePushNotificationPayload', [{
         payload: (typeof(params.payload) == 'undefined') ? '' : params.payload,
         ios_keypath: (typeof(params.ios_keypath) == 'undefined') ? '' : params.ios_keypath,
     }

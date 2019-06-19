@@ -3,16 +3,16 @@
 // See LICENSE for licensing information
 //
 
-#import "BandyerManager.h"
+#import "BCPBandyerManager.h"
 
-@interface BandyerManager() <BCXCallClientObserver, BDKCallViewControllerDelegate>
+@interface BCPBandyerManager() <BCXCallClientObserver, BDKCallViewControllerDelegate>
 
 @property (nonatomic, strong) BandyerSDK *bandyer;
 @property (nonatomic, strong) BandyerUserInfoFetch *userInfoFetch;
 
 @end
 
-@implementation BandyerManager
+@implementation BCPBandyerManager
 
 + (instancetype _Nullable)shared {
     static BandyerManager *shared = nil;

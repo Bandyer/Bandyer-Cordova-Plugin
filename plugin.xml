@@ -35,11 +35,12 @@
         <config-file target="*-Release.plist" parent="aps-environment">
             <string>production</string>
         </config-file>
-        <header-file src="src/ios/BandyerConstants.h" />
+        <header-file src="src/ios/BCPConstants.h" />
         <header-file src="src/ios/BandyerHeader.h" />
-        <header-file src="src/ios/BandyerManager.h" />
-        <source-file src="src/ios/BandyerManager.m" />
-        <source-file src="src/ios/BandyerPlugin.m" />
+        <header-file src="src/ios/BCPBandyerManager.h" />
+        <source-file src="src/ios/BCPBandyerManager.m" />
+        <header-file src="src/ios/BCPBandyerPlugin.h" />
+        <source-file src="src/ios/BCPBandyerPlugin.m" />
         <header-file src="src/ios/BandyerUserInfoFetch.h" />
         <source-file src="src/ios/BandyerUserInfoFetch.m" />
         <header-file src="src/ios/BandyerContact.h" />
