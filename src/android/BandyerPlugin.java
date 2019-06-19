@@ -50,55 +50,55 @@ public class BandyerPlugin extends CordovaPlugin {
             this.setup(args, callbackContext);
             return true;
         }
-        if (action.equals(METHOD_ADD_CALL_CLIENT_LISTENER)) {
+        else if (action.equals(METHOD_ADD_CALL_CLIENT_LISTENER)) {
             this.addObservers(callbackContext);
             return true;
         }
-        if (action.equals(METHOD_REMOVE_CALL_CLIENT_LISTENER)) {
+        else if (action.equals(METHOD_REMOVE_CALL_CLIENT_LISTENER)) {
             this.removeObservers(callbackContext);
             return true;
         }
-        if (action.equals(METHOD_START)) {
+        else if (action.equals(METHOD_START)) {
             this.start(args, callbackContext);
             return true;
         }
-        if (action.equals(METHOD_STOP)) {
-            this.dispose(callbackContext);
+        else if (action.equals(METHOD_RESUME)) {
+            this.resume(callbackContext);
             return true;
         }
-        if (action.equals(METHOD_PAUSE)) {
-            this.stopListening(callbackContext);
+        else if (action.equals(METHOD_PAUSE)) {
+            this.pause(callbackContext);
             return true;
         }
-        if (action.equals(METHOD_RESUME)) {
-            this.startListening(callbackContext);
+        else if (action.equals(METHOD_STOP)) {
+            this.stop(callbackContext);
             return true;
         }
-        if (action.equals(METHOD_STATE)) {
+        else if (action.equals(METHOD_STATE)) {
             this.getCurrentState(callbackContext);
             return true;
         }
-        if (action.equals(METHOD_MAKE_CALL)) {
+        else if (action.equals(METHOD_MAKE_CALL)) {
             this.startCall(args, callbackContext);
             return true;
         }
-        if (action.equals(METHOD_MAKE_CHAT)) {
+        else if (action.equals(METHOD_MAKE_CHAT)) {
             this.startChat(args, callbackContext);
             return true;
         }
-        if (action.equals(METHOD_HANDLE_NOTIFICATION)) {
+        else if (action.equals(METHOD_HANDLE_NOTIFICATION)) {
             this.handleNotification(args, callbackContext);
             return true;
         }
-        if (action.equals(METHOD_CLEAR_USER_CACHE)) {
+        else if (action.equals(METHOD_CLEAR_USER_CACHE)) {
             this.clearUserCache(callbackContext);
             return true;
         }
-        if (action.equals(METHOD_HANDLE_SET_USER_DETAILS)) {
+        else if (action.equals(METHOD_HANDLE_SET_USER_DETAILS)) {
             this.setUserDetails(args, callbackContext);
             return true;
         }
-        if (action.equals(METHOD_CLEAR_USER_DETAILS)) {
+        else if (action.equals(METHOD_CLEAR_USER_DETAILS)) {
             this.clearUserDetails(callbackContext);
             return true;
         }
@@ -134,9 +134,18 @@ public class BandyerPlugin extends CordovaPlugin {
         }
     }
 
-    private void startListening(CallbackContext callbackContext) {
+    private void resume(CallbackContext callbackContext) {
         try {
-            BandyerPluginManager.startListening();
+            BandyerPluginManager.resume();
+            callbackContext.success();
+        } catch (Throwable e) {
+            callbackContext.error(e.getMessage());
+        }
+    }
+
+    private void pause(CallbackContext callbackContext) {
+        try {
+            BandyerPluginManager.pause();
             callbackContext.success();
         } catch (Throwable e) {
             callbackContext.error(e.getMessage());
@@ -152,9 +161,9 @@ public class BandyerPlugin extends CordovaPlugin {
         }
     }
 
-    private void dispose(CallbackContext callbackContext) {
+    private void stop(CallbackContext callbackContext) {
         try {
-            BandyerPluginManager.dispose();
+            BandyerPluginManager.stop();
             callbackContext.success();
         } catch (Throwable e) {
             callbackContext.error(e.getMessage());
