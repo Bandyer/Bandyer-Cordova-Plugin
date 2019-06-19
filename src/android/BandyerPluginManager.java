@@ -6,10 +6,6 @@ import android.util.Log;
 
 import com.bandyer.android_sdk.BandyerSDK;
 import com.bandyer.android_sdk.Environment;
-import com.bandyer.android_sdk.call.model.CallInfo;
-import com.bandyer.android_sdk.call.notification.CallNotificationListener;
-import com.bandyer.android_sdk.call.notification.CallNotificationStyle;
-import com.bandyer.android_sdk.call.notification.CallNotificationType;
 import com.bandyer.android_sdk.client.BandyerSDKClient;
 import com.bandyer.android_sdk.client.BandyerSDKClientObserver;
 import com.bandyer.android_sdk.client.BandyerSDKClientOptions;
@@ -339,7 +335,6 @@ public class BandyerPluginManager {
     public static void clearUserDetails() {
         usersDetailMap.clear();
     }
-
 
     public static boolean isLogEnabled() {
         return myInitInput != null && myInitInput.isLogEnabled();
