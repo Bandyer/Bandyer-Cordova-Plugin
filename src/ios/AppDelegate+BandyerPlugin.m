@@ -8,11 +8,11 @@
 @implementation AppDelegate (BandyerPlugin)
 
 + (void)load {
-    [AppDelegate swizzledReceiveIncomingPushPayload];
-    [AppDelegate swizzledReceiveIncomingPushPayloadWithCompletionHandler];
+    [AppDelegate swizzleReceiveIncomingPushPayload];
+    [AppDelegate swizzleReceiveIncomingPushPayloadWithCompletionHandler];
 }
 
-+ (void)swizzledReceiveIncomingPushPayload {
++ (void)swizzleReceiveIncomingPushPayload {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         Class class = [self class];
@@ -40,7 +40,7 @@
     });
 }
 
-+ (void)swizzledReceiveIncomingPushPayloadWithCompletionHandler {
++ (void)swizzleReceiveIncomingPushPayloadWithCompletionHandler {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         Class class = [self class];
@@ -70,9 +70,7 @@
 
 - (void)bandyerPushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type {
     [[BandyerManager shared] setPayload:payload];
-    
-    NSLog(@"%s", __FUNCTION__);
-    
+        
     [[BandyerManager shared].webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.pushRegistryListener('ios_didReceiveIncomingPushWithPayload')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
@@ -82,9 +80,7 @@
 
 - (void)bandyerPushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completion {
     [[BandyerManager shared] setPayload:payload];
-    
-    NSLog(@"%s", __FUNCTION__);
-    
+        
     [[BandyerManager shared].webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.pushRegistryListener('ios_didReceiveIncomingPushWithPayload')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
