@@ -1,4 +1,4 @@
-package it.reply.bandyerplugin.input;
+package com.bandyer.cordova.plugin.input;
 
 public class PluginInputNotValidException extends Exception {
 

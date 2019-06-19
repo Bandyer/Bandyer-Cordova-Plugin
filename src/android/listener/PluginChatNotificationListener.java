@@ -1,4 +1,4 @@
-package it.reply.bandyerplugin.listener;
+package com.bandyer.cordova.plugin.listener;
 
 import android.app.Application;
 
@@ -9,7 +9,7 @@ import com.bandyer.android_sdk.intent.chat.ChatIntentOptions;
 import com.bandyer.android_sdk.intent.chat.IncomingChat;
 import com.bandyer.android_sdk.notification.NotificationAction;
 
-import it.reply.bandyerplugin.input.InitInput;
+import com.bandyer.cordova.plugin.input.InitInput;
 
 public class PluginChatNotificationListener implements ChatNotificationListener {
 

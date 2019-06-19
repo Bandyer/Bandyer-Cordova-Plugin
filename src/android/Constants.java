@@ -1,4 +1,4 @@
-package it.reply.bandyerplugin;
+package com.bandyer.cordova.plugin;
 
 public class Constants {
     public static final String METHOD_INITIALIZE = "initializeBandyer";

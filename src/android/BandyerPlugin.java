@@ -1,4 +1,4 @@
-package it.reply.bandyerplugin;
+package com.bandyer.cordova.plugin;
 
 import android.app.Activity;
 import android.app.Application;
@@ -18,27 +18,27 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaWebView;
 import org.json.JSONArray;
 
-import it.reply.bandyerplugin.input.HandleNotificationInput;
-import it.reply.bandyerplugin.input.InitInput;
-import it.reply.bandyerplugin.input.StartCallInput;
-import it.reply.bandyerplugin.input.StartChatInput;
-import it.reply.bandyerplugin.input.StartInput;
-import it.reply.bandyerplugin.input.UserContactDetailInput;
+import com.bandyer.cordova.plugin.input.HandleNotificationInput;
+import com.bandyer.cordova.plugin.input.InitInput;
+import com.bandyer.cordova.plugin.input.StartCallInput;
+import com.bandyer.cordova.plugin.input.StartChatInput;
+import com.bandyer.cordova.plugin.input.StartInput;
+import com.bandyer.cordova.plugin.input.UserContactDetailInput;
 
-import static it.reply.bandyerplugin.Constants.METHOD_ADD_CALL_CLIENT_LISTENER;
-import static it.reply.bandyerplugin.Constants.METHOD_CLEAR_USER_CACHE;
-import static it.reply.bandyerplugin.Constants.METHOD_CLEAR_USER_DETAILS;
-import static it.reply.bandyerplugin.Constants.METHOD_HANDLE_NOTIFICATION;
-import static it.reply.bandyerplugin.Constants.METHOD_HANDLE_SET_USER_DETAILS;
-import static it.reply.bandyerplugin.Constants.METHOD_INITIALIZE;
-import static it.reply.bandyerplugin.Constants.METHOD_MAKE_CALL;
-import static it.reply.bandyerplugin.Constants.METHOD_MAKE_CHAT;
-import static it.reply.bandyerplugin.Constants.METHOD_PAUSE;
-import static it.reply.bandyerplugin.Constants.METHOD_REMOVE_CALL_CLIENT_LISTENER;
-import static it.reply.bandyerplugin.Constants.METHOD_RESUME;
-import static it.reply.bandyerplugin.Constants.METHOD_START;
-import static it.reply.bandyerplugin.Constants.METHOD_STATE;
-import static it.reply.bandyerplugin.Constants.METHOD_STOP;
+import static com.bandyer.cordova.plugin.Constants.METHOD_ADD_CALL_CLIENT_LISTENER;
+import static com.bandyer.cordova.plugin.Constants.METHOD_CLEAR_USER_CACHE;
+import static com.bandyer.cordova.plugin.Constants.METHOD_CLEAR_USER_DETAILS;
+import static com.bandyer.cordova.plugin.Constants.METHOD_HANDLE_NOTIFICATION;
+import static com.bandyer.cordova.plugin.Constants.METHOD_HANDLE_SET_USER_DETAILS;
+import static com.bandyer.cordova.plugin.Constants.METHOD_INITIALIZE;
+import static com.bandyer.cordova.plugin.Constants.METHOD_MAKE_CALL;
+import static com.bandyer.cordova.plugin.Constants.METHOD_MAKE_CHAT;
+import static com.bandyer.cordova.plugin.Constants.METHOD_PAUSE;
+import static com.bandyer.cordova.plugin.Constants.METHOD_REMOVE_CALL_CLIENT_LISTENER;
+import static com.bandyer.cordova.plugin.Constants.METHOD_RESUME;
+import static com.bandyer.cordova.plugin.Constants.METHOD_START;
+import static com.bandyer.cordova.plugin.Constants.METHOD_STATE;
+import static com.bandyer.cordova.plugin.Constants.METHOD_STOP;
 
 public class BandyerPlugin extends CordovaPlugin {
 

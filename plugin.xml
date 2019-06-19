@@ -67,26 +67,26 @@
 
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="BandyerPlugin">
-                <param name="android-package" value="it.reply.bandyerplugin.BandyerPlugin" />
+                <param name="android-package" value="com.bandyer.cordova.plugin.BandyerPlugin" />
             </feature>
         </config-file>
         
-        <source-file src="src/android/BandyerPlugin.java" target-dir="src/it/reply/bandyerplugin/" />
-        <source-file src="src/android/BandyerPluginManager.java" target-dir="src/it/reply/bandyerplugin/" />
-        <source-file src="src/android/PluginMethodNotValidException.java" target-dir="src/it/reply/bandyerplugin/" />
-        <source-file src="src/android/Constants.java" target-dir="src/it/reply/bandyerplugin/" />
-        <source-file src="src/android/input/InitInput.java" target-dir="src/it/reply/bandyerplugin/input" />
-        <source-file src="src/android/input/HandleNotificationInput.java" target-dir="src/it/reply/bandyerplugin/input" />
-        <source-file src="src/android/input/PluginInputNotValidException.java" target-dir="src/it/reply/bandyerplugin/input" />
-        <source-file src="src/android/input/StartCallInput.java" target-dir="src/it/reply/bandyerplugin/input" />
-        <source-file src="src/android/input/StartChatInput.java" target-dir="src/it/reply/bandyerplugin/input" />
-        <source-file src="src/android/input/StartInput.java" target-dir="src/it/reply/bandyerplugin/input" />
-        <source-file src="src/android/input/CallType.java" target-dir="src/it/reply/bandyerplugin/input" />
-        <source-file src="src/android/input/UserContactDetailInput.java" target-dir="src/it/reply/bandyerplugin/input" />
-        <source-file src="src/android/listener/PluginChatNotificationListener.java" target-dir="src/it/reply/bandyerplugin/listener" />
+        <source-file src="src/android/BandyerPlugin.java" target-dir="src/com/bandyer/cordova/plugin/" />
+        <source-file src="src/android/BandyerPluginManager.java" target-dir="src/com/bandyer/cordova/plugin/" />
+        <source-file src="src/android/PluginMethodNotValidException.java" target-dir="src/com/bandyer/cordova/plugin/" />
+        <source-file src="src/android/Constants.java" target-dir="src/com/bandyer/cordova/plugin/" />
+        <source-file src="src/android/input/InitInput.java" target-dir="src/com/bandyer/cordova/plugin/input" />
+        <source-file src="src/android/input/HandleNotificationInput.java" target-dir="src/com/bandyer/cordova/plugin/input" />
+        <source-file src="src/android/input/PluginInputNotValidException.java" target-dir="src/com/bandyer/cordova/plugin/input" />
+        <source-file src="src/android/input/StartCallInput.java" target-dir="src/com/bandyer/cordova/plugin/input" />
+        <source-file src="src/android/input/StartChatInput.java" target-dir="src/com/bandyer/cordova/plugin/input" />
+        <source-file src="src/android/input/StartInput.java" target-dir="src/com/bandyer/cordova/plugin/input" />
+        <source-file src="src/android/input/CallType.java" target-dir="src/com/bandyer/cordova/plugin/input" />
+        <source-file src="src/android/input/UserContactDetailInput.java" target-dir="src/com/bandyer/cordova/plugin/input" />
+        <source-file src="src/android/listener/PluginChatNotificationListener.java" target-dir="src/com/bandyer/cordova/plugin/listener" />
         
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
-        <framework src="com.bandyer:bandyer-android-sdk:1.1.15" />
+        <framework src="com.bandyer:bandyer-android-sdk:1.1.20" />
     </platform>
 
 </plugin>

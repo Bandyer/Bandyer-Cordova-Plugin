@@ -1,4 +1,4 @@
-package it.reply.bandyerplugin;
+package com.bandyer.cordova.plugin;
 
 import android.app.Application;
 import android.content.Intent;
@@ -36,16 +36,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import it.reply.bandyerplugin.input.CallType;
-import it.reply.bandyerplugin.input.HandleNotificationInput;
-import it.reply.bandyerplugin.input.InitInput;
-import it.reply.bandyerplugin.input.StartCallInput;
-import it.reply.bandyerplugin.input.StartChatInput;
-import it.reply.bandyerplugin.input.StartInput;
-import it.reply.bandyerplugin.input.UserContactDetailInput;
-import it.reply.bandyerplugin.listener.PluginChatNotificationListener;
+import com.bandyer.cordova.plugin.input.CallType;
+import com.bandyer.cordova.plugin.input.HandleNotificationInput;
+import com.bandyer.cordova.plugin.input.InitInput;
+import com.bandyer.cordova.plugin.input.StartCallInput;
+import com.bandyer.cordova.plugin.input.StartChatInput;
+import com.bandyer.cordova.plugin.input.StartInput;
+import com.bandyer.cordova.plugin.input.UserContactDetailInput;
+import com.bandyer.cordova.plugin.listener.PluginChatNotificationListener;
 
-import static it.reply.bandyerplugin.Constants.BANDYER_LOG_TAG;
+import static com.bandyer.cordova.plugin.Constants.BANDYER_LOG_TAG;
 
 public class BandyerPluginManager {
 

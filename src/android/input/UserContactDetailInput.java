@@ -1,4 +1,4 @@
-package it.reply.bandyerplugin.input;
+package com.bandyer.cordova.plugin.input;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -6,16 +6,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.reply.bandyerplugin.Constants;
+import com.bandyer.cordova.plugin.Constants;
 
-import static it.reply.bandyerplugin.Constants.VALUE_CALL_KEY_AGE;
-import static it.reply.bandyerplugin.Constants.VALUE_CALL_KEY_ALIAS;
-import static it.reply.bandyerplugin.Constants.VALUE_CALL_KEY_EMAIL;
-import static it.reply.bandyerplugin.Constants.VALUE_CALL_KEY_FIRSTNAME;
-import static it.reply.bandyerplugin.Constants.VALUE_CALL_KEY_GENDER;
-import static it.reply.bandyerplugin.Constants.VALUE_CALL_KEY_LASTNAME;
-import static it.reply.bandyerplugin.Constants.VALUE_CALL_KEY_NICKNAME;
-import static it.reply.bandyerplugin.Constants.VALUE_CALL_KEY_PROFILE_IMAGE_URL;
+import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_AGE;
+import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_ALIAS;
+import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_EMAIL;
+import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_FIRSTNAME;
+import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_GENDER;
+import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_LASTNAME;
+import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_NICKNAME;
+import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_PROFILE_IMAGE_URL;
 
 
 public class UserContactDetailInput {

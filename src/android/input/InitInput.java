@@ -1,9 +1,9 @@
-package it.reply.bandyerplugin.input;
+package com.bandyer.cordova.plugin.input;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import it.reply.bandyerplugin.Constants;
+import com.bandyer.cordova.plugin.Constants;
 
 public class InitInput {
 

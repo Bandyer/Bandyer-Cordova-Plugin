@@ -1,4 +1,4 @@
-package it.reply.bandyerplugin;
+package com.bandyer.cordova.plugin;
 
 public class PluginMethodNotValidException extends Exception {
 

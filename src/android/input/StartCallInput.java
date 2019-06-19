@@ -1,4 +1,4 @@
-package it.reply.bandyerplugin.input;
+package com.bandyer.cordova.plugin.input;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -6,11 +6,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.reply.bandyerplugin.Constants;
+import com.bandyer.cordova.plugin.Constants;
 
-import static it.reply.bandyerplugin.Constants.VALUE_CALL_TYPE_AUDIO;
-import static it.reply.bandyerplugin.Constants.VALUE_CALL_TYPE_AUDIO_UPGRADABLE;
-import static it.reply.bandyerplugin.Constants.VALUE_CALL_TYPE_AUDIO_VIDEO;
+import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_TYPE_AUDIO;
+import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_TYPE_AUDIO_UPGRADABLE;
+import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_TYPE_AUDIO_VIDEO;
 
 public class StartCallInput {
 
