@@ -11,6 +11,7 @@ public class InitInput {
     private String mEnvironment;
     private boolean mIsCallEnabled;
     private boolean mIsFileSharingEnabled;
+    private boolean mIsScreenSharingEnabled;
     private boolean mIsWhiteboardEnabled;
     private boolean mIsChatEnabled;
     private boolean mIsLogEnabled;
@@ -29,7 +30,7 @@ public class InitInput {
             initInput.setEnvironment(args.getString(Constants.ARG_ENVIRONMENT));
             initInput.setFileSharingEnabled(args.getBoolean(Constants.ARG_FILE_SHARING_ENABLED));
             initInput.setWhiteboardEnabled(args.getBoolean(Constants.ARG_WHITEBOARD_ENABLED));
-            initInput.setWhiteboardEnabled(args.getBoolean(Constants.ARG_WHITEBOARD_ENABLED));
+            //initInput.setScreenSharingEnabled(args.getBoolean(Constants.ARG_SCREENSHARING_ENABLED));
             initInput.setLogEnabled(args.getBoolean(Constants.ARG_ENABLE_LOG));
             return initInput;
         }catch (Throwable t) {
@@ -85,6 +86,15 @@ public class InitInput {
     public void setChatEnabled(boolean chatEnabled) {
         mIsChatEnabled = chatEnabled;
     }
+
+    public boolean isScreenSharingEnabled() {
+        return mIsScreenSharingEnabled;
+    }
+
+    public void setScreenSharingEnabled(boolean screenSharingEnabled) {
+        mIsScreenSharingEnabled = screenSharingEnabled;
+    }
+
 
     public boolean isProdEnvironment(){
         return Constants.VALUE_ENVIRONMENT_PRODUCTION.equals(getEnvironment());

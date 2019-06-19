@@ -38,6 +38,9 @@ public class PluginCallNotificationListener implements CallNotificationListener 
         if (mInitInput.isFileSharingEnabled()) {
             callIntentOptions.withFileSharingCapability();
         }
+        //if (mInitInput.isScreenSharingEnabled()) {
+        //    callIntentOptions.withScreenSharingCapability();
+        //}
     }
 
     public void onCreateNotification(CallInfo callInfo, CallNotificationType type, CallNotificationStyle notificationStyle) {

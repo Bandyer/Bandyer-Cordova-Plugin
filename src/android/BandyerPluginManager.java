@@ -308,6 +308,7 @@ public class BandyerPluginManager {
         boolean callEnabled = myInitInput.isCallEnabled();
         boolean whiteboardEnabled = myInitInput.isWhiteboardEnabled();
         boolean fileSharingEnabled = myInitInput.isFileSharingEnabled();
+        boolean screenSharingEnabled = myInitInput.isScreenSharingEnabled();
         if (chatEnabled) {
             String addressee = input.getAddressee();
             ChatIntentOptions intentOptions = new BandyerIntent.Builder()
@@ -336,6 +337,9 @@ public class BandyerPluginManager {
             if (fileSharingEnabled) {
                 intentOptions.withFileSharingInCallCapability();
             }
+            //if (screenSharingEnabled) {
+            //    intentOptions.withScreenSharingInCallCapability();
+            //}
             BandyerIntent callBackIntent = intentOptions.build();
             callBackIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             bandyerPlugin.cordova.startActivityForResult(bandyerPlugin, callBackIntent, Constants.INTENT_REQUEST_CHAT_CODE);

@@ -25,6 +25,7 @@ exports.setup = function (params, success, error) {
             ios_callkitEnable: (typeof(params.ios_callkitEnable) == 'undefined') ? false : params.ios_callkitEnable,
             android_isCallEnabled: (typeof(params.android_isCallEnabled) == 'undefined') ? false : params.android_isCallEnabled,
             android_isFileSharingEnabled: (typeof(params.android_isFileSharingEnabled) == 'undefined') ? false : params.android_isFileSharingEnabled,
+            android_isScreenSharingEnabled: (typeof(params.android_isScreenSharingEnabled) == 'undefined') ? false : params.android_isScreenSharingEnabled,
             android_isChatEnabled: (typeof(params.android_isChatEnabled) == 'undefined') ? false : params.android_isChatEnabled,
             android_isWhiteboardEnabled: (typeof(params.android_isWhiteboardEnabled) == 'undefined') ? false : params.android_isWhiteboardEnabled
         }

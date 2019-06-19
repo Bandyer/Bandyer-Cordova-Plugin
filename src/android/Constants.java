@@ -26,6 +26,7 @@ public class Constants {
     public static final String ARG_CALL_ENABLED= "android_isCallEnabled";
     public static final String ARG_FILE_SHARING_ENABLED= "android_isFileSharingEnabled";
     public static final String ARG_WHITEBOARD_ENABLED= "android_isWhiteboardEnabled";
+    public static final String ARG_SCREENSHARING_ENABLED= "android_isScreenSharingEnabled";
     public static final String ARG_CHAT_ENABLED= "android_isChatEnabled";
 
     //START
