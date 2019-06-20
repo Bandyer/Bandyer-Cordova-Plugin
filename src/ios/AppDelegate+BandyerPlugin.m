@@ -5,12 +5,13 @@
 
 #import "AppDelegate+BandyerPlugin.h"
 #import "BCPSwizzler.h"
+#import "BCPBandyerManager.h"
 
-@implementation AppDelegate (BandyerPlugin)
+@implementation CDVAppDelegate (BandyerPlugin)
 
 + (void)load {
-    [AppDelegate swizzleReceiveIncomingPushPayload];
-    [AppDelegate swizzleReceiveIncomingPushPayloadWithCompletionHandler];
+    [CDVAppDelegate swizzleReceiveIncomingPushPayload];
+    [CDVAppDelegate swizzleReceiveIncomingPushPayloadWithCompletionHandler];
 }
 
 + (void)swizzleReceiveIncomingPushPayload {
@@ -36,9 +37,9 @@
 }
 
 - (void)bandyerPushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type {
-    [[BandyerManager shared] setPayload:payload];
+    [[BCPBandyerManager shared] setPayload:payload];
         
-    [[BandyerManager shared].webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.pushRegistryListener('ios_didReceiveIncomingPushWithPayload')" completionHandler:^(id obj, NSError *error) {
+    [[BCPBandyerManager shared].webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.pushRegistryListener('ios_didReceiveIncomingPushWithPayload')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
     
@@ -46,9 +47,9 @@
 }
 
 - (void)bandyerPushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type withCompletionHandler:(void (^)(void))completion {
-    [[BandyerManager shared] setPayload:payload];
+    [[BCPBandyerManager shared] setPayload:payload];
         
-    [[BandyerManager shared].webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.pushRegistryListener('ios_didReceiveIncomingPushWithPayload')" completionHandler:^(id obj, NSError *error) {
+    [[BCPBandyerManager shared].webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.pushRegistryListener('ios_didReceiveIncomingPushWithPayload')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
     

@@ -21,7 +21,7 @@
         </edit-config>
         <config-file parent="/*" target="config.xml">
             <feature name="BandyerPlugin">
-                <param name="ios-package" value="BandyerPlugin" />
+                <param name="ios-package" value="BCPBandyerPlugin" />
             </feature>
         </config-file>
         <config-file target="*-Info.plist" parent="UIBackgroundModes">

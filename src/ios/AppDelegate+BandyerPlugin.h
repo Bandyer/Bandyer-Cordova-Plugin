@@ -3,8 +3,9 @@
 // See LICENSE for licensing information
 //
 
+#import <Cordova/CDV.h>
 #import <PushKit/PushKit.h>
 
-@interface AppDelegate (BandyerPlugin) <PKPushRegistryDelegate>
+@interface CDVAppDelegate (BandyerPlugin) <PKPushRegistryDelegate>
 
 @end

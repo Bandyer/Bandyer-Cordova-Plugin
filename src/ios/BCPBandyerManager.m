@@ -13,14 +13,14 @@
 @interface BCPBandyerManager() <BCXCallClientObserver, BDKCallViewControllerDelegate>
 
 @property (nonatomic, strong) BandyerSDK *bandyer;
-@property (nonatomic, strong) BandyerUserInfoFetch *userInfoFetch;
+@property (nonatomic, strong) BCPBandyerUserInfoFetch *userInfoFetch;
 
 @end
 
 @implementation BCPBandyerManager
 
 + (instancetype _Nullable)shared {
-    static BandyerManager *shared = nil;
+    static BCPBandyerManager *shared = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         shared = [[self alloc] init];
@@ -108,7 +108,7 @@
 - (NSString * _Nullable)callClientState {
     @try {
         BCXCallClientState state = [[self.bandyer callClient] state];
-        return [NSStringFromBCXCallClientState(state) lowercase];
+        return [NSStringFromBCXCallClientState(state) lowercaseString];
     } @catch (NSException *exception) {
         return nil;
     }
@@ -156,10 +156,9 @@
         [config setUserInfoFetcher:[self userInfoFetch]];
     }
     
-    NSString *pathSampleVideo = [[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"];
-    
-    if (pathSampleVideo != NULL) {
-        [config setFakeCapturerFileURL:[NSURL fileURLWithPath:pathSampleVideo]];
+    NSURL *sampleURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"]];
+    if (sampleURL) {
+        [config setFakeCapturerFileURL:sampleURL];
     }
     
     BDKCallViewController *controller = [BDKCallViewController new];
@@ -186,7 +185,7 @@
 - (void)createUserInfoFetchWithParams:(NSDictionary *)params {
     NSArray *address = [params valueForKey:kBCPBandyerAddress];
     
-    [self setUserInfoFetch:[[BandyerUserInfoFetch alloc] initWithAddress:address]];
+    [self setUserInfoFetch:[[BCPBandyerUserInfoFetch alloc] initWithAddress:address]];
 }
 
 - (void)clearCache {
@@ -207,6 +206,11 @@
         [config setUserInfoFetcher:[self userInfoFetch]];
     }
     
+    NSURL *sampleURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"]];
+    if (sampleURL) {
+        [config setFakeCapturerFileURL:sampleURL];
+    }
+
     BDKCallViewController *controller = [BDKCallViewController new];
     
     [controller setDelegate:self];

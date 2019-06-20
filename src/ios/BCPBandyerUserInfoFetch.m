@@ -26,7 +26,7 @@
     NSMutableDictionary *map = [NSMutableDictionary new];
     
     for (NSDictionary *dict in addressBook) {
-        BCPBandyerContact *contact = [BandyerContact new];
+        BCPBandyerContact *contact = [BCPBandyerContact new];
         
         contact.alias = [dict valueForKey:@"alias"];
         contact.nickName = [dict valueForKey:@"nickName"];
@@ -79,7 +79,7 @@
     NSMutableArray<BDKUserInfoDisplayItem *> *items = [NSMutableArray arrayWithCapacity:aliases.count];
     
     for (NSString *alias in aliases) {
-        BandyerContact *contact = self.aliasMap[alias];
+        BCPBandyerContact *contact = self.aliasMap[alias];
         
         BDKUserInfoDisplayItem *item = [[BDKUserInfoDisplayItem alloc] initWithAlias:alias];
         

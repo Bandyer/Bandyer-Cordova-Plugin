@@ -22,7 +22,7 @@ var exec = require('cordova/exec')
  *      [error] (callback)
  */
 exports.setup = function (params, success, error) {
-    exec(success, error, 'BCPBandyerPlugin', 'initializeBandyer', [
+    exec(success, error, 'BandyerPlugin', 'initializeBandyer', [
         {
             environment: (typeof(params.environment) == 'undefined') ? '' : params.environment,
             appId: (typeof(params.appId) == 'undefined') ? '' : params.appId,
@@ -37,11 +37,11 @@ exports.setup = function (params, success, error) {
 }
 
 exports.addCallClientListener = function (success, error) {
-    exec(success, error, 'BCPBandyerPlugin', 'addCallClient', [])
+    exec(success, error, 'BandyerPlugin', 'addCallClient', [])
 }
 
 exports.removeCallClientListener = function (success, error) {
-    exec(success, error, 'BCPBandyerPlugin', 'removeCallClient', [])
+    exec(success, error, 'BandyerPlugin', 'removeCallClient', [])
 }
 
 /*
@@ -54,7 +54,7 @@ exports.removeCallClientListener = function (success, error) {
  *      [error] (callback)
  */
 exports.start = function (params, success, error) {
-    exec(success, error, 'BCPBandyerPlugin', 'start', [
+    exec(success, error, 'BandyerPlugin', 'start', [
         {
             username: (typeof(params.username) == 'undefined') ? '' : params.username
         }
@@ -62,19 +62,19 @@ exports.start = function (params, success, error) {
 }
 
 exports.stop = function (success, error) {
-    exec(success, error, 'BCPBandyerPlugin', 'stop', [])
+    exec(success, error, 'BandyerPlugin', 'stop', [])
 }
 
 exports.pause = function (success, error) {
-    exec(success, error, 'BCPBandyerPlugin', 'pause', [])
+    exec(success, error, 'BandyerPlugin', 'pause', [])
 }
 
 exports.resume = function (success, error) {
-    exec(success, error, 'BCPBandyerPlugin', 'resume', [])
+    exec(success, error, 'BandyerPlugin', 'resume', [])
 }
 
 exports.state = function (callback, error) {
-    exec(callback, error, 'BCPBandyerPlugin', 'state', [])
+    exec(callback, error, 'BandyerPlugin', 'state', [])
 }
 
 /*
@@ -90,7 +90,7 @@ exports.state = function (callback, error) {
  *      [error] (callback)
  */
 exports.makeCall = function (params, success, error) {
-    exec(success, error, 'BCPBandyerPlugin', 'makeCall', [
+    exec(success, error, 'BandyerPlugin', 'makeCall', [
         {
             callee: (typeof(params.callee) == 'undefined') ? [] : params.callee,
             joinUrl: (typeof(params.joinUrl) == 'undefined') ? '' : params.joinUrl,
@@ -133,7 +133,7 @@ exports.makeCall = function (params, success, error) {
  *      [error] (callback)
  */
 exports.createUserInfoFetch = function (params, success, error) {
-    exec(success, error, 'BCPBandyerPlugin', 'createUserInfoFetch', [
+    exec(success, error, 'BandyerPlugin', 'createUserInfoFetch', [
         {
             address: (typeof(params.address) == 'undefined') ? [] : params.address
         }
@@ -141,7 +141,7 @@ exports.createUserInfoFetch = function (params, success, error) {
 }
 
 exports.clearCache = function (success, error) {
-    exec(success, error, 'BCPBandyerPlugin', 'clearCache', [])
+    exec(success, error, 'BandyerPlugin', 'clearCache', [])
 }
 
 /*
@@ -170,7 +170,7 @@ exports.makeChat = function (params, success, error) {
  *      [error] (callback)
  */
 exports.handlerPayload = function (params, success, error) {
-    exec(success, error, 'BCPBandyerPlugin', 'handlePushNotificationPayload', [{
+    exec(success, error, 'BandyerPlugin', 'handlePushNotificationPayload', [{
         payload: (typeof(params.payload) == 'undefined') ? '' : params.payload,
         ios_keypath: (typeof(params.ios_keypath) == 'undefined') ? '' : params.ios_keypath,
     }
