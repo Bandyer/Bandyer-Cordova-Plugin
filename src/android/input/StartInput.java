@@ -20,7 +20,7 @@ public class StartInput {
             startInput.setUserAlias(username);
 
             return startInput;
-        }catch (Throwable t) {
+        } catch (Throwable t) {
             throw new PluginInputNotValidException("error on StartInput " + t.getMessage(), t);
         }
     }

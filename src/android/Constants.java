@@ -57,8 +57,6 @@ public class Constants {
     public static final String VALUE_CALL_KEY_FIRSTNAME = "firstName";
     public static final String VALUE_CALL_KEY_LASTNAME = "lastName";
     public static final String VALUE_CALL_KEY_EMAIL = "email";
-    public static final String VALUE_CALL_KEY_AGE = "age";
-    public static final String VALUE_CALL_KEY_GENDER = "gender";
     public static final String VALUE_CALL_KEY_PROFILE_IMAGE_URL = "profileImageUrl";
 
     //INTENT

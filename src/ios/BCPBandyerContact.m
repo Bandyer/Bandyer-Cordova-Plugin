@@ -14,14 +14,6 @@
     return nil;
 }
 
-- (instancetype)init {
-    if (self = [super init]) {
-        _gender = GenderUnknown;
-    }
-    
-    return self;
-}
-
 - (id)copyWithZone:(nullable NSZone *)zone {
     BCPBandyerContact *copy = (BCPBandyerContact *)[[[self class] allocWithZone:zone] init];
     
@@ -31,8 +23,6 @@
         copy.firstName = [self.firstName copyWithZone:zone];
         copy.lastName = [self.lastName copyWithZone:zone];
         copy.email = [self.email copyWithZone:zone];
-        copy.age = [self.age copyWithZone:zone];
-        copy.gender = self.gender;
         copy.profileImageURL = [self.profileImageURL copyWithZone:zone];
     }
     

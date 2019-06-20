@@ -21,22 +21,23 @@ public class PluginChatNotificationListener implements ChatNotificationListener 
 
     @Override
     public void onChatActivityStartedFromNotificationAction(ChatInfo chatInfo, ChatIntentOptions chatIntentOptions) {
-        if (mInitInput.isCallEnabled()) {
-            chatIntentOptions.withAudioCallCapability(false, true);
-            chatIntentOptions.withAudioVideoCallCapability(false);
-        }
+        // if (mInitInput.isCallEnabled()) {
+        //     chatIntentOptions.withAudioCallCapability(false);
+        //     chatIntentOptions.withAudioUpgradableCallCapability(false);
+        //     chatIntentOptions.withAudioVideoCallCapability(false);
+        // }
 
-        if (mInitInput.isWhiteboardEnabled()) {
-            chatIntentOptions.withWhiteboardInCallCapability();
-        }
+        // if (mInitInput.isWhiteboardEnabled()) {
+        //     chatIntentOptions.withWhiteboardInCallCapability();
+        // }
         
-        if (mInitInput.isFileSharingEnabled()) {
-            chatIntentOptions.withFileSharingInCallCapability();
-        }
+        // if (mInitInput.isFileSharingEnabled()) {
+        //     chatIntentOptions.withFileSharingInCallCapability();
+        // }
 
-        //if (mInitInput.isScreenSharingEnabled()) {
-        //    chatIntentOptions.withScreenSharingInCallCapability();
-        //}
+        // if (mInitInput.isScreenSharingEnabled()) {
+        //     chatIntentOptions.withScreenSharingInCallCapability();
+        // }
     }
 
     @Override

@@ -20,7 +20,7 @@ public class HandleNotificationInput {
             handleNotificationInput.setPayload(payload);
 
             return handleNotificationInput;
-        }catch (Throwable t) {
+        } catch (Throwable t) {
             throw new PluginInputNotValidException("error on InitInput", t);
         }
     }

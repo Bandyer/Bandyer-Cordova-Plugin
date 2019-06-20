@@ -90,7 +90,7 @@
         <source-file src="src/android/listeners/PluginCallNotificationListener.java" target-dir="src/com/bandyer/cordova/plugin/listeners" />
         
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
-        <framework src="com.bandyer:bandyer-android-sdk:1.1.20" />
+        <framework src="com.bandyer:bandyer-android-sdk:1.2.0" />
     </platform>
 
 </plugin>

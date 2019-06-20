@@ -33,11 +33,6 @@
         contact.firstName = [dict valueForKey:@"firstName"];
         contact.lastName = [dict valueForKey:@"lastName"];
         contact.email = [dict valueForKey:@"email"];
-        contact.age = [dict valueForKey:@"age"];
-        
-        NSString *gender = [dict valueForKey:@"gender"];
-        
-        contact.gender = [self convertIntoGender:gender];
         
         NSString *url = [dict valueForKey:@"profileImageUrl"];
         
@@ -49,18 +44,6 @@
     }
     
     return map;
-}
-
-- (Gender)convertIntoGender:(NSString *)gender {
-    if ([[gender lowercaseString] isEqualToString:@"m"]) {
-        return GenderMale;
-        
-    } else if ([[gender lowercaseString] isEqualToString:@"f"]) {
-        return GenderFemale;
-        
-    } else {
-        return GenderUnknown;
-    }
 }
 
 - (id)copyWithZone:(NSZone *)zone {

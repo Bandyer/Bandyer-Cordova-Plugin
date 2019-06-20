@@ -110,9 +110,11 @@ public class BandyerPluginManager {
         if (input.isFileSharingEnabled()) {
             builder.withFileSharingEnabled();
         }
-        //if (input.isScreenSharingEnabled()) {
-        //    builder.withScreenSharingEnabled();
-        //}
+        if (input.isScreenSharingEnabled()) {
+            builder.withScreenSharingEnabled();
+        }
+
+
         if (input.isChatEnabled()) {
             builder.withChatEnabled(new PluginChatNotificationListener(application, input));
         }
@@ -163,7 +165,6 @@ public class BandyerPluginManager {
                                 .withEmail(detail.getEmail())
                                 .withImageUrl(detail.getProfileImageUrl()) // or .withImageUri(uri) or .withResId(resId)
                                 .build();
-
                     }
                     details.add(builder.build());
                 }
@@ -266,11 +267,11 @@ public class BandyerPluginManager {
                 ArrayList<String> calleeList = input.getCalleeList();
                 if (input.getCallType() == CallType.AUDIO) {
                     options = builder.startWithAudioCall(bandyerPlugin.cordova.getActivity(),
-                            input.isRecordingEnabled(), false)
+                            input.isRecordingEnabled())
                             .with(calleeList);
                 } else if (input.getCallType() == CallType.AUDIO_UPGRADABLE) {
-                    options = builder.startWithAudioCall(bandyerPlugin.cordova.getActivity(),
-                            input.isRecordingEnabled(), true)
+                    options = builder.startWithAudioUpgradableCall(bandyerPlugin.cordova.getActivity(),
+                            input.isRecordingEnabled())
                             .with(calleeList);
                 } else {
                     options = builder
@@ -288,12 +289,11 @@ public class BandyerPluginManager {
             if (isFileSharingEnabled) {
                 options.withFileSharingCapability();
             }
-            //if (isScreenSharingEnabled) {
-            //    options.withScreenSharingEnabled();
-            //}
+            if (isScreenSharingEnabled) {
+                options.withScreenSharingCapability();
+            }
             BandyerIntent callBackIntent = options.build();
-            callBackIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            bandyerPlugin.cordova.startActivityForResult(bandyerPlugin, callBackIntent, Constants.INTENT_REQUEST_CALL_CODE);
+            bandyerPlugin.cordova.getActivity().startActivityForResult(callBackIntent, Constants.INTENT_REQUEST_CALL_CODE);
         } else {
             throw new PluginMethodNotValidException("Cannot manage a 'start call' request: call feature is not enabled!");
         }
@@ -317,11 +317,11 @@ public class BandyerPluginManager {
 
             if (input.getCallType() == CallType.AUDIO) {
                 if (callEnabled) {
-                    intentOptions.withAudioCallCapability(input.isRecordingEnabled(), false);
+                    intentOptions.withAudioCallCapability(input.isRecordingEnabled());
                 }
             } else if (input.getCallType() == CallType.AUDIO_UPGRADABLE) {
                 if (callEnabled) {
-                    intentOptions.withAudioCallCapability(input.isRecordingEnabled(), true);
+                    intentOptions.withAudioUpgradableCallCapability(input.isRecordingEnabled());
                 }
             } else if (input.getCallType() == CallType.AUDIO_VIDEO) {
                 if (callEnabled) {
@@ -337,12 +337,11 @@ public class BandyerPluginManager {
             if (fileSharingEnabled) {
                 intentOptions.withFileSharingInCallCapability();
             }
-            //if (screenSharingEnabled) {
-            //    intentOptions.withScreenSharingInCallCapability();
-            //}
+            if (screenSharingEnabled) {
+                intentOptions.withScreenSharingInCallCapability();
+            }
             BandyerIntent callBackIntent = intentOptions.build();
-            callBackIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            bandyerPlugin.cordova.startActivityForResult(bandyerPlugin, callBackIntent, Constants.INTENT_REQUEST_CHAT_CODE);
+            bandyerPlugin.cordova.getActivity().startActivityForResult(callBackIntent, Constants.INTENT_REQUEST_CHAT_CODE);
         } else {
             throw new PluginMethodNotValidException("Cannot manage a 'start chat' request: chat feature is not enabled!");
         }

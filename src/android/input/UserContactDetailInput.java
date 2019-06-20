@@ -8,11 +8,9 @@ import java.util.List;
 
 import com.bandyer.cordova.plugin.Constants;
 
-import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_AGE;
 import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_ALIAS;
 import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_EMAIL;
 import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_FIRSTNAME;
-import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_GENDER;
 import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_LASTNAME;
 import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_NICKNAME;
 import static com.bandyer.cordova.plugin.Constants.VALUE_CALL_KEY_PROFILE_IMAGE_URL;
@@ -47,8 +45,6 @@ public class UserContactDetailInput {
             res.setFirstName(object.getString(VALUE_CALL_KEY_FIRSTNAME));
             res.setLastName(object.getString(VALUE_CALL_KEY_LASTNAME));
             res.setEmail(object.getString(VALUE_CALL_KEY_EMAIL));
-            res.setAge(object.getInt(VALUE_CALL_KEY_AGE));
-            res.setGender(object.getString(VALUE_CALL_KEY_GENDER));
             res.setProfileImageUrl(object.getString(VALUE_CALL_KEY_PROFILE_IMAGE_URL));
             return res;
         } catch (Throwable t) {
@@ -56,8 +52,7 @@ public class UserContactDetailInput {
         }
     }
 
-    private String alias, nickName, firstName, lastName, email, gender, profileImageUrl;
-    private int age;
+    private String alias, nickName, firstName, lastName, email, profileImageUrl;
 
     public String getNickName() {
         return nickName;
@@ -91,28 +86,12 @@ public class UserContactDetailInput {
         this.email = email;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getProfileImageUrl() {
         return profileImageUrl;
     }
 
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getAlias() {

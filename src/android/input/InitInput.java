@@ -2,6 +2,7 @@ package com.bandyer.cordova.plugin.input;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import android.util.Log;
 
 import com.bandyer.cordova.plugin.Constants;
 
@@ -30,7 +31,10 @@ public class InitInput {
             initInput.setEnvironment(args.getString(Constants.ARG_ENVIRONMENT));
             initInput.setFileSharingEnabled(args.getBoolean(Constants.ARG_FILE_SHARING_ENABLED));
             initInput.setWhiteboardEnabled(args.getBoolean(Constants.ARG_WHITEBOARD_ENABLED));
-            //initInput.setScreenSharingEnabled(args.getBoolean(Constants.ARG_SCREENSHARING_ENABLED));
+            initInput.setScreenSharingEnabled(args.getBoolean(Constants.ARG_SCREENSHARING_ENABLED));
+
+
+
             initInput.setLogEnabled(args.getBoolean(Constants.ARG_ENABLE_LOG));
             return initInput;
         }catch (Throwable t) {
