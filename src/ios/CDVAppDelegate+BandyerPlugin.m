@@ -3,7 +3,7 @@
 // See LICENSE for licensing information
 //
 
-#import "AppDelegate+BandyerPlugin.h"
+#import "CDVAppDelegate+BandyerPlugin.h"
 #import "BCPSwizzler.h"
 #import "BCPBandyerManager.h"
 
