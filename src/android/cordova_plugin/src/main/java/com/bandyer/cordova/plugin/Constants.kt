@@ -40,7 +40,7 @@ object Constants {
     val ARG_JOIN_URL = "joinUrl"
 
     //START CHAT
-    val ARG_ADDRESSEE = "addressee"
+    val ARG_CHAT_USER_ALIAS = "userAlias"
     val VALUE_CALL_TYPE_CHAT_ONLY = "c"
 
     //START CALL AND CHAT

@@ -273,10 +273,10 @@ object BandyerPluginManager {
         val fileSharingEnabled = myInitInput!!.isFileSharingEnabled
         val screenSharingEnabled = myInitInput!!.isScreenSharingEnabled
         if (chatEnabled) {
-            val addressee = input.addressee
+            val userAlias = input.userAlias
             val intentOptions = BandyerIntent.Builder()
                     .startWithChat(bandyerPlugin.cordova.activity)
-                    .with(addressee)
+                    .with(userAlias)
 
             if (input.callType == CallType.AUDIO) {
                 if (callEnabled) {

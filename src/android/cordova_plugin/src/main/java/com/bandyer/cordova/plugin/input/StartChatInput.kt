@@ -14,7 +14,7 @@ import com.bandyer.cordova.plugin.Constants.VALUE_CALL_TYPE_CHAT_ONLY
 
 class StartChatInput {
 
-    var addressee: String? = null
+    var userAlias: String? = null
     var isRecordingEnabled: Boolean = false
     var callType: CallType? = null
 
@@ -25,11 +25,11 @@ class StartChatInput {
             val startChatInput = StartChatInput()
             try {
                 val args = argsArray.get(0) as JSONObject
-                val addressee = args.getString(Constants.ARG_ADDRESSEE)
-                if (addressee == null || addressee == "") {
-                    throw PluginInputNotValidException(Constants.ARG_ADDRESSEE + " cannot be null")
+                val userAlias = args.getString(Constants.ARG_CHAT_USER_ALIAS)
+                if (userAlias == null || userAlias == "") {
+                    throw PluginInputNotValidException(Constants.ARG_CHAT_USER_ALIAS + " cannot be null")
                 }
-                startChatInput.addressee = addressee
+                startChatInput.userAlias = userAlias
                 val rec = if (args.has(Constants.ARG_RECORDING)) args.getBoolean(Constants.ARG_RECORDING) else false
                 startChatInput.isRecordingEnabled = rec
                 val type = if (args.has(Constants.ARG_CALL_TYPE)) args.getString(Constants.ARG_CALL_TYPE) else VALUE_CALL_TYPE_AUDIO_VIDEO

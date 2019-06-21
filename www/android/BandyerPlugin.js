@@ -144,7 +144,7 @@ exports.clearCache = function (success, error) {
  *  Parameters:
  *      [params] (object):
  *          {
- *              addressee: indirizzo chat
+ *              userAlias: utente con cui instaurare una chat
  *              callType: tipo di chiamata (a = AUDIO ONLY, au = AUDIO UPGRADABLE, av = AUDIO/VIDEO, c = CHAT ONLY)
  *              recording: booleano che attiva il recording
  *          }
@@ -154,7 +154,7 @@ exports.clearCache = function (success, error) {
 exports.makeChat = function (params, success, error) {
     exec(success, error, 'BandyerPlugin', 'makeChat', [
         {
-            addressee: (typeof(params.addressee) == 'undefined') ? '' : params.addressee,
+            userAlias: (typeof(params.userAlias) == 'undefined') ? '' : params.userAlias,
             callType: (typeof(params.callType) == 'undefined') ? '' : params.callType,
             recording: (typeof(params.recording) == 'undefined') ? false : params.recording
         }

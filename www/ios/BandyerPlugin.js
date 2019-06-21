@@ -149,7 +149,7 @@ exports.clearCache = function (success, error) {
  *  Parameters:
  *      [params] (object):
  *          {
- *              addressee: indirizzo chat
+ *              userAlias: utente con il quale instaurare la chat
  *              typeCall: tipo di chiamata (a = AUDIO ONLY, au = AUDIO UPGRADABLE, av = AUDIO/VIDEO, c = CHAT ONLY)
  *              recording: booleano che attiva il recording
  *          }
