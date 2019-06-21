@@ -46,10 +46,6 @@
         <source-file src="src/ios/BCPBandyerContact.m" />
         <header-file src="src/ios/NSString+BandyerPlugin.h" />
         <source-file src="src/ios/NSString+BandyerPlugin.m" />
-        <header-file src="src/ios/CDVAppDelegate+BandyerPlugin.h" />
-        <source-file src="src/ios/CDVAppDelegate+BandyerPlugin.m" />
-        <header-file src="src/ios/BCPSwizzler.h" />
-        <source-file src="src/ios/BCPSwizzler.m" />
         <resource-file src="src/ios/Resources/sample.mp4" />
         <framework src="PushKit.framework" weak="true"/>
         <podspec>
