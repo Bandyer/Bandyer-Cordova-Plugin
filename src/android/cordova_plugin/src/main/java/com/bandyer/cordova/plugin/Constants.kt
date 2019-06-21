@@ -30,7 +30,7 @@ object Constants {
     val ARG_CHAT_ENABLED = "android_isChatEnabled"
 
     //START
-    val ARG_USER_ALIAS = "username"
+    val ARG_USER_ALIAS = "userAlias"
 
     //HANDLE NOTIFICATION
     val ARG_HANDLE_NOTIFICATION = "payload"

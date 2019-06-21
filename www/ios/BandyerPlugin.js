@@ -49,7 +49,7 @@ exports.removeCallClientListener = function (success, error) {
  *  Parameters:
  *      [params] (object):
  *          {
- *              username: identificativo dell'utente
+ *              userAlias: identificativo dell'utente
  *          }
  *      [success] (callback)
  *      [error] (callback)
@@ -57,7 +57,7 @@ exports.removeCallClientListener = function (success, error) {
 exports.start = function (params, success, error) {
     exec(success, error, 'BandyerPlugin', 'start', [
         {
-            username: (typeof(params.username) == 'undefined') ? '' : params.username
+            userAlias: (typeof(params.userAlias) == 'undefined') ? '' : params.userAlias
         }
     ])
 }

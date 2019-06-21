@@ -16,11 +16,11 @@ class StartInput {
             val startInput = StartInput()
             try {
                 val args = argsArray.get(0) as JSONObject
-                val username = args.getString(Constants.ARG_USER_ALIAS)
-                if (username == null || username == "") {
+                val userAlias = args.getString(Constants.ARG_USER_ALIAS)
+                if (userAlias == null || userAlias == "") {
                     throw PluginInputNotValidException(Constants.ARG_USER_ALIAS + " cannot be null")
                 }
-                startInput.userAlias = username
+                startInput.userAlias = userAlias
 
                 return startInput
             } catch (t: Throwable) {
