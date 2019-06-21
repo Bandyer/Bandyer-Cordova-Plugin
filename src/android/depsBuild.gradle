@@ -1,0 +1,9 @@
+rootProject.ext {
+
+    BANDYER_SDK_VERSION = '1.2.0'
+
+    deps = [
+            // Bandyer SDK
+            bandyerSDK: "com.bandyer:bandyer-android-sdk:$BANDYER_SDK_VERSION"
+    ]
+}

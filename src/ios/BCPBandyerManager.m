@@ -82,7 +82,7 @@
 }
 
 - (bool)startCallClientWithParams:(NSDictionary * _Nonnull)params {
-    NSString *user = [params valueForKey:kBCPBandyerUsername];
+    NSString *user = [params valueForKey:kBCPBandyerUserAlias];
     
     if (user != nil && [user length] > 0) {
         [[self callClient] start:user];

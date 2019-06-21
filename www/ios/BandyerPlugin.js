@@ -27,8 +27,8 @@ exports.setup = function (params, success, error) {
         {
             environment: (typeof(params.environment) == 'undefined') ? '' : params.environment,
             appId: (typeof(params.appId) == 'undefined') ? '' : params.appId,
-            logEnable: (typeof(params.logEnabled) == 'undefined') ? false : params.logEnabled,
-            ios_callkitEnable: (typeof(params.ios_callkitEnabled) == 'undefined') ? false : params.ios_callkitEnabled,
+            logEnabled: (typeof(params.logEnabled) == 'undefined') ? false : params.logEnabled,
+            ios_callkitEnabled: (typeof(params.ios_callkitEnabled) == 'undefined') ? false : params.ios_callkitEnabled,
             android_isCallEnabled: (typeof(params.android_isCallEnabled) == 'undefined') ? false : params.android_isCallEnabled,
             android_isFileSharingEnabled: (typeof(params.android_isFileSharingEnabled) == 'undefined') ? false : params.android_isFileSharingEnabled,
             android_isChatEnabled: (typeof(params.android_isChatEnabled) == 'undefined') ? false : params.android_isChatEnabled,
@@ -49,7 +49,7 @@ exports.removeCallClientListener = function (success, error) {
  *  Parameters:
  *      [params] (object):
  *          {
- *              username: identificativo dell'utente
+ *              userAlias: identificativo dell'utente
  *          }
  *      [success] (callback)
  *      [error] (callback)
@@ -57,7 +57,7 @@ exports.removeCallClientListener = function (success, error) {
 exports.start = function (params, success, error) {
     exec(success, error, 'BandyerPlugin', 'start', [
         {
-            username: (typeof(params.username) == 'undefined') ? '' : params.username
+            userAlias: (typeof(params.userAlias) == 'undefined') ? '' : params.userAlias
         }
     ])
 }
@@ -95,7 +95,7 @@ exports.makeCall = function (params, success, error) {
         {
             callee: (typeof(params.callee) == 'undefined') ? [] : params.callee,
             joinUrl: (typeof(params.joinUrl) == 'undefined') ? '' : params.joinUrl,
-            typeCall: (typeof(params.callType) == 'undefined') ? '' : params.callType,
+            callType: (typeof(params.callType) == 'undefined') ? '' : params.callType,
             recording: (typeof(params.recording) == 'undefined') ? false : params.recording
         }
     ])
