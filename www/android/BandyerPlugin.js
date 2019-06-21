@@ -99,18 +99,15 @@ exports.makeCall = function (params, success, error) {
 /*
  *  Parameters:
  *      [params] (object):
- *          {
- *              address:  array di address (mandatory)
- *                  example
- *                  address: [
+ * 
+ *      {
+ *          details: [
  *                  {
  *                      alias: 'usr_88c63f7a1f81',
  *                      nickName: 'nickName 1',
  *                      firstName: 'firstName 1',
  *                      lastName: 'lastName 1',
  *                      email: 'email 1',
- *                      age: 18,
- *                      gender: 'M',
  *                      profileImageUrl: 'https://avatarfiles.alphacoders.com/752/75205.png'
  *                  },
  *                  {
@@ -119,25 +116,23 @@ exports.makeCall = function (params, success, error) {
  *                      firstName: 'firstName 2',
  *                      lastName: 'lastName 2',
  *                      email: 'email 2',
- *                      age: 18,
- *                      gender: 'M',
  *                      profileImageUrl: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/f7/f7e50892cf0750e53d05776850361eb67eb641f1_full.jpg'
  *                  }
- *              ]
- *          }
+ *            ]
+ *      }
  *      [success] (callback)
  *      [error] (callback)
  */
-exports.createUserInfoFetch = function (params, success, error) {
-    exec(success, error, 'BandyerPlugin', 'createUserInfoFetch', [
+exports.addUsersDetails = function (params, success, error) {
+    exec(success, error, 'BandyerPlugin', 'addUsersDetails', [
         {
-            address: (typeof(params.address) == 'undefined') ? [] : params.address
+            details: (typeof(params.details) == 'undefined') ? [] : params.details
         }
     ])
 }
 
-exports.clearCache = function (success, error) {
-    exec(success, error, 'BandyerPlugin', 'clearCache', [])
+exports.removeUsersDetails = function (success, error) {
+    exec(success, error, 'BandyerPlugin', 'removeUsersDetails', [])
 }
 
 /*

@@ -17,16 +17,23 @@ import com.bandyer.android_sdk.utils.BandyerSDKLogger
 import com.bandyer.android_sdk.utils.provider.OnUserInformationProviderListener
 import com.bandyer.android_sdk.utils.provider.UserContactProvider
 import com.bandyer.android_sdk.utils.provider.UserDetails
+import com.bandyer.cordova.plugin.Constants.ARG_USER_DETAILS_ALIAS
+import com.bandyer.cordova.plugin.Constants.ARG_USER_DETAILS_EMAIL
+import com.bandyer.cordova.plugin.Constants.ARG_USER_DETAILS_FIRSTNAME
+import com.bandyer.cordova.plugin.Constants.ARG_USER_DETAILS_IMAGEURL
+import com.bandyer.cordova.plugin.Constants.ARG_USER_DETAILS_LASTNAME
+import com.bandyer.cordova.plugin.Constants.ARG_USER_DETAILS_NICKNAME
 import com.bandyer.cordova.plugin.Constants.BANDYER_LOG_TAG
 import com.bandyer.cordova.plugin.input.*
 import com.bandyer.cordova.plugin.listeners.PluginCallNotificationListener
 import com.bandyer.cordova.plugin.listeners.PluginChatNotificationListener
+import org.json.JSONArray
 import java.util.*
 
 object BandyerPluginManager {
 
     private var myInitInput: InitInput? = null
-    private val usersDetailMap = HashMap<String, UserContactDetailInput>()
+    private val usersDetailMap = HashMap<String, UserDetails>()
 
     private val clientObserver = object : BandyerSDKClientObserver {
         override fun onClientStatusChange(state: BandyerSDKClientState) {
@@ -120,29 +127,17 @@ object BandyerPluginManager {
             })
         }
         builder.withUserContactProvider(object : UserContactProvider {
-
             override fun provideUserDetails(userAliases: List<String>, onProviderListener: OnUserInformationProviderListener<UserDetails>) {
-
-                val details = ArrayList<UserDetails>()
-
-                userAliases.forEach { userAlias ->
-                    val userDetailsBuilder = UserDetails.Builder(userAlias)
-                    val detail = usersDetailMap[userAlias]
-                    detail ?: run {
-                        details.add(userDetailsBuilder.build())
-                        return@forEach
-                    }
-                    detail?.nickName?.let { userDetailsBuilder.withNickName(it) }
-                    detail?.firstName?.let { userDetailsBuilder.withFirstName(it) }
-                    detail?.lastName?.let { userDetailsBuilder.withLastName(it) }
-                    detail?.email?.let { userDetailsBuilder.withEmail(it) }
-                    detail?.profileImageUrl?.let { userDetailsBuilder.withImageUrl(it) }
-                    details.add(userDetailsBuilder.build())
-                }
                 // provide results on the OnUserInformationProviderListener object
+                val details = mutableListOf<UserDetails>()
+                userAliases.forEach { userAlias ->
+                    if (usersDetailMap.containsKey(userAlias)) details.add(usersDetailMap[userAlias]!!)
+                    else details.add(UserDetails.Builder(userAlias).build())
+                }
                 onProviderListener.onProvided(details)
             }
         })
+
         myInitInput = input
         BandyerSDK.init(builder)
     }
@@ -187,11 +182,11 @@ object BandyerPluginManager {
     }
 
     private fun convertToString(state: BandyerSDKClientState): String {
-        when (state) {
-            BandyerSDKClientState.UNINITIALIZED -> return "stopped"
-            BandyerSDKClientState.INITIALIZING -> return "resuming"
-            BandyerSDKClientState.PAUSED -> return "paused "
-            else -> return "running"
+        return when (state) {
+            BandyerSDKClientState.UNINITIALIZED -> "stopped"
+            BandyerSDKClientState.INITIALIZING -> "resuming"
+            BandyerSDKClientState.PAUSED -> "paused "
+            else -> "running"
         }
     }
 
@@ -310,10 +305,23 @@ object BandyerPluginManager {
         }
     }
 
-    fun setUserDetails(input: List<UserContactDetailInput>) {
-        clearUserDetails()
-        for (item in input) {
-            usersDetailMap[item.alias] = item
+    fun addUserDetails(input: JSONArray) {
+        loop@ for (i in 0 until input.length()) {
+            val userJsonDetails = input.getJSONObject(i)
+
+            val userAlias = userJsonDetails.optString(ARG_USER_DETAILS_ALIAS)
+
+            if (userAlias == "") continue@loop
+
+            val userDetailsBuilder = UserDetails.Builder(userAlias)
+
+            userJsonDetails?.optString(ARG_USER_DETAILS_NICKNAME)?.takeIf { it != "" }?.let { userDetailsBuilder.withNickName(it) }
+            userJsonDetails?.optString(ARG_USER_DETAILS_FIRSTNAME)?.takeIf { it != "" }?.let { userDetailsBuilder.withFirstName(it) }
+            userJsonDetails?.optString(ARG_USER_DETAILS_LASTNAME)?.takeIf { it != "" }?.let { userDetailsBuilder.withLastName(it) }
+            userJsonDetails?.optString(ARG_USER_DETAILS_EMAIL)?.takeIf { it != "" }?.let { userDetailsBuilder.withEmail(it) }
+            userJsonDetails?.optString(ARG_USER_DETAILS_IMAGEURL)?.takeIf { it != "" }?.let { userDetailsBuilder.withImageUrl(it) }
+
+            usersDetailMap[userAlias] = userDetailsBuilder.build()
         }
     }
 

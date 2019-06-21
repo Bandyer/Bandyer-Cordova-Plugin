@@ -13,9 +13,8 @@ object Constants {
     val METHOD_MAKE_CHAT = "makeChat"
     val METHOD_HANDLE_NOTIFICATION = "handlerPayload"
     val METHOD_CLEAR_USER_CACHE = "clearUserCache"
-    val METHOD_CLEAR_USER_DETAILS = "clearCache"
-    val METHOD_HANDLE_SET_USER_DETAILS = "createUserInfoFetch"
-
+    val METHOD_ADD_USERS_DETAILS = "addUsersDetails"
+    val METHOD_REMOVE_USERS_DETAILS = "clearUsersDetails"
 
     //INIT
     val VALUE_ENVIRONMENT_PRODUCTION = "production"
@@ -51,13 +50,13 @@ object Constants {
     val VALUE_CALL_TYPE_AUDIO_VIDEO = "av"
 
     //USER DETAILS
-    val ARG_ADDRESS = "address"
-    val VALUE_CALL_KEY_ALIAS = "alias"
-    val VALUE_CALL_KEY_NICKNAME = "nickname"
-    val VALUE_CALL_KEY_FIRSTNAME = "firstName"
-    val VALUE_CALL_KEY_LASTNAME = "lastName"
-    val VALUE_CALL_KEY_EMAIL = "email"
-    val VALUE_CALL_KEY_PROFILE_IMAGE_URL = "profileImageUrl"
+    val ARG_USERS_DETAILS = "details"
+    val ARG_USER_DETAILS_ALIAS = "userAlias"
+    val ARG_USER_DETAILS_NICKNAME = "nickName"
+    val ARG_USER_DETAILS_FIRSTNAME = "firstName"
+    val ARG_USER_DETAILS_LASTNAME = "lastName"
+    val ARG_USER_DETAILS_EMAIL = "email"
+    val ARG_USER_DETAILS_IMAGEURL = "profileImageUrl"
 
     //INTENT
     val INTENT_REQUEST_CALL_CODE = 101
@@ -65,6 +64,4 @@ object Constants {
 
 
     val BANDYER_LOG_TAG = "BANDYER_LOG"
-
-
 }

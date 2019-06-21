@@ -5,17 +5,9 @@ import android.app.Application
 import android.content.Intent
 import android.util.Log
 
-import com.bandyer.android_sdk.client.BandyerSDKClientObserver
-import com.bandyer.android_sdk.client.BandyerSDKClientState
-import com.bandyer.android_sdk.module.BandyerModule
-import com.bandyer.android_sdk.module.BandyerModuleObserver
-import com.bandyer.android_sdk.module.BandyerModuleStatus
-
-import org.apache.cordova.CordovaInterface
 import org.apache.cordova.CordovaPlugin
 import org.apache.cordova.CallbackContext
 
-import org.apache.cordova.CordovaWebView
 import org.json.JSONArray
 
 import com.bandyer.cordova.plugin.input.HandleNotificationInput
@@ -23,13 +15,12 @@ import com.bandyer.cordova.plugin.input.InitInput
 import com.bandyer.cordova.plugin.input.StartCallInput
 import com.bandyer.cordova.plugin.input.StartChatInput
 import com.bandyer.cordova.plugin.input.StartInput
-import com.bandyer.cordova.plugin.input.UserContactDetailInput
 
 import com.bandyer.cordova.plugin.Constants.METHOD_ADD_CALL_CLIENT_LISTENER
 import com.bandyer.cordova.plugin.Constants.METHOD_CLEAR_USER_CACHE
-import com.bandyer.cordova.plugin.Constants.METHOD_CLEAR_USER_DETAILS
+import com.bandyer.cordova.plugin.Constants.METHOD_REMOVE_USERS_DETAILS
 import com.bandyer.cordova.plugin.Constants.METHOD_HANDLE_NOTIFICATION
-import com.bandyer.cordova.plugin.Constants.METHOD_HANDLE_SET_USER_DETAILS
+import com.bandyer.cordova.plugin.Constants.METHOD_ADD_USERS_DETAILS
 import com.bandyer.cordova.plugin.Constants.METHOD_INITIALIZE
 import com.bandyer.cordova.plugin.Constants.METHOD_MAKE_CALL
 import com.bandyer.cordova.plugin.Constants.METHOD_MAKE_CHAT
@@ -49,50 +40,65 @@ class BandyerPlugin : CordovaPlugin() {
         get() = this.cordova.activity.application
 
     override fun execute(action: String, args: JSONArray, callbackContext: CallbackContext): Boolean {
-        if (action == METHOD_INITIALIZE) {
-            this.setup(args, callbackContext)
-            return true
-        } else if (action == METHOD_ADD_CALL_CLIENT_LISTENER) {
-            this.addObservers(callbackContext)
-            return true
-        } else if (action == METHOD_REMOVE_CALL_CLIENT_LISTENER) {
-            this.removeObservers(callbackContext)
-            return true
-        } else if (action == METHOD_START) {
-            this.start(args, callbackContext)
-            return true
-        } else if (action == METHOD_RESUME) {
-            this.resume(callbackContext)
-            return true
-        } else if (action == METHOD_PAUSE) {
-            this.pause(callbackContext)
-            return true
-        } else if (action == METHOD_STOP) {
-            this.stop(callbackContext)
-            return true
-        } else if (action == METHOD_STATE) {
-            this.getCurrentState(callbackContext)
-            return true
-        } else if (action == METHOD_MAKE_CALL) {
-            this.startCall(args, callbackContext)
-            return true
-        } else if (action == METHOD_MAKE_CHAT) {
-            this.startChat(args, callbackContext)
-            return true
-        } else if (action == METHOD_HANDLE_NOTIFICATION) {
-            this.handleNotification(args, callbackContext)
-            return true
-        } else if (action == METHOD_CLEAR_USER_CACHE) {
-            this.clearUserCache(callbackContext)
-            return true
-        } else if (action == METHOD_HANDLE_SET_USER_DETAILS) {
-            this.setUserDetails(args, callbackContext)
-            return true
-        } else if (action == METHOD_CLEAR_USER_DETAILS) {
-            this.clearUserDetails(callbackContext)
-            return true
+        when (action) {
+            METHOD_INITIALIZE -> {
+                this.setup(args, callbackContext)
+                return true
+            }
+            METHOD_ADD_CALL_CLIENT_LISTENER -> {
+                this.addObservers(callbackContext)
+                return true
+            }
+            METHOD_REMOVE_CALL_CLIENT_LISTENER -> {
+                this.removeObservers(callbackContext)
+                return true
+            }
+            METHOD_START -> {
+                this.start(args, callbackContext)
+                return true
+            }
+            METHOD_RESUME -> {
+                this.resume(callbackContext)
+                return true
+            }
+            METHOD_PAUSE -> {
+                this.pause(callbackContext)
+                return true
+            }
+            METHOD_STOP -> {
+                this.stop(callbackContext)
+                return true
+            }
+            METHOD_STATE -> {
+                this.getCurrentState(callbackContext)
+                return true
+            }
+            METHOD_MAKE_CALL -> {
+                this.startCall(args, callbackContext)
+                return true
+            }
+            METHOD_MAKE_CHAT -> {
+                this.startChat(args, callbackContext)
+                return true
+            }
+            METHOD_HANDLE_NOTIFICATION -> {
+                this.handleNotification(args, callbackContext)
+                return true
+            }
+            METHOD_CLEAR_USER_CACHE -> {
+                this.clearUserCache(callbackContext)
+                return true
+            }
+            METHOD_ADD_USERS_DETAILS -> {
+                this.addUsersDetails(args, callbackContext)
+                return true
+            }
+            METHOD_REMOVE_USERS_DETAILS -> {
+                this.removeUsersDetails(callbackContext)
+                return true
+            }
+            else -> return false
         }
-        return false
     }
 
     override fun pluginInitialize() {
@@ -108,7 +114,6 @@ class BandyerPlugin : CordovaPlugin() {
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
-
     }
 
     private fun start(args: JSONArray, callbackContext: CallbackContext) {
@@ -118,7 +123,6 @@ class BandyerPlugin : CordovaPlugin() {
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
-
     }
 
     private fun resume(callbackContext: CallbackContext) {
@@ -128,7 +132,6 @@ class BandyerPlugin : CordovaPlugin() {
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
-
     }
 
     private fun pause(callbackContext: CallbackContext) {
@@ -138,7 +141,6 @@ class BandyerPlugin : CordovaPlugin() {
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
-
     }
 
     private fun stopListening(callbackContext: CallbackContext) {
@@ -148,7 +150,6 @@ class BandyerPlugin : CordovaPlugin() {
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
-
     }
 
     private fun stop(callbackContext: CallbackContext) {
@@ -158,7 +159,6 @@ class BandyerPlugin : CordovaPlugin() {
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
-
     }
 
     private fun getCurrentState(callbackContext: CallbackContext) {
@@ -168,7 +168,6 @@ class BandyerPlugin : CordovaPlugin() {
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
-
     }
 
     private fun clearUserCache(callbackContext: CallbackContext) {
@@ -178,17 +177,6 @@ class BandyerPlugin : CordovaPlugin() {
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
-
-    }
-
-    private fun clearUserDetails(callbackContext: CallbackContext) {
-        try {
-            BandyerPluginManager.clearUserDetails()
-            callbackContext.success()
-        } catch (e: Throwable) {
-            callbackContext.error(e.message)
-        }
-
     }
 
     private fun addObservers(callbackContext: CallbackContext) {
@@ -198,7 +186,6 @@ class BandyerPlugin : CordovaPlugin() {
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
-
     }
 
     private fun removeObservers(callbackContext: CallbackContext) {
@@ -208,7 +195,6 @@ class BandyerPlugin : CordovaPlugin() {
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
-
     }
 
     private fun handleNotification(args: JSONArray, callbackContext: CallbackContext) {
@@ -218,42 +204,46 @@ class BandyerPlugin : CordovaPlugin() {
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
-
     }
 
     private fun startCall(args: JSONArray, callbackContext: CallbackContext) {
         try {
             mCallCallback = callbackContext
-            BandyerPluginManager.startCall(this,
-                    StartCallInput.createFrom(args))
+            BandyerPluginManager.startCall(this, StartCallInput.createFrom(args))
         } catch (e: Throwable) {
             mCallCallback = null
             callbackContext.error(e.message)
         }
-
     }
 
     private fun startChat(args: JSONArray, callbackContext: CallbackContext) {
         try {
             mCallCallback = callbackContext
-            BandyerPluginManager.startChat(this,
-                    StartChatInput.createFrom(args))
+            BandyerPluginManager.startChat(this, StartChatInput.createFrom(args))
         } catch (e: Throwable) {
             mCallCallback = null
             callbackContext.error(e.message)
         }
-
     }
 
-    private fun setUserDetails(args: JSONArray, callbackContext: CallbackContext) {
+    private fun addUsersDetails(args: JSONArray, callbackContext: CallbackContext) {
         try {
             mCallCallback = callbackContext
-            BandyerPluginManager.setUserDetails(UserContactDetailInput.createFrom(args))
+            if (args.length() == 0) return
+            BandyerPluginManager.addUserDetails(args.optJSONObject(0).optJSONArray(Constants.ARG_USERS_DETAILS) ?: JSONArray())
         } catch (e: Throwable) {
             mCallCallback = null
             callbackContext.error(e.message)
         }
+    }
 
+    private fun removeUsersDetails(callbackContext: CallbackContext) {
+        try {
+            BandyerPluginManager.clearUserDetails()
+            callbackContext.success()
+        } catch (e: Throwable) {
+            callbackContext.error(e.message)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
