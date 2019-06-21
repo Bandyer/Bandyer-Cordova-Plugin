@@ -159,12 +159,22 @@ public class BandyerPluginManager {
                     UserDetails.Builder builder = new UserDetails.Builder(userAlias);
                     if(usersDetailMap.containsKey(userAlias)){
                         detail = usersDetailMap.get(userAlias);
-                        builder.withNickName(detail.getNickName())
-                                .withFirstName(detail.getFirstName())
-                                .withLastName(detail.getLastName())
-                                .withEmail(detail.getEmail())
-                                .withImageUrl(detail.getProfileImageUrl()) // or .withImageUri(uri) or .withResId(resId)
-                                .build();
+                        if (detail.getNickName() != null) {
+                            builder.withNickName(detail.getNickName());
+                        }
+                        if (detail.getFirstName() != null) {
+                            builder.withFirstName(detail.getFirstName());
+                        }
+                        if (detail.getLastName() != null) {
+                            builder.withLastName(detail.getLastName());
+                        }
+                        if (detail.getEmail() != null) {
+                            builder.withEmail(detail.getEmail());
+                        }
+                        if (detail.getProfileImageUrl() != null) {
+                            builder.withImageUrl(detail.getProfileImageUrl()); // or .withImageUri(uri) or .withResId(resId)
+                        }
+                        builder.build();
                     }
                     details.add(builder.build());
                 }
