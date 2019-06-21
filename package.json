@@ -16,5 +16,6 @@
         "cordova-android"
     ],
     "author": "Bandyer",
-    "license": "Copyright © 2019 Bandyer S.r.l. All rights reserved."
+    "license": "Copyright © 2019 Bandyer S.r.l. All rights reserved.",
+    "dependencies": {}
 }

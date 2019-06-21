@@ -289,3 +289,5 @@ gradle-app.setting
 **/build/
 
 # End of https://www.gitignore.io/api/xcode,macos,gradle,ionic3,cordova,cocoapods,appcode+all,intellij+all,apachecordova,visualstudiocode
+src/android/.project
+src/android/.settings/org.eclipse.buildship.core.prefs
