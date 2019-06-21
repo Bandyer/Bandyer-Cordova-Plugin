@@ -6,8 +6,8 @@ var exec = require('cordova/exec')
  *          {
  *              environment: 'sandbox' or 'production' (mandatory)
  *              appId: application id (mandatory)
- *              logEnable: true or false
- *              ios_callkitEnable: true or false
+ *              logEnabled: true or false
+ *              ios_callkitEnabled: true or false
  *              android_isCallEnabled: boolean, on/off call feature
  *              android_isFileSharingEnabled: boolean, on/off file sharing feature
  *              android_isChatEnabled: boolean, on/off chat feature
@@ -21,8 +21,8 @@ exports.setup = function (params, success, error) {
         {
             environment: (typeof(params.environment) == 'undefined') ? '' : params.environment,
             appId: (typeof(params.appId) == 'undefined') ? '' : params.appId,
-            logEnable: (typeof(params.logEnable) == 'undefined') ? false : params.logEnable,
-            ios_callkitEnable: (typeof(params.ios_callkitEnable) == 'undefined') ? false : params.ios_callkitEnable,
+            logEnabled: (typeof(params.logEnabled) == 'undefined') ? false : params.logEnabled,
+            ios_callkitEnabled: (typeof(params.ios_callkitEnabled) == 'undefined') ? false : params.ios_callkitEnabled,
             android_isCallEnabled: (typeof(params.android_isCallEnabled) == 'undefined') ? false : params.android_isCallEnabled,
             android_isFileSharingEnabled: (typeof(params.android_isFileSharingEnabled) == 'undefined') ? false : params.android_isFileSharingEnabled,
             android_isScreenSharingEnabled: (typeof(params.android_isScreenSharingEnabled) == 'undefined') ? false : params.android_isScreenSharingEnabled,
@@ -79,7 +79,7 @@ exports.state = function (callback, error) {
  *          {
  *              callee: array di utenti da chiamare
  *              joinUrl: url su cui effettuare il join
- *              typeCall: tipo di chiamata (a = AUDIO ONLY, au = AUDIO UPGRADABLE, av = AUDIO/VIDEO)
+ *              callType: tipo di chiamata (a = AUDIO ONLY, au = AUDIO UPGRADABLE, av = AUDIO/VIDEO)
  *              recording: booleano che attiva il recording
  *          }
  *      [success] (callback)
@@ -90,7 +90,7 @@ exports.makeCall = function (params, success, error) {
         {
             callee: (typeof(params.callee) == 'undefined') ? [] : params.callee,
             joinUrl: (typeof(params.joinUrl) == 'undefined') ? '' : params.joinUrl,
-            typeCall: (typeof(params.typeCall) == 'undefined') ? '' : params.typeCall,
+            callType: (typeof(params.callType) == 'undefined') ? '' : params.callType,
             recording: (typeof(params.recording) == 'undefined') ? false : params.recording
         }
     ])
@@ -145,7 +145,7 @@ exports.clearCache = function (success, error) {
  *      [params] (object):
  *          {
  *              addressee: indirizzo chat
- *              typeCall: tipo di chiamata (a = AUDIO ONLY, au = AUDIO UPGRADABLE, av = AUDIO/VIDEO, c = CHAT ONLY)
+ *              callType: tipo di chiamata (a = AUDIO ONLY, au = AUDIO UPGRADABLE, av = AUDIO/VIDEO, c = CHAT ONLY)
  *              recording: booleano che attiva il recording
  *          }
  *      [success] (callback)
@@ -155,7 +155,7 @@ exports.makeChat = function (params, success, error) {
     exec(success, error, 'BandyerPlugin', 'makeChat', [
         {
             addressee: (typeof(params.addressee) == 'undefined') ? '' : params.addressee,
-            typeCall: (typeof(params.typeCall) == 'undefined') ? '' : params.typeCall,
+            callType: (typeof(params.callType) == 'undefined') ? '' : params.callType,
             recording: (typeof(params.recording) == 'undefined') ? false : params.recording
         }
     ])

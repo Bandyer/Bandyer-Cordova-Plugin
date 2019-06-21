@@ -21,7 +21,7 @@ object Constants {
     val VALUE_ENVIRONMENT_PRODUCTION = "production"
     val VALUE_ENVIRONMENT_SANDBOX = "sandbox"
     val ARG_ENVIRONMENT = "environment"
-    val ARG_ENABLE_LOG = "logEnable"
+    val ARG_ENABLE_LOG = "logEnabled"
     val ARG_APP_ID = "appId"
     val ARG_CALL_ENABLED = "android_isCallEnabled"
     val ARG_FILE_SHARING_ENABLED = "android_isFileSharingEnabled"
@@ -45,7 +45,7 @@ object Constants {
 
     //START CALL AND CHAT
     val ARG_RECORDING = "recording"
-    val ARG_CALL_TYPE = "typeCall"
+    val ARG_CALL_TYPE = "callType"
     val VALUE_CALL_TYPE_AUDIO = "a"
     val VALUE_CALL_TYPE_AUDIO_UPGRADABLE = "au"
     val VALUE_CALL_TYPE_AUDIO_VIDEO = "av"
