@@ -40,12 +40,12 @@ public class UserContactDetailInput {
     private static UserContactDetailInput createSingleUser(JSONObject object) throws PluginInputNotValidException {
         UserContactDetailInput res = new UserContactDetailInput();
         try {
-            res.setAlias(object.getString(VALUE_CALL_KEY_ALIAS));
-            res.setNickName(object.getString(VALUE_CALL_KEY_NICKNAME));
-            res.setFirstName(object.getString(VALUE_CALL_KEY_FIRSTNAME));
-            res.setLastName(object.getString(VALUE_CALL_KEY_LASTNAME));
-            res.setEmail(object.getString(VALUE_CALL_KEY_EMAIL));
-            res.setProfileImageUrl(object.getString(VALUE_CALL_KEY_PROFILE_IMAGE_URL));
+            res.setAlias(object.optString(VALUE_CALL_KEY_ALIAS));
+            res.setNickName(object.optString(VALUE_CALL_KEY_NICKNAME));
+            res.setFirstName(object.optString(VALUE_CALL_KEY_FIRSTNAME));
+            res.setLastName(object.optString(VALUE_CALL_KEY_LASTNAME));
+            res.setEmail(object.optString(VALUE_CALL_KEY_EMAIL));
+            res.setProfileImageUrl(object.optString(VALUE_CALL_KEY_PROFILE_IMAGE_URL));
             return res;
         } catch (Throwable t) {
             throw new PluginInputNotValidException("error on UserContactDetailInput " + t.getMessage(), t);
