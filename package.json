@@ -1,6 +1,6 @@
 {
     "name": "cordova-plugin-bandyer",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "Bandyer as simple as making a phone call",
     "_location": "/cordova-plugin-bandyer",
     "cordova": {
@@ -17,5 +17,10 @@
     ],
     "author": "Bandyer",
     "license": "Copyright © 2019 Bandyer S.r.l. All rights reserved.",
-    "dependencies": {}
+    "dependencies": {},
+    "scripts": {    
+        "major": "npm version major -m \"* Updated to version %s\"",
+        "minor": "npm version minor -m \"* Updated to version %s\"",
+        "patch": "npm version patch -m \"* Updated to version %s\""
+    }
 }
