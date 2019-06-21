@@ -40,12 +40,24 @@ public class UserContactDetailInput {
     private static UserContactDetailInput createSingleUser(JSONObject object) throws PluginInputNotValidException {
         UserContactDetailInput res = new UserContactDetailInput();
         try {
-            res.setAlias(object.optString(VALUE_CALL_KEY_ALIAS));
-            res.setNickName(object.optString(VALUE_CALL_KEY_NICKNAME));
-            res.setFirstName(object.optString(VALUE_CALL_KEY_FIRSTNAME));
-            res.setLastName(object.optString(VALUE_CALL_KEY_LASTNAME));
-            res.setEmail(object.optString(VALUE_CALL_KEY_EMAIL));
-            res.setProfileImageUrl(object.optString(VALUE_CALL_KEY_PROFILE_IMAGE_URL));
+            if (object.has(VALUE_CALL_KEY_ALIAS)) {
+                res.setAlias(object.optString(VALUE_CALL_KEY_ALIAS));
+            }
+            if (object.has(VALUE_CALL_KEY_NICKNAME)) {
+                res.setNickName(object.optString(VALUE_CALL_KEY_NICKNAME));
+            }
+            if (object.has(VALUE_CALL_KEY_FIRSTNAME)) {
+                res.setFirstName(object.optString(VALUE_CALL_KEY_FIRSTNAME));
+            }
+            if (object.has(VALUE_CALL_KEY_LASTNAME)) {
+                res.setLastName(object.optString(VALUE_CALL_KEY_LASTNAME));
+            }
+            if (object.has(VALUE_CALL_KEY_EMAIL)) {
+                res.setEmail(object.optString(VALUE_CALL_KEY_EMAIL));
+            }
+            if (object.has(VALUE_CALL_KEY_PROFILE_IMAGE_URL)) {
+                res.setProfileImageUrl(object.optString(VALUE_CALL_KEY_PROFILE_IMAGE_URL));
+            }                                                 
             return res;
         } catch (Throwable t) {
             throw new PluginInputNotValidException("error on UserContactDetailInput " + t.getMessage(), t);
