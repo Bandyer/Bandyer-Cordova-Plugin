@@ -106,3 +106,28 @@ cordova
         // make call error
     });
 ```
+
+## Make a chat
+To make a chat you need to specify some params.
+
+##### Make chat params
+- userAlias: the alias of the user you want to create a chat with
+- typeCall: ['av'|'au'|'a'] the type of the call you want to start from the button displayed in the chat UI (av=audio-video,au=audio-upgreadable,a=audio-only)
+- recording: [true|false] flag to enable recording for the call started from the chat UI
+
+```
+cordova
+    .plugins
+    .BandyerPlugin
+    .makeChat({
+        userAlias: 'usr_xxx',
+        typeCall: 'av',
+        recording: false
+    }, (succ) => {
+        // make chat success
+        // on success the context switch to bandyer sdk which
+        // launch the call screen
+    }, (err) => {
+        // make call error
+    });
+```
