@@ -12,11 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BCPBandyerManager : NSObject
 
 @property (nonatomic, weak) UIViewController * _Nullable viewController;
-@property (nonatomic, readwrite, weak) id <CDVWebViewEngineProtocol> _Nullable webViewEngine;
+@property (nonatomic, weak) id <CDVWebViewEngineProtocol> _Nullable webViewEngine;
 @property (nonatomic, strong) PKPushPayload * _Nullable payload;
-
-+ (instancetype _Nullable)shared;
-- (instancetype _Nullable)init;
 
 - (BOOL)configureBandyerWithParams:(NSDictionary * _Nonnull)params;
 - (void)addCallClient;
@@ -28,8 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString * _Nullable)callClientState;
 - (BOOL)handleNotificationPayloadWithParams:(NSDictionary * _Nonnull)params;
 - (BOOL)makeCallWithParams:(NSDictionary * _Nonnull)params;
-- (void)createUserInfoFetchWithParams:(NSDictionary * _Nonnull)params;
-- (void)clearCache;
+- (void)addUsersDetails:(NSDictionary *)params;
+- (void)removeUsersDetails;
+
++ (instancetype)shared;
 
 @end
 

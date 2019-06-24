@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)state:(CDVInvokedUrlCommand *)command;
 - (void)makeCall:(CDVInvokedUrlCommand *)command;
 - (void)handlePushNotificationPayload:(CDVInvokedUrlCommand *)command;
-- (void)createUserInfoFetch:(CDVInvokedUrlCommand *)command;
-- (void)clearCache:(CDVInvokedUrlCommand *)command;
+- (void)addUsersDetails:(CDVInvokedUrlCommand *)command;
+- (void)removeUsersDetails:(CDVInvokedUrlCommand *)command;
 
 @end
 

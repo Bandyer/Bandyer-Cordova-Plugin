@@ -7,19 +7,20 @@
 
 #import "BCPBandyerManager.h"
 #import "BCPConstants.h"
-#import "BCPBandyerUserInfoFetch.h"
+#import "BCPUsersDetailsCache.h"
 #import "NSString+BandyerPlugin.h"
 
 @interface BCPBandyerManager() <BCXCallClientObserver, BDKCallViewControllerDelegate>
 
 @property (nonatomic, strong) BandyerSDK *bandyer;
-@property (nonatomic, strong) BCPBandyerUserInfoFetch *userInfoFetch;
+@property (nonatomic, strong) BCPUsersDetailsCache *userDetailsCache;
 
 @end
 
 @implementation BCPBandyerManager
 
-+ (instancetype _Nullable)shared {
++ (instancetype)shared 
+{
     static BCPBandyerManager *shared = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -29,15 +30,21 @@
     return shared;
 }
 
-- (instancetype _Nullable)init {
-    if (self = [super init]) {
-        self.bandyer = [BandyerSDK instance];
+- (instancetype)init 
+{
+    self = [super init];
+
+    if (self) 
+    {
+        _bandyer = [BandyerSDK instance];
+        _userDetailsCache = [BCPUsersDetailsCache new];
     }
-    
+
     return self;
 }
 
-- (id<BCXCallClient>)callClient {
+- (id<BCXCallClient>)callClient 
+{
     @try {
         return [self.bandyer callClient];
         
@@ -46,24 +53,24 @@
     }
 }
 
-- (BOOL)configureBandyerWithParams:(NSDictionary * _Nonnull)params {
+- (BOOL)configureBandyerWithParams:(NSDictionary * _Nonnull)params 
+{
     BDKConfig *config = [BDKConfig new];
     BDKEnvironment *environment = [[params valueForKey:kBCPBandyerEnvironment] toBDKEnvironment];
     
-    if (environment == nil) {
+    if (environment == nil)
         return NO;
-    }
     
     [config setEnvironment:environment];
     [config setCallKitEnabled:[params valueForKey:kBCPBandyerEnvironment]];
     
     NSString *appID = [params valueForKey:kBCPBandyerApplicationID];
     
-    if (appID == nil || [appID length] == 0) {
+    if (appID == nil || [appID length] == 0)
         return NO;
-    }
     
-    if ([[params valueForKey:kBCPBandyerLogEnabled] boolValue] == YES) {
+    if ([[params valueForKey:kBCPBandyerLogEnabled] boolValue] == YES) 
+    {
         [BCXConfig setLogLevel:BDFDDLogLevelAll];
         [BDKConfig setLogLevel:BDFDDLogLevelAll];
     }
@@ -73,39 +80,46 @@
     return YES;
 }
 
-- (void)addCallClient {
+- (void)addCallClient 
+{
     [[self callClient] addObserver:self queue:dispatch_get_main_queue()];
 }
 
-- (void)removeCallClient {
+- (void)removeCallClient 
+{
     [[self callClient] removeObserver:self];
 }
 
-- (bool)startCallClientWithParams:(NSDictionary * _Nonnull)params {
+- (BOOL)startCallClientWithParams:(NSDictionary * _Nonnull)params 
+{
     NSString *user = [params valueForKey:kBCPBandyerUserAlias];
     
-    if (user != nil && [user length] > 0) {
-        [[self callClient] start:user];
-        
+    if (user != nil && [user length] > 0) 
+    {
+        [[self callClient] start:user];    
         return YES;
     }
     
     return NO;
 }
 
-- (void)pauseCallClient {
+- (void)pauseCallClient 
+{
     [[self callClient] pause];
 }
 
-- (void)resumeCallClient {
+- (void)resumeCallClient 
+{
     [[self callClient] resume];
 }
 
-- (void)stopCallClient {
+- (void)stopCallClient 
+{
     [[self callClient] stop];
 }
 
-- (NSString * _Nullable)callClientState {
+- (NSString * _Nullable)callClientState 
+{
     @try {
         BCXCallClientState state = [[self.bandyer callClient] state];
         return [NSStringFromBCXCallClientState(state) lowercaseString];
@@ -114,66 +128,57 @@
     }
 }
 
-- (BOOL)handleNotificationPayloadWithParams:(NSDictionary * _Nonnull)params {
+- (BOOL)handleNotificationPayloadWithParams:(NSDictionary * _Nonnull)params 
+{
     NSDictionary *payloadDict = [params valueForKey:kBCPBandyerPushPayload];
-    NSDictionary *payload;
-    
-    if (payloadDict == nil && self.payload == nil) {
+   
+    if (payloadDict == nil && self.payload == nil)
         return NO;
-    }
-    
-    if ([payloadDict count] > 0) {
-        payload = payloadDict;
-        
-    } else {
+
+    NSDictionary *payload;    
+    if ([payloadDict count] > 0)
+        payload = payloadDict;    
+    else
         payload = [[self.payload dictionaryPayload] valueForKey:kBCPBandyerKeyPathToDataDictionary];
-    }
     
     [[self callClient] handleNotification:payload];
     
     return YES;
 }
 
-- (BOOL)makeCallWithParams:(NSDictionary * _Nonnull)params {
+- (BOOL)makeCallWithParams:(NSDictionary * _Nonnull)params 
+{
     NSArray *callee = [params valueForKey:kBCPBandyerCallee];
     NSString *joinUrl = [params valueForKey:kBCPBandyerJoinUrl];
     BDKCallType typeCall = [[params valueForKey:kBCPBandyerCallType] toBDKCallType];
     BOOL recording = [[params valueForKey:kBCPBandyerRecording] boolValue];
-    
     BOOL isCallee = NO;
     
-    if ([callee count] == 0 && [joinUrl length] == 0) {
+    if ([callee count] == 0 && [joinUrl length] == 0) 
         return NO;
-    }
     
-    if ([callee count] > 0) {
+    if ([callee count] > 0) 
         isCallee = YES;
-    }
     
-    BDKCallViewControllerConfiguration *config = [BDKCallViewControllerConfiguration new];
-    
-    if ([self userInfoFetch]) {
-        [config setUserInfoFetcher:[self userInfoFetch]];
-    }
+    BDKCallViewControllerConfiguration *config = [BDKCallViewControllerConfiguration new];    
+    [config setUserInfoFetcher:self.userDetailsCache];
     
     NSURL *sampleURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"]];
-    if (sampleURL) {
+    if (sampleURL) 
         [config setFakeCapturerFileURL:sampleURL];
-    }
     
     BDKCallViewController *controller = [BDKCallViewController new];
     
     [controller setDelegate:self];
     [controller setConfiguration:config];
     
-    if (isCallee) {
-        BDKMakeCallIntent *intent = [BDKMakeCallIntent intentWithCallee:callee type:typeCall record:recording maximumDuration:0];
-        
+    if (isCallee) 
+    {
+        BDKMakeCallIntent *intent = [BDKMakeCallIntent intentWithCallee:callee type:typeCall record:recording maximumDuration:0];    
         [controller handleIntent:intent];
-        
-    } else {
+    } else 
+    {
         BDKJoinURLIntent *intent = [BDKJoinURLIntent intentWithURL:[NSURL URLWithString:joinUrl]];
-        
         [controller handleIntent:intent];
     }
     
@@ -182,34 +187,31 @@
     return YES;
 }
 
-- (void)createUserInfoFetchWithParams:(NSDictionary *)params {
-    NSArray *address = [params valueForKey:kBCPBandyerAddress];
-    
-    [self setUserInfoFetch:[[BCPBandyerUserInfoFetch alloc] initWithAddress:address]];
+- (void)addUsersDetails:(NSDictionary *)params
+{
+    NSArray *details = [params valueForKey:kBCPBandyerUserDetailsKey];
+    [self.userDetailsCache addUsersDetails:details];
 }
 
-- (void)clearCache {
-    [self setPayload:nil];
-    [self setUserInfoFetch:nil];
+- (void)removeUsersDetails
+{
+    [self.userDetailsCache removeUsersDetails];
 }
 
 #pragma mark - BCXCallClientObserver
 
-- (void)callClient:(id <BCXCallClient>)client didReceiveIncomingCall:(id <BCXCall>)call {  
+- (void)callClient:(id <BCXCallClient>)client didReceiveIncomingCall:(id <BCXCall>)call 
+{  
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_didReceiveIncomingCall')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
     
     BDKCallViewControllerConfiguration *config = [BDKCallViewControllerConfiguration new];
-    
-    if ([self userInfoFetch]) {
-        [config setUserInfoFetcher:[self userInfoFetch]];
-    }
+    [config setUserInfoFetcher:self.userDetailsCache];
     
     NSURL *sampleURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"]];
-    if (sampleURL) {
+    if (sampleURL)
         [config setFakeCapturerFileURL:sampleURL];
-    }
 
     BDKCallViewController *controller = [BDKCallViewController new];
     
@@ -223,19 +225,22 @@
     [self.viewController presentViewController:controller animated:YES completion:NULL];
 }
 
-- (void)callClientWillStart:(id <BCXCallClient>)client {  
+- (void)callClientWillStart:(id <BCXCallClient>)client 
+{  
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientWillStart')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
 }
 
-- (void)callClientDidStart:(id <BCXCallClient>)client {
+- (void)callClientDidStart:(id <BCXCallClient>)client 
+{
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientDidStart')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
 }
 
-- (void)callClientDidStartReconnecting:(id <BCXCallClient>)client {
+- (void)callClientDidStartReconnecting:(id <BCXCallClient>)client 
+{
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientDidStartReconnecting')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
@@ -247,37 +252,43 @@
     }];
 }
 
-- (void)callClientDidPause:(id<BCXCallClient>)client {
+- (void)callClientDidPause:(id<BCXCallClient>)client 
+{
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientDidPause')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
 }
 
-- (void)callClientWillStop:(id <BCXCallClient>)client {
+- (void)callClientWillStop:(id <BCXCallClient>)client 
+{
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientWillStop')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
 }
 
-- (void)callClientDidStop:(id <BCXCallClient>)client {
+- (void)callClientDidStop:(id <BCXCallClient>)client 
+{
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientDidStop')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
 }
 
-- (void)callClientWillResume:(id <BCXCallClient>)client {
+- (void)callClientWillResume:(id <BCXCallClient>)client 
+{
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientWillResume')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
 }
 
-- (void)callClientDidResume:(id <BCXCallClient>)client {
+- (void)callClientDidResume:(id <BCXCallClient>)client 
+{
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientDidResume')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
 }
 
-- (void)callClient:(id <BCXCallClient>)client didFailWithError:(NSError *)error {
+- (void)callClient:(id <BCXCallClient>)client didFailWithError:(NSError *)error 
+{
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientFailed')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
@@ -285,7 +296,8 @@
 
 #pragma mark - BDKCallViewControllerDelegate
 
-- (void)callViewControllerDidFinish:(BDKCallViewController *)controller {
+- (void)callViewControllerDidFinish:(BDKCallViewController *)controller 
+{
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 

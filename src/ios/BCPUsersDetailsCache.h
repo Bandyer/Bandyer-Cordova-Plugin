@@ -8,12 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BCPBandyerUserInfoFetch : NSObject <BDKUserInfoFetcher>
+@interface BCPUsersDetailsCache : NSObject <BDKUserInfoFetcher, NSCopying>
 
-- (instancetype)initWithAddress:(NSArray *)address;
-
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
+- (void)addUsersDetails:(NSArray<NSDictionary *> *)details;
+- (void)removeUsersDetails;
 
 @end
 

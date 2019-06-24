@@ -14,4 +14,4 @@
 #define kBCPBandyerPushPayload              @"payload"
 #define kBCPBandyerJoinUrl                  @"joinUrl"
 #define kBCPBandyerRecording                @"recording"
-#define kBCPBandyerAddress                  @"address"
+#define kBCPBandyerUserDetailsKey           @"details"

@@ -105,7 +105,7 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)createUserInfoFetch:(CDVInvokedUrlCommand *)command {
+- (void)addUsersDetails:(CDVInvokedUrlCommand *)command {
     CDVPluginResult *pluginResult = nil;
     NSDictionary *params = [command.arguments firstObject];
     
@@ -114,15 +114,15 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];    
     } else 
     {
-        [[BCPBandyerManager shared] createUserInfoFetchWithParams:params];    
+        [[BCPBandyerManager shared] addUsersDetails:params];    
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     }
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void)clearCache:(CDVInvokedUrlCommand *)command {
-    [[BCPBandyerManager shared] clearCache];
+- (void)removeUsersDetails:(CDVInvokedUrlCommand *)command {
+    [[BCPBandyerManager shared] removeUsersDetails];
     
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
