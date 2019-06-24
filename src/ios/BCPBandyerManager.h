@@ -4,7 +4,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <PushKit/PushKit.h>
 #import <Cordova/CDV.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -13,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) UIViewController * _Nullable viewController;
 @property (nonatomic, weak) id <CDVWebViewEngineProtocol> _Nullable webViewEngine;
-@property (nonatomic, strong) PKPushPayload * _Nullable payload;
 
 - (BOOL)configureBandyerWithParams:(NSDictionary * _Nonnull)params;
 - (void)addCallClient;

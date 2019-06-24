@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) BandyerSDK *bandyer;
 @property (nonatomic, strong) BCPUsersDetailsCache *userDetailsCache;
+@property (nonatomic, strong, nullable) NSDictionary *payload;
 
 @end
 
@@ -46,8 +47,7 @@
 - (id<BCXCallClient>)callClient 
 {
     @try {
-        return [self.bandyer callClient];
-        
+        return [self.bandyer callClient];   
     } @catch (NSException *exception) {
         return nil;
     }
@@ -106,6 +106,7 @@
 - (void)pauseCallClient 
 {
     [[self callClient] pause];
+    self.payload = nil;
 }
 
 - (void)resumeCallClient 
@@ -116,6 +117,7 @@
 - (void)stopCallClient 
 {
     [[self callClient] stop];
+    self.payload = nil;
 }
 
 - (NSString * _Nullable)callClientState 
@@ -130,18 +132,24 @@
 
 - (BOOL)handleNotificationPayloadWithParams:(NSDictionary * _Nonnull)params 
 {
-    NSDictionary *payloadDict = [params valueForKey:kBCPBandyerPushPayload];
+    NSDictionary *payload = [params valueForKey:kBCPBandyerPushPayload];
+    NSString *keyPath = [params valueForKey:kBCPBandyerPushPayloadKeyPath];
    
-    if (payloadDict == nil && self.payload == nil)
+    if (![payload isKindOfClass:NSDictionary.class])
         return NO;
 
-    NSDictionary *payload;    
-    if ([payloadDict count] > 0)
-        payload = payloadDict;    
-    else
-        payload = [[self.payload dictionaryPayload] valueForKey:kBCPBandyerKeyPathToDataDictionary];
+    if (![keyPath isKindOfClass:NSString.class])
+        return NO;
+
+    NSDictionary *bandyerPayload = [payload valueForKeyPath:keyPath];
+
+    if (bandyerPayload == nil || [bandyerPayload count] == 0)
+        return NO;
     
-    [[self callClient] handleNotification:payload];
+    if ([self callClient].state == BCXCallClientStateRunning)
+        [[self callClient] handleNotification:bandyerPayload];
+    else 
+        self.payload = bandyerPayload;
     
     return YES;
 }
@@ -237,6 +245,11 @@
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientDidStart')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
+
+    if (client.state == BCXCallClientStateRunning && self.payload)
+    {
+        [[self callClient] handleNotification:self.payload];
+    }
 }
 
 - (void)callClientDidStartReconnecting:(id <BCXCallClient>)client 
@@ -285,6 +298,11 @@
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientDidResume')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
+
+    if (client.state == BCXCallClientStateRunning && self.payload)
+    {
+        [[self callClient] handleNotification:self.payload];
+    }
 }
 
 - (void)callClient:(id <BCXCallClient>)client didFailWithError:(NSError *)error 
@@ -292,6 +310,8 @@
     [self.webViewEngine evaluateJavaScript:@"window.cordova.plugins.BandyerPlugin.callClientListener('ios_callClientFailed')" completionHandler:^(id obj, NSError *error) {
         // NOP
     }];
+
+    self.payload = nil;
 }
 
 #pragma mark - BDKCallViewControllerDelegate
