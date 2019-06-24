@@ -3,14 +3,13 @@
     xmlns="http://apache.org/cordova/ns/plugins/1.0" 
     xmlns:android="http://schemas.android.com/apk/res/android">
     <name>BandyerPlugin</name>
-
-<!--    <js-module name="BandyerPlugin" src="www/BandyerPlugin.js">-->
-<!--        <clobbers target="cordova.plugins.BandyerPlugin" />-->
-<!--    </js-module>-->
-
+    <author>Bandyer S.r.l.</author>
+    <description>This plugin allows you to add BandyerSDK to your application using Bandyer Mobile SDK Native library</description>
+    <keywords>bandyer, sdk, voice call, phone call, group call, chat, collaboration, screen sharing, file sharing</keywords>
+    <license>GNU LESSER GENERAL PUBLIC LICENSE Version 3</license>
     <platform name="ios">
         <js-module name="BandyerPlugin" src="www/ios/BandyerPlugin.js">
-            <clobbers target="cordova.plugins.BandyerPlugin" />
+            <clobbers target="BandyerPlugin" />
         </js-module>
 
         <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge" overwrite="true">
