@@ -60,7 +60,7 @@
         <apply-plugin>kotlin-apt</apply-plugin>
 
         <js-module name="BandyerPlugin" src="www/android/BandyerPlugin.js">
-            <clobbers target="cordova.plugins.BandyerPlugin" />
+            <clobbers target="BandyerPlugin" />
         </js-module>
 
         <config-file parent="/*" target="res/xml/config.xml">
