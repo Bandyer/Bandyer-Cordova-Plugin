@@ -16,7 +16,7 @@
         "cordova-android"
     ],
     "author": "Bandyer",
-    "license": "Copyright © 2019 Bandyer S.r.l. All rights reserved.",
+    "license": "LGPL-3.0-or-later",
     "dependencies": {},
     "scripts": {    
         "major": "npm version major -m \"* Updated to version %s\"",
