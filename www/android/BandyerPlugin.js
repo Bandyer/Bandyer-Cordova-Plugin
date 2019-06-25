@@ -32,14 +32,6 @@ exports.setup = function (params, success, error) {
     ])
 }
 
-exports.addCallClientListener = function (success, error) {
-    exec(success, error, 'BandyerPlugin', 'addCallClient', [])
-}
-
-exports.removeCallClientListener = function (success, error) {
-    exec(success, error, 'BandyerPlugin', 'removeCallClient', [])
-}
-
 /*
  *  Parameters:
  *      [params] (object):
@@ -166,8 +158,8 @@ exports.makeChat = function (params, success, error) {
  *      [success] (callback)
  *      [error] (callback)
  */
-exports.handlerPayload = function (params, success, error) {
-    exec(success, error, 'BandyerPlugin', 'handlerPayload', [{
+exports.handlePushotificationPayload = function (params, success, error) {
+    exec(success, error, 'BandyerPlugin', 'handlePushotificationPayload', [{
         payload: (typeof(params.payload) == 'undefined') ? '' : params.payload,
         ios_keypath: (typeof(params.ios_keypath) == 'undefined') ? '' : params.ios_keypath,
     }
@@ -178,34 +170,14 @@ exports.clearUserCache = function (success, error) {
     exec(success, error, 'BandyerPlugin', 'clearUserCache', [])
 }
 
-/*
- *  Messages Android:
- *  android_onClientStatusChange
- *  android_onClientError
- *  android_onClientReady
- *  android_onClientStopped
- *  android_onModuleReady
- *  android_onModulePaused
- *  android_onModuleFailed
- *  android_onModuleStatusChanged
- *
- *  Messages iOS:
- *  - ios_didReceiveIncomingCall
- *  - ios_callClientWillStart
- *  - ios_callClientDidStart
- *  - ios_callClientDidStartReconnecting
- *  - ios_callClientWillPause
- *  - ios_callClientDidPause
- *  - ios_callClientWillStop
- *  - ios_callClientDidStop
- *  - ios_callClientWillResume
- *  - ios_callClientDidResume
- *  - ios_callClientFailed
- */
-
 exports.callClientListener = function (message) {
     // console.log('callClientListener [Log]: ' + { message: message });
     cordova.fireDocumentEvent('callClientEvent', { message: message });
+}
+
+exports.chatClientListener = function (message) {
+    // console.log('callClientListener [Log]: ' + { message: message });
+    cordova.fireDocumentEvent('chatClientEvent', { message: message });
 }
 
 /*

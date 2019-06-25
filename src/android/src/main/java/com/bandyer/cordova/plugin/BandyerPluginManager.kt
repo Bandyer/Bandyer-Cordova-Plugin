@@ -4,6 +4,8 @@ import android.app.Application
 import android.util.Log
 import com.bandyer.android_sdk.BandyerSDK
 import com.bandyer.android_sdk.Environment
+import com.bandyer.android_sdk.call.CallModule
+import com.bandyer.android_sdk.chat.ChatModule
 import com.bandyer.android_sdk.client.BandyerSDKClient
 import com.bandyer.android_sdk.client.BandyerSDKClientObserver
 import com.bandyer.android_sdk.client.BandyerSDKClientOptions
@@ -24,6 +26,7 @@ import com.bandyer.cordova.plugin.Constants.ARG_USER_DETAILS_IMAGEURL
 import com.bandyer.cordova.plugin.Constants.ARG_USER_DETAILS_LASTNAME
 import com.bandyer.cordova.plugin.Constants.ARG_USER_DETAILS_NICKNAME
 import com.bandyer.cordova.plugin.Constants.BANDYER_LOG_TAG
+import com.bandyer.cordova.plugin.extensions.toCordovaModuleStatus
 import com.bandyer.cordova.plugin.input.*
 import com.bandyer.cordova.plugin.listeners.PluginCallNotificationListener
 import com.bandyer.cordova.plugin.listeners.PluginChatNotificationListener
@@ -35,39 +38,14 @@ object BandyerPluginManager {
     private var myInitInput: InitInput? = null
     private val usersDetailMap = HashMap<String, UserDetails>()
 
-    private val clientObserver = object : BandyerSDKClientObserver {
-        override fun onClientStatusChange(state: BandyerSDKClientState) {
-            notifyListener("onClientStatusChange")
-        }
-
-        override fun onClientError(throwable: Throwable) {
-            notifyListener("onClientError")
-        }
-
-        override fun onClientReady() {
-            notifyListener("onClientReady")
-        }
-
-        override fun onClientStopped() {
-            notifyListener("onClientStopped")
-        }
-    }
-
     private val moduleObserver = object : BandyerModuleObserver {
-        override fun onModuleReady(module: BandyerModule) {
-            notifyListener("onModuleReady")
-        }
-
-        override fun onModulePaused(module: BandyerModule) {
-            notifyListener("onModulePaused")
-        }
-
-        override fun onModuleFailed(module: BandyerModule, throwable: Throwable) {
-            notifyListener("onModuleFailed")
-        }
-
+        override fun onModuleReady(module: BandyerModule) {}
+        override fun onModulePaused(module: BandyerModule) {}
+        override fun onModuleFailed(module: BandyerModule, throwable: Throwable) {}
         override fun onModuleStatusChanged(module: BandyerModule, moduleStatus: BandyerModuleStatus) {
-            notifyListener("onModuleStatusChanged")
+            moduleStatus.toCordovaModuleStatus()?.let { cordovaModuleStatus ->
+                notifyStatusChange(module, cordovaModuleStatus)
+            }
         }
     }
     private var currentBandyerPlugin: BandyerPlugin? = null
@@ -149,6 +127,7 @@ object BandyerPluginManager {
         val options = BandyerSDKClientOptions.Builder()
                 .keepListeningForEventsInBackground(false)
                 .build()
+        addObservers()
         BandyerSDKClient.getInstance().init(input.userAlias!!, options)
         startListening()
     }
@@ -166,14 +145,14 @@ object BandyerPluginManager {
     fun stop() {
         stopListening()
         BandyerSDKClient.getInstance().dispose()
+        removeObservers()
     }
 
-    fun startListening() {
-        // Start listening for events
+    private fun startListening() {
         BandyerSDKClient.getInstance().startListening()
     }
 
-    fun stopListening() {
+    private fun stopListening() {
         BandyerSDKClient.getInstance().stopListening()
     }
 
@@ -190,17 +169,15 @@ object BandyerPluginManager {
         }
     }
 
-    fun addObservers() {
-        BandyerSDKClient.getInstance().addObserver(clientObserver)
+    private fun addObservers() {
         BandyerSDKClient.getInstance().addModuleObserver(moduleObserver)
     }
 
-    fun removeObservers() {
-        BandyerSDKClient.getInstance().removeObserver(clientObserver)
+    private fun removeObservers() {
         BandyerSDKClient.getInstance().removeModuleObserver(moduleObserver)
     }
 
-    fun handleNotification(application: Application, input: HandleNotificationInput) {
+    fun handlePushNotificationPayload(application: Application, input: HandleNotificationInput) {
         BandyerSDKClient.getInstance().handleNotification(application, input.payload!!)
     }
 
@@ -329,24 +306,13 @@ object BandyerPluginManager {
         usersDetailMap.clear()
     }
 
-    fun notifyListener(methodCall: String) {
-        if (BandyerPluginManager.currentBandyerPlugin != null) {
-            try {
-                BandyerPluginManager.currentBandyerPlugin!!.cordova.activity.runOnUiThread {
-                    try {
-                        BandyerPluginManager.currentBandyerPlugin!!.webView.loadUrl("javascript:window.cordova.plugins.BandyerPlugin.callClientListener('android_$methodCall')")
-                    } catch (t: Throwable) {
-                        if (isLogEnabled) {
-                            Log.e(BANDYER_LOG_TAG, "Error on javascript method execution", t)
-                        }
-                    }
-                }
-            } catch (t: Throwable) {
-                if (isLogEnabled) {
-                    Log.e(BANDYER_LOG_TAG, "Error on javascript method execution", t)
-                }
+    private fun notifyStatusChange(bandyerModule: BandyerModule, cordovaModuleStatus: CordovaModuleStatus) {
+        currentBandyerPlugin ?: return
+        currentBandyerPlugin!!.cordova.activity.runOnUiThread {
+            when (bandyerModule) {
+                is ChatModule -> currentBandyerPlugin!!.webView.loadUrl("javascript:window.BandyerPlugin.chatClientListener('${cordovaModuleStatus.name.toLowerCase()}')")
+                is CallModule -> currentBandyerPlugin!!.webView.loadUrl("javascript:window.BandyerPlugin.callClientListener('${cordovaModuleStatus.name.toLowerCase()}')")
             }
-
         }
     }
 

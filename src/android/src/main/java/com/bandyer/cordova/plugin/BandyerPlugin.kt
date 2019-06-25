@@ -16,7 +16,6 @@ import com.bandyer.cordova.plugin.input.StartCallInput
 import com.bandyer.cordova.plugin.input.StartChatInput
 import com.bandyer.cordova.plugin.input.StartInput
 
-import com.bandyer.cordova.plugin.Constants.METHOD_ADD_CALL_CLIENT_LISTENER
 import com.bandyer.cordova.plugin.Constants.METHOD_CLEAR_USER_CACHE
 import com.bandyer.cordova.plugin.Constants.METHOD_REMOVE_USERS_DETAILS
 import com.bandyer.cordova.plugin.Constants.METHOD_HANDLE_NOTIFICATION
@@ -25,7 +24,6 @@ import com.bandyer.cordova.plugin.Constants.METHOD_INITIALIZE
 import com.bandyer.cordova.plugin.Constants.METHOD_MAKE_CALL
 import com.bandyer.cordova.plugin.Constants.METHOD_MAKE_CHAT
 import com.bandyer.cordova.plugin.Constants.METHOD_PAUSE
-import com.bandyer.cordova.plugin.Constants.METHOD_REMOVE_CALL_CLIENT_LISTENER
 import com.bandyer.cordova.plugin.Constants.METHOD_RESUME
 import com.bandyer.cordova.plugin.Constants.METHOD_START
 import com.bandyer.cordova.plugin.Constants.METHOD_STATE
@@ -43,14 +41,6 @@ class BandyerPlugin : CordovaPlugin() {
         when (action) {
             METHOD_INITIALIZE -> {
                 this.setup(args, callbackContext)
-                return true
-            }
-            METHOD_ADD_CALL_CLIENT_LISTENER -> {
-                this.addObservers(callbackContext)
-                return true
-            }
-            METHOD_REMOVE_CALL_CLIENT_LISTENER -> {
-                this.removeObservers(callbackContext)
                 return true
             }
             METHOD_START -> {
@@ -82,7 +72,7 @@ class BandyerPlugin : CordovaPlugin() {
                 return true
             }
             METHOD_HANDLE_NOTIFICATION -> {
-                this.handleNotification(args, callbackContext)
+                this.handlePushotificationPayload(args, callbackContext)
                 return true
             }
             METHOD_CLEAR_USER_CACHE -> {
@@ -143,15 +133,6 @@ class BandyerPlugin : CordovaPlugin() {
         }
     }
 
-    private fun stopListening(callbackContext: CallbackContext) {
-        try {
-            BandyerPluginManager.stopListening()
-            callbackContext.success()
-        } catch (e: Throwable) {
-            callbackContext.error(e.message)
-        }
-    }
-
     private fun stop(callbackContext: CallbackContext) {
         try {
             BandyerPluginManager.stop()
@@ -179,27 +160,9 @@ class BandyerPlugin : CordovaPlugin() {
         }
     }
 
-    private fun addObservers(callbackContext: CallbackContext) {
+    private fun handlePushotificationPayload(args: JSONArray, callbackContext: CallbackContext) {
         try {
-            BandyerPluginManager.addObservers()
-            callbackContext.success()
-        } catch (e: Throwable) {
-            callbackContext.error(e.message)
-        }
-    }
-
-    private fun removeObservers(callbackContext: CallbackContext) {
-        try {
-            BandyerPluginManager.removeObservers()
-            callbackContext.success()
-        } catch (e: Throwable) {
-            callbackContext.error(e.message)
-        }
-    }
-
-    private fun handleNotification(args: JSONArray, callbackContext: CallbackContext) {
-        try {
-            BandyerPluginManager.handleNotification(application, HandleNotificationInput.createFrom(args))
+            BandyerPluginManager.handlePushNotificationPayload(application, HandleNotificationInput.createFrom(args))
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)

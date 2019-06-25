@@ -8,7 +8,7 @@ class PluginMethodNotValidException : Exception {
 
     companion object {
 
-        private val serialVersionUID = 123L
+        private const val serialVersionUID = 123L
     }
 
 }
