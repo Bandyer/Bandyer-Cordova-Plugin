@@ -24,7 +24,7 @@ allprojects {
 }
 
 subprojects { project ->
-    apply from: "$rootDir/depsBuild.gradle"
+    apply from: "$rootDir/src/android/depsBuild.gradle"
 }
 
 task clean(type: Delete) {
