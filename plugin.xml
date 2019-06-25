@@ -71,7 +71,7 @@
         
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
     
-        <source-file src="src/android/cordova_plugin/src/main/java/com" target-dir="java" />
+        <source-file src="src/android/cordova_plugin/src/main/java/com/bandyer/cordova/plugin" target-dir="java/com/bandyer/cordova" />
 
         <framework custom="true" src="src/android/depsBuild.gradle" type="gradleReference" />
         <framework custom="true" src="src/android/cordova.gradle" type="gradleReference" />
