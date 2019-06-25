@@ -145,7 +145,7 @@ exports.removeUsersDetails = function (success, error) {
  *      [error] (callback)
  */
 exports.makeChat = function (params, success, error) {
-    error('method not supported.')
+    error('not yet supported on this platform.')
 }
 
 /*
@@ -182,6 +182,10 @@ exports.clearUserCache = function (success, error) {
 
 exports.callClientListener = function (message) {
     cordova.fireDocumentEvent('callClientEvent', { message: message });
+}
+
+exports.chatClientListener = function (message) {
+    error('not yet supported on this platform.')
 }
 
 /*
