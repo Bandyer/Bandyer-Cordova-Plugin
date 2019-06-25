@@ -37,14 +37,6 @@ exports.setup = function (params, success, error) {
     ])
 }
 
-exports.addCallClientListener = function (success, error) {
-    exec(success, error, 'BandyerPlugin', 'addCallClient', [])
-}
-
-exports.removeCallClientListener = function (success, error) {
-    exec(success, error, 'BandyerPlugin', 'removeCallClient', [])
-}
-
 /*
  *  Parameters:
  *      [params] (object):
@@ -130,7 +122,6 @@ exports.makeCall = function (params, success, error) {
  *      [error] (callback)
  */
 exports.addUsersDetails = function (params, success, error) {
-    //TODO: CHANGE METHOD NAME
     exec(success, error, 'BandyerPlugin', 'addUsersDetails', [
         {
             details: (typeof(params.details) == 'undefined') ? [] : params.details
@@ -139,7 +130,6 @@ exports.addUsersDetails = function (params, success, error) {
 }
 
 exports.removeUsersDetails = function (success, error) {
-    //TODO: CHANGE METHOD NAME
     exec(success, error, 'BandyerPlugin', 'removeUsersDetails', [])
 }
 
@@ -168,7 +158,7 @@ exports.makeChat = function (params, success, error) {
  *      [success] (callback)
  *      [error] (callback)
  */
-exports.handlerPayload = function (params, success, error) {
+exports.handlePushNotificationPayload = function (params, success, error) {
     exec(success, error, 'BandyerPlugin', 'handlePushNotificationPayload', [{
         payload: (typeof(params.payload) == 'undefined') ? '' : params.payload,
         ios_keypath: (typeof(params.ios_keypath) == 'undefined') ? '' : params.ios_keypath,
@@ -181,32 +171,16 @@ exports.clearUserCache = function (success, error) {
 }
 
 /*
- *  Messages Android:
- *  android_onClientStatusChange
- *  android_onClientError
- *  android_onClientReady
- *  android_onClientStopped
- *  android_onModuleReady
- *  android_onModulePaused
- *  android_onModuleFailed
- *  android_onModuleStatusChanged
+ *  Messages:
  *
- *  Messages iOS:
- *  - ios_didReceiveIncomingCall
- *  - ios_callClientWillStart
- *  - ios_callClientDidStart
- *  - ios_callClientDidStartReconnecting
- *  - ios_callClientWillPause
- *  - ios_callClientDidPause
- *  - ios_callClientWillStop
- *  - ios_callClientDidStop
- *  - ios_callClientWillResume
- *  - ios_callClientDidResume
- *  - ios_callClientFailed
+ *  - "ready"
+ *  - "paused"
+ *  - "stopped"
+ *  - "reconnecting"
+ *  - "failed"
  */
 
 exports.callClientListener = function (message) {
-    // console.log('callClientListener [Log]: ' + { message: message });
     cordova.fireDocumentEvent('callClientEvent', { message: message });
 }
 
@@ -215,6 +189,5 @@ exports.callClientListener = function (message) {
  *  - ios_didReceiveIncomingPushWithPayload
  */
 exports.pushRegistryListener = function (message) {
-    // console.log('pushRegistryListener [Log]: ' + { message: message });
     cordova.fireDocumentEvent('pushRegistryEvent', { message: message });
 }

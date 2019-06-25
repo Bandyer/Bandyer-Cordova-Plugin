@@ -10,8 +10,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BCPBandyerPlugin: CDVPlugin
 
 - (void)initializeBandyer:(CDVInvokedUrlCommand *)command;
-- (void)addCallClient:(CDVInvokedUrlCommand *)command;
-- (void)removeCallClient:(CDVInvokedUrlCommand *)command;
 - (void)start:(CDVInvokedUrlCommand *)command;
 - (void)stop:(CDVInvokedUrlCommand *)command;
 - (void)pause:(CDVInvokedUrlCommand *)command;

@@ -5,15 +5,17 @@
 
 #import "BCPBandyerPlugin.h"
 #import "BCPBandyerManager.h"
+#import "BCPCallClientEventEmitter.h"
 
 @implementation BCPBandyerPlugin
 
 - (void)pluginInitialize 
 {
     [super pluginInitialize];
-    
-    [[BCPBandyerManager shared] setViewController:self.viewController];
-    [[BCPBandyerManager shared] setWebViewEngine:self.webViewEngine];
+
+    BCPBandyerManager.shared.viewController = self.viewController;
+    BCPBandyerManager.shared.webViewEngine = self.webViewEngine;
+    BCPBandyerManager.shared.notifier = [[BCPCallClientEventEmitter alloc] initWithWebViewEngine:self.webViewEngine];
 }
 
 - (void)initializeBandyer:(CDVInvokedUrlCommand *)command 
@@ -28,20 +30,6 @@
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-- (void)addCallClient:(CDVInvokedUrlCommand *)command 
-{
-    [[BCPBandyerManager shared] addCallClient];
-
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
-}
-
-- (void)removeCallClient:(CDVInvokedUrlCommand *)command 
-{
-    [[BCPBandyerManager shared] removeCallClient];
-    
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 
 - (void)start:(CDVInvokedUrlCommand *)command 

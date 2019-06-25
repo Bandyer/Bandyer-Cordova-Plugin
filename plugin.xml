@@ -35,6 +35,9 @@
             <string>production</string>
         </config-file>
         <header-file src="src/ios/BCPConstants.h" />
+        <source-file src="src/ios/BCPConstants.m"/>
+        <header-file src="src/ios/BCPCallClientEventEmitter.h"/>
+        <source-file src="src/ios/BCPCallClientEventEmitter.m"/>
         <header-file src="src/ios/BCPBandyerManager.h" />
         <source-file src="src/ios/BCPBandyerManager.m" />
         <header-file src="src/ios/BCPBandyerPlugin.h" />

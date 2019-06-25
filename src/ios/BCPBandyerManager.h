@@ -6,23 +6,24 @@
 #import <Foundation/Foundation.h>
 #import <Cordova/CDV.h>
 
+@class BCPCallClientEventEmitter;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BCPBandyerManager : NSObject
 
-@property (nonatomic, weak) UIViewController * _Nullable viewController;
-@property (nonatomic, weak) id <CDVWebViewEngineProtocol> _Nullable webViewEngine;
+@property (nonatomic, weak, nullable) UIViewController *viewController;
+@property (nonatomic, weak, nullable) id <CDVWebViewEngineProtocol> webViewEngine;
+@property (nonatomic, strong, nullable) BCPCallClientEventEmitter *notifier;
 
-- (BOOL)configureBandyerWithParams:(NSDictionary * _Nonnull)params;
-- (void)addCallClient;
-- (void)removeCallClient;
-- (BOOL)startCallClientWithParams:(NSDictionary * _Nonnull)params;
+- (BOOL)configureBandyerWithParams:(NSDictionary *)params;
+- (BOOL)startCallClientWithParams:(NSDictionary *)params;
 - (void)pauseCallClient;
 - (void)resumeCallClient;
 - (void)stopCallClient;
-- (NSString * _Nullable)callClientState;
-- (BOOL)handleNotificationPayloadWithParams:(NSDictionary * _Nonnull)params;
-- (BOOL)makeCallWithParams:(NSDictionary * _Nonnull)params;
+- (nullable NSString *)callClientState;
+- (BOOL)handleNotificationPayloadWithParams:(NSDictionary *)params;
+- (BOOL)makeCallWithParams:(NSDictionary *)params;
 - (void)addUsersDetails:(NSDictionary *)params;
 - (void)removeUsersDetails;
 

@@ -18,7 +18,7 @@ $ cordova platforms add android ios
 
 You can refer to the Bandyer plugin in your cordova app via
 ```
-cordova.plugins.BandyerPlugin
+BandyerPlugin
 ```
 
 ## Plugin setup
@@ -27,8 +27,8 @@ The first thing you need to do is to setup the plugin specifying your keys and y
 ##### Setup params
 - environment: [sandbox|production]the bandyer environment 
 - appId: [mAppId_xxx] your mobile appId
-- logEnable: [true|false] flag to enable disable the logger
-- ios_callkitEnable: [true|false] flag to enable callkit on iOS
+- logEnabled: [true|false] flag to enable disable the logger
+- ios_callkitEnabled: [true|false] flag to enable callkit on iOS
 - android_isCallEnabled: [true|false] flag to enable call module on android
 - android_isFileSharingEnabled: [true|false] flag to enable file sharing module on android
 - android_isChatEnabled: [true|false] flag to enable chat module on android
@@ -39,8 +39,8 @@ The first thing you need to do is to setup the plugin specifying your keys and y
 var params =  {
     environment: 'sandbox',
     appId: 'mAppId_xxx',
-    logEnable: true,
-    ios_callkitEnable: true,
+    logEnabled: true,
+    ios_callkitEnabled: true,
     android_isCallEnabled: true,
     android_isFileSharingEnabled: true,
     android_isChatEnabled: true,
@@ -66,13 +66,8 @@ const credentials = {
     userAlias: 'usr_xxx'
 }
 
-// register the listener to receive calls
-cordova.plugins.BandyerPlugin.addCallClientListener(); 
-
 // start the bandyer plugin specifying the user alias of the user you want to connect
-cordova
-    .plugins
-    .BandyerPlugin
+    BandyerPlugin
     .start(credentials,(succ) => {
         // start success
         // from this moment on you are connected to bandyer
@@ -91,9 +86,7 @@ To make a call you need to specify some params.
 - recording: [true|false] flag to enable recording for the call
 
 ```
-cordova
-    .plugins
-    .BandyerPlugin
+    BandyerPlugin
     .makeCall({
         callee: ['usr_xxx'], // call the user usr_xxx
         typeCall: 'av', // audio video call
@@ -116,9 +109,7 @@ To make a chat you need to specify some params.
 - recording: [true|false] flag to enable recording for the call started from the chat UI
 
 ```
-cordova
-    .plugins
-    .BandyerPlugin
+    BandyerPlugin
     .makeChat({
         userAlias: 'usr_xxx',
         typeCall: 'av',
