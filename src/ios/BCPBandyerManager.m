@@ -151,10 +151,17 @@
     if (bandyerPayload == nil || [bandyerPayload count] == 0)
         return NO;
 
-    if ([self callClient].state == BCXCallClientStateRunning)
-        [[self callClient] handleNotification:bandyerPayload];
+    if (self.callClient.state == BCXCallClientStateRunning)
+    {
+        [self.callClient handleNotification:bandyerPayload];
+    }
     else
+    {
         self.payload = bandyerPayload;
+
+        if (self.callClient.state == BCXCallClientStatePaused)
+            [self.callClient resume];
+    }
 
     return YES;
 }
