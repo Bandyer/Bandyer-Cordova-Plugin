@@ -158,8 +158,8 @@ exports.makeChat = function (params, success, error) {
  *      [success] (callback)
  *      [error] (callback)
  */
-exports.handlePushotificationPayload = function (params, success, error) {
-    exec(success, error, 'BandyerPlugin', 'handlePushotificationPayload', [{
+exports.handlePushNotificationPayload = function (params, success, error) {
+    exec(success, error, 'BandyerPlugin', 'handlePushNotificationPayload', [{
         payload: (typeof(params.payload) == 'undefined') ? '' : params.payload,
         ios_keypath: (typeof(params.ios_keypath) == 'undefined') ? '' : params.ios_keypath,
     }

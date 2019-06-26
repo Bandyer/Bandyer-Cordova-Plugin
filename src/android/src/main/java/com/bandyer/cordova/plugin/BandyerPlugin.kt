@@ -72,7 +72,7 @@ class BandyerPlugin : CordovaPlugin() {
                 return true
             }
             METHOD_HANDLE_NOTIFICATION -> {
-                this.handlePushotificationPayload(args, callbackContext)
+                this.handlePushNotificationPayload(args, callbackContext)
                 return true
             }
             METHOD_CLEAR_USER_CACHE -> {
@@ -160,7 +160,7 @@ class BandyerPlugin : CordovaPlugin() {
         }
     }
 
-    private fun handlePushotificationPayload(args: JSONArray, callbackContext: CallbackContext) {
+    private fun handlePushNotificationPayload(args: JSONArray, callbackContext: CallbackContext) {
         try {
             BandyerPluginManager.handlePushNotificationPayload(application, HandleNotificationInput.createFrom(args))
             callbackContext.success()
