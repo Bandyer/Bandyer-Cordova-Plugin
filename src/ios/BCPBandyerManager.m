@@ -135,29 +135,21 @@
 
 - (BOOL)handleNotificationPayloadWithParams:(NSDictionary *)params
 {
-    NSAssert(params, @"Params dictionary must be provided, got nil");
-
     NSDictionary *payload = [params valueForKey:kBCPPushPayloadKey];
-    NSString *keyPath = [params valueForKey:kBCPPushPayloadKeyPathKey];
 
     if (![payload isKindOfClass:NSDictionary.class])
         return NO;
 
-    if (![keyPath isKindOfClass:NSString.class])
-        return NO;
-
-    NSDictionary *bandyerPayload = [payload valueForKeyPath:keyPath];
-
-    if (bandyerPayload == nil || [bandyerPayload count] == 0)
+    if (payload == nil || [payload count] == 0)
         return NO;
 
     if (self.callClient.state == BCXCallClientStateRunning)
     {
-        [self.callClient handleNotification:bandyerPayload];
+        [self.callClient handleNotification:payload];
     }
     else
     {
-        self.payload = bandyerPayload;
+        self.payload = payload;
 
         if (self.callClient.state == BCXCallClientStatePaused)
             [self.callClient resume];
@@ -230,6 +222,7 @@
     if (client.state == BCXCallClientStateRunning && self.payload)
     {
         [[self callClient] handleNotification:self.payload];
+        self.payload = nil;
     }
 }
 
@@ -238,6 +231,7 @@
     if (client.state == BCXCallClientStateRunning && self.payload)
     {
         [[self callClient] handleNotification:self.payload];
+        self.payload = nil;
     }
 }
 

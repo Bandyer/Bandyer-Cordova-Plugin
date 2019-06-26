@@ -13,7 +13,6 @@ FOUNDATION_EXPORT NSString *const kBCPUserAliasKey;
 FOUNDATION_EXPORT NSString *const kBCPCalleeKey;
 FOUNDATION_EXPORT NSString *const kBCPCallTypeKey;
 FOUNDATION_EXPORT NSString *const kBCPPushPayloadKey;
-FOUNDATION_EXPORT NSString *const kBCPPushPayloadKeyPathKey;
 FOUNDATION_EXPORT NSString *const kBCPJoinUrlKey;
 FOUNDATION_EXPORT NSString *const kBCPRecordingKey;
 FOUNDATION_EXPORT NSString *const kBCPUserDetailsKey;
