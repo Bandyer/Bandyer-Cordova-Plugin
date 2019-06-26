@@ -23,17 +23,6 @@
                 <param name="ios-package" value="BCPBandyerPlugin" />
             </feature>
         </config-file>
-        <config-file target="*-Info.plist" parent="UIBackgroundModes">
-            <array>
-                <string>remote-notification</string>
-            </array>
-        </config-file>
-        <config-file target="*-Debug.plist" parent="aps-environment">
-            <string>development</string>
-        </config-file>
-        <config-file target="*-Release.plist" parent="aps-environment">
-            <string>production</string>
-        </config-file>
         <header-file src="src/ios/BCPConstants.h" />
         <source-file src="src/ios/BCPConstants.m"/>
         <header-file src="src/ios/BCPCallClientEventEmitter.h"/>
@@ -47,7 +36,6 @@
         <header-file src="src/ios/NSString+BandyerPlugin.h" />
         <source-file src="src/ios/NSString+BandyerPlugin.m" />
         <resource-file src="src/ios/Resources/sample.mp4" />
-        <framework src="PushKit.framework" weak="true"/>
         <podspec>
             <config>
                 <source url="https://github.com/CocoaPods/Specs.git"/>
