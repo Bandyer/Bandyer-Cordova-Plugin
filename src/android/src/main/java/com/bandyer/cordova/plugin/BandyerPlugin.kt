@@ -4,30 +4,25 @@ import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.util.Log
-
-import org.apache.cordova.CordovaPlugin
-import org.apache.cordova.CallbackContext
-
-import org.json.JSONArray
-
-import com.bandyer.cordova.plugin.input.HandleNotificationInput
-import com.bandyer.cordova.plugin.input.InitInput
-import com.bandyer.cordova.plugin.input.StartCallInput
-import com.bandyer.cordova.plugin.input.StartChatInput
-import com.bandyer.cordova.plugin.input.StartInput
-
-import com.bandyer.cordova.plugin.Constants.METHOD_CLEAR_USER_CACHE
-import com.bandyer.cordova.plugin.Constants.METHOD_REMOVE_USERS_DETAILS
-import com.bandyer.cordova.plugin.Constants.METHOD_HANDLE_NOTIFICATION
 import com.bandyer.cordova.plugin.Constants.METHOD_ADD_USERS_DETAILS
+import com.bandyer.cordova.plugin.Constants.METHOD_CLEAR_USER_CACHE
+import com.bandyer.cordova.plugin.Constants.METHOD_HANDLE_NOTIFICATION
 import com.bandyer.cordova.plugin.Constants.METHOD_INITIALIZE
 import com.bandyer.cordova.plugin.Constants.METHOD_MAKE_CALL
 import com.bandyer.cordova.plugin.Constants.METHOD_MAKE_CHAT
 import com.bandyer.cordova.plugin.Constants.METHOD_PAUSE
+import com.bandyer.cordova.plugin.Constants.METHOD_REMOVE_USERS_DETAILS
 import com.bandyer.cordova.plugin.Constants.METHOD_RESUME
 import com.bandyer.cordova.plugin.Constants.METHOD_START
 import com.bandyer.cordova.plugin.Constants.METHOD_STATE
 import com.bandyer.cordova.plugin.Constants.METHOD_STOP
+import com.bandyer.cordova.plugin.input.InitInput
+import com.bandyer.cordova.plugin.input.StartCallInput
+import com.bandyer.cordova.plugin.input.StartChatInput
+import com.bandyer.cordova.plugin.input.StartInput
+import org.apache.cordova.CallbackContext
+import org.apache.cordova.CordovaPlugin
+import org.json.JSONArray
 
 class BandyerPlugin : CordovaPlugin() {
 
@@ -72,7 +67,7 @@ class BandyerPlugin : CordovaPlugin() {
                 return true
             }
             METHOD_HANDLE_NOTIFICATION -> {
-                this.handlePushNotificationPayload(args, callbackContext)
+                this.handlePushNotificationPayload(args.getJSONObject(0).getString("payload"), callbackContext)
                 return true
             }
             METHOD_CLEAR_USER_CACHE -> {
@@ -160,9 +155,9 @@ class BandyerPlugin : CordovaPlugin() {
         }
     }
 
-    private fun handlePushNotificationPayload(args: JSONArray, callbackContext: CallbackContext) {
+    private fun handlePushNotificationPayload(payload: String, callbackContext: CallbackContext) {
         try {
-            BandyerPluginManager.handlePushNotificationPayload(application, HandleNotificationInput.createFrom(args))
+            BandyerPluginManager.handlePushNotificationPayload(application, payload)
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)
@@ -193,7 +188,8 @@ class BandyerPlugin : CordovaPlugin() {
         try {
             mCallCallback = callbackContext
             if (args.length() == 0) return
-            BandyerPluginManager.addUserDetails(args.optJSONObject(0).optJSONArray(Constants.ARG_USERS_DETAILS) ?: JSONArray())
+            BandyerPluginManager.addUserDetails(args.optJSONObject(0).optJSONArray(Constants.ARG_USERS_DETAILS)
+                    ?: JSONArray())
         } catch (e: Throwable) {
             mCallCallback = null
             callbackContext.error(e.message)

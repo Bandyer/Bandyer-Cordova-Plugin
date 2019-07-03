@@ -177,8 +177,8 @@ object BandyerPluginManager {
         BandyerSDKClient.getInstance().removeModuleObserver(moduleObserver)
     }
 
-    fun handlePushNotificationPayload(application: Application, input: HandleNotificationInput) {
-        BandyerSDKClient.getInstance().handleNotification(application, input.payload!!)
+    fun handlePushNotificationPayload(application: Application, payload: String) {
+        BandyerSDKClient.getInstance().handleNotification(application, payload)
     }
 
     @Throws(PluginMethodNotValidException::class)
