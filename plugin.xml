@@ -61,7 +61,7 @@
 
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="BandyerPlugin">
-                <param name="android-package" value="com.bandyer.cordova.plugin.BandyerPlugin" />
+                <param name="android-package" value="com.bandyer.cordova.plugin.BandyerCordovaPlugin" />
             </feature>
         </config-file>
 
