@@ -1,6 +1,7 @@
 package com.bandyer.cordova.plugin.intent
 
 import android.content.Context
+import android.util.Log
 import com.bandyer.android_sdk.intent.BandyerIntent
 import com.bandyer.android_sdk.intent.call.CallIntentOptions
 import org.json.JSONArray
@@ -10,7 +11,7 @@ import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.VALUE_CALL_TYPE_
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.VALUE_CALL_TYPE_AUDIO_UPGRADABLE
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.VALUE_CALL_TYPE_AUDIO_VIDEO
 import com.bandyer.cordova.plugin.BandyerSDKConfiguration
-import com.bandyer.cordova.plugin.exception.BandyerCordovaPluginExceptions
+import com.bandyer.cordova.plugin.exceptions.BandyerCordovaPluginExceptions
 
 class BandyerCallIntentBuilder(
         private val initialContext: Context,
@@ -20,7 +21,7 @@ class BandyerCallIntentBuilder(
     @Throws(BandyerCordovaPluginExceptions::class)
     fun build(): BandyerIntent {
         val args = argsArray.get(0) as JSONObject
-        val callType = if (args.has(BandyerCordovaPluginConstants.ARG_CALL_TYPE)) args.getString(BandyerCordovaPluginConstants.ARG_CALL_TYPE) else VALUE_CALL_TYPE_AUDIO_VIDEO
+        val callType = args.optString(BandyerCordovaPluginConstants.ARG_CALL_TYPE, null) ?: VALUE_CALL_TYPE_AUDIO_VIDEO
         val callees = (if (args.has(BandyerCordovaPluginConstants.ARG_CALLEE)) args.getJSONArray(BandyerCordovaPluginConstants.ARG_CALLEE) else JSONArray())
         val hasCallees = callees != null && callees.length() > 0
         val joinUrl = if (args.has(BandyerCordovaPluginConstants.ARG_JOIN_URL)) args.getString(BandyerCordovaPluginConstants.ARG_JOIN_URL) else ""
