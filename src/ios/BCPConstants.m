@@ -13,7 +13,6 @@ NSString *const kBCPUserAliasKey = @"userAlias";
 NSString *const kBCPCalleeKey = @"callee";
 NSString *const kBCPCallTypeKey = @"callType";
 NSString *const kBCPPushPayloadKey = @"payload";
-NSString *const kBCPPushPayloadKeyPathKey = @"ios_keypath";
 NSString *const kBCPJoinUrlKey = @"joinUrl";
 NSString *const kBCPRecordingKey = @"recording";
 NSString *const kBCPUserDetailsKey = @"details";

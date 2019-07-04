@@ -152,7 +152,6 @@ exports.makeChat = function (params, success, error) {
  *  Parameters:
  *      [params] (object):
  *          {
- *              ios_keypath: keypath for push notification
  *              payload: remote message payload as String
  *          }
  *      [success] (callback)
@@ -160,8 +159,7 @@ exports.makeChat = function (params, success, error) {
  */
 exports.handlePushNotificationPayload = function (params, success, error) {
     exec(success, error, 'BandyerPlugin', 'handlePushNotificationPayload', [{
-        payload: (typeof(params.payload) == 'undefined') ? '' : params.payload,
-        ios_keypath: (typeof(params.ios_keypath) == 'undefined') ? '' : params.ios_keypath,
+        payload: (typeof (params.payload) == 'undefined') ? '' : params.payload
     }
     ])
 }
