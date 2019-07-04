@@ -11,7 +11,7 @@ import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.VALUE_CALL_TYPE_
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.VALUE_CALL_TYPE_AUDIO_UPGRADABLE
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.VALUE_CALL_TYPE_AUDIO_VIDEO
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.VALUE_CALL_TYPE_CHAT_ONLY
-import com.bandyer.cordova.plugin.exception.BandyerCordovaPluginExceptions
+import com.bandyer.cordova.plugin.exceptions.BandyerCordovaPluginExceptions
 
 class BandyerChatIntentBuilder(
         private val initialContext: Context,

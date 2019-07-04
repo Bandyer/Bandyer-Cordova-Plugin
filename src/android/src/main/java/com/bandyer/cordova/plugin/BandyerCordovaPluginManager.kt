@@ -23,8 +23,8 @@ import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.ARG_USER_DETAILS
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.ARG_USER_DETAILS_LASTNAME
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.ARG_USER_DETAILS_NICKNAME
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.BANDYER_LOG_TAG
-import com.bandyer.cordova.plugin.exception.BandyerCordovaPluginExceptions
-import com.bandyer.cordova.plugin.exception.BandyerCordovaPluginMethodNotValidException
+import com.bandyer.cordova.plugin.exceptions.BandyerCordovaPluginExceptions
+import com.bandyer.cordova.plugin.exceptions.BandyerCordovaPluginMethodNotValidException
 import com.bandyer.cordova.plugin.extensions.retrieveLoginUserAlias
 import com.bandyer.cordova.plugin.extensions.retrievePushNotificationPayload
 import com.bandyer.cordova.plugin.extensions.retrieveUserDetails
@@ -38,7 +38,7 @@ import java.util.*
 
 object BandyerCordovaPluginManager {
 
-    private var bandyerSDKCOnfiguration: BandyerSDKConfiguration? = null
+    private var bandyerSDKConfiguration: BandyerSDKConfiguration? = null
 
     private var currentBandyerCordovaPlugin: BandyerCordovaPlugin? = null
 
@@ -59,39 +59,39 @@ object BandyerCordovaPluginManager {
         get() = convertToString(BandyerSDKClient.getInstance().state)
 
     val isLogEnabled: Boolean
-        get() = bandyerSDKCOnfiguration != null && bandyerSDKCOnfiguration!!.isLogEnabled
+        get() = bandyerSDKConfiguration != null && bandyerSDKConfiguration!!.isLogEnabled
 
     @Throws(BandyerCordovaPluginExceptions::class)
     fun setup(application: Application, args: JSONArray) {
 
-        bandyerSDKCOnfiguration = BandyerSDKConfiguration.Builder(args).build()
+        bandyerSDKConfiguration = BandyerSDKConfiguration.Builder(args).build()
 
-        if (bandyerSDKCOnfiguration == null)
+        if (bandyerSDKConfiguration == null)
             throw BandyerCordovaPluginMethodNotValidException("A setup method call is needed before a call operation")
 
-        val builder = BandyerSDK.Builder(application, bandyerSDKCOnfiguration!!.appId!!)
-        if (bandyerSDKCOnfiguration!!.isProdEnvironment) {
+        val builder = BandyerSDK.Builder(application, bandyerSDKConfiguration!!.appId!!)
+        if (bandyerSDKConfiguration!!.isProdEnvironment) {
             builder.setEnvironment(Environment.production())
-        } else if (bandyerSDKCOnfiguration!!.isSandoboxEnvironment) {
+        } else if (bandyerSDKConfiguration!!.isSandoboxEnvironment) {
             builder.setEnvironment(Environment.sandbox())
         }
 
-        if (bandyerSDKCOnfiguration!!.isCallEnabled)
-            builder.withCallEnabled(BandyerCordovaPluginCallNotificationListener(application, bandyerSDKCOnfiguration!!))
+        if (bandyerSDKConfiguration!!.isCallEnabled)
+            builder.withCallEnabled(BandyerCordovaPluginCallNotificationListener(application, bandyerSDKConfiguration!!))
 
-        if (bandyerSDKCOnfiguration!!.isWhiteboardEnabled)
+        if (bandyerSDKConfiguration!!.isWhiteboardEnabled)
             builder.withWhiteboardEnabled()
 
-        if (bandyerSDKCOnfiguration!!.isFileSharingEnabled)
+        if (bandyerSDKConfiguration!!.isFileSharingEnabled)
             builder.withFileSharingEnabled()
 
-        if (bandyerSDKCOnfiguration!!.isScreenSharingEnabled)
+        if (bandyerSDKConfiguration!!.isScreenSharingEnabled)
             builder.withScreenSharingEnabled()
 
-        if (bandyerSDKCOnfiguration!!.isChatEnabled)
-            builder.withChatEnabled(BandyerCordovaPluginChatNotificationListener(application, bandyerSDKCOnfiguration))
+        if (bandyerSDKConfiguration!!.isChatEnabled)
+            builder.withChatEnabled(BandyerCordovaPluginChatNotificationListener(application, bandyerSDKConfiguration!!))
 
-        if (bandyerSDKCOnfiguration!!.isLogEnabled)
+        if (bandyerSDKConfiguration!!.isLogEnabled)
             builder.setLogger(object : BandyerSDKLogger() {
                 override fun warn(tag: String, message: String) {
                     Log.w(BANDYER_LOG_TAG, message)
@@ -194,25 +194,25 @@ object BandyerCordovaPluginManager {
 
     @Throws(BandyerCordovaPluginMethodNotValidException::class)
     fun startCall(bandyerCordovaPlugin: BandyerCordovaPlugin, args: JSONArray) {
-        if (bandyerSDKCOnfiguration == null)
+        if (bandyerSDKConfiguration == null)
             throw BandyerCordovaPluginMethodNotValidException("A setup method call is needed before a call operation")
 
-        if (!bandyerSDKCOnfiguration!!.isCallEnabled)
+        if (!bandyerSDKConfiguration!!.isCallEnabled)
             throw BandyerCordovaPluginMethodNotValidException("Cannot manage a 'start call' request: call feature is not enabled!")
 
-        val bandyerCallIntent = BandyerCallIntentBuilder(bandyerCordovaPlugin.cordova.activity, bandyerSDKCOnfiguration!!, args).build()
+        val bandyerCallIntent = BandyerCallIntentBuilder(bandyerCordovaPlugin.cordova.activity, bandyerSDKConfiguration!!, args).build()
         bandyerCordovaPlugin.cordova.activity.startActivityForResult(bandyerCallIntent, BandyerCordovaPluginConstants.INTENT_REQUEST_CALL_CODE)
     }
 
     @Throws(BandyerCordovaPluginMethodNotValidException::class)
     fun startChat(bandyerCordovaPlugin: BandyerCordovaPlugin, args: JSONArray) {
-        if (bandyerSDKCOnfiguration == null)
+        if (bandyerSDKConfiguration == null)
             throw BandyerCordovaPluginMethodNotValidException("A setup method call is needed before a chat operation")
 
-        if (!bandyerSDKCOnfiguration!!.isChatEnabled)
+        if (!bandyerSDKConfiguration!!.isChatEnabled)
             throw BandyerCordovaPluginMethodNotValidException("Cannot manage a 'start chat' request: chat feature is not enabled!")
 
-        val bandyerChatIntent = BandyerChatIntentBuilder(bandyerCordovaPlugin.cordova.activity, bandyerSDKCOnfiguration!!, args).build()
+        val bandyerChatIntent = BandyerChatIntentBuilder(bandyerCordovaPlugin.cordova.activity, bandyerSDKConfiguration!!, args).build()
         bandyerCordovaPlugin.cordova.activity.startActivityForResult(bandyerChatIntent, BandyerCordovaPluginConstants.INTENT_REQUEST_CALL_CODE)
     }
 
@@ -246,8 +246,8 @@ object BandyerCordovaPluginManager {
         currentBandyerCordovaPlugin ?: return
         currentBandyerCordovaPlugin!!.cordova.activity.runOnUiThread {
             when (bandyerModule) {
-                is ChatModule -> currentBandyerCordovaPlugin!!.webView.loadUrl("javascript:window.BandyerCordovaPlugin.chatClientListener('${cordovaPluginStatus.name.toLowerCase()}')")
-                is CallModule -> currentBandyerCordovaPlugin!!.webView.loadUrl("javascript:window.BandyerCordovaPlugin.callClientListener('${cordovaPluginStatus.name.toLowerCase()}')")
+                is ChatModule -> currentBandyerCordovaPlugin!!.webView.loadUrl("javascript:window.BandyerPlugin.chatClientListener('${cordovaPluginStatus.name.toLowerCase()}')")
+                is CallModule -> currentBandyerCordovaPlugin!!.webView.loadUrl("javascript:window.BandyerPlugin.callClientListener('${cordovaPluginStatus.name.toLowerCase()}')")
             }
         }
     }

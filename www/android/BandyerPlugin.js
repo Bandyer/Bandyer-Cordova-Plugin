@@ -171,12 +171,10 @@ exports.clearUserCache = function (success, error) {
 }
 
 exports.callClientListener = function (message) {
-    // console.log('callClientListener [Log]: ' + { message: message });
     cordova.fireDocumentEvent('callClientEvent', { message: message });
 }
 
 exports.chatClientListener = function (message) {
-    // console.log('callClientListener [Log]: ' + { message: message });
     cordova.fireDocumentEvent('chatClientEvent', { message: message });
 }
 

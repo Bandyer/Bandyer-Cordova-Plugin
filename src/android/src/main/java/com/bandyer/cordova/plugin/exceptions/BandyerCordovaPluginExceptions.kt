@@ -1,4 +1,4 @@
-package com.bandyer.cordova.plugin.exception
+package com.bandyer.cordova.plugin.exceptions
 
 class BandyerCordovaPluginExceptions: Exception {
     constructor(s: String) : super(s)

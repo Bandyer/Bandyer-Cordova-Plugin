@@ -7,8 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
-import com.bandyer.cordova.plugin.exception.BandyerCordovaPluginNotificationKeyNotFound
-import com.bandyer.cordova.plugin.exception.NotificationPayloadDataPathNotDefined
+import com.bandyer.cordova.plugin.exceptions.BandyerCordovaPluginNotificationKeyNotFound
+import com.bandyer.cordova.plugin.exceptions.NotificationPayloadDataPathNotDefined
 import com.bandyer.cordova.plugin.extensions.asJSONObject
 import org.json.JSONObject
 

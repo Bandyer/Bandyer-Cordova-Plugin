@@ -1,6 +1,6 @@
 package com.bandyer.cordova.plugin
 
-import com.bandyer.cordova.plugin.exception.BandyerCordovaPluginExceptions
+import com.bandyer.cordova.plugin.exceptions.BandyerCordovaPluginExceptions
 import org.json.JSONArray
 import org.json.JSONObject
 

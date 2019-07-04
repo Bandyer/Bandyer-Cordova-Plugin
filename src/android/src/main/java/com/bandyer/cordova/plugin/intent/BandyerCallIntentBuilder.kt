@@ -39,7 +39,7 @@ class BandyerCallIntentBuilder(
         with(when {
             VALUE_CALL_TYPE_AUDIO == callType -> bandyerIntentBuilder.startWithAudioCall(initialContext, recording)
             VALUE_CALL_TYPE_AUDIO_UPGRADABLE == callType -> bandyerIntentBuilder.startWithAudioUpgradableCall(initialContext, recording)
-            VALUE_CALL_TYPE_AUDIO_VIDEO == callType -> bandyerIntentBuilder.startWithAudioCall(initialContext, recording)
+            VALUE_CALL_TYPE_AUDIO_VIDEO == callType -> bandyerIntentBuilder.startWithAudioVideoCall(initialContext, recording)
             else -> throw BandyerCordovaPluginExceptions("Missing parameter for BandyerIntent build. Please specify a call type or a join url.")
         }) {
 
