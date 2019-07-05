@@ -1,7 +1,6 @@
 package com.bandyer.cordova.plugin.intent
 
 import android.content.Context
-import android.util.Log
 import com.bandyer.android_sdk.intent.BandyerIntent
 import com.bandyer.android_sdk.intent.call.CallIntentOptions
 import org.json.JSONArray
