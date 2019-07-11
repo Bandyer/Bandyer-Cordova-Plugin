@@ -10,9 +10,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BCPCallClientEventEmitter : NSObject
 
-@property (nonatomic, weak, readonly) id <CDVWebViewEngineProtocol> webViewEngine;
+@property (nonatomic, weak, readonly) id <CDVCommandDelegate> commandDelegate;
+@property (nonatomic, strong, readonly) NSString* callbackId;
 
-- (instancetype)initWithWebViewEngine:(id <CDVWebViewEngineProtocol>)engine;
+- (instancetype)init:(NSString *)callbackId
+     commandDelegate:(id <CDVCommandDelegate>) commandDelegate;
 
 - (void)start;
 - (void)stop;

@@ -15,7 +15,6 @@
 
     BCPBandyerManager.shared.viewController = self.viewController;
     BCPBandyerManager.shared.webViewEngine = self.webViewEngine;
-    BCPBandyerManager.shared.notifier = [[BCPCallClientEventEmitter alloc] initWithWebViewEngine:self.webViewEngine];
 }
 
 - (void)initializeBandyer:(CDVInvokedUrlCommand *)command 
@@ -23,13 +22,7 @@
     CDVPluginResult *pluginResult = nil;
     NSDictionary *params = [command.arguments firstObject];
     BOOL result = [[BCPBandyerManager shared] configureBandyerWithParams:params];
-    
-    if (result)
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    else
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    BCPBandyerManager.shared.notifier = [[BCPCallClientEventEmitter alloc] init:command.callbackId commandDelegate: self.commandDelegate];
 }
 
 - (void)start:(CDVInvokedUrlCommand *)command 

@@ -32,7 +32,6 @@ class BandyerCordovaPlugin : CordovaPlugin() {
     private var bandyerCordovaPluginManager: BandyerCordovaPluginManager? = null
     private var bandyerCallbackContext: CallbackContext? = null
 
-
     override fun execute(action: String?, rawArgs: String?, callbackContext: CallbackContext?): Boolean {
         return super.execute(action, rawArgs, callbackContext)
     }
@@ -101,7 +100,6 @@ class BandyerCordovaPlugin : CordovaPlugin() {
         super.pluginInitialize()
         Log.e("CordovaPlugin","pluginInitialize $bandyerCallbackContext")
         bandyerCordovaPluginManager = BandyerCordovaPluginManager(bandyerCallbackContext)
-        bandyerCordovaPluginManager!!.setCurrentPlugin(this)
     }
 
     private fun setup(args: JSONArray) {

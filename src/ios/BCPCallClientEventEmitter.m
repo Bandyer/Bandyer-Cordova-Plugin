@@ -17,15 +17,15 @@
 @implementation BCPCallClientEventEmitter
 
 
-- (instancetype)initWithWebViewEngine:(id <CDVWebViewEngineProtocol>)engine
+- (instancetype)init:(NSString *)callbackId
+     commandDelegate:(id <CDVCommandDelegate>) commandDelegate
 {
-    NSAssert(engine, @"An engine must be provided");
-
     self = [super init];
 
     if (self)
     {
-        _webViewEngine = engine;
+        _commandDelegate = commandDelegate;
+        _callbackId = callbackId;
     }
 
     return self;
@@ -51,40 +51,41 @@
 
 - (void)callClientDidStart:(id <BCXCallClient>)client
 {
-    [self _sendCallClientEventToJS:kBCPCallClientReadyJSEvent];
+    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientReadyJSEvent]];
 }
 
 - (void)callClientDidStartReconnecting:(id <BCXCallClient>)client
 {
-    [self _sendCallClientEventToJS:kBCPCallClientReconnectingJSEvent];
+    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientReconnectingJSEvent]];
 }
 
 - (void)callClientDidPause:(id <BCXCallClient>)client
 {
-    [self _sendCallClientEventToJS:kBCPCallClientPausedJSEvent];
+    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientPausedJSEvent]];
 }
 
 - (void)callClientDidStop:(id <BCXCallClient>)client
 {
-    [self _sendCallClientEventToJS:kBCPCallClientStoppedJSEvent];
+    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientStoppedJSEvent]];
 }
 
 - (void)callClientDidResume:(id <BCXCallClient>)client
 {
-    [self _sendCallClientEventToJS:kBCPCallClientReadyJSEvent];
+    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientReadyJSEvent]];
 }
 
 - (void)callClient:(id <BCXCallClient>)client didFailWithError:(NSError *)error
 {
-    [self _sendCallClientEventToJS:kBCPCallClientFailedJSEvent];
+    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientFailedJSEvent]];
 }
 
-- (void)_sendCallClientEventToJS:(NSString *)eventName
-{
-    NSString *jsCallClientListenerFormat = @"window.plugins.BandyerPlugin._callClientStatusChangedListener('%@')";
-    NSString *javascript = [NSString stringWithFormat:jsCallClientListenerFormat, eventName];
-    [self.webViewEngine evaluateJavaScript:javascript completionHandler:^(id obj, NSError *error) {}];
+- (void)_sendEvent:(NSString *)eventName
+              args:(NSArray *) args {
+    
+    NSDictionary *message = @{ @"event":eventName, @"args":  args};
+    CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary: message];
+    [pluginResult setKeepCallbackAsBool:YES];
+    [_commandDelegate sendPluginResult:pluginResult callbackId:_callbackId];
 }
-
 
 @end

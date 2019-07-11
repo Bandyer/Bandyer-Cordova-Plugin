@@ -41,8 +41,6 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
 
     private var bandyerSDKConfiguration: BandyerSDKConfiguration? = null
 
-    private var currentBandyerCordovaPlugin: BandyerCordovaPlugin? = null
-
     private val usersDetailMap = HashMap<String, UserDetails>()
 
     private val moduleObserver = object : BandyerModuleObserver {
@@ -260,16 +258,10 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
     }
 
     private fun notifyStatusChange(bandyerModule: BandyerModule, cordovaPluginStatus: BandyerCordovaPluginStatus) {
-        currentBandyerCordovaPlugin ?: return
-        currentBandyerCordovaPlugin!!.cordova.activity.runOnUiThread {
-            when (bandyerModule) {
-                is ChatModule -> sendEvent("chatModuleStatusChanged", cordovaPluginStatus.name.toLowerCase())
-                is CallModule -> sendEvent("callModuleStatusChanged", cordovaPluginStatus.name.toLowerCase())
-            }
+        when (bandyerModule) {
+            is ChatModule -> sendEvent("chatModuleStatusChanged", cordovaPluginStatus.name.toLowerCase())
+            is CallModule -> sendEvent("callModuleStatusChanged", cordovaPluginStatus.name.toLowerCase())
         }
-    }
 
-    fun setCurrentPlugin(bandyerCordovaPlugin: BandyerCordovaPlugin) {
-        currentBandyerCordovaPlugin = bandyerCordovaPlugin
     }
 }

@@ -31,7 +31,6 @@ export class BandyerPlugin {
      */
     static setup(params) {
         const success = function (result) {
-            console.log("result", result.args);
             _bandyerHandlers.get(result.event).forEach(callback => {
                 callback.apply(undefined, result.args);
             });
@@ -103,7 +102,7 @@ export class BandyerPlugin {
      */
     static startCall(callOptions) {
         cordova.exec(null, null, 'BandyerPlugin', 'startCall', [{
-            callee: typeof callOptions.callee === 'undefined' ? [] : callOptions.callee,
+            callee: typeof callOptions.userAliases === 'undefined' ? [] : callOptions.userAliases,
             callType: typeof callOptions.callType === 'undefined' ? '' : callOptions.callType,
             recording: typeof callOptions.recording === 'undefined' ? false : callOptions.recording
         }]);
@@ -160,13 +159,6 @@ export class BandyerPlugin {
     }
 
     /**
-     * @ignore
-     */
-    static _callClientStatusChangedListener(status) {
-        cordova.fireDocumentEvent('callModuleStatusChangedEvent', {status: status});
-    }
-
-    /**
      * Open chat
      * @param {BandyerChatOptions} chatOptions
      */
@@ -195,13 +187,6 @@ export class BandyerPlugin {
      */
     static _isIos() {
         return device.platform.toLowerCase() === "ios";
-    }
-
-    /**
-     * @ignore
-     */
-    static _chatClientStatusChangedListener(status) {
-        if (this._isAndroid()) cordova.fireDocumentEvent('chatModuleStatusChangedEvent', {status: status}); else error('not yet supported on this platform.');
     }
 
     /**
