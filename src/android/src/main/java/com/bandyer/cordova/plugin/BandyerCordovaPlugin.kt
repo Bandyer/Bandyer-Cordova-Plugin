@@ -4,21 +4,22 @@ import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.util.Log
-import org.apache.cordova.CordovaPlugin
-import org.apache.cordova.CallbackContext
-import org.json.JSONArray
-import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_CLEAR_USER_CACHE
-import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_REMOVE_USERS_DETAILS
-import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_HANDLE_NOTIFICATION
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_ADD_USERS_DETAILS
+import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_CLEAR_USER_CACHE
+import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_HANDLE_NOTIFICATION
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_INITIALIZE
-import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_MAKE_CALL
-import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_MAKE_CHAT
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_PAUSE
+import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_REMOVE_USERS_DETAILS
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_RESUME
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_START
+import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_START_CALL
+import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_START_CHAT
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_STATE
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.METHOD_STOP
+import org.apache.cordova.CallbackContext
+import org.apache.cordova.CordovaArgs
+import org.apache.cordova.CordovaPlugin
+import org.json.JSONArray
 
 class BandyerCordovaPlugin : CordovaPlugin() {
 
@@ -28,38 +29,52 @@ class BandyerCordovaPlugin : CordovaPlugin() {
     private val application: Application
         get() = this.cordova.activity.application
 
+    private var bandyerCordovaPluginManager: BandyerCordovaPluginManager? = null
+    private var bandyerCallbackContext: CallbackContext? = null
+
+
+    override fun execute(action: String?, rawArgs: String?, callbackContext: CallbackContext?): Boolean {
+        return super.execute(action, rawArgs, callbackContext)
+    }
+
+    override fun execute(action: String?, args: CordovaArgs?, callbackContext: CallbackContext?): Boolean {
+        return super.execute(action, args, callbackContext)
+    }
+
     override fun execute(action: String, args: JSONArray, callbackContext: CallbackContext): Boolean {
         when (action) {
             METHOD_INITIALIZE -> {
-                this.setup(args, callbackContext)
+                bandyerCallbackContext = callbackContext
+                bandyerCordovaPluginManager?.bandyerCallbackContext = callbackContext
+                this.setup(args)
                 return true
             }
             METHOD_START -> {
-                this.start(args, callbackContext)
+                this.start(args)
                 return true
             }
             METHOD_RESUME -> {
-                this.resume(callbackContext)
+                this.resume()
                 return true
             }
             METHOD_PAUSE -> {
-                this.pause(callbackContext)
+                this.pause()
                 return true
             }
             METHOD_STOP -> {
-                this.stop(callbackContext)
+                this.stop()
                 return true
             }
             METHOD_STATE -> {
                 this.getCurrentState(callbackContext)
                 return true
             }
-            METHOD_MAKE_CALL -> {
-                this.startCall(args, callbackContext)
+            METHOD_START_CALL -> {
+                this.startCall(args)
                 return true
             }
-            METHOD_MAKE_CHAT -> {
-                this.startChat(args, callbackContext)
+            METHOD_START_CHAT -> {
+                this.startChat(args)
                 return true
             }
             METHOD_HANDLE_NOTIFICATION -> {
@@ -84,58 +99,34 @@ class BandyerCordovaPlugin : CordovaPlugin() {
 
     override fun pluginInitialize() {
         super.pluginInitialize()
-        BandyerCordovaPluginManager.setCurrentPlugin(this)
+        Log.e("CordovaPlugin","pluginInitialize $bandyerCallbackContext")
+        bandyerCordovaPluginManager = BandyerCordovaPluginManager(bandyerCallbackContext)
+        bandyerCordovaPluginManager!!.setCurrentPlugin(this)
     }
 
-    private fun setup(args: JSONArray, callbackContext: CallbackContext) {
-        val application = application
-        try {
-            BandyerCordovaPluginManager.setup(application, args)
-            callbackContext.success()
-        } catch (e: Throwable) {
-            callbackContext.error(e.message)
-        }
+    private fun setup(args: JSONArray) {
+        bandyerCordovaPluginManager!!.setup(application, args)
     }
 
-    private fun start(args: JSONArray, callbackContext: CallbackContext) {
-        try {
-            BandyerCordovaPluginManager.start(args)
-            callbackContext.success()
-        } catch (e: Throwable) {
-            callbackContext.error(e.message)
-        }
+    private fun start(args: JSONArray) {
+        bandyerCordovaPluginManager!!.start(args)
     }
 
-    private fun resume(callbackContext: CallbackContext) {
-        try {
-            BandyerCordovaPluginManager.resume()
-            callbackContext.success()
-        } catch (e: Throwable) {
-            callbackContext.error(e.message)
-        }
+    private fun resume() {
+        bandyerCordovaPluginManager!!.resume()
     }
 
-    private fun pause(callbackContext: CallbackContext) {
-        try {
-            BandyerCordovaPluginManager.pause()
-            callbackContext.success()
-        } catch (e: Throwable) {
-            callbackContext.error(e.message)
-        }
+    private fun pause() {
+        bandyerCordovaPluginManager!!.pause()
     }
 
-    private fun stop(callbackContext: CallbackContext) {
-        try {
-            BandyerCordovaPluginManager.stop()
-            callbackContext.success()
-        } catch (e: Throwable) {
-            callbackContext.error(e.message)
-        }
+    private fun stop() {
+        bandyerCordovaPluginManager!!.stop()
     }
 
     private fun getCurrentState(callbackContext: CallbackContext) {
         try {
-            val currentState = BandyerCordovaPluginManager.currentState
+            val currentState = bandyerCordovaPluginManager!!.currentState
             callbackContext.success(currentState)
         } catch (e: Throwable) {
             callbackContext.error(e.message)
@@ -144,7 +135,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
 
     private fun clearUserCache(callbackContext: CallbackContext) {
         try {
-            BandyerCordovaPluginManager.clearUserCache()
+            bandyerCordovaPluginManager!!.clearUserCache()
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)
@@ -153,38 +144,26 @@ class BandyerCordovaPlugin : CordovaPlugin() {
 
     private fun handlePushNotificationPayload(args: JSONArray, callbackContext: CallbackContext) {
         try {
-            BandyerCordovaPluginManager.handlePushNotificationPayload(application, args)
+            bandyerCordovaPluginManager!!.handlePushNotificationPayload(application, args)
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)
         }
     }
 
-    private fun startCall(args: JSONArray, callbackContext: CallbackContext) {
-        try {
-            mCallCallback = callbackContext
-            BandyerCordovaPluginManager.startCall(this, args)
-        } catch (e: Throwable) {
-            mCallCallback = null
-            callbackContext.error(e.message)
-        }
+    private fun startCall(args: JSONArray) {
+        bandyerCordovaPluginManager!!.startCall(this, args)
     }
 
-    private fun startChat(args: JSONArray, callbackContext: CallbackContext) {
-        try {
-            mCallCallback = callbackContext
-            BandyerCordovaPluginManager.startChat(this, args)
-        } catch (e: Throwable) {
-            mCallCallback = null
-            callbackContext.error(e.message)
-        }
+    private fun startChat(args: JSONArray) {
+        bandyerCordovaPluginManager!!.startChat(this, args)
     }
 
     private fun addUsersDetails(args: JSONArray, callbackContext: CallbackContext) {
         try {
             mCallCallback = callbackContext
             if (args.length() == 0) return
-            BandyerCordovaPluginManager.addUserDetails(args)
+            bandyerCordovaPluginManager!!.addUserDetails(args)
         } catch (e: Throwable) {
             mCallCallback = null
             callbackContext.error(e.message)
@@ -193,7 +172,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
 
     private fun removeUsersDetails(callbackContext: CallbackContext) {
         try {
-            BandyerCordovaPluginManager.clearUserDetails()
+            bandyerCordovaPluginManager!!.clearUserDetails()
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)
@@ -210,7 +189,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
 
             if (requestCode == BandyerCordovaPluginConstants.INTENT_REQUEST_CALL_CODE) {
 
-                if (BandyerCordovaPluginManager.isLogEnabled)
+                if (bandyerCordovaPluginManager!!.isLogEnabled)
                     Log.d(BandyerCordovaPluginConstants.BANDYER_LOG_TAG, "Error on call request: $error")
 
                 if (mCallCallback != null) {
@@ -218,7 +197,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
                     mCallCallback = null
                 }
             } else if (requestCode == BandyerCordovaPluginConstants.INTENT_REQUEST_CHAT_CODE) {
-                if (BandyerCordovaPluginManager.isLogEnabled)
+                if (bandyerCordovaPluginManager!!.isLogEnabled)
                     Log.d(BandyerCordovaPluginConstants.BANDYER_LOG_TAG, "Error on chat request: $error")
 
                 if (mChatCallback != null) {

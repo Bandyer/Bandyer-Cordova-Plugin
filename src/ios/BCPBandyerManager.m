@@ -158,7 +158,7 @@
     return YES;
 }
 
-- (BOOL)makeCallWithParams:(NSDictionary *)params
+- (BOOL)startCallWithParams:(NSDictionary *)params
 {
     NSAssert(params, @"Params dictionary must be provided, got nil");
 

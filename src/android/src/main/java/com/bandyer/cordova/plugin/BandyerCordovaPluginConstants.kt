@@ -9,8 +9,8 @@ object BandyerCordovaPluginConstants {
     const val METHOD_PAUSE = "pause"
     const val METHOD_RESUME = "resume"
     const val METHOD_STATE = "state"
-    const val METHOD_MAKE_CALL = "makeCall"
-    const val METHOD_MAKE_CHAT = "makeChat"
+    const val METHOD_START_CALL = "startCall"
+    const val METHOD_START_CHAT = "startChat"
     const val METHOD_HANDLE_NOTIFICATION = "handlePushNotificationPayload"
     const val METHOD_CLEAR_USER_CACHE = "clearUserCache"
     const val METHOD_ADD_USERS_DETAILS = "addUsersDetails"
@@ -40,14 +40,13 @@ object BandyerCordovaPluginConstants {
 
     // START CHAT
     const val ARG_CHAT_USER_ALIAS = "userAlias"
-    const val VALUE_CALL_TYPE_CHAT_ONLY = "c"
 
     // START CALL AND CHAT
     const val ARG_RECORDING = "recording"
     const val ARG_CALL_TYPE = "callType"
-    const val VALUE_CALL_TYPE_AUDIO = "a"
-    const val VALUE_CALL_TYPE_AUDIO_UPGRADABLE = "au"
-    const val VALUE_CALL_TYPE_AUDIO_VIDEO = "av"
+    const val VALUE_CALL_TYPE_AUDIO = "audio"
+    const val VALUE_CALL_TYPE_AUDIO_UPGRADABLE = "audioUpgradable"
+    const val VALUE_CALL_TYPE_AUDIO_VIDEO = "audioVideo"
 
     // USER DETAILS
     const val ARG_USERS_DETAILS = "details"

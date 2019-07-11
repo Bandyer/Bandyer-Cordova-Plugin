@@ -25,18 +25,19 @@ import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.ARG_USER_DETAILS
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.BANDYER_LOG_TAG
 import com.bandyer.cordova.plugin.exceptions.BandyerCordovaPluginExceptions
 import com.bandyer.cordova.plugin.exceptions.BandyerCordovaPluginMethodNotValidException
-import com.bandyer.cordova.plugin.extensions.retrieveLoginUserAlias
-import com.bandyer.cordova.plugin.extensions.retrievePushNotificationPayload
-import com.bandyer.cordova.plugin.extensions.retrieveUserDetails
 import com.bandyer.cordova.plugin.extensions.toCordovaModuleStatus
 import com.bandyer.cordova.plugin.intent.BandyerCallIntentBuilder
 import com.bandyer.cordova.plugin.intent.BandyerChatIntentBuilder
 import com.bandyer.cordova.plugin.listeners.BandyerCordovaPluginCallNotificationListener
 import com.bandyer.cordova.plugin.listeners.BandyerCordovaPluginChatNotificationListener
+import org.apache.cordova.CallbackContext
+import org.apache.cordova.PluginResult
 import org.json.JSONArray
+import org.json.JSONObject
 import java.util.*
 
-object BandyerCordovaPluginManager {
+
+class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) {
 
     private var bandyerSDKConfiguration: BandyerSDKConfiguration? = null
 
@@ -53,6 +54,18 @@ object BandyerCordovaPluginManager {
                 notifyStatusChange(module, cordovaModuleStatus)
             }
         }
+    }
+
+    fun sendEvent(event: String, vararg args: Any?) {
+        val message = JSONObject()
+        message.put("event", event)
+        val data = JSONArray().apply {
+            args.forEach { put(it) }
+        }
+        message.put("args", data)
+        val pluginResult = PluginResult(PluginResult.Status.OK, message)
+        pluginResult.keepCallback = true
+        bandyerCallbackContext?.sendPluginResult(pluginResult)
     }
 
     val currentState: String
@@ -96,15 +109,19 @@ object BandyerCordovaPluginManager {
                 override fun warn(tag: String, message: String) {
                     Log.w(BANDYER_LOG_TAG, message)
                 }
+
                 override fun verbose(tag: String, message: String) {
                     Log.v(BANDYER_LOG_TAG, message)
                 }
+
                 override fun info(tag: String, message: String) {
                     Log.i(BANDYER_LOG_TAG, message)
                 }
+
                 override fun error(tag: String, message: String) {
                     Log.e(BANDYER_LOG_TAG, message)
                 }
+
                 override fun debug(tag: String, message: String) {
                     Log.d(BANDYER_LOG_TAG, message)
                 }
@@ -134,11 +151,9 @@ object BandyerCordovaPluginManager {
 
         addObservers()
 
-        try {
-            BandyerSDKClient.getInstance().init(args.retrieveLoginUserAlias(), options)
-        } catch(exception: BandyerCordovaPluginExceptions) {
-            throw exception
-        }
+        val userAlias = args.getJSONObject(0).optString(BandyerCordovaPluginConstants.ARG_USER_ALIAS)
+
+        BandyerSDKClient.getInstance().init(userAlias, options)
 
         startListening()
     }
@@ -189,7 +204,8 @@ object BandyerCordovaPluginManager {
     }
 
     fun handlePushNotificationPayload(application: Application, args: JSONArray) {
-        BandyerSDKClient.getInstance().handleNotification(application, args.retrievePushNotificationPayload())
+        val payload = args.getJSONObject(0).optString(BandyerCordovaPluginConstants.ARG_HANDLE_NOTIFICATION)
+        BandyerSDKClient.getInstance().handleNotification(application, payload)
     }
 
     @Throws(BandyerCordovaPluginMethodNotValidException::class)
@@ -217,7 +233,8 @@ object BandyerCordovaPluginManager {
     }
 
     fun addUserDetails(args: JSONArray) {
-        val userDetails = args.retrieveUserDetails()
+        val userDetails = args.optJSONObject(0).optJSONArray(BandyerCordovaPluginConstants.ARG_USERS_DETAILS)
+                ?: JSONArray()
 
         addUserDetailsLoop@ for (i in 0 until userDetails.length()) {
             val userJsonDetails = userDetails.getJSONObject(i)
@@ -246,8 +263,8 @@ object BandyerCordovaPluginManager {
         currentBandyerCordovaPlugin ?: return
         currentBandyerCordovaPlugin!!.cordova.activity.runOnUiThread {
             when (bandyerModule) {
-                is ChatModule -> currentBandyerCordovaPlugin!!.webView.loadUrl("javascript:window.BandyerPlugin.chatClientListener('${cordovaPluginStatus.name.toLowerCase()}')")
-                is CallModule -> currentBandyerCordovaPlugin!!.webView.loadUrl("javascript:window.BandyerPlugin.callClientListener('${cordovaPluginStatus.name.toLowerCase()}')")
+                is ChatModule -> sendEvent("chatModuleStatusChanged", cordovaPluginStatus.name.toLowerCase())
+                is CallModule -> sendEvent("callModuleStatusChanged", cordovaPluginStatus.name.toLowerCase())
             }
         }
     }

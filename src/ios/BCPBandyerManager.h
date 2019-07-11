@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopCallClient;
 - (nullable NSString *)callClientState;
 - (BOOL)handleNotificationPayloadWithParams:(NSDictionary *)params;
-- (BOOL)makeCallWithParams:(NSDictionary *)params;
+- (BOOL)startCallWithParams:(NSDictionary *)params;
 - (void)addUsersDetails:(NSDictionary *)params;
 - (void)removeUsersDetails;
 

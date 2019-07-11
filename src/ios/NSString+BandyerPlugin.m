@@ -21,12 +21,10 @@
 }
 
 - (BDKCallType)toBDKCallType {
-    if ([[self lowercaseString] isEqualToString:@"a"]) {
+    if ([[self lowercaseString] isEqualToString:@"audio"]) {
         return BDKCallTypeAudioOnly;
-        
-    } else if ([[self lowercaseString] isEqualToString:@"au"]) {
+    } else if ([[self lowercaseString] isEqualToString:@"audioUpgradable"]) {
         return BDKCallTypeAudioUpgradable;
-        
     } else {
         return BDKCallTypeAudioVideo;
     }

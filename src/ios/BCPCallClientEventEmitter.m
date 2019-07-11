@@ -81,7 +81,7 @@
 
 - (void)_sendCallClientEventToJS:(NSString *)eventName
 {
-    NSString *jsCallClientListenerFormat = @"window.BandyerPlugin.callClientListener('%@')";
+    NSString *jsCallClientListenerFormat = @"window.plugins.BandyerPlugin._callClientStatusChangedListener('%@')";
     NSString *javascript = [NSString stringWithFormat:jsCallClientListenerFormat, eventName];
     [self.webViewEngine evaluateJavaScript:javascript completionHandler:^(id obj, NSError *error) {}];
 }

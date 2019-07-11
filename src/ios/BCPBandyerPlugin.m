@@ -88,11 +88,11 @@
         [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR] callbackId:command.callbackId];
 }
 
-- (void)makeCall:(CDVInvokedUrlCommand *)command 
+- (void)startCall:(CDVInvokedUrlCommand *)command
 {
     CDVPluginResult *pluginResult = nil;
     NSDictionary *params = [command.arguments firstObject];
-    BOOL result = [[BCPBandyerManager shared] makeCallWithParams:params];
+    BOOL result = [[BCPBandyerManager shared] startCallWithParams:params];
     
     if (result)
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
