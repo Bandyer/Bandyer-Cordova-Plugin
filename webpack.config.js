@@ -1,4 +1,5 @@
 module.exports = {
+    mode: "production",
     entry: {
         main: ['./www/src/BandyerPlugin.js']
     },

@@ -1,40 +1,42 @@
 {
-    "name": "cordova-plugin-bandyer",
-    "version": "0.0.1",
-    "description": "Bandyer as simple as making a phone call",
-    "_location": "/cordova-plugin-bandyer",
-    "cordova": {
-        "id": "cordova-plugin-bandyer",
-        "platforms": [
-            "ios",
-            "android"
-        ]
-    },
-    "keywords": [
-        "ecosystem:cordova",
-        "cordova-ios",
-        "cordova-android"
-    ],
-    "author": "Bandyer",
-    "license": "LGPL-3.0-or-later",
-    "scripts": {
-        "build": "webpack --optimize-minimize",
-        "major": "npm version major -m \"* Updated to version %s\"",
-        "minor": "npm version minor -m \"* Updated to version %s\"",
-        "patch": "npm version patch -m \"* Updated to version %s\""
-    },
-    "devDependencies": {
-        "@babel/core": "^7.5.4",
-        "@babel/runtime-corejs3": "^7.5.4",
-        "core-js": "^3.1.4",
-        "regenerator-runtime": "^0.13.2",
-        "@babel/cli": "^7.5.0",
-        "@babel/plugin-transform-runtime": "^7.5.0",
-        "@babel/preset-env": "^7.5.4",
-        "babel-loader": "^8.0.6",
-        "esdoc": "^1.1.0",
-        "esdoc-standard-plugin": "^1.0.0",
-        "webpack": "^4.35.3",
-        "webpack-cli": "^3.3.5"
-    }
+  "name": "cordova-plugin-bandyer",
+  "version": "0.0.1",
+  "description": "Bandyer as simple as making a phone call",
+  "_location": "/cordova-plugin-bandyer",
+  "cordova": {
+    "id": "cordova-plugin-bandyer",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "author": "Bandyer",
+  "license": "LGPL-3.0-or-later",
+  "scripts": {
+    "build": "webpack --optimize-minimize",
+    "doc": "./node_modules/.bin/esdoc",
+    "openDoc": "open ./docs/index.html",
+    "major": "npm version major -m \"* Updated to version %s\"",
+    "minor": "npm version minor -m \"* Updated to version %s\"",
+    "patch": "npm version patch -m \"* Updated to version %s\""
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/runtime-corejs3": "^7.5.4",
+    "core-js": "^3.1.4",
+    "regenerator-runtime": "^0.13.2",
+    "@babel/cli": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.0",
+    "@babel/preset-env": "^7.5.4",
+    "babel-loader": "^8.0.6",
+    "esdoc": "^1.1.0",
+    "esdoc-standard-plugin": "^1.0.0",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5"
+  }
 }
