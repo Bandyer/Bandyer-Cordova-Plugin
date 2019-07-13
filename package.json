@@ -18,7 +18,8 @@
   "author": "Bandyer",
   "license": "LGPL-3.0-or-later",
   "scripts": {
-    "build": "webpack --optimize-minimize",
+    "build": "webpack --optimize-minimize && ./gradlew clean build && npm run copyBuildConfig",
+    "copyBuildConfig": "yes | cp src/android/build/generated/source/buildConfig/debug/com/bandyer/cordova/plugin/BuildConfig.java src/android/src/main/release/java/com/bandyer/cordova/plugin/BuildConfig.java",
     "doc": "./node_modules/.bin/esdoc",
     "openDoc": "open ./docs/index.html",
     "major": "npm version major -m \"* Updated to version %s\"",
