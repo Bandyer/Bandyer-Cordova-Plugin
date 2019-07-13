@@ -2,20 +2,6 @@ package com.bandyer.cordova.plugin
 
 object BandyerCordovaPluginConstants {
 
-    // METHODS
-    const val METHOD_INITIALIZE = "initializeBandyer"
-    const val METHOD_START = "start"
-    const val METHOD_STOP = "stop"
-    const val METHOD_PAUSE = "pause"
-    const val METHOD_RESUME = "resume"
-    const val METHOD_STATE = "state"
-    const val METHOD_START_CALL = "startCall"
-    const val METHOD_START_CHAT = "startChat"
-    const val METHOD_HANDLE_NOTIFICATION = "handlePushNotificationPayload"
-    const val METHOD_CLEAR_USER_CACHE = "clearUserCache"
-    const val METHOD_ADD_USERS_DETAILS = "addUsersDetails"
-    const val METHOD_REMOVE_USERS_DETAILS = "clearUsersDetails"
-
     // INIT
     const val VALUE_ENVIRONMENT_PRODUCTION = "production"
     const val VALUE_ENVIRONMENT_SANDBOX = "sandbox"
