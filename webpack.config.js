@@ -1,7 +1,13 @@
 module.exports = {
     mode: "production",
     entry: {
-        main: ['./www/src/BandyerPlugin.js']
+        main: ['./www/src/BandyerPlugin.ts']
+    },
+
+    // Enable sourcemaps for debugging webpack's output.
+    devtool: "source-map",
+    resolve: {
+        extensions: ['.ts', '.js']
     },
     output: {
         path: __dirname + '/www/out',
@@ -19,6 +25,16 @@ module.exports = {
                 use: {
                     loader: 'babel-loader'
                 }
+            },
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            {
+                enforce: "pre",
+                test: /\.js$/,
+                loader: "source-map-loader"
+            },
+            {
+                test: /\.tsx?$/,
+                loader: "awesome-typescript-loader"
             }
         ]
     },

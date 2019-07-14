@@ -7,3 +7,11 @@
  * @property {?string} email email of the user.
  * @property {?string} profileImageUrl image url to use as placeholder for the user.
  */
+interface BandyerUserDetails {
+    userAlias: string,
+    nickName: string | null,
+    firstName: string | null,
+    lastName: string | null,
+    email: string | null,
+    profileImageUrl: string | null
+}

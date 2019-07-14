@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "outDir": "./www/out",
+    "allowJs": true,
+    "target": "es5"
+  },
+  "include": [
+    "./www/src/*"
+  ]
+}

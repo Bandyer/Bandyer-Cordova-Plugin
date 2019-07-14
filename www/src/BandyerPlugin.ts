@@ -5,6 +5,9 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
+declare let cordova: any;
+declare let device: any;
+
 /**
  * @ignore
  * @private
@@ -22,21 +25,25 @@ export class BandyerPlugin {
      * @param {?function(args:...Object)} callback
      */
     static on(event, callback) {
-        if (_bandyerHandlers.get(event) === undefined) _bandyerHandlers.set(event, [callback]); else _bandyerHandlers.get(event).push(callback);
+        if (_bandyerHandlers.get(event) === undefined) {
+            _bandyerHandlers.set(event, [callback]);
+        } else {
+            _bandyerHandlers.get(event).push(callback);
+        }
     }
 
     /**
      * Call this method when device is ready to setup the plugin
      * @param {!BandyerPluginConfigs} params
      */
-    static setup(params) {
-        const success = function (result) {
+    static setup(params: BandyerPluginConfigs) {
+        const success = result => {
             _bandyerHandlers.get(result.event).forEach(callback => {
                 callback.apply(undefined, result.args);
             });
         };
 
-        const fail = function (error) {
+        const fail = error => {
             console.log("callbackErrorSetup");
             console.log(error);
         };
@@ -58,7 +65,7 @@ export class BandyerPlugin {
      * Start the plugin to be used by the userAlias provided
      * @param {!string} userAlias identifier for the user
      */
-    static startFor(userAlias) {
+    static startFor(userAlias: string[]) {
         // check userAlias
         cordova.exec(null, null, 'BandyerPlugin', 'start', [{
             userAlias: typeof userAlias === 'undefined' ? '' : userAlias
@@ -100,7 +107,7 @@ export class BandyerPlugin {
      * Start Call with the callee defined
      * @param {BandyerCallOptions} callOptions
      */
-    static startCall(callOptions) {
+    static startCall(callOptions: BandyerCallOptions) {
         cordova.exec(null, null, 'BandyerPlugin', 'startCall', [{
             callee: typeof callOptions.userAliases === 'undefined' ? [] : callOptions.userAliases,
             callType: typeof callOptions.callType === 'undefined' ? '' : callOptions.callType,
@@ -112,9 +119,9 @@ export class BandyerPlugin {
      * Start Call from url
      * @param {string} url received
      */
-    static startCallFrom(url) {
+    static startCallFrom(url: string) {
         cordova.exec(null, null, 'BandyerPlugin', 'startCall', [{
-            joinUrl: typeof callOptions.joinUrl === 'undefined' ? '' : callOptions.joinUrl
+            joinUrl: url === 'undefined' ? '' : url
         }]);
     }
 
@@ -123,7 +130,7 @@ export class BandyerPlugin {
      * to setup the UI
      * @param {Array<BandyerUserDetails>} userDetails  array of user details
      */
-    static addUsersDetails(userDetails) {
+    static addUsersDetails(userDetails: BandyerUserDetails[]) {
         cordova.exec(null, null, 'BandyerPlugin', 'addUsersDetails', [{
             details: typeof userDetails === 'undefined' ? [] : userDetails
         }]);
@@ -152,7 +159,7 @@ export class BandyerPlugin {
      * @param {?function(): void} success callback
      * @param {?function(): void} error callback
      */
-    static handlePushNotificationPayload(payload, success, error) {
+    static handlePushNotificationPayload(payload: string, success, error) {
         cordova.exec(success, error, 'BandyerPlugin', 'handlePushNotificationPayload', [{
             payload: typeof payload === 'undefined' ? '' : payload
         }]);
@@ -162,7 +169,7 @@ export class BandyerPlugin {
      * Open chat
      * @param {BandyerChatOptions} chatOptions
      */
-    static startChat(chatOptions) {
+    static startChat(chatOptions: BandyerChatOptions) {
         if (this._isAndroid()) {
             cordova.exec(null, null, 'BandyerPlugin', 'startChat', [{
                 userAlias: typeof chatOptions.userAlias === 'undefined' ? '' : chatOptions.userAlias,
@@ -170,7 +177,9 @@ export class BandyerPlugin {
                 audioUpgradable: typeof chatOptions.withAudioUpgradableCallCapability === 'undefined' ? false : chatOptions.withAudioUpgradableCallCapability,
                 audioVideo: typeof chatOptions.withAudioVideoCallCapability === 'undefined' ? false : chatOptions.withAudioVideoCallCapability
             }]);
-        } else error('not yet supported on this platform.');
+        } else {
+            console.log('Not yet supported on ', device.platform, " platform.");
+        }
     }
 
     /**
@@ -195,22 +204,26 @@ export class BandyerPlugin {
      * @param {?function(): void} error callback
      */
     static clearUserCache(success, error) {
-        if (this._isAndroid()) exec(success, error, 'BandyerPlugin', 'clearUserCache', []); else error('method not supported.');
+        if (this._isAndroid()) {
+            cordova.exec(success, error, 'BandyerPlugin', 'clearUserCache', []);
+        } else {
+            error('method not supported.');
+        }
     }
 
     // GETTERS AND SETTERS
-
-    /**
-     * Currently Bandyer supports 3 different kind of calls.
-     * Audio Only, Audio Upgradable to video and Audio&Video call.
-     * @returns {CallType}
-     * @constructor
-     */
-    static get CallType() {
-        return {
-            AUDIO: "audio",
-            AUDIO_UPGRADABLE: "audioUpgradable",
-            AUDIO_VIDEO: "audioVideo"
-        };
-    }
+    //
+    // /**
+    //  * Currently Bandyer supports 3 different kind of calls.
+    //  * Audio Only, Audio Upgradable to video and Audio&Video call.
+    //  * @returns {CallType}
+    //  * @constructor
+    //  */
+    // static get CallType() : BandyerCallType {
+    //     return {
+    //         BandyerCallType.AUDIO,
+    //         BandyerCallType.AUDIO_UPGRADABLE,
+    //         BandyerCallType.AUDIO_VIDEO
+    //     };
+    // }
 }
