@@ -3,14 +3,19 @@
     "outDir": "./www/out",
     "allowJs": true,
     "target": "es5",
-    "normalTypeScriptOptions": "here"
+    "normalTypeScriptOptions": "here",
+    "plugins": [
+      {
+        "transform": "typescript-is/lib/transform-inline/transformer"
+      }
+    ]
   },
   "include": [
     "./www/src/*",
     "./www/src/events/*"
   ],
   "typedocOptions": {
-    "mode": "modules",
+    "mode": "file",
     "out": "docs"
   }
 }

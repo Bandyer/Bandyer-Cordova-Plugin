@@ -10,6 +10,8 @@ import {CreateCallOptions} from "./CreateCallOptions";
 import {UserDetails} from "./UserDetails";
 import {CreateChatOptions} from "./CreateChatOptions";
 import {CallType} from "./CallType";
+import {IllegalArgumentError} from "./errors/IllegalArgumentError";
+import {is} from "typescript-is";
 
 /**
  * @ignore
@@ -49,8 +51,19 @@ export class BandyerPlugin extends EventListener {
     /**
      * Call this method when device is ready to setup the plugin
      * @param params
+     * @throws IllegalArgumentError
      */
     static setup(params: BandyerPluginConfigs): BandyerPlugin {
+        if (!is<BandyerPluginConfigs>(params)) {
+            throw new IllegalArgumentError("Expected an object of type BandyerPluginConfigs!");
+        }
+        if (params.environment === '') {
+            throw new IllegalArgumentError("Expected a not empty environment!");
+        }
+        if (params.appId === '') {
+            throw new IllegalArgumentError("Expected a not empty appId!");
+        }
+
         if (this.instance) {
             console.log("BandyerPlugin was already setup.");
             return this.instance;
@@ -70,8 +83,8 @@ export class BandyerPlugin extends EventListener {
         };
 
         cordova.exec(success, fail, 'BandyerPlugin', 'initializeBandyer', [{
-            environment: typeof params.environment === 'undefined' ? '' : params.environment,
-            appId: typeof params.appId === 'undefined' ? '' : params.appId,
+            environment: params.environment,
+            appId: params.appId,
             logEnabled: params.logEnabled === true,
             ios_callkitEnabled: params.iosConfig.callkitEnabled !== false,
             android_isCallEnabled: params.androidConfig.callEnabled !== false,
@@ -96,11 +109,18 @@ export class BandyerPlugin extends EventListener {
     /**
      * Start the plugin to be used by the userAlias provided
      * @param userAlias identifier for the user
+     * @throws IllegalArgumentError
      */
-    startFor(userAlias: string[]) {
+    startFor(userAlias: string) {
+        if (!is<string>(userAlias)) {
+            throw new IllegalArgumentError("Expected userAlias as string!");
+        }
+        if (userAlias === '') {
+            throw new IllegalArgumentError("Expected a not empty userAlias!");
+        }
         // check userAlias
         cordova.exec(null, null, 'BandyerPlugin', 'start', [{
-            userAlias: typeof userAlias === 'undefined' ? '' : userAlias
+            userAlias: userAlias
         }]);
     }
 
@@ -138,20 +158,35 @@ export class BandyerPlugin extends EventListener {
     /**
      * Start Call with the callee defined
      * @param callOptions
+     * @throws IllegalArgumentError
      */
     startCall(callOptions: CreateCallOptions) {
+        if (!is<CreateCallOptions>(callOptions)) {
+            throw new IllegalArgumentError("Expected an object of type CreateCallOptions!");
+        }
+        if (callOptions.userAliases.length === 0) {
+            throw new IllegalArgumentError("No userAliases were provided!");
+        }
         cordova.exec(null, null, 'BandyerPlugin', 'startCall', [{
-            callee: typeof callOptions.userAliases === 'undefined' ? [] : callOptions.userAliases,
-            callType: typeof callOptions.callType === 'undefined' ? '' : callOptions.callType,
-            recording: typeof callOptions.recording === 'undefined' ? false : callOptions.recording
+            callee: callOptions.userAliases,
+            callType: callOptions.callType,
+            recording: callOptions.recording
         }]);
     }
 
     /**
      * Start Call from url
      * @param url received
+     * @throws IllegalArgumentError
      */
     startCallFrom(url: string) {
+        if (!is<string>(url)) {
+            throw new IllegalArgumentError("Expected an url of type string!");
+        }
+        if (url === '') {
+            throw new IllegalArgumentError("Expected a not empty url!");
+        }
+
         cordova.exec(null, null, 'BandyerPlugin', 'startCall', [{
             joinUrl: url === 'undefined' ? '' : url
         }]);
@@ -161,10 +196,17 @@ export class BandyerPlugin extends EventListener {
      * Call this method to provide the details for each user. The Bandyer Plugin will use this information
      * to setup the UI
      * @param userDetails  array of user details
+     * @throws IllegalArgumentError
      */
     addUsersDetails(userDetails: UserDetails[]) {
+        if (!is<UserDetails[]>(userDetails)) {
+            throw new IllegalArgumentError("Expected an array of type UserDetails!");
+        }
+        if (userDetails.length === 0) {
+            throw new IllegalArgumentError("No userDetails were provided!");
+        }
         cordova.exec(null, null, 'BandyerPlugin', 'addUsersDetails', [{
-            details: typeof userDetails === 'undefined' ? [] : userDetails
+            details: userDetails
         }]);
     }
 
@@ -190,8 +232,16 @@ export class BandyerPlugin extends EventListener {
      * @param payload notification data payload as String
      * @param success callback
      * @param error callback
+     * @throws IllegalArgumentError
      */
     handlePushNotificationPayload(payload: string, success?: () => void, error?: () => void) {
+        if (!is<string>(payload)) {
+            throw new IllegalArgumentError("Expected a payload of type string!");
+        }
+        if (payload === '') {
+            throw new IllegalArgumentError("Expected a not empty payload!");
+        }
+
         cordova.exec(success, error, 'BandyerPlugin', 'handlePushNotificationPayload', [{
             payload: typeof payload === 'undefined' ? '' : payload
         }]);
@@ -200,14 +250,22 @@ export class BandyerPlugin extends EventListener {
     /**
      * Open chat
      * @param chatOptions
+     * @throws IllegalArgumentError
      */
     startChat(chatOptions: CreateChatOptions) {
+        if (!is<CreateChatOptions>(chatOptions)) {
+            throw new IllegalArgumentError("Expected an object of type CreateChatOptions!");
+        }
+        if (chatOptions.userAlias === '') {
+            throw new IllegalArgumentError("Expected a not empty userAlias!");
+        }
+
         if (this._isAndroid()) {
             cordova.exec(null, null, 'BandyerPlugin', 'startChat', [{
-                userAlias: typeof chatOptions.userAlias === 'undefined' ? '' : chatOptions.userAlias,
-                audio: typeof chatOptions.withAudioCallCapability === 'undefined' ? '' : chatOptions.withAudioCallCapability,
-                audioUpgradable: typeof chatOptions.withAudioUpgradableCallCapability === 'undefined' ? false : chatOptions.withAudioUpgradableCallCapability,
-                audioVideo: typeof chatOptions.withAudioVideoCallCapability === 'undefined' ? false : chatOptions.withAudioVideoCallCapability
+                userAlias: chatOptions.userAlias,
+                audio: chatOptions.withAudioCallCapability,
+                audioUpgradable: chatOptions.withAudioUpgradableCallCapability,
+                audioVideo: chatOptions.withAudioVideoCallCapability
             }]);
         } else {
             console.log('Not yet supported on ', device.platform, " platform.");

@@ -9,7 +9,9 @@ import {Events} from "./Events";
  * @event callModuleStatusChanged
  */
 export interface CallModuleStatusChanged {
+
     /**
+     * Register to this event via [[BandyerPlugin.on]]
      * @param event callModuleStatusChanged
      * @param callback with the status as parameter
      */
