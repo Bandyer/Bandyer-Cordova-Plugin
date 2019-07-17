@@ -1,0 +1,17 @@
+import {Events} from "./Events";
+
+/**
+ * You shall listen to this event via [[BandyerPlugin.on]]
+ * <br/>
+ * <h3>
+ * <font color="gray">This event will be fired when the status of the call module has changed</font>
+ * </h3>
+ * @event callModuleStatusChanged
+ */
+export interface CallModuleStatusChanged {
+    /**
+     * @param event callModuleStatusChanged
+     * @param callback with the status as parameter
+     */
+    on(event: Events.callModuleStatusChanged, callback: ((status: string) => void))
+}

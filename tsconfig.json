@@ -2,9 +2,15 @@
   "compilerOptions": {
     "outDir": "./www/out",
     "allowJs": true,
-    "target": "es5"
+    "target": "es5",
+    "normalTypeScriptOptions": "here"
   },
   "include": [
-    "./www/src/*"
-  ]
+    "./www/src/*",
+    "./www/src/events/*"
+  ],
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs"
+  }
 }

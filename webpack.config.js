@@ -1,3 +1,5 @@
+var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
+
 module.exports = {
     mode: "production",
     entry: {
@@ -38,6 +40,15 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new TypedocWebpackPlugin({
+            name: 'Bandyer',
+            mode: 'file',
+            theme: './typedoc-theme/',
+            includeDeclarations: false,
+            ignoreCompilerErrors: true,
+        })
+    ],
     node: {
         fs: 'empty'
     }
