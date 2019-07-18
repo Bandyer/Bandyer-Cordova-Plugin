@@ -36,6 +36,8 @@
         <source-file src="src/ios/BCPCallClientEventEmitter.m" />
         <header-file src="src/ios/BCPBandyerManager.h" />
         <source-file src="src/ios/BCPBandyerManager.m" />
+        <header-file src="src/ios/BCPBandyerEvents.h" />
+        <source-file src="src/ios/BCPBandyerEvents.m" />
         <header-file src="src/ios/BCPBandyerPlugin.h" />
         <source-file src="src/ios/BCPBandyerPlugin.m" />
         <header-file src="src/ios/BCPUsersDetailsCache.h" />

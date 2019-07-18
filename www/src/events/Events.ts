@@ -13,5 +13,15 @@ export enum Events {
     /**
      * @see [[CallModuleStatusChanged]]
      */
-    callModuleStatusChanged = 'callModuleStatusChanged'
+    callModuleStatusChanged = 'callModuleStatusChanged',
+
+    /**
+     * @see [[CallError]]
+     */
+    callError = 'callError',
+
+    /**
+     * @see [[ChatError]]
+     */
+    chatError = 'chatError'
 }

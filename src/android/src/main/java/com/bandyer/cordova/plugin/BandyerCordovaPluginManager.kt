@@ -215,7 +215,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
             throw BandyerCordovaPluginMethodNotValidException("Cannot manage a 'start call' request: call feature is not enabled!")
 
         val bandyerCallIntent = BandyerCallIntentBuilder(bandyerCordovaPlugin.cordova.activity, bandyerSDKConfiguration!!, args).build()
-        bandyerCordovaPlugin.cordova.activity.startActivityForResult(bandyerCallIntent, BandyerCordovaPluginConstants.INTENT_REQUEST_CALL_CODE)
+        bandyerCordovaPlugin.cordova.startActivityForResult(bandyerCordovaPlugin, bandyerCallIntent, BandyerCordovaPluginConstants.INTENT_REQUEST_CALL_CODE)
     }
 
     @Throws(BandyerCordovaPluginMethodNotValidException::class)
@@ -227,7 +227,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
             throw BandyerCordovaPluginMethodNotValidException("Cannot manage a 'start chat' request: chat feature is not enabled!")
 
         val bandyerChatIntent = BandyerChatIntentBuilder(bandyerCordovaPlugin.cordova.activity, bandyerSDKConfiguration!!, args).build()
-        bandyerCordovaPlugin.cordova.activity.startActivityForResult(bandyerChatIntent, BandyerCordovaPluginConstants.INTENT_REQUEST_CALL_CODE)
+        bandyerCordovaPlugin.cordova.startActivityForResult(bandyerCordovaPlugin, bandyerChatIntent, BandyerCordovaPluginConstants.INTENT_REQUEST_CHAT_CODE)
     }
 
     fun addUserDetails(args: JSONArray) {
@@ -253,15 +253,22 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
         }
     }
 
+    fun callError(reason: String) {
+        sendEvent(Events.CallError.name, reason)
+    }
+
+    fun chatError(reason: String) {
+        sendEvent(Events.ChatError.name, reason)
+    }
+
     fun clearUserDetails() {
         usersDetailMap.clear()
     }
 
     private fun notifyStatusChange(bandyerModule: BandyerModule, cordovaPluginStatus: BandyerCordovaPluginStatus) {
         when (bandyerModule) {
-            is ChatModule -> sendEvent("chatModuleStatusChanged", cordovaPluginStatus.name.toLowerCase())
-            is CallModule -> sendEvent("callModuleStatusChanged", cordovaPluginStatus.name.toLowerCase())
+            is ChatModule -> sendEvent(Events.ChatModuleStatusChanged.name, cordovaPluginStatus.name.toLowerCase())
+            is CallModule -> sendEvent(Events.CallModuleStatusChanged.name, cordovaPluginStatus.name.toLowerCase())
         }
-
     }
 }

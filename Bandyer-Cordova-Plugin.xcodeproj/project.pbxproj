@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B5DAB0C22E0D6F600B74385 /* BCPBandyerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B5DAB0A22E0D6F600B74385 /* BCPBandyerEvents.m */; };
+		2B5DAB0F22E0D7A300B74385 /* BCPBandyerEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B5DAB0E22E0D7A300B74385 /* BCPBandyerEvents.h */; };
 		62DD2457AD52EF785B5D39B4 /* BCPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD273388333E7A2F1E3D35 /* BCPConstants.m */; };
 		62DD25978FC25DC3611C49A3 /* BCPCallClientEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD29153AAB078000CB41BF /* BCPCallClientEventEmitter.m */; };
 		62DD2C318B08C3400A8749F8 /* BCPCallClientEventEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62DD2C83228FF9584157E6B6 /* BCPCallClientEventEmitter.h */; };
@@ -25,6 +27,8 @@
 
 /* Begin PBXFileReference section */
 		272A7C77D9CD9661CFD85124 /* Pods-Bandyer-Cordova-Plugin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bandyer-Cordova-Plugin.release.xcconfig"; path = "Target Support Files/Pods-Bandyer-Cordova-Plugin/Pods-Bandyer-Cordova-Plugin.release.xcconfig"; sourceTree = "<group>"; };
+		2B5DAB0A22E0D6F600B74385 /* BCPBandyerEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPBandyerEvents.m; path = src/ios/BCPBandyerEvents.m; sourceTree = "<group>"; };
+		2B5DAB0E22E0D7A300B74385 /* BCPBandyerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPBandyerEvents.h; path = src/ios/BCPBandyerEvents.h; sourceTree = "<group>"; };
 		31F908A59C0FBEFC6C0C7498 /* Pods-Bandyer-Cordova-Plugin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bandyer-Cordova-Plugin.debug.xcconfig"; path = "Target Support Files/Pods-Bandyer-Cordova-Plugin/Pods-Bandyer-Cordova-Plugin.debug.xcconfig"; sourceTree = "<group>"; };
 		62DD273388333E7A2F1E3D35 /* BCPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPConstants.m; path = src/ios/BCPConstants.m; sourceTree = "<group>"; };
 		62DD29153AAB078000CB41BF /* BCPCallClientEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPCallClientEventEmitter.m; path = src/ios/BCPCallClientEventEmitter.m; sourceTree = "<group>"; };
@@ -97,6 +101,8 @@
 		A9C31B1822C22DE900BC33D5 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				2B5DAB0E22E0D7A300B74385 /* BCPBandyerEvents.h */,
+				2B5DAB0A22E0D6F600B74385 /* BCPBandyerEvents.m */,
 				A9C31B0922C22DCF00BC33D5 /* BCPBandyerManager.h */,
 				A9C31B0322C22DCF00BC33D5 /* BCPBandyerManager.m */,
 				A9C31B0722C22DCF00BC33D5 /* BCPBandyerPlugin.h */,
@@ -133,6 +139,7 @@
 				A9C31B1722C22DCF00BC33D5 /* NSString+BandyerPlugin.h in Headers */,
 				A9C31B1422C22DCF00BC33D5 /* BCPBandyerManager.h in Headers */,
 				A9C31B1022C22DCF00BC33D5 /* BCPUsersDetailsCache.h in Headers */,
+				2B5DAB0F22E0D7A300B74385 /* BCPBandyerEvents.h in Headers */,
 				62DD2C318B08C3400A8749F8 /* BCPCallClientEventEmitter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9C31B1122C22DCF00BC33D5 /* BCPUsersDetailsCache.m in Sources */,
+				2B5DAB0C22E0D6F600B74385 /* BCPBandyerEvents.m in Sources */,
 				A9C31B0E22C22DCF00BC33D5 /* BCPBandyerManager.m in Sources */,
 				A9C31B1522C22DCF00BC33D5 /* NSString+BandyerPlugin.m in Sources */,
 				A9C31B1322C22DCF00BC33D5 /* BCPBandyerPlugin.m in Sources */,

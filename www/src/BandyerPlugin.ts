@@ -70,7 +70,8 @@ export class BandyerPlugin extends EventListener {
         }
 
         const success = result => {
-            const callbacks = _bandyerHandlers.get(result.event);
+            var event = result.event.toLowerCase();
+            const callbacks = _bandyerHandlers.get(event);
             if (!callbacks) return;
             callbacks.forEach(callback => {
                 callback.apply(undefined, result.args);
@@ -99,10 +100,11 @@ export class BandyerPlugin extends EventListener {
     }
 
     protected _registerForEvent(event, callback) {
-        if (_bandyerHandlers.get(event) === undefined) {
-            _bandyerHandlers.set(event, [callback]);
+        var eventLowerCase = event.toLowerCase();
+        if (_bandyerHandlers.get(eventLowerCase) === undefined) {
+            _bandyerHandlers.set(eventLowerCase, [callback]);
         } else {
-            _bandyerHandlers.get(event).push(callback);
+            _bandyerHandlers.get(eventLowerCase).push(callback);
         }
     }
 

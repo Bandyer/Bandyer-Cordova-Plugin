@@ -7,6 +7,7 @@
 
 #import "BCPCallClientEventEmitter.h"
 #import "BCPConstants.h"
+#import "BCPBandyerEvents.h"
 
 @interface BCPCallClientEventEmitter () <BCXCallClientObserver>
 
@@ -51,32 +52,32 @@
 
 - (void)callClientDidStart:(id <BCXCallClient>)client
 {
-    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientReadyJSEvent]];
+    [self _sendEvent: [[BCPBandyerEvents callModuleStatusChanged] value] args:@[kBCPCallClientReadyJSEvent]];
 }
 
 - (void)callClientDidStartReconnecting:(id <BCXCallClient>)client
 {
-    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientReconnectingJSEvent]];
+    [self _sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] args:@[kBCPCallClientReconnectingJSEvent]];
 }
 
 - (void)callClientDidPause:(id <BCXCallClient>)client
 {
-    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientPausedJSEvent]];
+    [self _sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] args:@[kBCPCallClientPausedJSEvent]];
 }
 
 - (void)callClientDidStop:(id <BCXCallClient>)client
 {
-    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientStoppedJSEvent]];
+    [self _sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] args:@[kBCPCallClientStoppedJSEvent]];
 }
 
 - (void)callClientDidResume:(id <BCXCallClient>)client
 {
-    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientReadyJSEvent]];
+    [self _sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] args:@[kBCPCallClientReadyJSEvent]];
 }
 
 - (void)callClient:(id <BCXCallClient>)client didFailWithError:(NSError *)error
 {
-    [self _sendEvent:@"callModuleStatusChanged" args:@[kBCPCallClientFailedJSEvent]];
+    [self _sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] args:@[kBCPCallClientFailedJSEvent]];
 }
 
 - (void)_sendEvent:(NSString *)eventName

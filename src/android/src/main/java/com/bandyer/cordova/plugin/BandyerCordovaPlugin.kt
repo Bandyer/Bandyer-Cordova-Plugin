@@ -10,6 +10,7 @@ import org.json.JSONArray
 import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.kotlinFunction
 
+
 @Suppress("unused", "UNUSED_PARAMETER")
 class BandyerCordovaPlugin : CordovaPlugin() {
 
@@ -47,7 +48,6 @@ class BandyerCordovaPlugin : CordovaPlugin() {
                 }
             """.trimIndent()
         callbackContext.error(error)
-        Log.e("BandyerCordovaPlugin", error)
         return false
     }
 
@@ -60,6 +60,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
         bandyerCallbackContext = callbackContext
         bandyerCordovaPluginManager?.bandyerCallbackContext = callbackContext
         bandyerCordovaPluginManager!!.setup(application, args)
+        cordova.setActivityResultCallback(this)
     }
 
     private fun start(args: JSONArray, callbackContext: CallbackContext) {
@@ -135,41 +136,16 @@ class BandyerCordovaPlugin : CordovaPlugin() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         super.onActivityResult(requestCode, resultCode, intent)
-        if (resultCode == Activity.RESULT_CANCELED) {
-
-            if (intent == null) return
-
-            val error = if (intent.extras != null) intent.extras!!.getString("error", "error") else "error"
-
-            if (requestCode == BandyerCordovaPluginConstants.INTENT_REQUEST_CALL_CODE) {
-
-                if (bandyerCordovaPluginManager!!.isLogEnabled)
-                    Log.d(BandyerCordovaPluginConstants.BANDYER_LOG_TAG, "Error on call request: $error")
-
-                if (mCallCallback != null) {
-                    mCallCallback!!.error(error)
-                    mCallCallback = null
-                }
-            } else if (requestCode == BandyerCordovaPluginConstants.INTENT_REQUEST_CHAT_CODE) {
-                if (bandyerCordovaPluginManager!!.isLogEnabled)
-                    Log.d(BandyerCordovaPluginConstants.BANDYER_LOG_TAG, "Error on chat request: $error")
-
-                if (mChatCallback != null) {
-                    mChatCallback!!.error(error)
-                    mChatCallback = null
-                }
+        intent ?: return
+        if (resultCode != Activity.RESULT_CANCELED) return
+        val error = intent.extras?.getString("error", "error") ?: "error"
+        Log.e("onActivityResult", "requestCode: $requestCode, resultCode: $resultCode, error: $error")
+        when (requestCode) {
+            BandyerCordovaPluginConstants.INTENT_REQUEST_CALL_CODE -> {
+                bandyerCordovaPluginManager?.callError(error)
             }
-        } else {
-            if (requestCode == BandyerCordovaPluginConstants.INTENT_REQUEST_CALL_CODE) {
-                if (mCallCallback != null) {
-                    mCallCallback!!.success()
-                    mCallCallback = null
-                }
-            } else if (requestCode == BandyerCordovaPluginConstants.INTENT_REQUEST_CHAT_CODE) {
-                if (mChatCallback != null) {
-                    mChatCallback!!.success()
-                    mChatCallback = null
-                }
+            BandyerCordovaPluginConstants.INTENT_REQUEST_CHAT_CODE -> {
+                bandyerCordovaPluginManager?.chatError(error)
             }
         }
     }
