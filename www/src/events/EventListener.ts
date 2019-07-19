@@ -15,24 +15,22 @@ export abstract class EventListener implements ChatModuleStatusChanged,
     ChatError {
 
     /**
-     * @ignore
-     * @private
-     */
-    protected abstract _registerForEvent(event: string, callback: (...args: any) => void)
-
-    /**
      * Available events
      */
     static events = Events;
 
-    on(event: Events.chatModuleStatusChanged, callback: (status: string) => void);
-    on(event: Events.callModuleStatusChanged, callback: (status: string) => void);
-    on(event: Events.callError, callback: (reason: string) => void);
-    on(event: Events.chatError, callback: (reason: string) => void);
+    on(event: Events.chatModuleStatusChanged | Events.callModuleStatusChanged, callback: (status: string) => void);
+    on(event: Events.callError | Events.chatError, callback: (reason: string) => void);
     on(event: Events.chatModuleStatusChanged | Events.callModuleStatusChanged | Events.callError | Events.chatError, callback: ((status: string) => void)) {
         if (!is<Events>(event)) {
             throw new IllegalArgumentError("Expected an event of type Events!");
         }
-        this._registerForEvent(event, callback)
+        this._registerForEvent(event, callback);
     }
+
+    /**
+     * @ignore
+     * @private
+     */
+    protected abstract _registerForEvent(event: string, callback: (...args: any) => void);
 }

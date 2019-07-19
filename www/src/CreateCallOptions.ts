@@ -9,10 +9,10 @@ export interface CreateCallOptions extends CallOptions {
     /**
      * Array of Bandyer users identifiers to call.
      */
-    userAliases: string[],
+    userAliases: string[];
 
     /**
      * Type of call to create
      */
-    callType: CallType
+    callType: CallType;
 }

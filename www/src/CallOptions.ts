@@ -9,5 +9,5 @@ export interface CallOptions {
      * <br/>
      * <b><font color="blue">default</font>: false</b>
      */
-    recording?: boolean
+    recording?: boolean;
 }

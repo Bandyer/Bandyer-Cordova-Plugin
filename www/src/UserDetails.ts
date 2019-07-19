@@ -6,30 +6,30 @@ export interface UserDetails {
     /**
      * Bandyer user identifier
      */
-    userAlias: string,
+    userAlias: string;
 
     /**
      * Nickname for the user
      */
-    nickName?: string,
+    nickName?: string;
 
     /**
      * First name of the user
      */
-    firstName?: string,
+    firstName?: string;
 
     /**
      * Last name of the user
      */
-    lastName?: string,
+    lastName?: string;
 
     /**
      * Email of the user
      */
-    email?: string,
+    email?: string;
 
     /**
      * Image url to use as placeholder for the user.
      */
-    profileImageUrl?: string
+    profileImageUrl?: string;
 }

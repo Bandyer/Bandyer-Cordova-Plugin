@@ -9,5 +9,5 @@ export interface IosConfig {
      * <br/>
      * <b><font color="blue">default</font>: true</b>
      */
-    callkitEnabled?: boolean
+    callkitEnabled?: boolean;
 }

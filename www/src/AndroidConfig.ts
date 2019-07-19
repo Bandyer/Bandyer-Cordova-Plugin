@@ -9,7 +9,7 @@ export interface AndroidConfig {
      * <br/>
      * <b><font color="blue">default</font>: true</b>
      */
-    callEnabled?: boolean,
+    callEnabled?: boolean;
 
     /**
      * Set to false to disable the file sharing feature
@@ -17,7 +17,7 @@ export interface AndroidConfig {
      * <br/>
      * <b><font color="blue">default</font>: true</b>
      */
-    fileSharingEnabled?: boolean,
+    fileSharingEnabled?: boolean;
 
     /**
      * Set to false to disable the screen sharing feature
@@ -25,7 +25,7 @@ export interface AndroidConfig {
      * <br/>
      * <b><font color="blue">default</font>: true</b>
      */
-    screenSharingEnabled?: boolean,
+    screenSharingEnabled?: boolean;
 
     /**
      * Set to false to disable the chat feature
@@ -33,7 +33,7 @@ export interface AndroidConfig {
      * <br/>
      * <b><font color="blue">default</font>: true</b>
      */
-    chatEnabled?: boolean,
+    chatEnabled?: boolean;
 
     /**
      * Set to false to disable the whiteboard feature
@@ -41,5 +41,5 @@ export interface AndroidConfig {
      * <br/>
      * <b><font color="blue">default</font>: true</b>
      */
-    whiteboardEnabled?: boolean
+    whiteboardEnabled?: boolean;
 }

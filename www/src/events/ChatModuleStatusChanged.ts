@@ -14,5 +14,5 @@ export interface ChatModuleStatusChanged {
      * @param event chatModuleStatusChanged
      * @param callback with the status as parameter
      */
-    on(event: Events.chatModuleStatusChanged, callback: ((status: string) => void))
+    on(event: Events.chatModuleStatusChanged, callback: ((status: string) => void));
 }

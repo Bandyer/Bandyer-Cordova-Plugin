@@ -39,10 +39,6 @@ export class BandyerPlugin extends EventListener {
      */
     static instance: BandyerPlugin;
 
-    private constructor() {
-        super()
-    }
-
     /**
      * Available call types
      */
@@ -57,33 +53,34 @@ export class BandyerPlugin extends EventListener {
         if (!is<BandyerPluginConfigs>(params)) {
             throw new IllegalArgumentError("Expected an object of type BandyerPluginConfigs!");
         }
-        if (params.environment === '') {
+        if (params.environment === "") {
             throw new IllegalArgumentError("Expected a not empty environment!");
         }
-        if (params.appId === '') {
+        if (params.appId === "") {
             throw new IllegalArgumentError("Expected a not empty appId!");
         }
 
         if (this.instance) {
-            console.log("BandyerPlugin was already setup.");
+            console.warn("BandyerPlugin was already setup.");
             return this.instance;
         }
 
-        const success = result => {
-            var event = result.event.toLowerCase();
+        const success = (result) => {
+            const event = result.event.toLowerCase();
             const callbacks = _bandyerHandlers.get(event);
-            if (!callbacks) return;
-            callbacks.forEach(callback => {
+            if (!callbacks) {
+                return;
+            }
+            callbacks.forEach((callback) => {
                 callback.apply(undefined, result.args);
             });
         };
 
-        const fail = error => {
-            console.log("callbackErrorSetup");
-            console.log(error);
+        const fail = (error) => {
+            console.error("BandyerPluginSetup failed setup", error);
         };
 
-        cordova.exec(success, fail, 'BandyerPlugin', 'initializeBandyer', [{
+        cordova.exec(success, fail, "BandyerPlugin", "initializeBandyer", [{
             environment: params.environment,
             appId: params.appId,
             logEnabled: params.logEnabled === true,
@@ -92,20 +89,15 @@ export class BandyerPlugin extends EventListener {
             android_isFileSharingEnabled: params.androidConfig.fileSharingEnabled !== false,
             android_isScreenSharingEnabled: params.androidConfig.screenSharingEnabled !== false,
             android_isChatEnabled: params.androidConfig.chatEnabled !== false,
-            android_isWhiteboardEnabled: params.androidConfig.whiteboardEnabled !== false
+            android_isWhiteboardEnabled: params.androidConfig.whiteboardEnabled !== false,
         }]);
 
         this.instance = new BandyerPlugin();
-        return this.instance
+        return this.instance;
     }
 
-    protected _registerForEvent(event, callback) {
-        var eventLowerCase = event.toLowerCase();
-        if (_bandyerHandlers.get(eventLowerCase) === undefined) {
-            _bandyerHandlers.set(eventLowerCase, [callback]);
-        } else {
-            _bandyerHandlers.get(eventLowerCase).push(callback);
-        }
+    private constructor() {
+        super();
     }
 
     /**
@@ -117,12 +109,12 @@ export class BandyerPlugin extends EventListener {
         if (!is<string>(userAlias)) {
             throw new IllegalArgumentError("Expected userAlias as string!");
         }
-        if (userAlias === '') {
+        if (userAlias === "") {
             throw new IllegalArgumentError("Expected a not empty userAlias!");
         }
         // check userAlias
-        cordova.exec(null, null, 'BandyerPlugin', 'start', [{
-            userAlias: userAlias
+        cordova.exec(null, null, "BandyerPlugin", "start", [{
+            userAlias,
         }]);
     }
 
@@ -130,21 +122,21 @@ export class BandyerPlugin extends EventListener {
      * Stop the plugin
      */
     stop() {
-        cordova.exec(null, null, 'BandyerPlugin', 'stop', []);
+        cordova.exec(null, null, "BandyerPlugin", "stop", []);
     }
 
     /**
      * Pause the plugin
      */
     pause() {
-        cordova.exec(null, null, 'BandyerPlugin', 'pause', []);
+        cordova.exec(null, null, "BandyerPlugin", "pause", []);
     }
 
     /**
      * Resume the plugin
      */
     resume() {
-        cordova.exec(null, null, 'BandyerPlugin', 'resume', []);
+        cordova.exec(null, null, "BandyerPlugin", "resume", []);
     }
 
     /**
@@ -153,7 +145,7 @@ export class BandyerPlugin extends EventListener {
      */
     state() {
         return new Promise((resolve, reject) => {
-            cordova.exec(resolve, reject, 'BandyerPlugin', 'state', []);
+            cordova.exec(resolve, reject, "BandyerPlugin", "state", []);
         });
     }
 
@@ -169,14 +161,14 @@ export class BandyerPlugin extends EventListener {
         if (callOptions.userAliases.length === 0) {
             throw new IllegalArgumentError("No userAliases were provided!");
         }
-        if (callOptions.userAliases.filter(str => str.trim().length <= 0).length > 0) {
+        if (callOptions.userAliases.filter((str) => str.trim().length <= 0).length > 0) {
             throw new IllegalArgumentError("Some empty userAliases were provided");
         }
 
-        cordova.exec(null, null, 'BandyerPlugin', 'startCall', [{
+        cordova.exec(null, null, "BandyerPlugin", "startCall", [{
             callee: callOptions.userAliases,
             callType: callOptions.callType,
-            recording: callOptions.recording
+            recording: callOptions.recording,
         }]);
     }
 
@@ -189,15 +181,16 @@ export class BandyerPlugin extends EventListener {
         if (!is<string>(url)) {
             throw new IllegalArgumentError("Expected an url of type string!");
         }
-        if (url === '') {
+        if (url === "") {
             throw new IllegalArgumentError("Expected a not empty url!");
         }
 
-        cordova.exec(null, null, 'BandyerPlugin', 'startCall', [{
-            joinUrl: url === 'undefined' ? '' : url
+        cordova.exec(null, null, "BandyerPlugin", "startCall", [{
+            joinUrl: url === "undefined" ? "" : url,
         }]);
     }
 
+    // noinspection JSMethodCanBeStatic
     /**
      * Call this method to provide the details for each user. The Bandyer Plugin will use this information
      * to setup the UI
@@ -211,8 +204,8 @@ export class BandyerPlugin extends EventListener {
         if (userDetails.length === 0) {
             throw new IllegalArgumentError("No userDetails were provided!");
         }
-        cordova.exec(null, null, 'BandyerPlugin', 'addUsersDetails', [{
-            details: userDetails
+        cordova.exec(null, null, "BandyerPlugin", "addUsersDetails", [{
+            details: userDetails,
         }]);
     }
 
@@ -220,7 +213,7 @@ export class BandyerPlugin extends EventListener {
      * Call this method to remove all the user details previously provided.
      */
     removeUsersDetails() {
-        cordova.exec(null, null, 'BandyerPlugin', 'removeUsersDetails', []);
+        cordova.exec(null, null, "BandyerPlugin", "removeUsersDetails", []);
     }
 
     /**
@@ -244,12 +237,12 @@ export class BandyerPlugin extends EventListener {
         if (!is<string>(payload)) {
             throw new IllegalArgumentError("Expected a payload of type string!");
         }
-        if (payload === '') {
+        if (payload === "") {
             throw new IllegalArgumentError("Expected a not empty payload!");
         }
 
-        cordova.exec(success, error, 'BandyerPlugin', 'handlePushNotificationPayload', [{
-            payload: typeof payload === 'undefined' ? '' : payload
+        cordova.exec(success, error, "BandyerPlugin", "handlePushNotificationPayload", [{
+            payload: typeof payload === "undefined" ? "" : payload,
         }]);
     }
 
@@ -262,19 +255,41 @@ export class BandyerPlugin extends EventListener {
         if (!is<CreateChatOptions>(chatOptions)) {
             throw new IllegalArgumentError("Expected an object of type CreateChatOptions!");
         }
-        if (chatOptions.userAlias === '') {
+        if (chatOptions.userAlias === "") {
             throw new IllegalArgumentError("Expected a not empty userAlias!");
         }
 
         if (this._isAndroid()) {
-            cordova.exec(null, null, 'BandyerPlugin', 'startChat', [{
+            cordova.exec(null, null, "BandyerPlugin", "startChat", [{
                 userAlias: chatOptions.userAlias,
                 audio: chatOptions.withAudioCallCapability,
                 audioUpgradable: chatOptions.withAudioUpgradableCallCapability,
-                audioVideo: chatOptions.withAudioVideoCallCapability
+                audioVideo: chatOptions.withAudioVideoCallCapability,
             }]);
         } else {
-            console.log('Not yet supported on ', device.platform, " platform.");
+            console.warn("Not yet supported on ", device.platform, " platform.");
+        }
+    }
+
+    /**
+     * This methods allows you to clear all user cached data, such as chat messages and generic bandyer informations.
+     * @param success callback
+     * @param error callback
+     */
+    clearUserCache(success?: () => void, error?: (reason) => void) {
+        if (this._isAndroid()) {
+            cordova.exec(success, error, "BandyerPlugin", "clearUserCache", []);
+        } else {
+            console.warn("Not yet supported on ", device.platform, " platform.");
+        }
+    }
+
+    protected _registerForEvent(event, callback) {
+        const eventLowerCase = event.toLowerCase();
+        if (_bandyerHandlers.get(eventLowerCase) === undefined) {
+            _bandyerHandlers.set(eventLowerCase, [callback]);
+        } else {
+            _bandyerHandlers.get(eventLowerCase).push(callback);
         }
     }
 
@@ -292,18 +307,5 @@ export class BandyerPlugin extends EventListener {
      */
     private _isIos() {
         return device.platform.toLowerCase() === "ios";
-    }
-
-    /**
-     * This methods allows you to clear all user cached data, such as chat messages and generic bandyer informations.
-     * @param success callback
-     * @param error callback
-     */
-    clearUserCache(success?: () => void, error?: (reason) => void) {
-        if (this._isAndroid()) {
-            cordova.exec(success, error, 'BandyerPlugin', 'clearUserCache', []);
-        } else {
-            error('method not supported.');
-        }
     }
 }

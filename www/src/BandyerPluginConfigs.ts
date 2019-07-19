@@ -9,25 +9,25 @@ export interface BandyerPluginConfigs {
     /**
      * This variable defines the environment where you will be sandbox or production.
      */
-    environment: string,
+    environment: string;
 
     /**
      * This key will be provided to you by us.
      */
-    appId: string,
+    appId: string;
 
     /**
      * Set to true to enable log, default value is false
      */
-    logEnabled?: boolean,
+    logEnabled?: boolean;
 
     /**
      * Define to customize the iOS configuration
      */
-    iosConfig?: IosConfig
+    iosConfig?: IosConfig;
 
     /**
      * Define to customize the android configuration
      */
-    androidConfig?: AndroidConfig
+    androidConfig?: AndroidConfig;
 }

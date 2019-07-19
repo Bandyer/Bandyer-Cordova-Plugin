@@ -11,8 +11,7 @@
     ]
   },
   "include": [
-    "./www/src/*",
-    "./www/src/events/*"
+    "www/src/**/*.ts"
   ],
   "typedocOptions": {
     "mode": "file",

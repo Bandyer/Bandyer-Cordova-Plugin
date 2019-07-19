@@ -22,22 +22,22 @@
     "genI": "quicktype --src-lang typescript -l objc --src --class-prefix BCPBandyer --features all www/src/events/Events.ts -o src/ios/BCPBandyerEvents && sed -i '' '/^typedef/d' src/ios/BCPBandyerEvents.h",
     "gen": "npm run genA && npm run genI",
     "webpack": "npm run gen && webpack --optimize-minimize",
-    "build": "npm run webpack && npm run copyBuildConfig && ./gradlew clean build",
+    "build": "npm run lint && npm run webpack && npm run copyBuildConfig && ./gradlew clean build",
     "copyBuildConfig": "yes | cp src/android/build/generated/source/buildConfig/debug/com/bandyer/cordova/plugin/BuildConfig.java src/android/src/main/release/java/com/bandyer/cordova/plugin/BuildConfig.java",
     "doc": "typedoc --out ./docs --mode file --target ES6 ./www/src/ --hideGenerator --exclude node_modules --ignoreCompilerErrors",
     "openDoc": "open ./docs/index.html",
-    "lint": "tslint www/src/**",
+    "lint": "tslint -t verbose 'www/src/**/*.ts'",
     "major": "npm version major -m \"* Updated to version %s\"",
     "minor": "npm version minor -m \"* Updated to version %s\"",
     "patch": "npm version patch -m \"* Updated to version %s\""
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.0",
-    "@babel/core": "^7.5.4",
-    "@babel/plugin-transform-runtime": "^7.5.0",
-    "@babel/preset-env": "^7.5.4",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.3.3",
-    "@babel/runtime-corejs3": "^7.5.4",
+    "@babel/runtime-corejs3": "^7.5.5",
     "@types/webpack-env": "^1.14.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
@@ -47,6 +47,7 @@
     "regenerator-runtime": "^0.13.2",
     "source-map-loader": "^0.2.4",
     "tslint": "^5.18.0",
+    "tslint-config-airbnb": "^5.11.1",
     "ttypescript": "^1.5.7",
     "typedoc": "^0.14.2",
     "typedoc-plugin-nojekyll": "^1.0.1",
@@ -54,7 +55,7 @@
     "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^3.5.3",
     "typescript-is": "^0.12.2",
-    "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.5"
+    "webpack": "^4.36.1",
+    "webpack-cli": "^3.3.6"
   }
 }

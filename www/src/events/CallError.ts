@@ -14,5 +14,5 @@ export interface CallError {
      * @param event callError
      * @param callback with the reason as parameter
      */
-    on(event: Events.callError, callback: ((reason: string) => void))
+    on(event: Events.callError, callback: ((reason: string) => void));
 }

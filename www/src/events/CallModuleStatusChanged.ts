@@ -15,5 +15,5 @@ export interface CallModuleStatusChanged {
      * @param event callModuleStatusChanged
      * @param callback with the status as parameter
      */
-    on(event: Events.callModuleStatusChanged, callback: ((status: string) => void))
+    on(event: Events.callModuleStatusChanged, callback: ((status: string) => void));
 }

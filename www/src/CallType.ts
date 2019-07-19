@@ -16,5 +16,5 @@ export enum CallType {
     /**
      * Audio Video is a call that will use both the camera and the microphone
      */
-    AUDIO_VIDEO = "audioVideo"
+    AUDIO_VIDEO = "audioVideo",
 }

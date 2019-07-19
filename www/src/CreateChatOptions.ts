@@ -8,20 +8,20 @@ export interface CreateChatOptions {
     /**
      * Bandyer user identifier to chat with.
      */
-    userAlias: string,
+    userAlias: string;
 
     /**
      * Defining this object will enable an option to start an audio only call from chat UI
      */
-    withAudioCallCapability?: CallOptions,
+    withAudioCallCapability?: CallOptions;
 
     /**
      * Defining this object will enable an option to start an audio upgradable call from chat UI
      */
-    withAudioUpgradableCallCapability?: CallOptions,
+    withAudioUpgradableCallCapability?: CallOptions;
 
     /**
      * Defining this object will enable an option to start an audio&video call from chat UI
      */
-    withAudioVideoCallCapability?: CallOptions
+    withAudioVideoCallCapability?: CallOptions;
 }

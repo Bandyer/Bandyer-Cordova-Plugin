@@ -14,5 +14,5 @@ export interface ChatError {
      * @param event chatError
      * @param callback with the reason as parameter
      */
-    on(event: Events.chatError, callback: ((reason: string) => void))
+    on(event: Events.chatError, callback: ((reason: string) => void));
 }

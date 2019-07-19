@@ -8,20 +8,20 @@ export enum Events {
     /**
      * @see [[ChatModuleStatusChanged]]
      */
-    chatModuleStatusChanged = 'chatModuleStatusChanged',
+    chatModuleStatusChanged = "chatModuleStatusChanged",
 
     /**
      * @see [[CallModuleStatusChanged]]
      */
-    callModuleStatusChanged = 'callModuleStatusChanged',
+    callModuleStatusChanged = "callModuleStatusChanged",
 
     /**
      * @see [[CallError]]
      */
-    callError = 'callError',
+    callError = "callError",
 
     /**
      * @see [[ChatError]]
      */
-    chatError = 'chatError'
+    chatError = "chatError",
 }
