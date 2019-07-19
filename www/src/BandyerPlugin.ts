@@ -169,6 +169,10 @@ export class BandyerPlugin extends EventListener {
         if (callOptions.userAliases.length === 0) {
             throw new IllegalArgumentError("No userAliases were provided!");
         }
+        if (callOptions.userAliases.filter(str => str.trim().length <= 0).length > 0) {
+            throw new IllegalArgumentError("Some empty userAliases were provided");
+        }
+
         cordova.exec(null, null, 'BandyerPlugin', 'startCall', [{
             callee: callOptions.userAliases,
             callType: callOptions.callType,
