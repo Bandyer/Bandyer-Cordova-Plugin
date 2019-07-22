@@ -12,6 +12,7 @@ import {CreateChatOptions} from "./CreateChatOptions";
 import {CallType} from "./CallType";
 import {IllegalArgumentError} from "./errors/IllegalArgumentError";
 import {is} from "typescript-is";
+import {Environments} from "./Environments";
 
 /**
  * @ignore
@@ -45,6 +46,11 @@ export class BandyerPlugin extends EventListener {
     static callTypes = CallType;
 
     /**
+     * Available environments
+     */
+    static environments = Environments;
+
+    /**
      * Call this method when device is ready to setup the plugin
      * @param params
      * @throws IllegalArgumentError
@@ -52,9 +58,6 @@ export class BandyerPlugin extends EventListener {
     static setup(params: BandyerPluginConfigs): BandyerPlugin {
         if (!is<BandyerPluginConfigs>(params)) {
             throw new IllegalArgumentError("Expected an object of type BandyerPluginConfigs!");
-        }
-        if (params.environment === "") {
-            throw new IllegalArgumentError("Expected a not empty environment!");
         }
         if (params.appId === "") {
             throw new IllegalArgumentError("Expected a not empty appId!");
@@ -81,7 +84,7 @@ export class BandyerPlugin extends EventListener {
         };
 
         cordova.exec(success, fail, "BandyerPlugin", "initializeBandyer", [{
-            environment: params.environment,
+            environment: params.environment.name,
             appId: params.appId,
             logEnabled: params.logEnabled === true,
             ios_callkitEnabled: params.iosConfig.callkitEnabled !== false,

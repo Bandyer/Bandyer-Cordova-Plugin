@@ -1,5 +1,6 @@
 import {IosConfig} from "./IosConfig";
 import {AndroidConfig} from "./AndroidConfig";
+import {Environment} from "./Environments";
 
 /**
  * Generic configuration for the bandyer plugin
@@ -9,7 +10,7 @@ export interface BandyerPluginConfigs {
     /**
      * This variable defines the environment where you will be sandbox or production.
      */
-    environment: string;
+    environment: Environment;
 
     /**
      * This key will be provided to you by us.
