@@ -127,7 +127,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
             builder.withChatEnabled(BandyerCordovaPluginChatNotificationListener(application, bandyerSDKConfiguration!!))
 
         if (bandyerSDKConfiguration!!.isLogEnabled)
-            builder.setLogger(object : BandyerSDKLogger(BaseLogger.DEBUG) {
+            builder.setLogger(object : BandyerSDKLogger(BaseLogger.VERBOSE) {
                 override fun warn(tag: String, message: String) {
                     Log.w(BANDYER_LOG_TAG, message)
                 }
