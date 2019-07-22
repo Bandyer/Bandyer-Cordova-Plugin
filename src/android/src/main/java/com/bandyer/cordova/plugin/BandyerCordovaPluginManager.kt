@@ -1,12 +1,15 @@
 package com.bandyer.cordova.plugin
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
+import com.bandyer.android_common.logging.BaseLogger
 import com.bandyer.android_sdk.BandyerSDK
 import com.bandyer.android_sdk.Environment
 import com.bandyer.android_sdk.call.CallModule
 import com.bandyer.android_sdk.chat.ChatModule
 import com.bandyer.android_sdk.client.BandyerSDKClient
+import com.bandyer.android_sdk.client.BandyerSDKClientObserver
 import com.bandyer.android_sdk.client.BandyerSDKClientOptions
 import com.bandyer.android_sdk.client.BandyerSDKClientState
 import com.bandyer.android_sdk.module.BandyerModule
@@ -46,12 +49,35 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
     private val moduleObserver = object : BandyerModuleObserver {
         override fun onModuleReady(module: BandyerModule) {}
         override fun onModulePaused(module: BandyerModule) {}
-        override fun onModuleFailed(module: BandyerModule, throwable: Throwable) {}
+        override fun onModuleFailed(module: BandyerModule, throwable: Throwable) {
+            if (module is CallModule) sendEvent(Events.CallError.name, throwable.localizedMessage)
+            if (module is ChatModule) sendEvent(Events.ChatError.name, throwable.localizedMessage)
+        }
+
         override fun onModuleStatusChanged(module: BandyerModule, moduleStatus: BandyerModuleStatus) {
             moduleStatus.toCordovaModuleStatus()?.let { cordovaModuleStatus ->
                 notifyStatusChange(module, cordovaModuleStatus)
             }
         }
+    }
+
+    private val clientObserver = object : BandyerSDKClientObserver {
+        override fun onClientError(throwable: Throwable) {
+            sendEvent(Events.SetupError.name, throwable.localizedMessage)
+        }
+
+        override fun onClientReady() {
+
+        }
+
+        override fun onClientStatusChange(state: BandyerSDKClientState) {
+
+        }
+
+        override fun onClientStopped() {
+
+        }
+
     }
 
     fun sendEvent(event: String, vararg args: Any?) {
@@ -69,9 +95,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
     val currentState: String
         get() = convertToString(BandyerSDKClient.getInstance().state)
 
-    val isLogEnabled: Boolean
-        get() = bandyerSDKConfiguration != null && bandyerSDKConfiguration!!.isLogEnabled
-
+    @SuppressLint("NewApi")
     @Throws(BandyerCordovaPluginExceptions::class)
     fun setup(application: Application, args: JSONArray) {
 
@@ -103,7 +127,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
             builder.withChatEnabled(BandyerCordovaPluginChatNotificationListener(application, bandyerSDKConfiguration!!))
 
         if (bandyerSDKConfiguration!!.isLogEnabled)
-            builder.setLogger(object : BandyerSDKLogger() {
+            builder.setLogger(object : BandyerSDKLogger(BaseLogger.DEBUG) {
                 override fun warn(tag: String, message: String) {
                     Log.w(BANDYER_LOG_TAG, message)
                 }
@@ -141,7 +165,9 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
 
     @Throws(BandyerCordovaPluginExceptions::class)
     fun start(args: JSONArray) {
-        if (BandyerSDKClient.getInstance().state != BandyerSDKClientState.UNINITIALIZED) return
+        if (BandyerSDKClient.getInstance().state != BandyerSDKClientState.UNINITIALIZED) {
+            clearUserCache()
+        }
 
         val options = BandyerSDKClientOptions.Builder()
                 .keepListeningForEventsInBackground(false)
@@ -182,6 +208,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
 
     fun clearUserCache() {
         BandyerSDKClient.getInstance().clearUserCache()
+        BandyerSDKClient.getInstance().dispose()
     }
 
     private fun convertToString(state: BandyerSDKClientState): String {
@@ -194,6 +221,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
     }
 
     private fun addObservers() {
+        BandyerSDKClient.getInstance().addObserver(clientObserver)
         BandyerSDKClient.getInstance().addModuleObserver(moduleObserver)
     }
 

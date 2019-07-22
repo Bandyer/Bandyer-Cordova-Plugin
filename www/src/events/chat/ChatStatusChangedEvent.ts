@@ -1,14 +1,15 @@
-import {Events} from "./Events";
+import {Events} from "../Events";
 
 /**
  * You shall listen to this event via [[BandyerPlugin.on]]
  * <br/>
  * <h3>
- * <font color="gray">This event will be fired when the status of the chat module has changed</font>
+ * <font color="gray">This event will be fired when the status of the call module has changed</font>
  * </h3>
- * @event chatModuleStatusChanged
+ * @event Call Status Changed Event
  */
-export interface ChatModuleStatusChanged {
+export interface ChatStatusChangedEvent {
+
     /**
      * Register to this event via [[BandyerPlugin.on]]
      * @param event chatModuleStatusChanged

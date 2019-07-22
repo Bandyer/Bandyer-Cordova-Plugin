@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
         @"callModuleStatusChanged": [[BCPBandyerEvents alloc] initWithValue:@"callModuleStatusChanged"],
         @"chatError": [[BCPBandyerEvents alloc] initWithValue:@"chatError"],
         @"chatModuleStatusChanged": [[BCPBandyerEvents alloc] initWithValue:@"chatModuleStatusChanged"],
+        @"setupError": [[BCPBandyerEvents alloc] initWithValue:@"setupError"],
     };
 }
 
@@ -24,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BCPBandyerEvents *)callModuleStatusChanged { return BCPBandyerEvents.values[@"callModuleStatusChanged"]; }
 + (BCPBandyerEvents *)chatError { return BCPBandyerEvents.values[@"chatError"]; }
 + (BCPBandyerEvents *)chatModuleStatusChanged { return BCPBandyerEvents.values[@"chatModuleStatusChanged"]; }
++ (BCPBandyerEvents *)setupError { return BCPBandyerEvents.values[@"setupError"]; }
 
 + (instancetype _Nullable)withValue:(NSString *)value
 {

@@ -27,6 +27,7 @@
 
 - (void)start:(CDVInvokedUrlCommand *)command 
 {
+    [self stop:command];
     CDVPluginResult *pluginResult = nil;
     NSDictionary *params = [command.arguments firstObject];
     BOOL result = [[BCPBandyerManager shared] startCallClientWithParams:params];

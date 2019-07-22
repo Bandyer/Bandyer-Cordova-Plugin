@@ -80,7 +80,9 @@
         [BDKConfig setLogLevel:BDFDDLogLevelAll];
     }
 
-    [self.bandyer initializeWithApplicationId:appID config:config];
+   @try {
+        [self.bandyer initializeWithApplicationId:appID config:config];
+    } @catch (NSException *exception) { }
 
     return YES;
 }

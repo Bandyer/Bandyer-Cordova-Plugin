@@ -10,5 +10,6 @@ enum class Events {
     CallError,
     CallModuleStatusChanged,
     ChatError,
-    ChatModuleStatusChanged
+    ChatModuleStatusChanged,
+    SetupError
 }

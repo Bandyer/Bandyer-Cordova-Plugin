@@ -77,6 +77,7 @@
 
 - (void)callClient:(id <BCXCallClient>)client didFailWithError:(NSError *)error
 {
+    [self _sendEvent:[[BCPBandyerEvents callError] value] args:@[[error localizedDescription]]];
     [self _sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] args:@[kBCPCallClientFailedJSEvent]];
 }
 

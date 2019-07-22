@@ -6,22 +6,23 @@
  */
 export enum Events {
     /**
-     * @see [[ChatModuleStatusChanged]]
+     * @see [[SetupErrorEvent]]
      */
-    chatModuleStatusChanged = "chatModuleStatusChanged",
-
+    setupError = "setupError",
     /**
-     * @see [[CallModuleStatusChanged]]
+     * @see [[CallStatusChangedEvent]]
      */
     callModuleStatusChanged = "callModuleStatusChanged",
-
     /**
-     * @see [[CallError]]
+     * @see [[CallErrorEvent]]
      */
     callError = "callError",
-
     /**
-     * @see [[ChatError]]
+     * @see [[ChatErrorEvent]]
      */
     chatError = "chatError",
+    /**
+     * @see [[ChatStatusChangedEvent]]
+     */
+    chatModuleStatusChanged = "chatModuleStatusChanged",
 }

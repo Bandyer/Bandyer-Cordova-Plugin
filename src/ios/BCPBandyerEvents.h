@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BCPBandyerEvents *)callModuleStatusChanged;
 + (BCPBandyerEvents *)chatError;
 + (BCPBandyerEvents *)chatModuleStatusChanged;
++ (BCPBandyerEvents *)setupError;
 @end
 
 
