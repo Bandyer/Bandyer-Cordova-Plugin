@@ -24,7 +24,7 @@
     "webpack": "npm run gen && webpack --optimize-minimize",
     "build": "npm run lint && npm run webpack && npm run copyBuildConfig && ./gradlew clean build",
     "copyBuildConfig": "yes | cp src/android/build/generated/source/buildConfig/debug/com/bandyer/cordova/plugin/BuildConfig.java src/android/src/main/release/java/com/bandyer/cordova/plugin/BuildConfig.java",
-    "doc": "typedoc --out ./docs --mode file --target ES6 ./www/src/ --hideGenerator --exclude node_modules --ignoreCompilerErrors",
+    "doc": "typedoc --out ./docs --mode file --target ES6 ./www/src/ --hideGenerator --exclude node_modules --ignoreCompilerErrors --name Bandyer-Plugin",
     "openDoc": "open ./docs/index.html",
     "lint": "tslint -t verbose 'www/src/**/*.ts'",
     "major": "npm version major -m \"* Updated to version %s\"",

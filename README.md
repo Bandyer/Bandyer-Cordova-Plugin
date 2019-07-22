@@ -25,100 +25,88 @@ BandyerPlugin
 The first thing you need to do is to setup the plugin specifying your keys and your options.
 
 ##### Setup params
-- environment: [sandbox|production]the bandyer environment 
-- appId: [mAppId_xxx] your mobile appId
-- logEnabled: [true|false] flag to enable disable the logger
-- ios_callkitEnabled: [true|false] flag to enable callkit on iOS
-- android_isCallEnabled: [true|false] flag to enable call module on android
-- android_isFileSharingEnabled: [true|false] flag to enable file sharing module on android
-- android_isChatEnabled: [true|false] flag to enable chat module on android
-- android_isScreenSharingEnabled: [true|false] flag to enable screen sharing module on android
-- android_isWhiteboardEnabled: [true|false] flag to enable whiteboard module on android
+- environment: **[BandyerPlugin.environments.sandbox() | BandyerPlugin.environments.production()]** the bandyer environment where your integration will run.
+- appId: **[mAppId_xxx]** your mobile appId
+- logEnabled: **[true | false]** flag to enable disable the logger
 
+- iosConfig: define to personalize the ios configuration
+    - callkitEnabled: **[true | false]** flag to enable callkit on iOS 
+    
+- androidConfig: define to personalize the android configuration
+    - callEnabled: **[true | false]** flag to enable call module on android
+    - fileSharingEnabled: **[true | false]** flag to enable file sharing module on android
+    - chatEnabled: **[true | false]** flag to enable chat module on android
+    - screenSharingEnabled: **[true | false]** flag to enable screen sharing module on android
+    - whiteboardEnabled: **[true | false]** flag to enable whiteboard module on android
+
+```javascript
+BandyerPlugin.setup({
+            environment: BandyerPlugin.environments.sandbox(),
+            appId: 'mAppId_xxx',
+            logEnabled: true,
+            // optional you can disable one or more of the following capabilities, by default callkit is enabled
+            iosConfig: {
+                callkitEnabled: true
+            },
+            // optional you can disable one or more of the following capabilities, by default all additional modules are enabled
+            androidConfig: {
+                callEnabled: true,
+                fileSharingEnabled: true,
+                chatEnabled: true,
+                screenSharingEnabled: true,
+                whiteboardEnabled: true
+            }
+})
 ```
-var params =  {
-    environment: 'sandbox',
-    appId: 'mAppId_xxx',
-    logEnabled: true,
-    ios_callkitEnabled: true,
-    android_isCallEnabled: true,
-    android_isFileSharingEnabled: true,
-    android_isChatEnabled: true,
-    android_isScreenSharingEnabled: true,
-    android_isWhiteboardEnabled: true
-};
 
-cordova
-    .plugins
-    .BandyerPlugin
-    .setup(params,(succ) => {
-        // setup success
-    },(err) => {
-        // setup error
-    });
+## Plugin listen for errors/events
+To listen for events and/or errors register
+Check the documentation [here](enums/events.html) for a complete list
+
+Example:
+
+```javascript
+bandyerPlugin.on(BandyerPlugin.events.callModuleStatusChanged, function (status) {});
 ```
 
 ## Plugin start
 To start a plugin means to connect an user to the bandyer system.
 
-```
-const credentials = {
-    userAlias: 'usr_xxx'
-}
-
+```javascript
 // start the bandyer plugin specifying the user alias of the user you want to connect
-    BandyerPlugin
-    .start(credentials,(succ) => {
-        // start success
-        // from this moment on you are connected to bandyer
-        // and you are able to receive and make calls        
-    }, (err) => {
-        // start error
-    });
+bandyerPlugin.startFor('usr_xxx');
 ```
 
-## Make a call
+## Start a call
 To make a call you need to specify some params.
 
-##### Make call params
+##### Start call params
 - callee: an array of user aliases of the users you want to call
-- typeCall: ['av'|'au'|'a'] the type of the call you want to start (av=audio-video,au=audio-upgreadable,a=audio-only)
-- recording: [true|false] flag to enable recording for the call
+- callType: **[BandyerPlugin.callTypes.AUDIO | BandyerPlugin.callTypes.AUDIO_UPGRADABLE | BandyerPlugin.callTypes.AUDIO_VIDEO]** the type of the call you want to start
+- recording: **[true | false]** flag to enable recording for the call
 
-```
-    BandyerPlugin
-    .makeCall({
-        callee: ['usr_xxx'], // call the user usr_xxx
-        typeCall: 'av', // audio video call
-        recording: false
-    }, (succ) => {
-        // make call success
-        // on success the context switch to bandyer sdk which
-        // launch the call screen
-    }, (err) => {
-        // make call error
-    });
+```javascript
+bandyerPlugin.startCall({
+                   userAliases: ['usr_yyy','usr_zzz'],
+                   callType: BandyerPlugin.callTypes.AUDIO_VIDEO,
+                   recording: false
+});
 ```
 
-## Make a chat
+## Start a chat
 To make a chat you need to specify some params.
 
-##### Make chat params
+##### Start chat params
 - userAlias: the alias of the user you want to create a chat with
-- typeCall: ['av'|'au'|'a'] the type of the call you want to start from the button displayed in the chat UI (av=audio-video,au=audio-upgreadable,a=audio-only)
-- recording: [true|false] flag to enable recording for the call started from the chat UI
+- withAudioCallCapability: **[recording: true | false]** define if you want the audio only call button in the chat UI, and set recording if you desire to be recorded.
+- withAudioUpgradableCallCapability: **[recording: true | false]**  define if you want the audio upgradable call button in the chat UI, and set recording if you desire to be recorded.
+- withAudioVideoCallCapability: **[recording: true | false]** define if you want the audio&video call button in the chat UI, and set recording if you desire to be recorded.
 
-```
-    BandyerPlugin
-    .makeChat({
-        userAlias: 'usr_xxx',
-        typeCall: 'av',
-        recording: false
-    }, (succ) => {
-        // make chat success
-        // on success the context switch to bandyer sdk which
-        // launch the call screen
-    }, (err) => {
-        // make call error
-    });
+```javascript
+bandyerPlugin.startChat({
+                    userAlias: 'usr_yyy',
+                    withAudioCallCapability: {recording: false},
+                    withAudioUpgradableCallCapability: {recording: false},
+                    withAudioVideoCallCapability: {recording: false}
+});
 ```
