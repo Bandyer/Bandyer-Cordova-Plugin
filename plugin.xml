@@ -44,7 +44,6 @@
         <source-file src="src/ios/BCPUsersDetailsCache.m" />
         <header-file src="src/ios/NSString+BandyerPlugin.h" />
         <source-file src="src/ios/NSString+BandyerPlugin.m" />
-        <resource-file src="src/ios/Resources/sample.mp4" />
         <podspec>
             <config>
                 <source url="https://github.com/CocoaPods/Specs.git" />
