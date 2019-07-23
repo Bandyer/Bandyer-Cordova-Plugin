@@ -8,6 +8,7 @@
 FOUNDATION_EXPORT NSString *const kBCPApplicationIDKey;
 FOUNDATION_EXPORT NSString *const kBCPEnvironmentKey;
 FOUNDATION_EXPORT NSString *const kBCPCallKitEnabledKey;
+FOUNDATION_EXPORT NSString *const kBCPFakeCapturerFilenameKey;
 FOUNDATION_EXPORT NSString *const kBCPLogEnabledKey;
 FOUNDATION_EXPORT NSString *const kBCPUserAliasKey;
 FOUNDATION_EXPORT NSString *const kBCPCalleeKey;

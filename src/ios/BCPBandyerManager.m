@@ -16,6 +16,7 @@
 @property (nonatomic, strong) BandyerSDK *bandyer;
 @property (nonatomic, strong) BCPUsersDetailsCache *userDetailsCache;
 @property (nonatomic, strong, nullable) NSDictionary *payload;
+@property (nonatomic, strong, nullable) NSString *fakeCapturerFilename;
 
 @end
 
@@ -69,6 +70,8 @@
     [config setEnvironment:environment];
     [config setCallKitEnabled:[params valueForKey:kBCPCallKitEnabledKey] ? YES : NO];
 
+    self.fakeCapturerFilename = [params valueForKey:kBCPFakeCapturerFilenameKey];
+
     NSString *appID = [params valueForKey:kBCPApplicationIDKey];
 
     if (appID == nil || [appID length] == 0)
@@ -80,7 +83,8 @@
         [BDKConfig setLogLevel:BDFDDLogLevelAll];
     }
 
-   @try {
+    @try
+    {
         [self.bandyer initializeWithApplicationId:appID config:config];
     } @catch (NSException *exception) { }
 
@@ -247,7 +251,7 @@
     BDKCallViewControllerConfiguration *config = [BDKCallViewControllerConfiguration new];
     [config setUserInfoFetcher:self.userDetailsCache];
 
-    NSURL *sampleURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sample" ofType:@"mp4"]];
+    NSURL *sampleURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:self.fakeCapturerFilename ofType:@"mp4"]];
     if (sampleURL)
         [config setFakeCapturerFileURL:sampleURL];
 
