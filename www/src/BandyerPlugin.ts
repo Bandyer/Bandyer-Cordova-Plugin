@@ -283,7 +283,7 @@ export class BandyerPlugin extends EventListener {
             throw new IllegalArgumentError("Expected a not empty userAlias!");
         }
 
-        if (this._isAndroid()) {
+        if (BandyerPlugin._isAndroid()) {
             cordova.exec(null, null, "BandyerPlugin", "startChat", [{
                 userAlias: chatOptions.userAlias,
                 audio: chatOptions.withAudioCallCapability,
@@ -301,7 +301,7 @@ export class BandyerPlugin extends EventListener {
      * @param error callback
      */
     clearUserCache(success?: () => void, error?: (reason) => void) {
-        if (this._isAndroid()) {
+        if (BandyerPlugin._isAndroid()) {
             cordova.exec(success, error, "BandyerPlugin", "clearUserCache", []);
         } else {
             console.warn("Not yet supported on ", device.platform, " platform.");
@@ -315,5 +315,5 @@ export class BandyerPlugin extends EventListener {
         } else {
             _bandyerHandlers.get(eventLowerCase).push(callback);
         }
-    }    
+    }
 }
