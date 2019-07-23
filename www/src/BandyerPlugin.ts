@@ -63,6 +63,10 @@ export class BandyerPlugin extends EventListener {
             throw new IllegalArgumentError("Expected a not empty appId!");
         }
 
+        if (this._isIos() && device.isVirtual && (!params.iosConfig.fakeCapturerFileName || params.iosConfig.fakeCapturerFileName === "")) {
+            throw new IllegalArgumentError("Expected a valid file name to initialize the fake capturer on a simulator!");
+        }
+
         if (this.instance) {
             console.warn("BandyerPlugin was already setup.");
             return this.instance;
@@ -88,6 +92,7 @@ export class BandyerPlugin extends EventListener {
             appId: params.appId,
             logEnabled: params.logEnabled === true,
             ios_callkitEnabled: params.iosConfig.callkitEnabled !== false,
+            ios_fakeCapturerFileName: params.iosConfig.fakeCapturerFileName,
             android_isCallEnabled: params.androidConfig.callEnabled !== false,
             android_isFileSharingEnabled: params.androidConfig.fileSharingEnabled !== false,
             android_isScreenSharingEnabled: params.androidConfig.screenSharingEnabled !== false,
@@ -97,6 +102,22 @@ export class BandyerPlugin extends EventListener {
 
         this.instance = new BandyerPlugin();
         return this.instance;
+    }
+
+    /**
+     * @ignore
+     * @private
+     */
+    private static _isAndroid() {
+        return device.platform.toLowerCase() === "android";
+    }
+
+    /**
+     * @ignore
+     * @private
+     */
+    private static _isIos() {
+        return device.platform.toLowerCase() === "ios";
     }
 
     private constructor() {
@@ -294,21 +315,5 @@ export class BandyerPlugin extends EventListener {
         } else {
             _bandyerHandlers.get(eventLowerCase).push(callback);
         }
-    }
-
-    /**
-     * @ignore
-     * @private
-     */
-    private _isAndroid() {
-        return device.platform.toLowerCase() === "android";
-    }
-
-    /**
-     * @ignore
-     * @private
-     */
-    private _isIos() {
-        return device.platform.toLowerCase() === "ios";
-    }
+    }    
 }
