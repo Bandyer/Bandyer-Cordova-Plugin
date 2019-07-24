@@ -14,6 +14,7 @@
     <js-module name="BandyerPlugin" src="www/out/bandyer-plugin.min.js">
         <clobbers target="BandyerPlugin" />
     </js-module>
+    <asset src="www/out/bandyer-plugin.min.js.map" target="plugins/cordova-plugin-bandyer/www/out/bandyer-plugin.min.js.map" />
 
     <platform name="ios">
 

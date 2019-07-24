@@ -1,4 +1,4 @@
-var TypedocWebpackPlugin = require('typedoc-webpack-plugin');
+var path = require('path');
 
 module.exports = {
     mode: "production",
@@ -9,7 +9,8 @@ module.exports = {
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
+        symlinks: true
     },
     output: {
         path: __dirname + '/www/out',
@@ -22,11 +23,24 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.m?js$/,
-                exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'babel-loader'
-                }
+                test: /\.js$/,
+                loader: 'babel-loader',
+                options: {
+                    configFile: path.resolve('babel.config.js')
+                },
+                include: [
+                    path.resolve('www/src')
+                ]
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                options: {
+                    configFile: path.resolve('commonjs-babel.config.js')
+                },
+                include: [
+                    path.resolve('node_modules/typescript-is')
+                ]
             },
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
             {
@@ -40,18 +54,9 @@ module.exports = {
                 options: {
                     compiler: 'ttypescript'
                 }
-            }
+            },
         ]
     },
-    plugins: [
-        new TypedocWebpackPlugin({
-            name: 'Bandyer',
-            mode: 'file',
-            theme: './typedoc-theme/',
-            includeDeclarations: false,
-            ignoreCompilerErrors: true,
-        })
-    ],
     node: {
         fs: 'empty'
     }

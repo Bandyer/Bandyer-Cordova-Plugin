@@ -2,8 +2,7 @@
 // Copyright © 2019 Bandyer S.r.l. All Rights Reserved.
 // See LICENSE for licensing information
 //
-import "core-js/stable";
-import "regenerator-runtime/runtime";
+import "core-js/es/map";
 import {EventListener} from "./events/EventListener";
 import {BandyerPluginConfigs} from "./BandyerPluginConfigs";
 import {CreateCallOptions} from "./CreateCallOptions";
