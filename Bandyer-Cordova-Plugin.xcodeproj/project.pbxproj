@@ -20,7 +20,6 @@
 		A9C31B1322C22DCF00BC33D5 /* BCPBandyerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C31B0822C22DCF00BC33D5 /* BCPBandyerPlugin.m */; };
 		A9C31B1422C22DCF00BC33D5 /* BCPBandyerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C31B0922C22DCF00BC33D5 /* BCPBandyerManager.h */; };
 		A9C31B1522C22DCF00BC33D5 /* NSString+BandyerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C31B0A22C22DCF00BC33D5 /* NSString+BandyerPlugin.m */; };
-		A9C31B1622C22DCF00BC33D5 /* sample.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A9C31B0C22C22DCF00BC33D5 /* sample.mp4 */; };
 		A9C31B1722C22DCF00BC33D5 /* NSString+BandyerPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C31B0D22C22DCF00BC33D5 /* NSString+BandyerPlugin.h */; };
 		C05E42F3BBA02E130BA1C106 /* Pods_Bandyer_Cordova_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8422BE86AF6E2A10F50E329 /* Pods_Bandyer_Cordova_Plugin.framework */; };
 /* End PBXBuildFile section */
@@ -203,7 +202,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9C31B1622C22DCF00BC33D5 /* sample.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
