@@ -90,4 +90,8 @@
     [_commandDelegate sendPluginResult:pluginResult callbackId:_callbackId];
 }
 
+- (void) notifyCallError:(NSError *) error {
+    [self _sendEvent:[[BCPBandyerEvents callError] value] args:@[[error localizedDescription]]];
+}
+
 @end

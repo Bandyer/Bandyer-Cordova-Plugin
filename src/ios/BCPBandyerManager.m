@@ -251,9 +251,14 @@
     BDKCallViewControllerConfiguration *config = [BDKCallViewControllerConfiguration new];
     [config setUserInfoFetcher:self.userDetailsCache];
 
-    NSURL *sampleURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:self.fakeCapturerFilename ofType:@"mp4"]];
-    if (sampleURL)
+     @try {
+         NSURL *sampleURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:self.fakeCapturerFilename ofType:@"mp4"]];
         [config setFakeCapturerFileURL:sampleURL];
+     } @catch (NSException *exception) {
+         NSError *err = [NSError errorWithDomain:@"Failed to start call" code:400  userInfo:@{  NSLocalizedDescriptionKey:@"Provided a not valid fakeCapturerFilename" }];
+         [_notifier notifyCallError:err];
+         return NULL;
+     }
 
     BDKCallViewController *controller = [BDKCallViewController new];
 
