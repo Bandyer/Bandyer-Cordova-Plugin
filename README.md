@@ -31,6 +31,7 @@ The first thing you need to do is to setup the plugin specifying your keys and y
 
 - iosConfig: define to personalize the ios configuration
     - callkitEnabled: **[true | false]** flag to enable callkit on iOS 
+    - fakeCapturerFileName: **[fileName]** by default is null, this property is **required** only for simulators
     
 - androidConfig: define to personalize the android configuration
     - callEnabled: **[true | false]** flag to enable call module on android
@@ -46,7 +47,8 @@ BandyerPlugin.setup({
             logEnabled: true,
             // optional you can disable one or more of the following capabilities, by default callkit is enabled
             iosConfig: {
-                callkitEnabled: true
+                callkitEnabled: true,
+                fakeCapturerFileName: null // set this property to be able to execute on an ios simulator
             },
             // optional you can disable one or more of the following capabilities, by default all additional modules are enabled
             androidConfig: {
