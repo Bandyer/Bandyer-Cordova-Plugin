@@ -37,7 +37,7 @@
     "doc": "typedoc --out ./docs --mode file --target ES6 ./www/src/ --hideGenerator --exclude node_modules --ignoreCompilerErrors --name Bandyer-Plugin",
     "openDoc": "open ./docs/index.html",
     "lint": "tslint -t verbose 'www/src/**/*.ts'",
-    "version": "npm run build && git add . && python update_plugin_version.py",
+    "version": "python update_plugin_version.py && npm run build && git add . ",
     "postversion": "git push && git push --tags",
     "major": "npm version major -m \"* Updated to version %s\"",
     "minor": "npm version minor -m \"* Updated to version %s\"",
