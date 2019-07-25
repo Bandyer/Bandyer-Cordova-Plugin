@@ -17,8 +17,6 @@ src/android/build.gradle
 www/src
 .babelrc
 build.gradle
-CHANGELOG.md
-README.md
 gradlew.bat
 logo_bandyer.png
 tslint.json
@@ -27,3 +25,7 @@ Podfile
 Podfile.lock
 settings.gradle
 tsconfig.json
+babel.config.js
+commonjs-babel.config.js
+gradle.properties
+Info.plist
