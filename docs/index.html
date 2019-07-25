@@ -1,0 +1,290 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Bandyer-Plugin</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Bandyer-Plugin</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> Bandyer-Plugin</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="bandyer-cordova-plugin">Bandyer Cordova Plugin</h1>
+				<h2 id="how-to-add-the-plugin-to-your-cordova-project-">How to add the plugin to your cordova project:</h2>
+				<p>Since the plugin it&#39;s in beta and it hasn&#39;t been published yet, you must clone this repo locally and link it to your cordova project using the following command:</p>
+				<pre><code>$ cordova plugin <span class="hljs-keyword">add</span> ../{<span class="hljs-type">path</span>-<span class="hljs-keyword">to</span>-<span class="hljs-keyword">local</span>-plugin} <span class="hljs-comment">--link</span></code></pre><p>Every time you update the plugin remove the platforms &#39;android&#39; and/or &#39;ios&#39; and re add them to ensure that all modified plugins are copied to build folders</p>
+				<pre><code>$ cordova platforms <span class="hljs-builtin-name">remove</span> android ios
+$ cordova platforms <span class="hljs-builtin-name">add</span> android ios</code></pre><h2 id="how-to-use-the-plugin-in-your-cordova-app">How to use the plugin in your Cordova app</h2>
+				<p>You can refer to the Bandyer plugin in your cordova app via</p>
+				<pre><code><span class="hljs-attribute">BandyerPlugin</span></code></pre><h2 id="plugin-setup">Plugin setup</h2>
+				<p>The first thing you need to do is to setup the plugin specifying your keys and your options.</p>
+				<h5 id="setup-params">Setup params</h5>
+				<ul>
+					<li>environment: <strong>[BandyerPlugin.environments.sandbox() | BandyerPlugin.environments.production()]</strong> the bandyer environment where your integration will run.</li>
+					<li>appId: <strong>[mAppId_xxx]</strong> your mobile appId</li>
+					<li><p>logEnabled: <strong>[true | false]</strong> flag to enable disable the logger</p>
+					</li>
+					<li><p>iosConfig: define to personalize the ios configuration</p>
+						<ul>
+							<li>callkitEnabled: <strong>[true | false]</strong> flag to enable callkit on iOS </li>
+							<li>fakeCapturerFileName: <strong>[fileName]</strong> by default is null, this property is <strong>required</strong> only for simulators</li>
+						</ul>
+					</li>
+					<li><p>androidConfig: define to personalize the android configuration</p>
+						<ul>
+							<li>callEnabled: <strong>[true | false]</strong> flag to enable call module on android</li>
+							<li>fileSharingEnabled: <strong>[true | false]</strong> flag to enable file sharing module on android</li>
+							<li>chatEnabled: <strong>[true | false]</strong> flag to enable chat module on android</li>
+							<li>screenSharingEnabled: <strong>[true | false]</strong> flag to enable screen sharing module on android</li>
+							<li>whiteboardEnabled: <strong>[true | false]</strong> flag to enable whiteboard module on android</li>
+						</ul>
+					</li>
+				</ul>
+				<pre><code class="language-javascript">BandyerPlugin.setup({
+            <span class="hljs-attr">environment</span>: BandyerPlugin.environments.sandbox(),
+            <span class="hljs-attr">appId</span>: <span class="hljs-string">'mAppId_xxx'</span>,
+            <span class="hljs-attr">logEnabled</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-comment">// optional you can disable one or more of the following capabilities, by default callkit is enabled</span>
+            iosConfig: {
+                <span class="hljs-attr">callkitEnabled</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">fakeCapturerFileName</span>: <span class="hljs-literal">null</span> <span class="hljs-comment">// set this property to be able to execute on an ios simulator</span>
+            },
+            <span class="hljs-comment">// optional you can disable one or more of the following capabilities, by default all additional modules are enabled</span>
+            androidConfig: {
+                <span class="hljs-attr">callEnabled</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">fileSharingEnabled</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">chatEnabled</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">screenSharingEnabled</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">whiteboardEnabled</span>: <span class="hljs-literal">true</span>
+            }
+})</code></pre>
+				<h2 id="plugin-listen-for-errors-events">Plugin listen for errors/events</h2>
+				<p>To listen for events and/or errors register
+				Check the documentation <a href="enums/events.html">here</a> for a complete list</p>
+				<p>Example:</p>
+				<pre><code class="language-javascript">bandyerPlugin.on(BandyerPlugin.events.callModuleStatusChanged, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">status</span>) </span>{});</code></pre>
+				<h2 id="plugin-start">Plugin start</h2>
+				<p>To start a plugin means to connect an user to the bandyer system.</p>
+				<pre><code class="language-javascript"><span class="hljs-comment">// start the bandyer plugin specifying the user alias of the user you want to connect</span>
+bandyerPlugin.startFor(<span class="hljs-string">'usr_xxx'</span>);</code></pre>
+				<h2 id="start-a-call">Start a call</h2>
+				<p>To make a call you need to specify some params.</p>
+				<h5 id="start-call-params">Start call params</h5>
+				<ul>
+					<li>callee: an array of user aliases of the users you want to call</li>
+					<li>callType: <strong>[BandyerPlugin.callTypes.AUDIO | BandyerPlugin.callTypes.AUDIO_UPGRADABLE | BandyerPlugin.callTypes.AUDIO_VIDEO]</strong> the type of the call you want to start</li>
+					<li>recording: <strong>[true | false]</strong> flag to enable recording for the call</li>
+				</ul>
+				<pre><code class="language-javascript">bandyerPlugin.startCall({
+                   <span class="hljs-attr">userAliases</span>: [<span class="hljs-string">'usr_yyy'</span>,<span class="hljs-string">'usr_zzz'</span>],
+                   <span class="hljs-attr">callType</span>: BandyerPlugin.callTypes.AUDIO_VIDEO,
+                   <span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>
+});</code></pre>
+				<h2 id="start-a-chat">Start a chat</h2>
+				<p>To make a chat you need to specify some params.</p>
+				<h5 id="start-chat-params">Start chat params</h5>
+				<ul>
+					<li>userAlias: the alias of the user you want to create a chat with</li>
+					<li>withAudioCallCapability: <strong>[recording: true | false]</strong> define if you want the audio only call button in the chat UI, and set recording if you desire to be recorded.</li>
+					<li>withAudioUpgradableCallCapability: <strong>[recording: true | false]</strong>  define if you want the audio upgradable call button in the chat UI, and set recording if you desire to be recorded.</li>
+					<li>withAudioVideoCallCapability: <strong>[recording: true | false]</strong> define if you want the audio&amp;video call button in the chat UI, and set recording if you desire to be recorded.</li>
+				</ul>
+				<pre><code class="language-javascript">bandyerPlugin.startChat({
+                    <span class="hljs-attr">userAlias</span>: <span class="hljs-string">'usr_yyy'</span>,
+                    <span class="hljs-attr">withAudioCallCapability</span>: {<span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>},
+                    <span class="hljs-attr">withAudioUpgradableCallCapability</span>: {<span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>},
+                    <span class="hljs-attr">withAudioVideoCallCapability</span>: {<span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>}
+});</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/calltype.html" class="tsd-kind-icon">Call<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/events.html" class="tsd-kind-icon">Events</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/bandyerplugin.html" class="tsd-kind-icon">Bandyer<wbr>Plugin</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/environments.html" class="tsd-kind-icon">Environments</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/eventlistener.html" class="tsd-kind-icon">Event<wbr>Listener</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/illegalargumenterror.html" class="tsd-kind-icon">Illegal<wbr>Argument<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/androidconfig.html" class="tsd-kind-icon">Android<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/bandyerpluginconfigs.html" class="tsd-kind-icon">Bandyer<wbr>Plugin<wbr>Configs</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/calloptions.html" class="tsd-kind-icon">Call<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/createcalloptions.html" class="tsd-kind-icon">Create<wbr>Call<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/createchatoptions.html" class="tsd-kind-icon">Create<wbr>Chat<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/environment.html" class="tsd-kind-icon">Environment</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iosconfig.html" class="tsd-kind-icon">Ios<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/userdetails.html" class="tsd-kind-icon">User<wbr>Details</a>
+					</li>
+					<li class=" tsd-kind-event">
+						<a href="globals.html#callerrorevent" class="tsd-kind-icon">Call<wbr>Error<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-event">
+						<a href="globals.html#callstatuschangedevent" class="tsd-kind-icon">Call<wbr>Status<wbr>Changed<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-event">
+						<a href="globals.html#chaterrorevent" class="tsd-kind-icon">Chat<wbr>Error<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-event">
+						<a href="globals.html#chatstatuschangedevent" class="tsd-kind-icon">Chat<wbr>Status<wbr>Changed<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-event">
+						<a href="globals.html#setuperrorevent" class="tsd-kind-icon">Setup<wbr>Error<wbr>Event</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
