@@ -29,3 +29,4 @@ babel.config.js
 commonjs-babel.config.js
 gradle.properties
 Info.plist
+Pods/
