@@ -1,17 +1,33 @@
 # Bandyer Cordova Plugin
 
-## How to add the plugin to your cordova project:
+## How to install the plugin:
 
-Since the plugin it's in beta and it hasn't been published yet, you must clone this repo locally and link it to your cordova project using the following command:
+```
+$ npm i
+$ cordova prepare
+$ cordova plugin add @bandyer/cordova-plugin-bandyer
+```
+
+## How to remove the plugin:
+
+```
+$ cordova plugin remove cordova-plugin-bandyer
+```
+
+## How to link local plugin:
+Link the local plugin to the project
 ```
 $ cordova plugin add ../{path-to-local-plugin} --link
-```
 
-Every time you update the plugin remove the platforms 'android' and/or 'ios' and re add them to ensure that all modified plugins are copied to build folders
+remove platforms 'android' and/or 'ios' and re add them to ensure that all modified plugins are copied to build folders
+$ cordova platforms remove android
+$ cordova platforms add android
 
-```
-$ cordova platforms remove android ios
-$ cordova platforms add android ios
+run on android device with a device connected through adb
+$ cordova run android --device
+
+or run on android emulator
+$ cordova emulate android
 ```
 
 ## How to use the plugin in your Cordova app
