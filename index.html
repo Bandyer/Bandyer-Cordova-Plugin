@@ -65,11 +65,23 @@
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
 				<h1 id="bandyer-cordova-plugin">Bandyer Cordova Plugin</h1>
-				<h2 id="how-to-add-the-plugin-to-your-cordova-project-">How to add the plugin to your cordova project:</h2>
-				<p>Since the plugin it&#39;s in beta and it hasn&#39;t been published yet, you must clone this repo locally and link it to your cordova project using the following command:</p>
-				<pre><code>$ cordova plugin <span class="hljs-keyword">add</span> ../{<span class="hljs-type">path</span>-<span class="hljs-keyword">to</span>-<span class="hljs-keyword">local</span>-plugin} <span class="hljs-comment">--link</span></code></pre><p>Every time you update the plugin remove the platforms &#39;android&#39; and/or &#39;ios&#39; and re add them to ensure that all modified plugins are copied to build folders</p>
-				<pre><code>$ cordova platforms <span class="hljs-builtin-name">remove</span> android ios
-$ cordova platforms <span class="hljs-builtin-name">add</span> android ios</code></pre><h2 id="how-to-use-the-plugin-in-your-cordova-app">How to use the plugin in your Cordova app</h2>
+				<h2 id="how-to-install-the-plugin-">How to install the plugin:</h2>
+				<pre><code><span class="hljs-variable">$ </span>npm i
+<span class="hljs-variable">$ </span>cordova prepare
+<span class="hljs-variable">$ </span>cordova plugin add <span class="hljs-variable">@bandyer</span>/cordova-plugin-bandyer</code></pre><h2 id="how-to-remove-the-plugin-">How to remove the plugin:</h2>
+				<pre><code>$ cordova plugin <span class="hljs-builtin-name">remove</span> cordova-plugin-bandyer</code></pre><h2 id="how-to-link-local-plugin-">How to link local plugin:</h2>
+				<p>Link the local plugin to the project</p>
+				<pre><code>$ cordova plugin add ../{path-<span class="hljs-keyword">to</span>-<span class="hljs-keyword">local</span>-plugin} <span class="hljs-comment">--link</span>
+
+remove platforms 'android' <span class="hljs-keyword">and</span>/<span class="hljs-keyword">or</span> 'ios' <span class="hljs-keyword">and</span> re add them <span class="hljs-keyword">to</span> ensure <span class="hljs-keyword">that</span> all modified plugins are copied <span class="hljs-keyword">to</span> build folders
+$ cordova platforms remove android
+$ cordova platforms add android
+
+<span class="hljs-built_in">run</span> <span class="hljs-keyword">on</span> android device <span class="hljs-keyword">with</span> a device connected <span class="hljs-keyword">through</span> adb
+$ cordova <span class="hljs-built_in">run</span> android <span class="hljs-comment">--device</span>
+
+<span class="hljs-keyword">or</span> <span class="hljs-built_in">run</span> <span class="hljs-keyword">on</span> android emulator
+$ cordova emulate android</code></pre><h2 id="how-to-use-the-plugin-in-your-cordova-app">How to use the plugin in your Cordova app</h2>
 				<p>You can refer to the Bandyer plugin in your cordova app via</p>
 				<pre><code><span class="hljs-attribute">BandyerPlugin</span></code></pre><h2 id="plugin-setup">Plugin setup</h2>
 				<p>The first thing you need to do is to setup the plugin specifying your keys and your options.</p>

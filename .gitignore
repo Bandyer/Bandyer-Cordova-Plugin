@@ -1,1 +1,9 @@
 node_modules
+.gradle/
+Pods
+local.properties
+build/
+*.iml
+*.xcworkspace
+*.xcodeproj
+www
