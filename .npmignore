@@ -30,3 +30,4 @@ commonjs-babel.config.js
 gradle.properties
 Info.plist
 Pods/
+update_plugin_version.py
