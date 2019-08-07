@@ -17,6 +17,10 @@ public class BandyerNotificationService extends JobIntentService {
         Bundle extras = intent.getExtras();
         if (extras == null) return;
         String payload = intent.getExtras().getString("payload");
-        BandyerSDKClient.getInstance().handleNotification(getApplicationContext(), payload);
+        try {
+            BandyerSDKClient.getInstance().handleNotification(getApplicationContext(), payload);
+        } catch (Exception ignored) {
+
+        }
     }
 }
