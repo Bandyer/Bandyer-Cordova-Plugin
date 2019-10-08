@@ -29,6 +29,7 @@
                 <param name="ios-package" value="BCPBandyerPlugin" />
             </feature>
         </config-file>
+        <header-file src="src/ios/BCPMacros.h"/>
         <header-file src="src/ios/BCPConstants.h" />
         <source-file src="src/ios/BCPConstants.m" />
         <header-file src="src/ios/BCPCallClientEventEmitter.h" />
@@ -41,6 +42,10 @@
         <source-file src="src/ios/BCPBandyerPlugin.m" />
         <header-file src="src/ios/BCPUsersDetailsCache.h" />
         <source-file src="src/ios/BCPUsersDetailsCache.m" />
+        <header-file src="src/ios/BCPCallClientEventsReporter.h"/>
+        <source-file src="src/ios/BCPCallClientEventsReporter.m"/>
+        <header-file src="src/ios/BCPEventEmitter.h"/>
+        <source-file src="src/ios/BCPEventEmitter.m"/>
         <header-file src="src/ios/NSString+BandyerPlugin.h" />
         <source-file src="src/ios/NSString+BandyerPlugin.m" />
         <podspec>
