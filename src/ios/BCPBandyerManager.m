@@ -15,7 +15,6 @@
 
 @property (nonatomic, strong) BandyerSDK *bandyer;
 @property (nonatomic, strong) BCPUsersDetailsCache *userDetailsCache;
-@property (nonatomic, strong, nullable) NSDictionary *payload;
 @property (nonatomic, strong, nullable) NSString *fakeCapturerFilename;
 
 @end
@@ -79,7 +78,6 @@
 
     if ([[params valueForKey:kBCPLogEnabledKey] boolValue] == YES)
     {
-        [BCXConfig setLogLevel:BDFDDLogLevelAll];
         [BDKConfig setLogLevel:BDFDDLogLevelAll];
     }
 
@@ -111,7 +109,6 @@
 - (void)pauseCallClient
 {
     [[self callClient] pause];
-    self.payload = nil;
 }
 
 - (void)resumeCallClient
@@ -124,7 +121,6 @@
     [[self callClient] removeObserver:self];
     [self.notifier stop];
     [[self callClient] stop];
-    self.payload = nil;
 }
 
 - (nullable NSString *)callClientState
@@ -137,31 +133,6 @@
     {
         return nil;
     }
-}
-
-- (BOOL)handleNotificationPayloadWithParams:(NSDictionary *)params
-{
-    NSDictionary *payload = [params valueForKey:kBCPPushPayloadKey];
-
-    if (![payload isKindOfClass:NSDictionary.class])
-        return NO;
-
-    if (payload == nil || [payload count] == 0)
-        return NO;
-
-    if (self.callClient.state == BCXCallClientStateRunning)
-    {
-        [self.callClient handleNotification:payload];
-    }
-    else
-    {
-        self.payload = payload;
-
-        if (self.callClient.state == BCXCallClientStatePaused)
-            [self.callClient resume];
-    }
-
-    return YES;
 }
 
 - (BOOL)startCallWithParams:(NSDictionary *)params
@@ -223,29 +194,6 @@
     [self.viewController presentViewController:controller animated:YES completion:NULL];
 }
 
-- (void)callClientDidStart:(id <BCXCallClient>)client
-{
-    if (client.state == BCXCallClientStateRunning && self.payload)
-    {
-        [[self callClient] handleNotification:self.payload];
-        self.payload = nil;
-    }
-}
-
-- (void)callClientDidResume:(id <BCXCallClient>)client
-{
-    if (client.state == BCXCallClientStateRunning && self.payload)
-    {
-        [[self callClient] handleNotification:self.payload];
-        self.payload = nil;
-    }
-}
-
-- (void)callClient:(id <BCXCallClient>)client didFailWithError:(NSError *)error
-{
-    self.payload = nil;
-}
-
 - (BDKCallViewController *)_createCallViewController
 {
     BDKCallViewControllerConfiguration *config = [BDKCallViewControllerConfiguration new];
@@ -272,6 +220,16 @@
 - (void)callViewControllerDidFinish:(BDKCallViewController *)controller
 {
     [controller dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)callViewControllerDidPressBack:(BDKCallViewController *)controller
+{
+
+}
+
+- (void)callViewController:(BDKCallViewController *)controller openChatWith:(NSString *)participantId
+{
+
 }
 
 @end

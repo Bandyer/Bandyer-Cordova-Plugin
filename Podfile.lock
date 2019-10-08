@@ -1,16 +1,19 @@
 PODS:
-  - BandyerSDK (1.1.1):
-    - BandyerSDK/WebRTC (= 1.1.1)
+  - BandyerSDK (1.2.0):
+    - BandyerSDK/WebRTC (= 1.2.0)
     - Socket.IO-Client-Swift (~> 14.0)
-  - BandyerSDK/WebRTC (1.1.1):
+    - TwilioChatClient (~> 2.4)
+  - BandyerSDK/WebRTC (1.2.0):
     - Socket.IO-Client-Swift (~> 14.0)
+    - TwilioChatClient (~> 2.4)
   - Cordova (4.5.4)
   - Socket.IO-Client-Swift (14.0.0):
     - Starscream (~> 3.0.6)
   - Starscream (3.0.6)
+  - TwilioChatClient (2.6.2)
 
 DEPENDENCIES:
-  - BandyerSDK (from `https://github.com/Bandyer/Bandyer-iOS-SDK.git`, tag `1.1.1`)
+  - BandyerSDK (from `https://github.com/Bandyer/Bandyer-iOS-SDK.git`, tag `1.2.0`)
   - Cordova (~> 4.5.4)
 
 SPEC REPOS:
@@ -19,23 +22,25 @@ SPEC REPOS:
   trunk:
     - Socket.IO-Client-Swift
     - Starscream
+    - TwilioChatClient
 
 EXTERNAL SOURCES:
   BandyerSDK:
     :git: https://github.com/Bandyer/Bandyer-iOS-SDK.git
-    :tag: 1.1.1
+    :tag: 1.2.0
 
 CHECKOUT OPTIONS:
   BandyerSDK:
     :git: https://github.com/Bandyer/Bandyer-iOS-SDK.git
-    :tag: 1.1.1
+    :tag: 1.2.0
 
 SPEC CHECKSUMS:
-  BandyerSDK: c339420f79604a6d53da6e06824d544e360eaf67
+  BandyerSDK: 28418bed9469be2fce0aae59cc3eca18b5d45677
   Cordova: 90a337977b8667a80483f559268c82062b1183da
   Socket.IO-Client-Swift: 21e6a8a23a7d367d5ddfab6cbbd3c679cf3c25d6
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
+  TwilioChatClient: b9c0aa43da3b9fd2725094b6eb111bc11318cc83
 
-PODFILE CHECKSUM: 29558bc48672b6e77a2d88d5cb1d33a7f52635bc
+PODFILE CHECKSUM: c03526e6456c29129da41bee1983e50cf19285f6
 
 COCOAPODS: 1.8.3

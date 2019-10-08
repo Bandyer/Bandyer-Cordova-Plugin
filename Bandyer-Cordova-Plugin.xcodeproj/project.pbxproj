@@ -42,7 +42,6 @@
 		A9C31B0822C22DCF00BC33D5 /* BCPBandyerPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPBandyerPlugin.m; path = src/ios/BCPBandyerPlugin.m; sourceTree = "<group>"; };
 		A9C31B0922C22DCF00BC33D5 /* BCPBandyerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPBandyerManager.h; path = src/ios/BCPBandyerManager.h; sourceTree = "<group>"; };
 		A9C31B0A22C22DCF00BC33D5 /* NSString+BandyerPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+BandyerPlugin.m"; path = "src/ios/NSString+BandyerPlugin.m"; sourceTree = "<group>"; };
-		A9C31B0C22C22DCF00BC33D5 /* sample.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.mp4; sourceTree = "<group>"; };
 		A9C31B0D22C22DCF00BC33D5 /* NSString+BandyerPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+BandyerPlugin.h"; path = "src/ios/NSString+BandyerPlugin.h"; sourceTree = "<group>"; };
 		C8422BE86AF6E2A10F50E329 /* Pods_Bandyer_Cordova_Plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bandyer_Cordova_Plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -72,7 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				A9C31B1822C22DE900BC33D5 /* Source */,
-				A9C31B0B22C22DCF00BC33D5 /* Resources */,
 				A9C31AFC22C22D1100BC33D5 /* Info.plist */,
 				A9C31AF922C22D1100BC33D5 /* Products */,
 				23F87D898896910F1885862F /* Pods */,
@@ -86,15 +84,6 @@
 				A9C31AF822C22D1100BC33D5 /* Bandyer_Cordova_Plugin.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		A9C31B0B22C22DCF00BC33D5 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A9C31B0C22C22DCF00BC33D5 /* sample.mp4 */,
-			);
-			name = Resources;
-			path = src/ios/Resources;
 			sourceTree = "<group>";
 		};
 		A9C31B1822C22DE900BC33D5 /* Source */ = {

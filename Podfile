@@ -5,6 +5,6 @@ target 'Bandyer-Cordova-Plugin' do
   use_frameworks!
 
   pod 'Cordova', '~> 4.5.4'
-  pod 'BandyerSDK', :git => 'https://github.com/Bandyer/Bandyer-iOS-SDK.git', :tag => '1.1.1'
+  pod 'BandyerSDK', :git => 'https://github.com/Bandyer/Bandyer-iOS-SDK.git', :tag => '1.2.0'
 
 end

@@ -73,13 +73,7 @@
 
 - (void)handlePushNotificationPayload:(CDVInvokedUrlCommand *)command 
 {
-    NSDictionary *params = [command.arguments firstObject];
-    BOOL result = [[BCPBandyerManager shared] handleNotificationPayloadWithParams:params];
-    
-    if (result) 
-        [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId]; 
-    else
-        [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR] callbackId:command.callbackId];
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR] callbackId:command.callbackId];
 }
 
 - (void)startCall:(CDVInvokedUrlCommand *)command
