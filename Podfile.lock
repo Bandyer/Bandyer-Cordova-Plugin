@@ -10,23 +10,25 @@ PODS:
   - Starscream (3.0.6)
 
 DEPENDENCIES:
-  - BandyerSDK (from `https://github.com/Bandyer/Bandyer-iOS-SDK.git`)
+  - BandyerSDK (from `https://github.com/Bandyer/Bandyer-iOS-SDK.git`, tag `1.1.1`)
   - Cordova (~> 4.5.4)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Cordova
+  trunk:
     - Socket.IO-Client-Swift
     - Starscream
 
 EXTERNAL SOURCES:
   BandyerSDK:
     :git: https://github.com/Bandyer/Bandyer-iOS-SDK.git
+    :tag: 1.1.1
 
 CHECKOUT OPTIONS:
   BandyerSDK:
-    :commit: 1304b2e4fcb5dc9fd4c756ac38c119887ef120df
     :git: https://github.com/Bandyer/Bandyer-iOS-SDK.git
+    :tag: 1.1.1
 
 SPEC CHECKSUMS:
   BandyerSDK: c339420f79604a6d53da6e06824d544e360eaf67
@@ -34,6 +36,6 @@ SPEC CHECKSUMS:
   Socket.IO-Client-Swift: 21e6a8a23a7d367d5ddfab6cbbd3c679cf3c25d6
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
 
-PODFILE CHECKSUM: 6eadda94df66f4c18f6c086357ef2ed9f70e898b
+PODFILE CHECKSUM: 29558bc48672b6e77a2d88d5cb1d33a7f52635bc
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.8.3
