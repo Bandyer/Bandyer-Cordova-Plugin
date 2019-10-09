@@ -8,6 +8,7 @@
 
 #import "BCPiOS10AndAboveTestCase.h"
 #import "BCPTestingMacros.h"
+#import "BCPExceptionsMatcher.h"
 
 #import "BCPContactHandleProvider.h"
 #import "BCPUsersDetailsCache.h"
@@ -53,7 +54,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testThrowsInvalidArgumentExceptionWhenNilCacheIsProvidedInInitialization
 {
-    assertThat(^{[[BCPContactHandleProvider alloc] initWithCache:nil];}, throwsException(hasProperty(@"name", equalTo(NSInvalidArgumentException))));
+    assertThat(^{[[BCPContactHandleProvider alloc] initWithCache:nil];}, throwsInvalidArgumentException());
 }
 
 - (void)testCreatesGenericContactHandleWithContactFullname

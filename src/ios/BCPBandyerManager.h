@@ -23,8 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopCallClient;
 - (nullable NSString *)callClientState;
 - (BOOL)startCallWithParams:(NSDictionary *)params;
-- (void)addUsersDetails:(NSDictionary *)params;
-- (void)removeUsersDetails;
 
 + (instancetype)shared;
 

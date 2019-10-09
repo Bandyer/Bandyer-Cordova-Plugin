@@ -6,13 +6,23 @@
 #import "BCPBandyerPlugin.h"
 #import "BCPBandyerManager.h"
 #import "BCPCallClientEventEmitter.h"
+#import "BCPUsersDetailsCache.h"
+#import "BCPUsersDetailsCommandsHandler.h"
 #import "CDVPluginResult+BCPFactoryMethods.h"
+
+@interface BCPBandyerPlugin ()
+
+@property (nonatomic, strong) BCPUsersDetailsCache *usersCache;
+
+@end
 
 @implementation BCPBandyerPlugin
 
 - (void)pluginInitialize 
 {
     [super pluginInitialize];
+
+    self.usersCache = [BCPUsersDetailsCache new];
 
     BCPBandyerManager.shared.viewController = self.viewController;
     BCPBandyerManager.shared.webViewEngine = self.webViewEngine;
@@ -93,26 +103,14 @@
 
 - (void)addUsersDetails:(CDVInvokedUrlCommand *)command 
 {
-    CDVPluginResult *pluginResult = nil;
-    NSDictionary *params = [command.arguments firstObject];
-    
-    if ([params count] == 0) 
-    {
-        pluginResult = [CDVPluginResult bcp_error];
-    } else 
-    {
-        [[BCPBandyerManager shared] addUsersDetails:params];
-        pluginResult = [CDVPluginResult bcp_success];
-    }
-    
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    BCPUsersDetailsCommandsHandler *handler = [[BCPUsersDetailsCommandsHandler alloc] initWithCommandDelegate:self.commandDelegate cache:self.usersCache];
+    [handler addUsersDetails:command];
 }
 
 - (void)removeUsersDetails:(CDVInvokedUrlCommand *)command 
 {
-    [[BCPBandyerManager shared] removeUsersDetails];
-
-    [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_success] callbackId:command.callbackId];
+    BCPUsersDetailsCommandsHandler *handler = [[BCPUsersDetailsCommandsHandler alloc] initWithCommandDelegate:self.commandDelegate cache:self.usersCache];
+    [handler removeUsersDetails:command];
 }
 
 @end

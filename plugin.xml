@@ -50,6 +50,8 @@
         <source-file src="src/ios/BCPUsersDetailsFetcher.m"/>
         <header-file src="src/ios/BCPContactHandleProvider.h"/>
         <source-file src="src/ios/BCPContactHandleProvider.m"/>
+        <header-file src="src/ios/BCPUsersDetailsCommandsHandler.h"/>
+        <source-file src="src/ios/BCPUsersDetailsCommandsHandler.m"/>
         <header-file src="src/ios/NSString+BandyerPlugin.h" />
         <source-file src="src/ios/NSString+BandyerPlugin.m" />
         <header-file src="src/ios/CDVPluginResult+BCPFactoryMethods.h"/>

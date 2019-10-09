@@ -168,19 +168,6 @@
     return YES;
 }
 
-- (void)addUsersDetails:(NSDictionary *)params
-{
-    NSAssert(params, @"Params dictionary must be provided, got nil");
-
-    NSArray *details = [params valueForKey:kBCPUserDetailsKey];
-    [self.userDetailsCache addUsersDetails:details];
-}
-
-- (void)removeUsersDetails
-{
-    [self.userDetailsCache removeUsersDetails];
-}
-
 #pragma mark - BCXCallClientObserver
 
 - (void)callClient:(id <BCXCallClient>)client didReceiveIncomingCall:(id <BCXCall>)call

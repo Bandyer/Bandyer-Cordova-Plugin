@@ -6,7 +6,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 #import "BCPTestCase.h"
-
+#import "BCPExceptionsMatcher.h"
 #import "BCPUsersDetailsCache.h"
 
 @interface BCPUsersDetailsCacheTest : BCPTestCase
@@ -42,7 +42,7 @@
 {
     BDKUserInfoDisplayItem *item = [[BDKUserInfoDisplayItem alloc] initWithAlias:@"alias"];
 
-    assertThat(^{[sut setItem:item forKey:nil];}, throwsException(hasProperty(@"name", equalTo(NSInvalidArgumentException))));
+    assertThat(^{[sut setItem:item forKey:nil];}, throwsInvalidArgumentException());
 }
 
 - (void)testReturnsNilWhenGettingAnItemWithNilKey

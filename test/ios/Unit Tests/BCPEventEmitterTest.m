@@ -10,6 +10,7 @@
 
 #import "BCPTestCase.h"
 #import "BCPTestingMacros.h"
+#import "BCPExceptionsMatcher.h"
 
 #import "BCPEventEmitter.h"
 
@@ -33,8 +34,8 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testThrowsInvalidArgumentWhenMandatoryArgumentIsMissing
 {
-    assertThat(^{[[BCPEventEmitter alloc] initWithCallbackId:nil commandDelegate:commandDelegate];}, throwsException(hasProperty(@"name", equalTo(NSInvalidArgumentException))));
-    assertThat(^{[[BCPEventEmitter alloc] initWithCallbackId:@"ID" commandDelegate:nil];}, throwsException(hasProperty(@"name", equalTo(NSInvalidArgumentException))));
+    assertThat(^{[[BCPEventEmitter alloc] initWithCallbackId:nil commandDelegate:commandDelegate];}, throwsInvalidArgumentException());
+    assertThat(^{[[BCPEventEmitter alloc] initWithCallbackId:@"ID" commandDelegate:nil];}, throwsInvalidArgumentException());
 }
 
 - (void)testSendsPluginResultContainingEventAndArgsToCommandDelegate

@@ -10,6 +10,7 @@
 
 #import "BCPTestingMacros.h"
 #import "BCPTestCase.h"
+#import "BCPExceptionsMatcher.h"
 
 #import "BCPCallClientEventsReporter.h"
 #import "BCPEventEmitter.h"
@@ -36,10 +37,12 @@
     sut = [[BCPCallClientEventsReporter alloc] initWithCallClient:callClient eventEmitter:emitter];
 }
 
+__SUPPRESS_WARNINGS_FOR_TEST_BEGIN
+
 - (void)testThrowsInvalidArgumentExceptionWhenMandatoryArgumentIsMissingInInitialization
 {
-    assertThat(^{[[BCPCallClientEventsReporter alloc] initWithCallClient:callClient eventEmitter:nil];}, throwsException(hasProperty(@"name", equalTo(NSInvalidArgumentException))));
-    assertThat(^{[[BCPCallClientEventsReporter alloc] initWithCallClient:nil eventEmitter:emitter];}, throwsException(hasProperty(@"name", equalTo(NSInvalidArgumentException))));
+    assertThat(^{[[BCPCallClientEventsReporter alloc] initWithCallClient:callClient eventEmitter:nil];}, throwsInvalidArgumentException());
+    assertThat(^{[[BCPCallClientEventsReporter alloc] initWithCallClient:nil eventEmitter:emitter];}, throwsInvalidArgumentException());
 }
 
 - (void)testStartsObservingCallClientEvents
@@ -134,5 +137,7 @@
     [verify(emitter) sendEvent:[[BCPBandyerEvents callError] value] withArgs:@[[error localizedDescription]]];
     [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientFailedJSEvent]];
 }
+
+__SUPPRESS_WARNINGS_FOR_TEST_END
 
 @end

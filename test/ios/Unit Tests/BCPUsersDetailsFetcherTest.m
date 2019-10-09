@@ -7,6 +7,7 @@
 
 #import "BCPTestCase.h"
 #import "BCPTestingMacros.h"
+#import "BCPExceptionsMatcher.h"
 
 #import "BCPUsersDetailsFetcher.h"
 #import "BCPUsersDetailsCache.h"
@@ -38,7 +39,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testThrowsInvalidArgumentExceptionWhenNilCacheIsProvidedInInitialization
 {
-    assertThat(^{[[BCPUsersDetailsFetcher alloc] initWithCache:nil];}, throwsException(hasProperty(@"name", equalTo(NSInvalidArgumentException))));
+    assertThat(^{[[BCPUsersDetailsFetcher alloc] initWithCache:nil];}, throwsInvalidArgumentException());
 }
 
 - (void)testFetchesUsersDetailsFromCache
