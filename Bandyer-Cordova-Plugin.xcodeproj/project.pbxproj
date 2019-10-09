@@ -40,13 +40,11 @@
 		62DD2F0B813124EF6342C279 /* BCPUsersDetailsCommandsHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 62DD230BB0811499E852F9E2 /* BCPUsersDetailsCommandsHandler.h */; };
 		8B3356EBB56A649B8A360CEB /* Pods_Bandyer_Cordova_PluginTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26705AAB9FB6D90AC8CF14C /* Pods_Bandyer_Cordova_PluginTests.framework */; };
 		A9637FFA234CC8C20050AAA7 /* Bandyer_Cordova_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C31AF822C22D1100BC33D5 /* Bandyer_Cordova_Plugin.framework */; };
-		A9C31B0E22C22DCF00BC33D5 /* BCPBandyerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C31B0322C22DCF00BC33D5 /* BCPBandyerManager.m */; };
 		A9C31B0F22C22DCF00BC33D5 /* BCPConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C31B0422C22DCF00BC33D5 /* BCPConstants.h */; };
 		A9C31B1022C22DCF00BC33D5 /* BCPUsersDetailsCache.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C31B0522C22DCF00BC33D5 /* BCPUsersDetailsCache.h */; };
 		A9C31B1122C22DCF00BC33D5 /* BCPUsersDetailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C31B0622C22DCF00BC33D5 /* BCPUsersDetailsCache.m */; };
 		A9C31B1222C22DCF00BC33D5 /* BCPBandyerPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C31B0722C22DCF00BC33D5 /* BCPBandyerPlugin.h */; };
 		A9C31B1322C22DCF00BC33D5 /* BCPBandyerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C31B0822C22DCF00BC33D5 /* BCPBandyerPlugin.m */; };
-		A9C31B1422C22DCF00BC33D5 /* BCPBandyerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C31B0922C22DCF00BC33D5 /* BCPBandyerManager.h */; };
 		A9C31B1522C22DCF00BC33D5 /* NSString+BandyerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C31B0A22C22DCF00BC33D5 /* NSString+BandyerPlugin.m */; };
 		A9C31B1722C22DCF00BC33D5 /* NSString+BandyerPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = A9C31B0D22C22DCF00BC33D5 /* NSString+BandyerPlugin.h */; };
 		C05E42F3BBA02E130BA1C106 /* Pods_Bandyer_Cordova_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8422BE86AF6E2A10F50E329 /* Pods_Bandyer_Cordova_Plugin.framework */; };
@@ -108,13 +106,11 @@
 		A9938BE3234CDA5F0065048E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "test/ios/Unit Tests/Info.plist"; sourceTree = "<group>"; };
 		A9C31AF822C22D1100BC33D5 /* Bandyer_Cordova_Plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bandyer_Cordova_Plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9C31AFC22C22D1100BC33D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A9C31B0322C22DCF00BC33D5 /* BCPBandyerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPBandyerManager.m; path = src/ios/BCPBandyerManager.m; sourceTree = "<group>"; };
 		A9C31B0422C22DCF00BC33D5 /* BCPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPConstants.h; path = src/ios/BCPConstants.h; sourceTree = "<group>"; };
 		A9C31B0522C22DCF00BC33D5 /* BCPUsersDetailsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPUsersDetailsCache.h; path = src/ios/BCPUsersDetailsCache.h; sourceTree = "<group>"; };
 		A9C31B0622C22DCF00BC33D5 /* BCPUsersDetailsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPUsersDetailsCache.m; path = src/ios/BCPUsersDetailsCache.m; sourceTree = "<group>"; };
 		A9C31B0722C22DCF00BC33D5 /* BCPBandyerPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPBandyerPlugin.h; path = src/ios/BCPBandyerPlugin.h; sourceTree = "<group>"; };
 		A9C31B0822C22DCF00BC33D5 /* BCPBandyerPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPBandyerPlugin.m; path = src/ios/BCPBandyerPlugin.m; sourceTree = "<group>"; };
-		A9C31B0922C22DCF00BC33D5 /* BCPBandyerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPBandyerManager.h; path = src/ios/BCPBandyerManager.h; sourceTree = "<group>"; };
 		A9C31B0A22C22DCF00BC33D5 /* NSString+BandyerPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+BandyerPlugin.m"; path = "src/ios/NSString+BandyerPlugin.m"; sourceTree = "<group>"; };
 		A9C31B0D22C22DCF00BC33D5 /* NSString+BandyerPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+BandyerPlugin.h"; path = "src/ios/NSString+BandyerPlugin.h"; sourceTree = "<group>"; };
 		C8422BE86AF6E2A10F50E329 /* Pods_Bandyer_Cordova_Plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bandyer_Cordova_Plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,8 +220,6 @@
 				62DD23F6ADF01D5FA0734E50 /* BCPEventEmitter.h */,
 				2B5DAB0E22E0D7A300B74385 /* BCPBandyerEvents.h */,
 				2B5DAB0A22E0D6F600B74385 /* BCPBandyerEvents.m */,
-				A9C31B0922C22DCF00BC33D5 /* BCPBandyerManager.h */,
-				A9C31B0322C22DCF00BC33D5 /* BCPBandyerManager.m */,
 				A9C31B0722C22DCF00BC33D5 /* BCPBandyerPlugin.h */,
 				A9C31B0822C22DCF00BC33D5 /* BCPBandyerPlugin.m */,
 				62DD2C83228FF9584157E6B6 /* BCPCallClientEventEmitter.h */,
@@ -270,7 +264,6 @@
 				A9C31B0F22C22DCF00BC33D5 /* BCPConstants.h in Headers */,
 				A9C31B1222C22DCF00BC33D5 /* BCPBandyerPlugin.h in Headers */,
 				A9C31B1722C22DCF00BC33D5 /* NSString+BandyerPlugin.h in Headers */,
-				A9C31B1422C22DCF00BC33D5 /* BCPBandyerManager.h in Headers */,
 				A9C31B1022C22DCF00BC33D5 /* BCPUsersDetailsCache.h in Headers */,
 				2B5DAB0F22E0D7A300B74385 /* BCPBandyerEvents.h in Headers */,
 				62DD2C318B08C3400A8749F8 /* BCPCallClientEventEmitter.h in Headers */,
@@ -469,7 +462,6 @@
 			files = (
 				A9C31B1122C22DCF00BC33D5 /* BCPUsersDetailsCache.m in Sources */,
 				2B5DAB0C22E0D6F600B74385 /* BCPBandyerEvents.m in Sources */,
-				A9C31B0E22C22DCF00BC33D5 /* BCPBandyerManager.m in Sources */,
 				A9C31B1522C22DCF00BC33D5 /* NSString+BandyerPlugin.m in Sources */,
 				A9C31B1322C22DCF00BC33D5 /* BCPBandyerPlugin.m in Sources */,
 				62DD2457AD52EF785B5D39B4 /* BCPConstants.m in Sources */,

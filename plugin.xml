@@ -34,8 +34,6 @@
         <source-file src="src/ios/BCPConstants.m" />
         <header-file src="src/ios/BCPCallClientEventEmitter.h" />
         <source-file src="src/ios/BCPCallClientEventEmitter.m" />
-        <header-file src="src/ios/BCPBandyerManager.h" />
-        <source-file src="src/ios/BCPBandyerManager.m" />
         <header-file src="src/ios/BCPBandyerEvents.h" />
         <source-file src="src/ios/BCPBandyerEvents.m" />
         <header-file src="src/ios/BCPBandyerPlugin.h" />
@@ -52,6 +50,8 @@
         <source-file src="src/ios/BCPContactHandleProvider.m"/>
         <header-file src="src/ios/BCPUsersDetailsCommandsHandler.h"/>
         <source-file src="src/ios/BCPUsersDetailsCommandsHandler.m"/>
+        <header-file src="src/ios/BCPUserInterfaceCoordinator.h"/>
+        <source-file src="src/ios/BCPUserInterfaceCoordinator.m"/>
         <header-file src="src/ios/NSString+BandyerPlugin.h" />
         <source-file src="src/ios/NSString+BandyerPlugin.m" />
         <header-file src="src/ios/CDVPluginResult+BCPFactoryMethods.h"/>
