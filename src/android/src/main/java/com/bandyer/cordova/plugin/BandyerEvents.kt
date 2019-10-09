@@ -11,5 +11,7 @@ enum class Events {
     CallModuleStatusChanged,
     ChatError,
     ChatModuleStatusChanged,
+    IOSVoipPushTokenInvalidated,
+    IOSVoipPushTokenUpdated,
     SetupError
 }

@@ -25,4 +25,12 @@ export enum Events {
      * @see [[ChatStatusChangedEvent]]
      */
     chatModuleStatusChanged = "chatModuleStatusChanged",
+    /**
+     * @see [[VoipPushTokenEvents]]
+     */
+    iOSVoipPushTokenUpdated = "iOSVoipPushTokenUpdated",
+    /**
+     * @see [[VoipPushTokenEvents]]
+     */
+    iOSVoipPushTokenInvalidated = "iOSVoipPushTokenInvalidated",
 }

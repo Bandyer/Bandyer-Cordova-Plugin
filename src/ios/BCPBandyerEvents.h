@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BCPBandyerEvents *)callModuleStatusChanged;
 + (BCPBandyerEvents *)chatError;
 + (BCPBandyerEvents *)chatModuleStatusChanged;
++ (BCPBandyerEvents *)iOSVoipPushTokenInvalidated;
++ (BCPBandyerEvents *)iOSVoipPushTokenUpdated;
 + (BCPBandyerEvents *)setupError;
 @end
 

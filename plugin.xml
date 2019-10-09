@@ -52,6 +52,8 @@
         <source-file src="src/ios/BCPUsersDetailsCommandsHandler.m"/>
         <header-file src="src/ios/BCPUserInterfaceCoordinator.h"/>
         <source-file src="src/ios/BCPUserInterfaceCoordinator.m"/>
+        <header-file src="src/ios/BCPPushTokenEventsReporter.h"/>
+        <source-file src="src/ios/BCPPushTokenEventsReporter.m"/>
         <header-file src="src/ios/NSString+BandyerPlugin.h" />
         <source-file src="src/ios/NSString+BandyerPlugin.m" />
         <header-file src="src/ios/CDVPluginResult+BCPFactoryMethods.h"/>

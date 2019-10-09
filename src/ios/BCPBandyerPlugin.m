@@ -15,6 +15,7 @@
 #import "CDVPluginResult+BCPFactoryMethods.h"
 #import "NSString+BandyerPlugin.h"
 #import "BCPContactHandleProvider.h"
+#import "BCPPushTokenEventsReporter.h"
 
 @interface BCPBandyerPlugin () <BCXCallClientObserver>
 
@@ -55,6 +56,7 @@
     if (config.isCallKitEnabled)
     {
         config.handleProvider = [[BCPContactHandleProvider alloc] initWithCache:self.usersCache];
+        config.pushRegistryDelegate = [[BCPPushTokenEventsReporter alloc] initWithEventEmitter:self.eventEmitter];
     }
 
     self.coordinator.fakeCapturerFilename = args[kBCPFakeCapturerFilenameKey];
