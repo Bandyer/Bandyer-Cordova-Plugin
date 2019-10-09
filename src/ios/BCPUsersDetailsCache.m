@@ -58,6 +58,21 @@
     [self.cache removeAllObjects];
 }
 
+- (void)setItem:(BDKUserInfoDisplayItem *)item forKey:(NSString *)key
+{
+    self.cache[key] = item;
+}
+
+- (BDKUserInfoDisplayItem *)itemForKey:(NSString *)key
+{
+    return self.cache[key];
+}
+
+- (void)purge
+{
+    [self.cache removeAllObjects];
+}
+
 #pragma mark - BDKUserInfoFetcher
 
 - (void)fetchUsers:(NSArray<NSString *> *)aliases completion:(void (^)(NSArray<BDKUserInfoDisplayItem *> * _Nullable))completion
