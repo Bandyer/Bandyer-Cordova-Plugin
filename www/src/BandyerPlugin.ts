@@ -92,6 +92,7 @@ export class BandyerPlugin extends EventListener {
             logEnabled: params.logEnabled === true,
             ios_callkitEnabled: params.iosConfig.callkitEnabled !== false,
             ios_fakeCapturerFileName: params.iosConfig.fakeCapturerFileName,
+            ios_voipNotificationKeyPath: params.iosConfig.voipNotificationKeyPath,
             android_isCallEnabled: params.androidConfig.callEnabled !== false,
             android_isFileSharingEnabled: params.androidConfig.fileSharingEnabled !== false,
             android_isScreenSharingEnabled: params.androidConfig.screenSharingEnabled !== false,

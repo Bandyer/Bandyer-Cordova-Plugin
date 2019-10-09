@@ -57,6 +57,7 @@
     {
         config.handleProvider = [[BCPContactHandleProvider alloc] initWithCache:self.usersCache];
         config.pushRegistryDelegate = [[BCPPushTokenEventsReporter alloc] initWithEventEmitter:self.eventEmitter];
+        config.notificationPayloadKeyPath = args[kBCPVoipPushPayloadKey];
     }
 
     self.coordinator.fakeCapturerFilename = args[kBCPFakeCapturerFilenameKey];

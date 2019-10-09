@@ -20,4 +20,12 @@ export interface IosConfig {
      * <b><font color="blue">default</font>: null</b>
      */
     fakeCapturerFileName?: string;
+
+    /**
+     * Specify the key path where the bandyer notification payload can be found inside the voip push notification received
+     * <br/>
+     * <br/>
+     * <b><font color="blue">default</font>: null</b>
+     */
+    voipNotificationKeyPath: string;
 }
