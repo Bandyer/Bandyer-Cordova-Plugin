@@ -6,6 +6,7 @@
 #import "BCPBandyerPlugin.h"
 #import "BCPBandyerManager.h"
 #import "BCPCallClientEventEmitter.h"
+#import "CDVPluginResult+BCPFactoryMethods.h"
 
 @implementation BCPBandyerPlugin
 
@@ -32,10 +33,10 @@
     NSDictionary *params = [command.arguments firstObject];
     BOOL result = [[BCPBandyerManager shared] startCallClientWithParams:params];
     
-    if (result) 
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    if (result)
+        pluginResult = [CDVPluginResult bcp_success];
     else
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        pluginResult = [CDVPluginResult bcp_error];
         
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -43,22 +44,22 @@
 - (void)stop:(CDVInvokedUrlCommand *)command 
 {
     [[BCPBandyerManager shared] stopCallClient];
-    
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
+
+    [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_success] callbackId:command.callbackId];
 }
 
 - (void)pause:(CDVInvokedUrlCommand *)command 
 {
     [[BCPBandyerManager shared] pauseCallClient];
-    
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
+
+    [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_success] callbackId:command.callbackId];
 }
 
 - (void)resume:(CDVInvokedUrlCommand *)command 
 {
     [[BCPBandyerManager shared] resumeCallClient];
-    
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
+
+    [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_success] callbackId:command.callbackId];
 }
 
 - (void)state:(CDVInvokedUrlCommand *)command 
@@ -66,14 +67,14 @@
     NSString *state = [[BCPBandyerManager shared] callClientState];
     
     if (state)
-        [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:state] callbackId:command.callbackId];
+        [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_successWithMessageAsString:state] callbackId:command.callbackId];
     else
-        [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR] callbackId:command.callbackId];
+        [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_error] callbackId:command.callbackId];
 }
 
 - (void)handlePushNotificationPayload:(CDVInvokedUrlCommand *)command 
 {
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR] callbackId:command.callbackId];
+    [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_error] callbackId:command.callbackId];
 }
 
 - (void)startCall:(CDVInvokedUrlCommand *)command
@@ -83,9 +84,9 @@
     BOOL result = [[BCPBandyerManager shared] startCallWithParams:params];
     
     if (result)
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        pluginResult = [CDVPluginResult bcp_success];
     else
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        pluginResult = [CDVPluginResult bcp_error];
         
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
@@ -97,11 +98,11 @@
     
     if ([params count] == 0) 
     {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];    
+        pluginResult = [CDVPluginResult bcp_error];
     } else 
     {
-        [[BCPBandyerManager shared] addUsersDetails:params];    
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [[BCPBandyerManager shared] addUsersDetails:params];
+        pluginResult = [CDVPluginResult bcp_success];
     }
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -110,8 +111,8 @@
 - (void)removeUsersDetails:(CDVInvokedUrlCommand *)command 
 {
     [[BCPBandyerManager shared] removeUsersDetails];
-    
-    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
+
+    [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_success] callbackId:command.callbackId];
 }
 
 @end
