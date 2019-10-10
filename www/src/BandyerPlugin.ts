@@ -283,16 +283,12 @@ export class BandyerPlugin extends EventListener {
             throw new IllegalArgumentError("Expected a not empty userAlias!");
         }
 
-        if (BandyerPlugin._isAndroid()) {
-            cordova.exec(null, null, "BandyerPlugin", "startChat", [{
-                userAlias: chatOptions.userAlias,
-                audio: chatOptions.withAudioCallCapability,
-                audioUpgradable: chatOptions.withAudioUpgradableCallCapability,
-                audioVideo: chatOptions.withAudioVideoCallCapability,
-            }]);
-        } else {
-            console.warn("Not yet supported on ", device.platform, " platform.");
-        }
+        cordova.exec(null, null, "BandyerPlugin", "startChat", [{
+            userAlias: chatOptions.userAlias,
+            audio: chatOptions.withAudioCallCapability,
+            audioUpgradable: chatOptions.withAudioUpgradableCallCapability,
+            audioVideo: chatOptions.withAudioVideoCallCapability,
+        }]);
     }
 
     /**

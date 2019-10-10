@@ -4,6 +4,7 @@
 //
 
 #import <BandyerSDK/BandyerSDK.h>
+#import <BandyerSDK/BandyerSDK-Swift.h>
 
 #import "BCPBandyerPlugin.h"
 #import "BCPUsersDetailsCache.h"
@@ -170,6 +171,27 @@
         intent = [BDKMakeCallIntent intentWithCallee:callee type:typeCall record:recording maximumDuration:0];
     }
 
+    [self.coordinator handleIntent:intent];
+
+    [self reportCommandSucceeded:command];
+}
+
+- (void)startChat:(CDVInvokedUrlCommand *)command
+{
+    NSDictionary *args = command.arguments.firstObject;
+    NSString *user = args[kBCPUserAliasKey];
+    NSNumber *audioOnly = args[kBCPAudioOnlyTypeKey];
+    NSNumber *audioUpgradable = args[kBCPAudioUpgradableTypeKey];
+    NSNumber *audioVideo = args[kBCPAudioVideoTypeKey];
+
+    if (user.length == 0)
+    {
+        [self reportCommandFailed:command];
+        return;
+    }
+
+    //TODO: HANDLE CALL OPTIONS
+    BCHOpenChatIntent *intent = [BCHOpenChatIntent openChatWith:user];
     [self.coordinator handleIntent:intent];
 
     [self reportCommandSucceeded:command];

@@ -17,6 +17,9 @@ FOUNDATION_EXPORT NSString *const kBCPCallTypeKey;
 FOUNDATION_EXPORT NSString *const kBCPJoinUrlKey;
 FOUNDATION_EXPORT NSString *const kBCPRecordingKey;
 FOUNDATION_EXPORT NSString *const kBCPUserDetailsKey;
+FOUNDATION_EXPORT NSString *const kBCPAudioOnlyTypeKey;
+FOUNDATION_EXPORT NSString *const kBCPAudioUpgradableTypeKey;
+FOUNDATION_EXPORT NSString *const kBCPAudioVideoTypeKey;
 
 FOUNDATION_EXPORT NSString *const kBCPClientReadyJSEvent;
 FOUNDATION_EXPORT NSString *const kBCPClientReconnectingJSEvent;
