@@ -100,6 +100,7 @@
 
     [BandyerSDK.instance.callClient addObserver:self queue:dispatch_get_main_queue()];
     [BandyerSDK.instance.callClient start:user];
+    [BandyerSDK.instance.chatClient start:user];
 
     [self reportCommandSucceeded:command];
 }
@@ -108,13 +109,15 @@
 {
     [BandyerSDK.instance.callClient removeObserver:self];
     [BandyerSDK.instance.callClient stop];
+    [BandyerSDK.instance.chatClient stop];
 
-    [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_success] callbackId:command.callbackId];
+    [self reportCommandSucceeded:command];
 }
 
 - (void)pause:(CDVInvokedUrlCommand *)command 
 {
     [BandyerSDK.instance.callClient pause];
+    [BandyerSDK.instance.chatClient pause];
 
     [self reportCommandSucceeded:command];
 }
@@ -122,6 +125,7 @@
 - (void)resume:(CDVInvokedUrlCommand *)command 
 {
     [BandyerSDK.instance.callClient resume];
+    [BandyerSDK.instance.chatClient resume];
 
     [self reportCommandSucceeded:command];
 }
