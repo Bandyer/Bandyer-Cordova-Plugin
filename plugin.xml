@@ -32,8 +32,6 @@
         <header-file src="src/ios/BCPMacros.h"/>
         <header-file src="src/ios/BCPConstants.h" />
         <source-file src="src/ios/BCPConstants.m" />
-        <header-file src="src/ios/BCPCallClientEventEmitter.h" />
-        <source-file src="src/ios/BCPCallClientEventEmitter.m" />
         <header-file src="src/ios/BCPBandyerEvents.h" />
         <source-file src="src/ios/BCPBandyerEvents.m" />
         <header-file src="src/ios/BCPBandyerPlugin.h" />
