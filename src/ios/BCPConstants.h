@@ -18,8 +18,8 @@ FOUNDATION_EXPORT NSString *const kBCPJoinUrlKey;
 FOUNDATION_EXPORT NSString *const kBCPRecordingKey;
 FOUNDATION_EXPORT NSString *const kBCPUserDetailsKey;
 
-FOUNDATION_EXPORT NSString *const kBCPCallClientReadyJSEvent;
-FOUNDATION_EXPORT NSString *const kBCPCallClientReconnectingJSEvent;
-FOUNDATION_EXPORT NSString *const kBCPCallClientPausedJSEvent;
-FOUNDATION_EXPORT NSString *const kBCPCallClientStoppedJSEvent;
-FOUNDATION_EXPORT NSString *const kBCPCallClientFailedJSEvent;
+FOUNDATION_EXPORT NSString *const kBCPClientReadyJSEvent;
+FOUNDATION_EXPORT NSString *const kBCPClientReconnectingJSEvent;
+FOUNDATION_EXPORT NSString *const kBCPClientPausedJSEvent;
+FOUNDATION_EXPORT NSString *const kBCPClientStoppedJSEvent;
+FOUNDATION_EXPORT NSString *const kBCPClientFailedJSEvent;

@@ -12,10 +12,12 @@
 #import "BCPConstants.h"
 #import "BCPEventEmitter.h"
 #import "BCPCallClientEventsReporter.h"
-#import "CDVPluginResult+BCPFactoryMethods.h"
-#import "NSString+BandyerPlugin.h"
 #import "BCPContactHandleProvider.h"
 #import "BCPPushTokenEventsReporter.h"
+#import "BCPChatClientEventsReporter.h"
+
+#import "CDVPluginResult+BCPFactoryMethods.h"
+#import "NSString+BandyerPlugin.h"
 
 @interface BCPBandyerPlugin () <BCXCallClientObserver>
 
@@ -23,6 +25,7 @@
 @property (nonatomic, strong, nullable) BCPUserInterfaceCoordinator *coordinator;
 @property (nonatomic, strong, nullable) BCPEventEmitter *eventEmitter;
 @property (nonatomic, strong, nullable) BCPCallClientEventsReporter *callClientEventsReporter;
+@property (nonatomic, strong, nullable) BCPChatClientEventsReporter *chatClientEventsReporter;
 
 @end
 
@@ -79,6 +82,8 @@
 
     self.callClientEventsReporter = [[BCPCallClientEventsReporter alloc] initWithCallClient:BandyerSDK.instance.callClient eventEmitter:self.eventEmitter];
     [self.callClientEventsReporter start];
+    self.chatClientEventsReporter = [[BCPChatClientEventsReporter alloc] initWithChatClient:BandyerSDK.instance.chatClient eventEmitter:self.eventEmitter];
+    [self.chatClientEventsReporter start];
     [self reportCommandSucceeded:command];
 }
 

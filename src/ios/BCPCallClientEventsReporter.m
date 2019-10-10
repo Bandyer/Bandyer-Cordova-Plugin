@@ -57,33 +57,33 @@
 
 - (void)callClientDidStart:(id <BCXCallClient>)client
 {
-    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientReadyJSEvent]];
+    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientReadyJSEvent]];
 }
 
 - (void)callClientDidStartReconnecting:(id <BCXCallClient>)client
 {
-    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientReconnectingJSEvent]];
+    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientReconnectingJSEvent]];
 }
 
 - (void)callClientDidPause:(id <BCXCallClient>)client
 {
-    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientPausedJSEvent]];
+    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientPausedJSEvent]];
 }
 
 - (void)callClientDidStop:(id <BCXCallClient>)client
 {
-    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientStoppedJSEvent]];
+    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientStoppedJSEvent]];
 }
 
 - (void)callClientDidResume:(id <BCXCallClient>)client
 {
-    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientReadyJSEvent]];
+    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientReadyJSEvent]];
 }
 
 - (void)callClient:(id <BCXCallClient>)client didFailWithError:(NSError *)error
 {
     [self.eventEmitter sendEvent:[[BCPBandyerEvents callError] value] withArgs:@[[error localizedDescription] ?: [NSNull null]]];
-    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientFailedJSEvent]];
+    [self.eventEmitter sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientFailedJSEvent]];
 }
 
 @end

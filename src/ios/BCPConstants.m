@@ -18,8 +18,8 @@ NSString *const kBCPJoinUrlKey = @"joinUrl";
 NSString *const kBCPRecordingKey = @"recording";
 NSString *const kBCPUserDetailsKey = @"details";
 
-NSString *const kBCPCallClientReadyJSEvent = @"ready";
-NSString *const kBCPCallClientReconnectingJSEvent = @"reconnecting";
-NSString *const kBCPCallClientPausedJSEvent = @"paused";
-NSString *const kBCPCallClientStoppedJSEvent = @"stopped";
-NSString *const kBCPCallClientFailedJSEvent = @"failed";
+NSString *const kBCPClientReadyJSEvent = @"ready";
+NSString *const kBCPClientReconnectingJSEvent = @"reconnecting";
+NSString *const kBCPClientPausedJSEvent = @"paused";
+NSString *const kBCPClientStoppedJSEvent = @"stopped";
+NSString *const kBCPClientFailedJSEvent = @"failed";

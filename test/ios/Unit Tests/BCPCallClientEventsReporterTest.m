@@ -88,7 +88,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
     [sut callClientDidStart:callClient];
 
-    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientReadyJSEvent]];
+    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientReadyJSEvent]];
 }
 
 - (void)testFiresEventOnClientStopped
@@ -97,7 +97,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
     [sut callClientDidStop:callClient];
 
-    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientStoppedJSEvent]];
+    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientStoppedJSEvent]];
 }
 
 - (void)testFiresEventOnClientPaused
@@ -106,7 +106,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
     [sut callClientDidPause:callClient];
 
-    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientPausedJSEvent]];
+    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientPausedJSEvent]];
 }
 
 - (void)testFiresEventOnClientResumed
@@ -115,7 +115,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
     [sut callClientDidResume:callClient];
 
-    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientReadyJSEvent]];
+    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientReadyJSEvent]];
 }
 
 - (void)testFiresEventOnClientReconnecting
@@ -124,7 +124,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
     [sut callClientDidStartReconnecting:callClient];
 
-    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientReconnectingJSEvent]];
+    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientReconnectingJSEvent]];
 }
 
 - (void)testFiresEventsOnClientFailed
@@ -135,7 +135,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     [sut callClient:callClient didFailWithError:error];
 
     [verify(emitter) sendEvent:[[BCPBandyerEvents callError] value] withArgs:@[[error localizedDescription]]];
-    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPCallClientFailedJSEvent]];
+    [verify(emitter) sendEvent:[[BCPBandyerEvents callModuleStatusChanged] value] withArgs:@[kBCPClientFailedJSEvent]];
 }
 
 __SUPPRESS_WARNINGS_FOR_TEST_END

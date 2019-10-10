@@ -14,7 +14,7 @@
     <js-module name="BandyerPlugin" src="www/out/bandyer-plugin.min.js">
         <clobbers target="BandyerPlugin" />
     </js-module>
-    <asset src="www/out/bandyer-plugin.min.js.map" target="plugins/cordova-plugin-bandyer/www/out/bandyer-plugin.min.js.map" />
+    <!--    <asset src="www/out/bandyer-plugin.min.js.map" target="plugins/cordova-plugin-bandyer/www/out/bandyer-plugin.min.js.map" />-->
 
     <platform name="ios">
 
@@ -42,6 +42,8 @@
         <source-file src="src/ios/BCPUsersDetailsCache.m" />
         <header-file src="src/ios/BCPCallClientEventsReporter.h"/>
         <source-file src="src/ios/BCPCallClientEventsReporter.m"/>
+        <header-file src="src/ios/BCPChatClientEventsReporter.h"/>
+        <source-file src="src/ios/BCPChatClientEventsReporter.m"/>
         <header-file src="src/ios/BCPEventEmitter.h"/>
         <source-file src="src/ios/BCPEventEmitter.m"/>
         <header-file src="src/ios/BCPUsersDetailsFetcher.h"/>

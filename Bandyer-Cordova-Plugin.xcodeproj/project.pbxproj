@@ -24,6 +24,7 @@
 		62DD24CE5B1562CD91D9E53C /* BCPUserInterfaceCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 62DD2F940E1A6540D7789079 /* BCPUserInterfaceCoordinator.h */; };
 		62DD24E101E36D9E3F0C580E /* BCPUsersDetailsFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 62DD2B1AF7FCF25714DF28B7 /* BCPUsersDetailsFetcher.h */; };
 		62DD25978FC25DC3611C49A3 /* BCPCallClientEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD29153AAB078000CB41BF /* BCPCallClientEventEmitter.m */; };
+		62DD26B10F6CE05D6CC20A62 /* BCPChatClientEventsReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD29BC5BBB94F2F2F8130E /* BCPChatClientEventsReporter.m */; };
 		62DD27210A8A198E722D54B4 /* BCPPushTokenEventsReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62DD24CFA048F6A5B91B1747 /* BCPPushTokenEventsReporter.h */; };
 		62DD27E1476C3D61CA620754 /* BCPPushTokenEventsReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD2C8175B2E843618D0964 /* BCPPushTokenEventsReporter.m */; };
 		62DD2870C88E18AE2436C9E2 /* BCPUserInterfaceCoordinatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD29FD71E4348F6E3E0E66 /* BCPUserInterfaceCoordinatorTest.m */; };
@@ -39,6 +40,8 @@
 		62DD2B9EE21C5CF45EB675EC /* BCPCallClientEventsReporterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD2205EBC8D1CE61719974 /* BCPCallClientEventsReporterTest.m */; };
 		62DD2C222CB52C22E2269DC1 /* CDVPluginResult+BCPFactoryMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 62DD2F44280472572A3BA0A9 /* CDVPluginResult+BCPFactoryMethods.h */; };
 		62DD2C318B08C3400A8749F8 /* BCPCallClientEventEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62DD2C83228FF9584157E6B6 /* BCPCallClientEventEmitter.h */; };
+		62DD2C51F5C699525FB32E3A /* BCPChatClientEventsReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 62DD21ADF0E6B6B7FE810F76 /* BCPChatClientEventsReporter.h */; };
+		62DD2C59C6E38F2CCC00CF3A /* BCPChatClientEventsReporterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD27C9CC3F62AE7E9BDAA3 /* BCPChatClientEventsReporterTest.m */; };
 		62DD2D5BD6D9693E63470FB7 /* BCPContactHandleProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD2DC8A9C4CCECC7F3C90E /* BCPContactHandleProvider.m */; };
 		62DD2F0B813124EF6342C279 /* BCPUsersDetailsCommandsHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 62DD230BB0811499E852F9E2 /* BCPUsersDetailsCommandsHandler.h */; };
 		8B3356EBB56A649B8A360CEB /* Pods_Bandyer_Cordova_PluginTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26705AAB9FB6D90AC8CF14C /* Pods_Bandyer_Cordova_PluginTests.framework */; };
@@ -71,6 +74,7 @@
 		418C2E4A4923F723B519118A /* Pods-Bandyer-Cordova-PluginTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bandyer-Cordova-PluginTests.release.xcconfig"; path = "Target Support Files/Pods-Bandyer-Cordova-PluginTests/Pods-Bandyer-Cordova-PluginTests.release.xcconfig"; sourceTree = "<group>"; };
 		62DD20D16A98D8FE5499A6C4 /* BCPTestingMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPTestingMacros.h; path = "test/ios/Unit Tests/BCPTestingMacros.h"; sourceTree = "<group>"; };
 		62DD2187F7C0A801A8F42235 /* BCPContactHandleProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPContactHandleProvider.h; path = src/ios/BCPContactHandleProvider.h; sourceTree = "<group>"; };
+		62DD21ADF0E6B6B7FE810F76 /* BCPChatClientEventsReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPChatClientEventsReporter.h; path = src/ios/BCPChatClientEventsReporter.h; sourceTree = "<group>"; };
 		62DD2205EBC8D1CE61719974 /* BCPCallClientEventsReporterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPCallClientEventsReporterTest.m; path = "test/ios/Unit Tests/BCPCallClientEventsReporterTest.m"; sourceTree = "<group>"; };
 		62DD230BB0811499E852F9E2 /* BCPUsersDetailsCommandsHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPUsersDetailsCommandsHandler.h; path = src/ios/BCPUsersDetailsCommandsHandler.h; sourceTree = "<group>"; };
 		62DD231BA88F3423447D9A10 /* CDVPluginResult+BCPFactoryMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CDVPluginResult+BCPFactoryMethods.m"; path = "src/ios/CDVPluginResult+BCPFactoryMethods.m"; sourceTree = "<group>"; };
@@ -84,6 +88,7 @@
 		62DD265AE93EA319DD7F40E8 /* plugin.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = plugin.xml; sourceTree = "<group>"; };
 		62DD273388333E7A2F1E3D35 /* BCPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPConstants.m; path = src/ios/BCPConstants.m; sourceTree = "<group>"; };
 		62DD27B4E8CF0FDDF97431E2 /* BCPUserInterfaceCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPUserInterfaceCoordinator.m; path = src/ios/BCPUserInterfaceCoordinator.m; sourceTree = "<group>"; };
+		62DD27C9CC3F62AE7E9BDAA3 /* BCPChatClientEventsReporterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPChatClientEventsReporterTest.m; path = "test/ios/Unit Tests/BCPChatClientEventsReporterTest.m"; sourceTree = "<group>"; };
 		62DD27F8BCE674D21DEF0D9E /* BCPTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPTestCase.h; path = "test/ios/Unit Tests/BCPTestCase.h"; sourceTree = "<group>"; };
 		62DD284722714D1F540F0465 /* BCPContactHandleProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPContactHandleProviderTest.m; path = "test/ios/Unit Tests/BCPContactHandleProviderTest.m"; sourceTree = "<group>"; };
 		62DD28798686AF0A7B43624C /* BCPiOS10AndAboveTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPiOS10AndAboveTestCase.h; path = "test/ios/Unit Tests/BCPiOS10AndAboveTestCase.h"; sourceTree = "<group>"; };
@@ -92,6 +97,7 @@
 		62DD28CF5C7A83E068945B78 /* BCPiOS10AndAboveTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPiOS10AndAboveTestCase.m; path = "test/ios/Unit Tests/BCPiOS10AndAboveTestCase.m"; sourceTree = "<group>"; };
 		62DD29153AAB078000CB41BF /* BCPCallClientEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPCallClientEventEmitter.m; path = src/ios/BCPCallClientEventEmitter.m; sourceTree = "<group>"; };
 		62DD292F2E84BBB223F69722 /* BCPMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPMacros.h; path = src/ios/BCPMacros.h; sourceTree = "<group>"; };
+		62DD29BC5BBB94F2F2F8130E /* BCPChatClientEventsReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPChatClientEventsReporter.m; path = src/ios/BCPChatClientEventsReporter.m; sourceTree = "<group>"; };
 		62DD29FD71E4348F6E3E0E66 /* BCPUserInterfaceCoordinatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPUserInterfaceCoordinatorTest.m; path = "test/ios/Unit Tests/BCPUserInterfaceCoordinatorTest.m"; sourceTree = "<group>"; };
 		62DD2A63233E1A64942C66BB /* CDVPluginResult_FactoryMethodsCategoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVPluginResult_FactoryMethodsCategoryTest.m; path = "test/ios/Unit Tests/CDVPluginResult_FactoryMethodsCategoryTest.m"; sourceTree = "<group>"; };
 		62DD2B00C102037A66ABD40D /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
@@ -193,6 +199,7 @@
 				62DD28CA9407F3CF249DCABA /* BCPExceptionsMatcher.m */,
 				62DD29FD71E4348F6E3E0E66 /* BCPUserInterfaceCoordinatorTest.m */,
 				62DD2E0F3B9584138DB1736B /* BCPPushTokenEventsReporterTest.m */,
+				62DD27C9CC3F62AE7E9BDAA3 /* BCPChatClientEventsReporterTest.m */,
 			);
 			name = Test;
 			sourceTree = "<group>";
@@ -250,6 +257,8 @@
 				62DD2F940E1A6540D7789079 /* BCPUserInterfaceCoordinator.h */,
 				62DD2C8175B2E843618D0964 /* BCPPushTokenEventsReporter.m */,
 				62DD24CFA048F6A5B91B1747 /* BCPPushTokenEventsReporter.h */,
+				62DD29BC5BBB94F2F2F8130E /* BCPChatClientEventsReporter.m */,
+				62DD21ADF0E6B6B7FE810F76 /* BCPChatClientEventsReporter.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -285,6 +294,7 @@
 				62DD2F0B813124EF6342C279 /* BCPUsersDetailsCommandsHandler.h in Headers */,
 				62DD24CE5B1562CD91D9E53C /* BCPUserInterfaceCoordinator.h in Headers */,
 				62DD27210A8A198E722D54B4 /* BCPPushTokenEventsReporter.h in Headers */,
+				62DD2C51F5C699525FB32E3A /* BCPChatClientEventsReporter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +474,7 @@
 				62DD2AC59F81E0BD0A7DF530 /* BCPExceptionsMatcher.m in Sources */,
 				62DD2870C88E18AE2436C9E2 /* BCPUserInterfaceCoordinatorTest.m in Sources */,
 				62DD22684885C23D5E8D3D35 /* BCPPushTokenEventsReporterTest.m in Sources */,
+				62DD2C59C6E38F2CCC00CF3A /* BCPChatClientEventsReporterTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +496,7 @@
 				62DD21B40C7CEF2DD3C36075 /* BCPUsersDetailsCommandsHandler.m in Sources */,
 				62DD22E676D319B052FCCC01 /* BCPUserInterfaceCoordinator.m in Sources */,
 				62DD27E1476C3D61CA620754 /* BCPPushTokenEventsReporter.m in Sources */,
+				62DD26B10F6CE05D6CC20A62 /* BCPChatClientEventsReporter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
