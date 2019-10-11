@@ -2,3 +2,13 @@ dependencies {
     implementation deps.bandyerSDK
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
+
+repositories {
+    google()
+    maven { url 'https://jitpack.io' }
+    mavenCentral()
+}
+
+cdvCompileSdkVersion=29
+cdvBuildToolsVersion='29.0.2'
+cdvTargetSdkVersion = 29
