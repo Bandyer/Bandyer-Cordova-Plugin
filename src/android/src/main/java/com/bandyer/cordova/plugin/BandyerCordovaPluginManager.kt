@@ -161,6 +161,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
                 onProviderListener.onProvided(details)
             }
         })
+        builder.allowSDKInitFromActivity()
         BandyerSDK.init(builder)
     }
 
