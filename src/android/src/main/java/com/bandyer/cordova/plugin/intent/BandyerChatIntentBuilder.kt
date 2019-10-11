@@ -1,8 +1,10 @@
 package com.bandyer.cordova.plugin.intent
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.bandyer.android_sdk.intent.BandyerIntent
-import com.bandyer.android_sdk.intent.chat.ChatIntentOptions
+import com.bandyer.android_sdk.intent.call.CallCapabilities
+import com.bandyer.android_sdk.intent.call.CallOptions
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.ARG_RECORDING
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.VALUE_CALL_TYPE_AUDIO
@@ -18,6 +20,7 @@ class BandyerChatIntentBuilder(
         private val bandyerSDKConfiguration: BandyerSDKConfiguration,
         private val argsArray: JSONArray) {
 
+    @SuppressLint("NewApi")
     @Throws(BandyerCordovaPluginExceptions::class)
     fun build(): BandyerIntent {
 
@@ -31,34 +34,33 @@ class BandyerChatIntentBuilder(
 
         val chatIntentOptions = BandyerIntent.Builder().startWithChat(initialContext).with(otherChatParticipant)
 
+
         if (args.has(VALUE_CALL_TYPE_AUDIO)) {
             val recording = args.getJSONObject(VALUE_CALL_TYPE_AUDIO).getBoolean(ARG_RECORDING)
-            chatIntentOptions.withAudioCallCapability(recording)
+            val callOptions = CallOptions(recordingEnabled = recording, backCameraAsDefault = false, disableProximitySensor = false)
+            chatIntentOptions.withAudioCallCapability(getCallCapabilities(), callOptions)
         }
 
         if (args.has(VALUE_CALL_TYPE_AUDIO_UPGRADABLE)) {
             val recording = args.getJSONObject(VALUE_CALL_TYPE_AUDIO_UPGRADABLE).getBoolean(ARG_RECORDING)
-            chatIntentOptions.withAudioUpgradableCallCapability(recording)
+            val callOptions = CallOptions(recordingEnabled = recording, backCameraAsDefault = false, disableProximitySensor = false)
+            chatIntentOptions.withAudioUpgradableCallCapability(getCallCapabilities(), callOptions)
         }
 
         if (args.has(VALUE_CALL_TYPE_AUDIO_VIDEO)) {
             val recording = args.getJSONObject(VALUE_CALL_TYPE_AUDIO_VIDEO).getBoolean(ARG_RECORDING)
-            chatIntentOptions.withAudioVideoCallCapability(recording)
+            val callOptions = CallOptions(recordingEnabled = recording, backCameraAsDefault = false, disableProximitySensor = false)
+            chatIntentOptions.withAudioVideoCallCapability(getCallCapabilities(), callOptions)
         }
 
-        return applyInCallFeatures(chatIntentOptions).build()
+        return chatIntentOptions.build()
     }
 
-    private fun applyInCallFeatures(chatIntentOptions: ChatIntentOptions): ChatIntentOptions {
-        if (bandyerSDKConfiguration.isWhiteboardEnabled)
-            chatIntentOptions.withWhiteboardInCallCapability()
-
-        if (bandyerSDKConfiguration.isFileSharingEnabled)
-            chatIntentOptions.withFileSharingInCallCapability()
-
-        if (bandyerSDKConfiguration.isScreenSharingEnabled)
-            chatIntentOptions.withScreenSharingInCallCapability()
-
-        return chatIntentOptions
+    private fun getCallCapabilities(): CallCapabilities {
+        return CallCapabilities(
+                bandyerSDKConfiguration.isChatEnabled,
+                bandyerSDKConfiguration.isFileSharingEnabled,
+                bandyerSDKConfiguration.isScreenSharingEnabled,
+                bandyerSDKConfiguration.isWhiteboardEnabled)
     }
 }

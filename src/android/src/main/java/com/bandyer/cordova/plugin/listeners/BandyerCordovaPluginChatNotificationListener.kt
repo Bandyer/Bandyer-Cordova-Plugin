@@ -11,7 +11,9 @@ import com.bandyer.android_sdk.notification.NotificationAction
 
 class BandyerCordovaPluginChatNotificationListener(private val mApplication: Application, private val mInitInput: BandyerSDKConfiguration) : ChatNotificationListener {
 
-    override fun onChatActivityStartedFromNotificationAction(chatInfo: ChatInfo, chatIntentOptions: ChatIntentOptions) {}
+    override fun onChatActivityStartedFromNotificationAction(chatInfo: ChatInfo, chatIntentOptions: ChatIntentOptions) {
+
+    }
 
     override fun onCreateNotification(chatInfo: ChatInfo, notificationStyle: ChatNotificationStyle) {}
 

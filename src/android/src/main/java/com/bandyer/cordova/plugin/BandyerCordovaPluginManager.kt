@@ -1,6 +1,7 @@
 package com.bandyer.cordova.plugin
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Application
 import android.util.Log
 import com.bandyer.android_common.logging.BaseLogger
@@ -164,7 +165,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
     }
 
     @Throws(BandyerCordovaPluginExceptions::class)
-    fun start(args: JSONArray) {
+    fun start(activity: Activity, args: JSONArray) {
         if (BandyerSDKClient.getInstance().state != BandyerSDKClientState.UNINITIALIZED) {
             clearUserCache()
         }

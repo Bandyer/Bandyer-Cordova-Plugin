@@ -1,14 +1,8 @@
 package com.bandyer.cordova.plugin
 
-import android.app.Activity
 import android.app.Application
-import android.content.Intent
-import android.util.Log
-import com.bandyer.android_sdk.client.BandyerSDKClient
-import com.bandyer.android_sdk.client.BandyerSDKClientState
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.CordovaPlugin
-import org.apache.cordova.PluginResult
 import org.json.JSONArray
 import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.kotlinFunction
@@ -67,7 +61,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
     }
 
     private fun start(args: JSONArray, callbackContext: CallbackContext) {
-        bandyerCordovaPluginManager!!.start(args)
+        bandyerCordovaPluginManager!!.start(cordova.activity, args)
     }
 
     private fun resume(callbackContext: CallbackContext) {
@@ -134,22 +128,6 @@ class BandyerCordovaPlugin : CordovaPlugin() {
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
-        super.onActivityResult(requestCode, resultCode, intent)
-        intent ?: return
-        if (resultCode != Activity.RESULT_CANCELED) return
-        val error = intent.extras?.getString("error", "error") ?: "error"
-        Log.e("onActivityResult", "requestCode: $requestCode, resultCode: $resultCode, error: $error")
-        when (requestCode) {
-            BandyerCordovaPluginConstants.INTENT_REQUEST_CALL_CODE -> {
-                bandyerCordovaPluginManager?.callError(error)
-            }
-            BandyerCordovaPluginConstants.INTENT_REQUEST_CHAT_CODE -> {
-                bandyerCordovaPluginManager?.chatError(error)
-            }
         }
     }
 }
