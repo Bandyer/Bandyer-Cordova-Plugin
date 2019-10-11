@@ -81,6 +81,7 @@
 
     [BandyerSDK.instance initializeWithApplicationId:appID config:config];
 
+    [self.coordinator sdkInitialized];
     self.callClientEventsReporter = [[BCPCallClientEventsReporter alloc] initWithCallClient:BandyerSDK.instance.callClient eventEmitter:self.eventEmitter];
     [self.callClientEventsReporter start];
     self.chatClientEventsReporter = [[BCPChatClientEventsReporter alloc] initWithChatClient:BandyerSDK.instance.chatClient eventEmitter:self.eventEmitter];

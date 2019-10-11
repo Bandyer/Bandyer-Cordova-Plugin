@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithRootViewController:(UIViewController *)viewController usersCache:(BCPUsersDetailsCache *)cache;
 
+- (void)sdkInitialized;
+
 - (void)handleIntent:(id <BDKIntent>)intent;
 
 - (instancetype)init NS_UNAVAILABLE;

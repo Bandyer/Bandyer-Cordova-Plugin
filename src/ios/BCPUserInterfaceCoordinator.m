@@ -11,10 +11,12 @@
 #import "BCPUsersDetailsCache.h"
 #import "BCPUsersDetailsFetcher.h"
 
-@interface BCPUserInterfaceCoordinator () <BDKCallWindowDelegate, BCHChannelViewControllerDelegate>
+@interface BCPUserInterfaceCoordinator () <BDKCallWindowDelegate, BCHChannelViewControllerDelegate, BCHMessageNotificationControllerDelegate, BDKCallBannerControllerDelegate>
 
 @property (nonatomic, weak, readonly) UIViewController *viewController;
 @property (nonatomic, strong, readonly) BCPUsersDetailsCache *cache;
+@property (nonatomic, strong) BDKCallBannerController *callBannerController;
+@property (nonatomic, strong) BCHMessageNotificationController *messageNotificationController;
 @property (nonatomic, strong) BDKCallWindow *callWindow;
 
 @end
@@ -30,7 +32,6 @@
             _callWindow = BDKCallWindow.instance;
         } else
         {
-            //This will automatically save the new instance inside BDKCallWindow.instance.
             _callWindow = [[BDKCallWindow alloc] init];
         }
 
@@ -55,6 +56,33 @@
 
     return self;
 }
+
+- (void)setupNotificationView
+{
+    self.messageNotificationController = [BCHMessageNotificationController new];
+    self.messageNotificationController.configuration = [[BCHMessageNotificationControllerConfiguration alloc] initWithUserInfoFetcher:[[BCPUsersDetailsFetcher alloc] initWithCache:self.cache]];;
+    self.messageNotificationController.delegate = self;
+    self.messageNotificationController.parentViewController = self.viewController;
+}
+
+- (void)setupCallBannerView
+{
+    self.callBannerController = [BDKCallBannerController new];
+    self.callBannerController.delegate = self;
+    self.callBannerController.parentViewController = self.viewController;
+}
+
+- (void)sdkInitialized
+{
+    [self setupCallBannerView];
+    [self setupNotificationView];
+    [self.messageNotificationController show];
+    [self.callBannerController show];
+}
+
+//-------------------------------------------------------------------------------------------
+#pragma mark - Handling intent
+//-------------------------------------------------------------------------------------------
 
 - (void)handleIntent:(id <BDKIntent>)intent
 {
@@ -92,6 +120,11 @@
     BCHChannelViewController *channelViewController = [[BCHChannelViewController alloc] init];
     channelViewController.delegate = self;
 
+    if (@available(ios 13.0, *))
+    {
+        channelViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+    }
+
     BCPUsersDetailsFetcher *fetcher = [[BCPUsersDetailsFetcher alloc] initWithCache:self.cache];
     BCHChannelViewControllerConfiguration *configuration = [[BCHChannelViewControllerConfiguration alloc] initWithAudioButton:YES videoButton:YES userInfoFetcher:fetcher];
     channelViewController.configuration = configuration;
@@ -117,7 +150,7 @@
         if (!succeeded)
         {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Another call ongoing." preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:NULL];
+            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:NULL];
 
             [alert addAction:defaultAction];
             [self.viewController presentViewController:alert animated:YES completion:nil];
@@ -210,15 +243,15 @@
 #pragma mark - Call Banner Controller delegate
 //-------------------------------------------------------------------------------------------
 
-- (void)callBannerController:(BDKCallBannerController *_Nonnull)controller willHide:(BDKCallBannerView *_Nonnull)banner
+- (void)callBannerController:(BDKCallBannerController *)controller willHide:(BDKCallBannerView *)banner
 {
 }
 
-- (void)callBannerController:(BDKCallBannerController *_Nonnull)controller willShow:(BDKCallBannerView *_Nonnull)banner
+- (void)callBannerController:(BDKCallBannerController *)controller willShow:(BDKCallBannerView *)banner
 {
 }
 
-- (void)callBannerController:(BDKCallBannerController *_Nonnull)controller didTouch:(BDKCallBannerView *_Nonnull)banner
+- (void)callBannerController:(BDKCallBannerController *)controller didTouch:(BDKCallBannerView *)banner
 {
     [self presentCallInterfaceForIntent:self.callWindow.intent];
 }

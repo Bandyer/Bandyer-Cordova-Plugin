@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-bandyer" version="0.1.1">
-
     <name>BandyerPlugin</name>
     <author>Bandyer S.r.l.</author>
     <description>This plugin allows you to add BandyerSDK to your application using Bandyer Mobile
@@ -17,7 +16,6 @@
     <!--    <asset src="www/out/bandyer-plugin.min.js.map" target="plugins/cordova-plugin-bandyer/www/out/bandyer-plugin.min.js.map" />-->
 
     <platform name="ios">
-
         <edit-config file="*-Info.plist" mode="merge" overwrite="true" target="NSCameraUsageDescription">
             <string>Necessaria per l'utilizzo della libreria</string>
         </edit-config>
@@ -81,8 +79,6 @@
 
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
             <receiver android:name="com.bandyer.cordova.plugin.notifications.BandyerNotificationReceiver" android:permission="com.google.android.c2dm.permission.SEND">
-
-
                 <intent-filter android:priority="999">
                     <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                     <category android:name="$PACKAGE_NAME" />
@@ -91,7 +87,6 @@
         </config-file>
 
         <source-file src="src/android/src/main/java/com/bandyer/cordova/plugin" target-dir="java/com/bandyer/cordova" />
-
         <source-file src="src/android/src/main/release/java/com/bandyer/cordova/plugin/BuildConfig.java" target-dir="com/bandyer/cordova/plugin" />
 
         <framework custom="true" src="src/android/depsBuild.gradle" type="gradleReference" />
@@ -99,7 +94,5 @@
 
         <dependency id="cordova-support-kotlin" url="https://github.com/kainonly/cordova-support-kotlin.git" />
         <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />
-
     </platform>
-
 </plugin>
