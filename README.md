@@ -1,39 +1,27 @@
 # Bandyer Cordova Plugin
 
-## How to install the plugin:
+## How to add the plugin to your cordova project:
 
-```
-$ npm i
-$ cordova prepare
-$ cordova plugin add @bandyer/cordova-plugin-bandyer
-```
+Since the plugin it's in beta and it hasn't been published yet, you must clone this repo locally and link it to your cordova project using the following command:
 
-## How to remove the plugin:
-
-```
-$ cordova plugin remove cordova-plugin-bandyer
-```
-
-## How to link local plugin:
-Link the local plugin to the project
-```
+```bash
 $ cordova plugin add ../{path-to-local-plugin} --link
+```
 
-remove platforms 'android' and/or 'ios' and re add them to ensure that all modified plugins are copied to build folders
-$ cordova platforms remove android
-$ cordova platforms add android
+Every time you update the plugin remove the platforms 'android' and/or 'ios' and re add them to ensure that all modified plugins are copied to build folders
 
-run on android device with a device connected through adb
-$ cordova run android --device
-
-or run on android emulator
-$ cordova emulate android
+```bash
+$ cd {to your app root folder}
+# Add --nosave if you don't want to update your package.json file when executing the commands below
+$ cordova platforms remove android ios
+$ cordova platforms add android ios
 ```
 
 ## How to use the plugin in your Cordova app
 
 You can refer to the Bandyer plugin in your cordova app via
-```
+
+```javascript
 BandyerPlugin
 ```
 
@@ -50,7 +38,8 @@ BandyerPlugin.setup({
             // optional you can disable one or more of the following capabilities, by default callkit is enabled
             iosConfig: {
                 callkitEnabled: true, // enable callkit on iOS 10+
-                fakeCapturerFileName: null // set this property to be able to execute on an ios simulator
+                fakeCapturerFileName: null, // set this property to be able to execute on an ios simulator
+                voipNotificationKeyPath: 'keypath_to_bandyer_data' //this property is **required** if you enabled VoIP notifications in your app
             },
             // optional you can disable one or more of the following capabilities, by default all additional modules are enabled
             androidConfig: {
@@ -72,6 +61,17 @@ Example:
 ```javascript
 bandyerPlugin.on(BandyerPlugin.events.callModuleStatusChanged, function (status) {});
 ```
+
+## Listening for VoIP push token
+In order to get your device push token, you must listen for the **BandyerPlugin.events.iOSVoipPushTokenUpdated** event registering a callback as follows:
+
+```javascript
+bandyerPlugin.on(BandyerPlugin.events.iOSVoipPushTokenUpdated, function (token) {
+				//Do something with the token received
+        });
+```
+The token provided in the callback is the **string** representation of your device token. 
+Here's an example of a device token: **dec105f879924349fd2fa9aa8bb8b70431d5f41d57bfa8e31a5d80a629774fd9**
 
 ## Plugin start
 To start a plugin means to connect an user to the bandyer system.
