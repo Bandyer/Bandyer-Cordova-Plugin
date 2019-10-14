@@ -13,13 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 {
     static NSDictionary<NSString *, BCPBandyerEvents *> *values;
     return values = values ? values : @{
-        @"callError"                  : [[BCPBandyerEvents alloc] initWithValue:@"callError"],
-        @"callModuleStatusChanged"    : [[BCPBandyerEvents alloc] initWithValue:@"callModuleStatusChanged"],
-        @"chatError"                  : [[BCPBandyerEvents alloc] initWithValue:@"chatError"],
-        @"chatModuleStatusChanged"    : [[BCPBandyerEvents alloc] initWithValue:@"chatModuleStatusChanged"],
+        @"callError": [[BCPBandyerEvents alloc] initWithValue:@"callError"],
+        @"callModuleStatusChanged": [[BCPBandyerEvents alloc] initWithValue:@"callModuleStatusChanged"],
+        @"chatError": [[BCPBandyerEvents alloc] initWithValue:@"chatError"],
+        @"chatModuleStatusChanged": [[BCPBandyerEvents alloc] initWithValue:@"chatModuleStatusChanged"],
         @"iOSVoipPushTokenInvalidated": [[BCPBandyerEvents alloc] initWithValue:@"iOSVoipPushTokenInvalidated"],
-        @"iOSVoipPushTokenUpdated"    : [[BCPBandyerEvents alloc] initWithValue:@"iOSVoipPushTokenUpdated"],
-        @"setupError"                 : [[BCPBandyerEvents alloc] initWithValue:@"setupError"],
+        @"iOSVoipPushTokenUpdated": [[BCPBandyerEvents alloc] initWithValue:@"iOSVoipPushTokenUpdated"],
+        @"setupError": [[BCPBandyerEvents alloc] initWithValue:@"setupError"],
     };
 }
 
@@ -27,16 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BCPBandyerEvents *)callModuleStatusChanged { return BCPBandyerEvents.values[@"callModuleStatusChanged"]; }
 + (BCPBandyerEvents *)chatError { return BCPBandyerEvents.values[@"chatError"]; }
 + (BCPBandyerEvents *)chatModuleStatusChanged { return BCPBandyerEvents.values[@"chatModuleStatusChanged"]; }
-
-+ (BCPBandyerEvents *)iOSVoipPushTokenInvalidated
-{
-    return BCPBandyerEvents.values[@"iOSVoipPushTokenInvalidated"];
-}
-
-+ (BCPBandyerEvents *)iOSVoipPushTokenUpdated
-{
-    return BCPBandyerEvents.values[@"iOSVoipPushTokenUpdated"];
-}
++ (BCPBandyerEvents *)iOSVoipPushTokenInvalidated { return BCPBandyerEvents.values[@"iOSVoipPushTokenInvalidated"]; }
++ (BCPBandyerEvents *)iOSVoipPushTokenUpdated { return BCPBandyerEvents.values[@"iOSVoipPushTokenUpdated"]; }
 + (BCPBandyerEvents *)setupError { return BCPBandyerEvents.values[@"setupError"]; }
 
 + (instancetype _Nullable)withValue:(NSString *)value
