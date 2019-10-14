@@ -61,7 +61,7 @@
                 <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="BandyerSDK" git="https://github.com/Bandyer/Bandyer-iOS-SDK.git" tag="1.2.0"/>
+                <pod name="BandyerSDK" git="https://github.com/Bandyer/Bandyer-iOS-SDK.git" tag="1.2.1"/>
             </pods>
         </podspec>
         <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />
