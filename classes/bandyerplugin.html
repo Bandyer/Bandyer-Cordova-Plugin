@@ -94,6 +94,7 @@
 					<li><a href="../globals.html#setuperrorevent" class="tsd-signature-type">SetupErrorEvent</a></li>
 					<li><a href="../globals.html#callerrorevent" class="tsd-signature-type">CallErrorEvent</a></li>
 					<li><a href="../globals.html#chaterrorevent" class="tsd-signature-type">ChatErrorEvent</a></li>
+					<li><a href="../globals.html#voippushtokenevents" class="tsd-signature-type">VoipPushTokenEvents</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -150,7 +151,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L120">BandyerPlugin.ts:120</a></li>
+									<li>Defined in BandyerPlugin.ts:121</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="bandyerplugin.html" class="tsd-signature-type">BandyerPlugin</a></h4>
@@ -166,7 +167,7 @@
 					<div class="tsd-signature tsd-kind-icon">call<wbr>Types<span class="tsd-signature-symbol">:</span> <a href="../enums/calltype.html" class="tsd-signature-type">CallType</a><span class="tsd-signature-symbol"> =&nbsp;CallType</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L45">BandyerPlugin.ts:45</a></li>
+							<li>Defined in BandyerPlugin.ts:45</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -181,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">environments<span class="tsd-signature-symbol">:</span> <a href="environments.html" class="tsd-signature-type">Environments</a><span class="tsd-signature-symbol"> =&nbsp;Environments</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L50">BandyerPlugin.ts:50</a></li>
+							<li>Defined in BandyerPlugin.ts:50</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -197,7 +198,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="eventlistener.html">EventListener</a>.<a href="eventlistener.html#events">events</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/events/EventListener.ts#L18">events/EventListener.ts:18</a></li>
+							<li>Defined in events/EventListener.ts:19</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -212,7 +213,7 @@
 					<div class="tsd-signature tsd-kind-icon">instance<span class="tsd-signature-symbol">:</span> <a href="bandyerplugin.html" class="tsd-signature-type">BandyerPlugin</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L40">BandyerPlugin.ts:40</a></li>
+							<li>Defined in BandyerPlugin.ts:40</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -235,7 +236,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides EventListener._registerForEvent</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L310">BandyerPlugin.ts:310</a></li>
+									<li>Defined in BandyerPlugin.ts:307</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -261,7 +262,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L223">BandyerPlugin.ts:223</a></li>
+									<li>Defined in BandyerPlugin.ts:224</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -298,7 +299,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L302">BandyerPlugin.ts:302</a></li>
+									<li>Defined in BandyerPlugin.ts:299</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -365,7 +366,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L259">BandyerPlugin.ts:259</a></li>
+									<li>Defined in BandyerPlugin.ts:260</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -444,13 +445,15 @@
 						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../enums/events.html#setuperror" class="tsd-signature-type">setupError</a>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../enums/events.html#callerror" class="tsd-signature-type">callError</a>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../enums/events.html#chaterror" class="tsd-signature-type">chatError</a>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../enums/events.html#iosvoippushtokenupdated" class="tsd-signature-type">iOSVoipPushTokenUpdated</a>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../enums/events.html#iosvoippushtokeninvalidated" class="tsd-signature-type">iOSVoipPushTokenInvalidated</a>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="eventlistener.html">EventListener</a>.<a href="eventlistener.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/events/EventListener.ts#L20">events/EventListener.ts:20</a></li>
+									<li>Defined in events/EventListener.ts:21</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -486,7 +489,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="eventlistener.html">EventListener</a>.<a href="eventlistener.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/events/EventListener.ts#L21">events/EventListener.ts:21</a></li>
+									<li>Defined in events/EventListener.ts:22</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -522,7 +525,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="eventlistener.html">EventListener</a>.<a href="eventlistener.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/events/EventListener.ts#L22">events/EventListener.ts:22</a></li>
+									<li>Defined in events/EventListener.ts:23</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -558,7 +561,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="eventlistener.html">EventListener</a>.<a href="eventlistener.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/events/EventListener.ts#L23">events/EventListener.ts:23</a></li>
+									<li>Defined in events/EventListener.ts:24</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -594,7 +597,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="eventlistener.html">EventListener</a>.<a href="eventlistener.html#on">on</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/events/EventListener.ts#L24">events/EventListener.ts:24</a></li>
+									<li>Defined in events/EventListener.ts:25</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -626,6 +629,72 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="eventlistener.html">EventListener</a>.<a href="eventlistener.html#on">on</a></p>
+								<ul>
+									<li>Defined in events/EventListener.ts:26</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>event: <a href="../enums/events.html#iosvoippushtokenupdated" class="tsd-signature-type">iOSVoipPushTokenUpdated</a></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>token<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>token: <span class="tsd-signature-type">string</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="eventlistener.html">EventListener</a>.<a href="eventlistener.html#on">on</a></p>
+								<ul>
+									<li>Defined in events/EventListener.ts:27</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>event: <a href="../enums/events.html#iosvoippushtokeninvalidated" class="tsd-signature-type">iOSVoipPushTokenInvalidated</a></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
@@ -638,7 +707,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L154">BandyerPlugin.ts:154</a></li>
+									<li>Defined in BandyerPlugin.ts:155</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -660,7 +729,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L238">BandyerPlugin.ts:238</a></li>
+									<li>Defined in BandyerPlugin.ts:239</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -682,7 +751,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L161">BandyerPlugin.ts:161</a></li>
+									<li>Defined in BandyerPlugin.ts:162</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -704,7 +773,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L180">BandyerPlugin.ts:180</a></li>
+									<li>Defined in BandyerPlugin.ts:181</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -737,7 +806,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L203">BandyerPlugin.ts:203</a></li>
+									<li>Defined in BandyerPlugin.ts:204</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -773,7 +842,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L277">BandyerPlugin.ts:277</a></li>
+									<li>Defined in BandyerPlugin.ts:278</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -806,7 +875,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L131">BandyerPlugin.ts:131</a></li>
+									<li>Defined in BandyerPlugin.ts:132</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -842,7 +911,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L169">BandyerPlugin.ts:169</a></li>
+									<li>Defined in BandyerPlugin.ts:170</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -865,7 +934,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L147">BandyerPlugin.ts:147</a></li>
+									<li>Defined in BandyerPlugin.ts:148</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -887,7 +956,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/BandyerPlugin.ts#L57">BandyerPlugin.ts:57</a></li>
+									<li>Defined in BandyerPlugin.ts:57</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1044,6 +1113,9 @@
 					</li>
 					<li class=" tsd-kind-event">
 						<a href="../globals.html#setuperrorevent" class="tsd-kind-icon">Setup<wbr>Error<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-event">
+						<a href="../globals.html#voippushtokenevents" class="tsd-kind-icon">Voip<wbr>Push<wbr>Token<wbr>Events</a>
 					</li>
 				</ul>
 			</nav>

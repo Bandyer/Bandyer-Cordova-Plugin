@@ -90,6 +90,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iosconfig.html#callkitenabled" class="tsd-kind-icon">callkit<wbr>Enabled</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iosconfig.html#fakecapturerfilename" class="tsd-kind-icon">fake<wbr>Capturer<wbr>File<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iosconfig.html#voipnotificationkeypath" class="tsd-kind-icon">voip<wbr>Notification<wbr>Key<wbr>Path</a></li>
 							</ul>
 						</section>
 					</div>
@@ -103,7 +104,7 @@
 					<div class="tsd-signature tsd-kind-icon">callkit<wbr>Enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/IosConfig.ts#L12">IosConfig.ts:12</a></li>
+							<li>Defined in IosConfig.ts:12</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -121,7 +122,7 @@
 					<div class="tsd-signature tsd-kind-icon">fake<wbr>Capturer<wbr>File<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Bandyer/Bandyer-Cordova-Plugin/blob/e138fcd/www/src/IosConfig.ts#L22">IosConfig.ts:22</a></li>
+							<li>Defined in IosConfig.ts:22</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -129,6 +130,24 @@
 							<p>Specify the file name of the sample video to be used as a fake capturer on an iOS simulator.
 								<br/>
 								This allows to test the call using a simulator.
+								<br/>
+								<br/>
+							<b><font color="blue">default</font>: null</b></p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="voipnotificationkeypath" class="tsd-anchor"></a>
+					<h3>voip<wbr>Notification<wbr>Key<wbr>Path</h3>
+					<div class="tsd-signature tsd-kind-icon">voip<wbr>Notification<wbr>Key<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in IosConfig.ts:30</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Specify the key path where the bandyer notification payload can be found inside the voip push notification received
 								<br/>
 								<br/>
 							<b><font color="blue">default</font>: null</b></p>
@@ -194,6 +213,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="iosconfig.html#fakecapturerfilename" class="tsd-kind-icon">fake<wbr>Capturer<wbr>File<wbr>Name</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="iosconfig.html#voipnotificationkeypath" class="tsd-kind-icon">voip<wbr>Notification<wbr>Key<wbr>Path</a>
+							</li>
 						</ul>
 					</li>
 				</ul>
@@ -215,6 +237,9 @@
 					</li>
 					<li class=" tsd-kind-event">
 						<a href="../globals.html#setuperrorevent" class="tsd-kind-icon">Setup<wbr>Error<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-event">
+						<a href="../globals.html#voippushtokenevents" class="tsd-kind-icon">Voip<wbr>Push<wbr>Token<wbr>Events</a>
 					</li>
 				</ul>
 			</nav>

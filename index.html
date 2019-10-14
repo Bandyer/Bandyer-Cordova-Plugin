@@ -66,63 +66,49 @@
 			<div class="tsd-panel tsd-typography">
 				<h1 id="bandyer-cordova-plugin">Bandyer Cordova Plugin</h1>
 				<h2 id="how-to-install-the-plugin-">How to install the plugin:</h2>
-				<pre><code><span class="hljs-variable">$ </span>npm i
-<span class="hljs-variable">$ </span>cordova prepare
-<span class="hljs-variable">$ </span>cordova plugin add <span class="hljs-variable">@bandyer</span>/cordova-plugin-bandyer</code></pre><h2 id="how-to-remove-the-plugin-">How to remove the plugin:</h2>
-				<pre><code>$ cordova plugin <span class="hljs-builtin-name">remove</span> cordova-plugin-bandyer</code></pre><h2 id="how-to-link-local-plugin-">How to link local plugin:</h2>
+				<p>Open the <strong>terminal</strong> in your Cordova-App folder and run the following commands</p>
+				<pre><code><span class="hljs-selector-tag">npm</span> <span class="hljs-selector-tag">i</span>
+<span class="hljs-selector-tag">cordova</span> <span class="hljs-selector-tag">prepare</span>
+<span class="hljs-selector-tag">cordova</span> <span class="hljs-selector-tag">plugin</span> <span class="hljs-selector-tag">add</span> @<span class="hljs-keyword">bandyer</span>/<span class="hljs-keyword">cordova</span>-<span class="hljs-keyword">plugin</span>-<span class="hljs-keyword">bandyer</span></code></pre><h2 id="how-to-link-local-plugin-">How to link local plugin:</h2>
 				<p>Link the local plugin to the project</p>
-				<pre><code>$ cordova plugin add ../{path-<span class="hljs-keyword">to</span>-<span class="hljs-keyword">local</span>-plugin} <span class="hljs-comment">--link</span>
-
-remove platforms 'android' <span class="hljs-keyword">and</span>/<span class="hljs-keyword">or</span> 'ios' <span class="hljs-keyword">and</span> re add them <span class="hljs-keyword">to</span> ensure <span class="hljs-keyword">that</span> all modified plugins are copied <span class="hljs-keyword">to</span> build folders
-$ cordova platforms remove android
-$ cordova platforms add android
-
-<span class="hljs-built_in">run</span> <span class="hljs-keyword">on</span> android device <span class="hljs-keyword">with</span> a device connected <span class="hljs-keyword">through</span> adb
-$ cordova <span class="hljs-built_in">run</span> android <span class="hljs-comment">--device</span>
-
-<span class="hljs-keyword">or</span> <span class="hljs-built_in">run</span> <span class="hljs-keyword">on</span> android emulator
-$ cordova emulate android</code></pre><h2 id="how-to-use-the-plugin-in-your-cordova-app">How to use the plugin in your Cordova app</h2>
+				<pre><code class="language-bash">cordova plugin add ../{path-to-local-plugin} --link</code></pre>
+				<h2 id="how-to-remove-the-plugin-">How to remove the plugin:</h2>
+				<pre><code class="language-bash">cordova plugin remove cordova-plugin-bandyer</code></pre>
+				<h2 id="update-the-cordova-platforms">Update the Cordova platforms</h2>
+				<p>Every time you update the plugin remove the platforms &#39;android&#39; and/or &#39;ios&#39; and re add them to ensure that all modified plugins are copied to build folders
+				remove platforms &#39;android&#39; and/or &#39;ios&#39; and re add them to ensure that all modified plugins are copied to build folders</p>
+				<pre><code class="language-bash"><span class="hljs-built_in">cd</span> {to your app root folder}
+<span class="hljs-comment"># Add --nosave if you don't want to update your package.json file when executing the commands below</span>
+cordova platforms remove android ios
+cordova platforms add android ios</code></pre>
+				<h2 id="how-to-run-the-cordova-app">How to run the cordova app</h2>
+				<p>Android </p>
+				<pre><code class="language-bash">cordova run android</code></pre>
+				<p>iOS</p>
+				<pre><code class="language-bash">cordova run ios</code></pre>
+				<h2 id="how-to-use-the-plugin-in-your-cordova-app">How to use the plugin in your Cordova app</h2>
 				<p>You can refer to the Bandyer plugin in your cordova app via</p>
-				<pre><code><span class="hljs-attribute">BandyerPlugin</span></code></pre><h2 id="plugin-setup">Plugin setup</h2>
+				<pre><code class="language-javascript">BandyerPlugin</code></pre>
+				<h2 id="plugin-setup">Plugin setup</h2>
 				<p>The first thing you need to do is to setup the plugin specifying your keys and your options.</p>
 				<h5 id="setup-params">Setup params</h5>
-				<ul>
-					<li>environment: <strong>[BandyerPlugin.environments.sandbox() | BandyerPlugin.environments.production()]</strong> the bandyer environment where your integration will run.</li>
-					<li>appId: <strong>[mAppId_xxx]</strong> your mobile appId</li>
-					<li><p>logEnabled: <strong>[true | false]</strong> flag to enable disable the logger</p>
-					</li>
-					<li><p>iosConfig: define to personalize the ios configuration</p>
-						<ul>
-							<li>callkitEnabled: <strong>[true | false]</strong> flag to enable callkit on iOS </li>
-							<li>fakeCapturerFileName: <strong>[fileName]</strong> by default is null, this property is <strong>required</strong> only for simulators</li>
-						</ul>
-					</li>
-					<li><p>androidConfig: define to personalize the android configuration</p>
-						<ul>
-							<li>callEnabled: <strong>[true | false]</strong> flag to enable call module on android</li>
-							<li>fileSharingEnabled: <strong>[true | false]</strong> flag to enable file sharing module on android</li>
-							<li>chatEnabled: <strong>[true | false]</strong> flag to enable chat module on android</li>
-							<li>screenSharingEnabled: <strong>[true | false]</strong> flag to enable screen sharing module on android</li>
-							<li>whiteboardEnabled: <strong>[true | false]</strong> flag to enable whiteboard module on android</li>
-						</ul>
-					</li>
-				</ul>
 				<pre><code class="language-javascript">BandyerPlugin.setup({
             <span class="hljs-attr">environment</span>: BandyerPlugin.environments.sandbox(),
-            <span class="hljs-attr">appId</span>: <span class="hljs-string">'mAppId_xxx'</span>,
-            <span class="hljs-attr">logEnabled</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">appId</span>: <span class="hljs-string">'mAppId_xxx'</span>, <span class="hljs-comment">// your mobile appId</span>
+            logEnabled: <span class="hljs-literal">true</span>, <span class="hljs-comment">// enable the logger</span>
             <span class="hljs-comment">// optional you can disable one or more of the following capabilities, by default callkit is enabled</span>
             iosConfig: {
-                <span class="hljs-attr">callkitEnabled</span>: <span class="hljs-literal">true</span>,
-                <span class="hljs-attr">fakeCapturerFileName</span>: <span class="hljs-literal">null</span> <span class="hljs-comment">// set this property to be able to execute on an ios simulator</span>
+                <span class="hljs-attr">callkitEnabled</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// enable callkit on iOS 10+</span>
+                fakeCapturerFileName: <span class="hljs-literal">null</span>, <span class="hljs-comment">// set this property to be able to execute on an ios simulator</span>
+                voipNotificationKeyPath: <span class="hljs-string">'keypath_to_bandyer_data'</span> <span class="hljs-comment">//this property is **required** if you enabled VoIP notifications in your app</span>
             },
             <span class="hljs-comment">// optional you can disable one or more of the following capabilities, by default all additional modules are enabled</span>
             androidConfig: {
-                <span class="hljs-attr">callEnabled</span>: <span class="hljs-literal">true</span>,
-                <span class="hljs-attr">fileSharingEnabled</span>: <span class="hljs-literal">true</span>,
-                <span class="hljs-attr">chatEnabled</span>: <span class="hljs-literal">true</span>,
-                <span class="hljs-attr">screenSharingEnabled</span>: <span class="hljs-literal">true</span>,
-                <span class="hljs-attr">whiteboardEnabled</span>: <span class="hljs-literal">true</span>
+                <span class="hljs-attr">callEnabled</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// enable call module on android</span>
+                fileSharingEnabled: <span class="hljs-literal">true</span>, <span class="hljs-comment">// enable file sharing module on android</span>
+                chatEnabled: <span class="hljs-literal">true</span>, <span class="hljs-comment">// enable chat module on android</span>
+                screenSharingEnabled: <span class="hljs-literal">true</span>, <span class="hljs-comment">// enable screen sharing module on android</span>
+                whiteboardEnabled: <span class="hljs-literal">true</span> <span class="hljs-comment">// enable whiteboard module on android</span>
             }
 })</code></pre>
 				<h2 id="plugin-listen-for-errors-events">Plugin listen for errors/events</h2>
@@ -130,6 +116,13 @@ $ cordova emulate android</code></pre><h2 id="how-to-use-the-plugin-in-your-cord
 				Check the documentation <a href="enums/events.html">here</a> for a complete list</p>
 				<p>Example:</p>
 				<pre><code class="language-javascript">bandyerPlugin.on(BandyerPlugin.events.callModuleStatusChanged, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">status</span>) </span>{});</code></pre>
+				<h2 id="listening-for-voip-push-token">Listening for VoIP push token</h2>
+				<p>In order to get your device push token, you must listen for the <strong>BandyerPlugin.events.iOSVoipPushTokenUpdated</strong> event registering a callback as follows:</p>
+				<pre><code class="language-javascript">bandyerPlugin.on(BandyerPlugin.events.iOSVoipPushTokenUpdated, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">token</span>) </span>{
+                <span class="hljs-comment">//Do something with the token received</span>
+        });</code></pre>
+				<p>The token provided in the callback is the <strong>string</strong> representation of your device token.
+				Here&#39;s an example of a device token: <strong>dec105f879924349fd2fa9aa8bb8b70431d5f41d57bfa8e31a5d80a629774fd9</strong></p>
 				<h2 id="plugin-start">Plugin start</h2>
 				<p>To start a plugin means to connect an user to the bandyer system.</p>
 				<pre><code class="language-javascript"><span class="hljs-comment">// start the bandyer plugin specifying the user alias of the user you want to connect</span>
@@ -137,30 +130,19 @@ bandyerPlugin.startFor(<span class="hljs-string">'usr_xxx'</span>);</code></pre>
 				<h2 id="start-a-call">Start a call</h2>
 				<p>To make a call you need to specify some params.</p>
 				<h5 id="start-call-params">Start call params</h5>
-				<ul>
-					<li>callee: an array of user aliases of the users you want to call</li>
-					<li>callType: <strong>[BandyerPlugin.callTypes.AUDIO | BandyerPlugin.callTypes.AUDIO_UPGRADABLE | BandyerPlugin.callTypes.AUDIO_VIDEO]</strong> the type of the call you want to start</li>
-					<li>recording: <strong>[true | false]</strong> flag to enable recording for the call</li>
-				</ul>
 				<pre><code class="language-javascript">bandyerPlugin.startCall({
-                   <span class="hljs-attr">userAliases</span>: [<span class="hljs-string">'usr_yyy'</span>,<span class="hljs-string">'usr_zzz'</span>],
-                   <span class="hljs-attr">callType</span>: BandyerPlugin.callTypes.AUDIO_VIDEO,
-                   <span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>
+                   <span class="hljs-attr">userAliases</span>: [<span class="hljs-string">'usr_yyy'</span>,<span class="hljs-string">'usr_zzz'</span>], <span class="hljs-comment">//  an array of user aliases of the users you want to call</span>
+                   callType: BandyerPlugin.callTypes.AUDIO_VIDEO, <span class="hljs-comment">// **[BandyerPlugin.callTypes.AUDIO | BandyerPlugin.callTypes.AUDIO_UPGRADABLE | BandyerPlugin.callTypes.AUDIO_VIDEO]** the type of the call you want to start</span>
+                   recording: <span class="hljs-literal">false</span> <span class="hljs-comment">// enable recording for the call</span>
 });</code></pre>
 				<h2 id="start-a-chat">Start a chat</h2>
 				<p>To make a chat you need to specify some params.</p>
 				<h5 id="start-chat-params">Start chat params</h5>
-				<ul>
-					<li>userAlias: the alias of the user you want to create a chat with</li>
-					<li>withAudioCallCapability: <strong>[recording: true | false]</strong> define if you want the audio only call button in the chat UI, and set recording if you desire to be recorded.</li>
-					<li>withAudioUpgradableCallCapability: <strong>[recording: true | false]</strong>  define if you want the audio upgradable call button in the chat UI, and set recording if you desire to be recorded.</li>
-					<li>withAudioVideoCallCapability: <strong>[recording: true | false]</strong> define if you want the audio&amp;video call button in the chat UI, and set recording if you desire to be recorded.</li>
-				</ul>
 				<pre><code class="language-javascript">bandyerPlugin.startChat({
-                    <span class="hljs-attr">userAlias</span>: <span class="hljs-string">'usr_yyy'</span>,
-                    <span class="hljs-attr">withAudioCallCapability</span>: {<span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>},
-                    <span class="hljs-attr">withAudioUpgradableCallCapability</span>: {<span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>},
-                    <span class="hljs-attr">withAudioVideoCallCapability</span>: {<span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>}
+                    <span class="hljs-attr">userAlias</span>: <span class="hljs-string">'usr_yyy'</span>, <span class="hljs-comment">// the alias of the user you want to create a chat with</span>
+                    withAudioCallCapability: {<span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>}, <span class="hljs-comment">// define if you want the audio only call button in the chat UI, and set recording if you desire to be recorded.</span>
+                    withAudioUpgradableCallCapability: {<span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>}, <span class="hljs-comment">// define if you want the audio upgradable call button in the chat UI, and set recording if you desire to be recorded.</span>
+                    withAudioVideoCallCapability: {<span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>} <span class="hljs-comment">// define if you want the audio&amp;video call button in the chat UI, and set recording if you desire to be recorded</span>
 });</code></pre>
 			</div>
 		</div>
@@ -230,6 +212,9 @@ bandyerPlugin.startFor(<span class="hljs-string">'usr_xxx'</span>);</code></pre>
 					</li>
 					<li class=" tsd-kind-event">
 						<a href="globals.html#setuperrorevent" class="tsd-kind-icon">Setup<wbr>Error<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-event">
+						<a href="globals.html#voippushtokenevents" class="tsd-kind-icon">Voip<wbr>Push<wbr>Token<wbr>Events</a>
 					</li>
 				</ul>
 			</nav>
