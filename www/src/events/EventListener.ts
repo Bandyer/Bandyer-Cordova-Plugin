@@ -7,11 +7,12 @@ import {is} from "typescript-is";
 import {SetupErrorEvent} from "./SetupErrorEvent";
 import {CallErrorEvent} from "./call/CallErrorEvent";
 import {ChatErrorEvent} from "./chat/ChatErrorEvent";
+import {VoipPushTokenEvents} from "./call/VoipPushTokenEvents";
 
 /**
  * Event listener used to subscribe to the events fired by the Bandyer plugin
  */
-export abstract class EventListener implements CallStatusChangedEvent, ChatStatusChangedEvent, SetupErrorEvent, CallErrorEvent, ChatErrorEvent {
+export abstract class EventListener implements CallStatusChangedEvent, ChatStatusChangedEvent, SetupErrorEvent, CallErrorEvent, ChatErrorEvent, VoipPushTokenEvents {
     /**
      * Available events
      */
@@ -22,7 +23,9 @@ export abstract class EventListener implements CallStatusChangedEvent, ChatStatu
     on(event: Events.setupError, callback: (reason: string) => void);
     on(event: Events.callError, callback: (reason: string) => void);
     on(event: Events.chatError, callback: (reason: string) => void);
-    on(event: Events.callModuleStatusChanged | Events.chatModuleStatusChanged | Events.setupError | Events.callError | Events.chatError, callback: ((status: string) => void)) {
+    on(event: Events.iOSVoipPushTokenUpdated, callback: (token: string) => void);
+    on(event: Events.iOSVoipPushTokenInvalidated, callback: () => void);
+    on(event: Events.callModuleStatusChanged | Events.chatModuleStatusChanged | Events.setupError | Events.callError | Events.chatError | Events.iOSVoipPushTokenUpdated | Events.iOSVoipPushTokenInvalidated, callback: ((status: string) => void) | (() => void)) {
         if (!is<Events>(event)) {
             throw new IllegalArgumentError("Expected an event of type Events!");
         }
