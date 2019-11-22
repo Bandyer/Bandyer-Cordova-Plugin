@@ -1,6 +1,6 @@
 rootProject.ext {
 
-    BANDYER_SDK_VERSION = '1.4.1'
+    BANDYER_SDK_VERSION = '1.4.4'
 
     deps = [
             // Bandyer SDK
