@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BandyerSDK/BDKUserInfoFetcher.h>
+#import <Bandyer/BDKUserInfoFetcher.h>
 
 @class BCPUsersDetailsCache;
 

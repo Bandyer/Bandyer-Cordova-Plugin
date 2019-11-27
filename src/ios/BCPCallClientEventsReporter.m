@@ -3,7 +3,7 @@
 // See LICENSE.txt for licensing information
 //
 
-#import <BandyerSDK/BandyerSDK.h>
+#import <Bandyer/Bandyer.h>
 
 #import "BCPCallClientEventsReporter.h"
 #import "BCPEventEmitter.h"

@@ -4,7 +4,7 @@
 //
 
 #import <CallKit/CallKit.h>
-#import <BandyerSDK/BDKUserInfoDisplayItem.h>
+#import <Bandyer/BDKUserInfoDisplayItem.h>
 
 #import "BCPContactHandleProvider.h"
 #import "BCPUsersDetailsCache.h"

@@ -6,7 +6,7 @@
 #import <XCTest/XCTest.h>
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
-#import <BandyerSDK/BandyerSDK.h>
+#import <Bandyer/Bandyer.h>
 
 #import "BCPTestingMacros.h"
 #import "BCPTestCase.h"

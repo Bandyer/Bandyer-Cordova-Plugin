@@ -4,7 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <BandyerSDK/BDKIntent.h>
+#import <Bandyer/BDKIntent.h>
 
 @class BCPUsersDetailsCache;
 

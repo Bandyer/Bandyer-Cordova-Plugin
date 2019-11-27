@@ -4,8 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BandyerSDK/BCHChatClientObserver.h>
-#import <BandyerSDK/BCHChatClient.h>
+#import <Bandyer/BCHChatClientObserver.h>
+#import <Bandyer/BCHChatClient.h>
 
 @class BCPEventEmitter;
 

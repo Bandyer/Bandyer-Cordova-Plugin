@@ -1,30 +1,29 @@
 PODS:
-  - BandyerSDK (1.2.0):
-    - BandyerSDK/WebRTC (= 1.2.0)
-    - Socket.IO-Client-Swift (~> 14.0)
-    - TwilioChatClient (~> 2.4)
-  - BandyerSDK/WebRTC (1.2.0):
-    - Socket.IO-Client-Swift (~> 14.0)
-    - TwilioChatClient (~> 2.4)
+  - Bandyer (1.3.0):
+    - Bandyer/WebRTC (= 1.3.0)
+    - Socket.IO-Client-Swift (~> 15.1)
+    - TwilioChatClient (~> 2.6)
+  - Bandyer/WebRTC (1.3.0):
+    - Socket.IO-Client-Swift (~> 15.1)
+    - TwilioChatClient (~> 2.6)
   - Cordova (4.5.4)
   - OCHamcrest (7.1.2)
   - OCMockito (5.1.2):
     - OCHamcrest (~> 7.0)
-  - Socket.IO-Client-Swift (14.0.0):
-    - Starscream (~> 3.0.6)
-  - Starscream (3.0.6)
-  - TwilioChatClient (2.6.2)
+  - Socket.IO-Client-Swift (15.2.0):
+    - Starscream (~> 3.1)
+  - Starscream (3.1.1)
+  - TwilioChatClient (2.6.5)
 
 DEPENDENCIES:
-  - BandyerSDK (from `https://github.com/Bandyer/Bandyer-iOS-SDK.git`, tag `1.2.0`)
+  - Bandyer (from `https://github.com/Bandyer/Bandyer-iOS-SDK.git`, tag `1.3.0`)
   - Cordova (~> 4.5.4)
   - OCHamcrest (~> 7.1)
   - OCMockito (~> 5.1)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - Cordova
   trunk:
+    - Cordova
     - OCHamcrest
     - OCMockito
     - Socket.IO-Client-Swift
@@ -32,24 +31,24 @@ SPEC REPOS:
     - TwilioChatClient
 
 EXTERNAL SOURCES:
-  BandyerSDK:
+  Bandyer:
     :git: https://github.com/Bandyer/Bandyer-iOS-SDK.git
-    :tag: 1.2.0
+    :tag: 1.3.0
 
 CHECKOUT OPTIONS:
-  BandyerSDK:
+  Bandyer:
     :git: https://github.com/Bandyer/Bandyer-iOS-SDK.git
-    :tag: 1.2.0
+    :tag: 1.3.0
 
 SPEC CHECKSUMS:
-  BandyerSDK: 28418bed9469be2fce0aae59cc3eca18b5d45677
+  Bandyer: 3c70ef738dd8fe4d7e3228dc2ced22b0e3b85197
   Cordova: 90a337977b8667a80483f559268c82062b1183da
   OCHamcrest: b284c9592c28c1e4025a8542e67ea41a635d0d73
   OCMockito: 51a534e667194e1ecae88c5def301cc8b0ab3cc7
-  Socket.IO-Client-Swift: 21e6a8a23a7d367d5ddfab6cbbd3c679cf3c25d6
-  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
-  TwilioChatClient: b9c0aa43da3b9fd2725094b6eb111bc11318cc83
+  Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  TwilioChatClient: c7d2cc9c7769f9f082bbac719c09192e62bf26cc
 
-PODFILE CHECKSUM: 8350797d585912e51099e0fa9aa6f980e8e52878
+PODFILE CHECKSUM: 22d6c59e043d4511e9c6d351dbbdede8249fbad7
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4

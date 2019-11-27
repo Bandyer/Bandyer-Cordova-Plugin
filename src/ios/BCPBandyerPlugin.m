@@ -3,8 +3,8 @@
 // See LICENSE for licensing information
 //
 
-#import <BandyerSDK/BandyerSDK.h>
-#import <BandyerSDK/BandyerSDK-Swift.h>
+#import <Bandyer/Bandyer.h>
+#import <Bandyer/Bandyer-Swift.h>
 
 #import "BCPBandyerPlugin.h"
 #import "BCPUsersDetailsCache.h"

@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BandyerSDK/BandyerSDK.h>
+#import <Bandyer/Bandyer.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

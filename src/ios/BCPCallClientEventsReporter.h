@@ -4,8 +4,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BandyerSDK/BCXCallClientObserver.h>
-#import <BandyerSDK/BCXCallClient.h>
+#import <Bandyer/BCXCallClientObserver.h>
+#import <Bandyer/BCXCallClient.h>
 
 @class BCPEventEmitter;
 
