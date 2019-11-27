@@ -31,3 +31,9 @@ gradle.properties
 Info.plist
 Pods/
 update_plugin_version.py
+.idea/
+local.properties
+.iml
+plugin.iml
+src/android/cordova-plugin-android.iml
+test/ios/
