@@ -87,7 +87,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
 
     private fun clearUserCache(callbackContext: CallbackContext) {
         try {
-            bandyerCordovaPluginManager!!.clearUserCache()
+            bandyerCordovaPluginManager!!.clearUserCache(cordova.activity)
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)
