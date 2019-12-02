@@ -1,6 +1,6 @@
 {
   "name": "@bandyer/cordova-plugin-bandyer",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Bandyer as simple as making a phone call",
   "homepage": "https://bandyer.github.io/Bandyer-Cordova-Plugin",
   "repository": {
