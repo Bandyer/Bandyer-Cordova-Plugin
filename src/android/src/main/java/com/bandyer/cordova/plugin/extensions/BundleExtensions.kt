@@ -7,7 +7,6 @@ import org.json.JSONObject
  *
  * @author kristiyan
  */
-
 fun Bundle.asJSONObject(): JSONObject {
     val json = JSONObject()
     val keys = keySet()
