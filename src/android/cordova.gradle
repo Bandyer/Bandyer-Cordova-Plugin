@@ -4,6 +4,7 @@ dependencies {
 }
 
 repositories {
+    mavenLocal()
     google()
     mavenCentral()
 }

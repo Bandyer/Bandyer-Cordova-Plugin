@@ -11,12 +11,13 @@ import com.bandyer.android_sdk.client.BandyerSDKClient
 import com.bandyer.android_sdk.client.BandyerSDKClientObserver
 import com.bandyer.android_sdk.client.BandyerSDKClientOptions
 import com.bandyer.android_sdk.client.BandyerSDKClientState
+import com.bandyer.android_sdk.intent.call.CallDisplayMode
 import com.bandyer.android_sdk.module.BandyerModule
 import com.bandyer.android_sdk.module.BandyerModuleObserver
 import com.bandyer.android_sdk.module.BandyerModuleStatus
-import com.bandyer.android_sdk.utils.provider.OnUserInformationProviderListener
-import com.bandyer.android_sdk.utils.provider.UserContactProvider
+import com.bandyer.android_sdk.utils.provider.OnUserDetailsListener
 import com.bandyer.android_sdk.utils.provider.UserDetails
+import com.bandyer.android_sdk.utils.provider.UserDetailsProvider
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.ARG_USER_DETAILS_ALIAS
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.ARG_USER_DETAILS_EMAIL
 import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants.ARG_USER_DETAILS_FIRSTNAME
@@ -100,15 +101,15 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
 
         val builder = BandyerSDK.createBuilder(application, bandyerSDKConfiguration!!)
 
-        builder.withUserContactProvider(object : UserContactProvider {
-            override fun provideUserDetails(userAliases: List<String>, onProviderListener: OnUserInformationProviderListener<UserDetails>) {
+        builder.withUserDetailsProvider(object : UserDetailsProvider {
+            override fun onUserDetailsRequested(userAliases: List<String>, onUserDetailsListener: OnUserDetailsListener) {
                 // provide results on the OnUserInformationProviderListener object
                 val details = mutableListOf<UserDetails>()
                 userAliases.forEach { userAlias ->
                     if (usersDetailMap.containsKey(userAlias)) details.add(usersDetailMap[userAlias]!!)
                     else details.add(UserDetails.Builder(userAlias).build())
                 }
-                onProviderListener.onProvided(details)
+                onUserDetailsListener.provide(details)
             }
         })
 
