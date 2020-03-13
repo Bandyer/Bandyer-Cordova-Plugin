@@ -191,6 +191,13 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
         BandyerSDKClient.getInstance().handleNotification(application, payload)
     }
 
+    fun verifyCurrentCall(args: JSONArray) {
+        if (BandyerSDKClient.getInstance().state != BandyerSDKClientState.RUNNING) return
+        val ongoingCall = BandyerSDKClient.getInstance().callModule?.ongoingCall ?: return
+        val verifyCall = args.getJSONObject(0).optBoolean(BandyerCordovaPluginConstants.ARG_VERIFY_CALL)
+        BandyerSDKClient.getInstance().callModule?.setVerified(ongoingCall, verifyCall)
+    }
+
     @Throws(BandyerCordovaPluginMethodNotValidException::class)
     fun startCall(bandyerCordovaPlugin: BandyerCordovaPlugin, args: JSONArray) {
         if (bandyerSDKConfiguration == null)

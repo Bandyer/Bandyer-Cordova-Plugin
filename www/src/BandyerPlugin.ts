@@ -197,6 +197,24 @@ export class BandyerPlugin extends EventListener {
     }
 
     /**
+     * Verify the user for the current call
+     * @param verify true if the user is verified, false otherwise
+     * @throws IllegalArgumentError
+     */
+    verifyCurrentCall(verify: boolean) {
+        if (!is<boolean>(verify)) {
+            throw new IllegalArgumentError("Expected a boolean parameter");
+        }
+
+        if (BandyerPlugin._isAndroid()) {
+            cordova.exec(null, null, "BandyerPlugin", "verifyCurrentCall", [{verifyCall: verify}]);
+        } else {
+            console.warn("Not yet supported on ", device.platform, " platform.");
+        }
+
+    }
+
+    /**
      * Start Call from url
      * @param url received
      * @throws IllegalArgumentError

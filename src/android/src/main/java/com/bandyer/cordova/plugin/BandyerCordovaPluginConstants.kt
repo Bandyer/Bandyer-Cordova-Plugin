@@ -24,6 +24,9 @@ object BandyerCordovaPluginConstants {
     const val ARG_CALLEE = "callee"
     const val ARG_JOIN_URL = "joinUrl"
 
+    // VERIFY CALL
+    const val ARG_VERIFY_CALL = "verifyCall"
+
     // START CHAT
     const val ARG_CHAT_USER_ALIAS = "userAlias"
 

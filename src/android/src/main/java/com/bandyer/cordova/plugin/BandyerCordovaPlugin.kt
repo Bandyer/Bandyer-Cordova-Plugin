@@ -103,6 +103,10 @@ class BandyerCordovaPlugin : CordovaPlugin() {
         }
     }
 
+    private fun verifyCurrentCall(args: JSONArray, callbackContext: CallbackContext) {
+        bandyerCordovaPluginManager!!.verifyCurrentCall(args)
+    }
+
     private fun startCall(args: JSONArray, callbackContext: CallbackContext) {
         bandyerCordovaPluginManager!!.startCall(this, args)
     }
