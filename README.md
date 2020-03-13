@@ -105,7 +105,7 @@ var bandyerPlugin = BandyerPlugin.setup({
 
 ## Plugin listen for errors/events
 To listen for events and/or errors register
-Check the documentation [here](docs/enums/events.html) for a complete list.
+Check the documentation [here](https://bandyer.github.io/Bandyer-Cordova-Plugin//enums/events.html) for a complete list.
 
 Example:
 
@@ -170,3 +170,7 @@ To verify a user for the current call.
 ```javascript
 bandyerPlugin.verifyCurrentCall(true);  
 ```
+
+## TSDoc
+The API documentation is available on the github pages link:
+[https://bandyer.github.io/Bandyer-Cordova-Plugin/](https://bandyer.github.io/Bandyer-Cordova-Plugin/)
