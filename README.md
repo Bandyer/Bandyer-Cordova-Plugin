@@ -1,5 +1,6 @@
 # Bandyer Cordova Plugin
-[![npm version](https://badge.fury.io/js/%40bandyer%2Fcordova-plugin-bandyer@2x.png)](https://badge.fury.io/js/%40bandyer%2Fcordova-plugin-bandyer)
+[![npm version](https://badge.fury.io/js/%40bandyer%2Fcordova-plugin-bandyer.svg)](https://badge.fury.io/js/%40bandyer%2Fcordova-plugin-bandyer)
+
 ## Requirements
 ```
 npm i xml2js // needed for android 
