@@ -198,6 +198,13 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
         BandyerSDKClient.getInstance().callModule?.setVerified(ongoingCall, verifyCall)
     }
 
+    fun setDisplayModeForCurrentCall(args: JSONArray) {
+        if (BandyerSDKClient.getInstance().state != BandyerSDKClientState.RUNNING) return
+        val ongoingCall = BandyerSDKClient.getInstance().callModule?.ongoingCall ?: return
+        val displayMode = args.getJSONObject(0).optString(BandyerCordovaPluginConstants.ARG_SET_DISPLAY_MODE)
+        BandyerSDKClient.getInstance().callModule?.setDisplayMode(ongoingCall, CallDisplayMode.valueOf(displayMode))
+    }
+
     @Throws(BandyerCordovaPluginMethodNotValidException::class)
     fun startCall(bandyerCordovaPlugin: BandyerCordovaPlugin, args: JSONArray) {
         if (bandyerSDKConfiguration == null)

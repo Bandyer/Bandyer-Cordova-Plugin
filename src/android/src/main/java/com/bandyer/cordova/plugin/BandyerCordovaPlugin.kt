@@ -107,6 +107,10 @@ class BandyerCordovaPlugin : CordovaPlugin() {
         bandyerCordovaPluginManager!!.verifyCurrentCall(args)
     }
 
+    private fun setDisplayModeForCurrentCall(args: JSONArray, callbackContext: CallbackContext) {
+        bandyerCordovaPluginManager!!.setDisplayModeForCurrentCall(args)
+    }
+
     private fun startCall(args: JSONArray, callbackContext: CallbackContext) {
         bandyerCordovaPluginManager!!.startCall(this, args)
     }

@@ -12,6 +12,7 @@ import {CallType} from "./CallType";
 import {IllegalArgumentError} from "./errors/IllegalArgumentError";
 import {is} from "typescript-is";
 import {Environments} from "./Environments";
+import {CallDisplayMode} from "./CallDisplayMode";
 
 /**
  * @ignore
@@ -48,6 +49,11 @@ export class BandyerPlugin extends EventListener {
      * Available environments
      */
     static environments = Environments;
+
+    /**
+     * Available display modes
+     */
+    static callDisplayModes = CallDisplayMode;
 
     /**
      * Call this method when device is ready to setup the plugin
@@ -212,6 +218,23 @@ export class BandyerPlugin extends EventListener {
             console.warn("Not yet supported on ", device.platform, " platform.");
         }
 
+    }
+
+    /**
+     * Set the UI display mode for the current call
+     * @param mode FOREGROUND, FOREGROUND_PICTURE_IN_PICTURE, BACKGROUND
+     * @throws IllegalArgumentError
+     */
+    setDisplayModeForCurrentCall(mode: CallDisplayMode) {
+        if (!is<CallDisplayMode>(mode)) {
+            throw new IllegalArgumentError("Expected a boolean parameter");
+        }
+
+        if (BandyerPlugin._isAndroid()) {
+            cordova.exec(null, null, "BandyerPlugin", "setDisplayModeForCurrentCall", [{displayMode: mode}]);
+        } else {
+            console.warn("Not supported by ", device.platform, " platform.");
+        }
     }
 
     /**

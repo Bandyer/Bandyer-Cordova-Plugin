@@ -27,6 +27,9 @@ object BandyerCordovaPluginConstants {
     // VERIFY CALL
     const val ARG_VERIFY_CALL = "verifyCall"
 
+    // SET DISPLAY MODE 
+    const val ARG_SET_DISPLAY_MODE = "displayMode"
+
     // START CHAT
     const val ARG_CHAT_USER_ALIAS = "userAlias"
 
