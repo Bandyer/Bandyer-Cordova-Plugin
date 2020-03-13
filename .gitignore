@@ -250,9 +250,6 @@ typings/
 # Optional npm cache directory
 .npm
 
-# Optional esdoc
-docs
-
 # Optional eslint cache
 .eslintcache
 
