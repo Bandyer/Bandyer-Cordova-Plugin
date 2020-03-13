@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-bandyer"
-    version="0.2.1" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-bandyer" version="0.2.3">
     <name>BandyerPlugin</name>
     <author>Bandyer S.r.l.</author>
     <description>This plugin allows you to add BandyerSDK to your application using Bandyer Mobile
@@ -17,10 +16,10 @@
 
 
     <platform name="ios">
-        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+        <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
             <string>Necessaria per l'utilizzo della libreria</string>
         </config-file>
-        <config-file target="*-Info.plist" parent="NSMicrophoneUsageDescription">
+        <config-file parent="NSMicrophoneUsageDescription" target="*-Info.plist">
             <string>Necessaria per l'utilizzo della libreria</string>
         </config-file>
         <config-file parent="/*" target="config.xml">
@@ -62,29 +61,24 @@
                 <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Bandyer" git="https://github.com/Bandyer/Bandyer-iOS-SDK.git"
-                    tag="1.4.0" />
+                <pod git="https://github.com/Bandyer/Bandyer-iOS-SDK.git" name="Bandyer" tag="1.3.0" />
             </pods>
         </podspec>
-        <dependency id="cordova-plugin-device"
-            url="https://github.com/apache/cordova-plugin-device" />
+        <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />
     </platform>
 
-    <platform name="android" kotlin="1.3.40">
+    <platform kotlin="1.3.40" name="android">
         <apply-plugin>kotlin-android-extension</apply-plugin>
         <apply-plugin>kotlin-apt</apply-plugin>
 
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="BandyerPlugin">
-                <param name="android-package"
-                    value="com.bandyer.cordova.plugin.BandyerCordovaPlugin" />
+                <param name="android-package" value="com.bandyer.cordova.plugin.BandyerCordovaPlugin" />
             </feature>
         </config-file>
 
         <config-file parent="/manifest/application" target="AndroidManifest.xml">
-            <receiver
-                android:name="com.bandyer.cordova.plugin.notifications.BandyerNotificationReceiver"
-                android:permission="com.google.android.c2dm.permission.SEND">
+            <receiver android:name="com.bandyer.cordova.plugin.notifications.BandyerNotificationReceiver" android:permission="com.google.android.c2dm.permission.SEND">
                 <intent-filter android:priority="999">
                     <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                     <category android:name="$PACKAGE_NAME" />
@@ -92,18 +86,13 @@
             </receiver>
         </config-file>
 
-        <source-file src="src/android/src/main/java/com/bandyer/cordova/plugin"
-            target-dir="java/com/bandyer/cordova" />
-        <source-file
-            src="src/android/src/main/release/java/com/bandyer/cordova/plugin/BuildConfig.java"
-            target-dir="com/bandyer/cordova/plugin" />
+        <source-file src="src/android/src/main/java/com/bandyer/cordova/plugin" target-dir="java/com/bandyer/cordova" />
+        <source-file src="src/android/src/main/release/java/com/bandyer/cordova/plugin/BuildConfig.java" target-dir="com/bandyer/cordova/plugin" />
 
         <framework custom="true" src="src/android/depsBuild.gradle" type="gradleReference" />
         <framework custom="true" src="src/android/cordova.gradle" type="gradleReference" />
 
-        <dependency id="cordova-support-kotlin"
-            url="https://github.com/kainonly/cordova-support-kotlin.git" />
-        <dependency id="cordova-plugin-device"
-            url="https://github.com/apache/cordova-plugin-device" />
+        <dependency id="cordova-support-kotlin" url="https://github.com/kainonly/cordova-support-kotlin.git" />
+        <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />
     </platform>
 </plugin>
