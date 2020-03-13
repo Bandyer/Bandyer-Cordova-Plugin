@@ -1,12 +1,17 @@
 # Bandyer Cordova Plugin
+[![npm version](https://badge.fury.io/js/%40bandyer%2Fcordova-plugin-bandyer@2x.png)](https://badge.fury.io/js/%40bandyer%2Fcordova-plugin-bandyer)
+## Requirements
+```
+npm i xml2js // needed for android 
+cordova plugin add cordova-plugin-enable-multidex // plugin needed for android 64k max limit of methods
+cordova plugin add cordova-plugin-androidx // needed for android
+```
 
 ## How to install the plugin:
 
 Open the **terminal** in your Cordova-App folder and run the following commands
 
 ```
-npm i
-cordova prepare
 cordova plugin add @bandyer/cordova-plugin-bandyer
 ```
 
@@ -35,14 +40,31 @@ cordova platforms add android ios
 
 ## How to run the cordova app
 
-Android 
-```bash
-cordova run android
-```
-
-iOS
+**iOS - device**
 ```bash
 cordova run ios
+```
+
+**iOS - simulator**
+To run on the iOS simulator it's required to copy the following file .mp4 in your app assets.
+[https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_simulator_video_sample.mp4](https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_simulator_video_sample.mp4)
+You may run the following command at the root of your app, which will download and put the file in the assets folder
+```bash
+cd {to your app root folder}
+mkdir www/assets & curl -o www/assets/bandyer_iOS_simulator_video_sample.mp4 https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_si
+mulator_video_sample.mp4
+```
+
+Once downloaded you will need to declare the file your config.xml
+```xml
+<platform name="ios">
+<resource-file src="www/assets/bandyer_iOS_simulator_video_sample.mp4" target="bandyer_iOS_simulator_video_sample.mp4" />
+</platform>
+```
+
+**android**
+```bash
+cordova run android
 ```
 
 ## How to use the plugin in your Cordova app
@@ -59,7 +81,7 @@ The first thing you need to do is to setup the plugin specifying your keys and y
 ##### Setup params
 
 ```javascript
-BandyerPlugin.setup({
+var bandyerPlugin = BandyerPlugin.setup({
             environment: BandyerPlugin.environments.sandbox(),
             appId: 'mAppId_xxx', // your mobile appId
             logEnabled: true, // enable the logger
@@ -82,7 +104,7 @@ BandyerPlugin.setup({
 
 ## Plugin listen for errors/events
 To listen for events and/or errors register
-Check the documentation [here](enums/events.html) for a complete list
+Check the documentation [here](docs/enums/events.html) for a complete list.
 
 Example:
 
@@ -132,4 +154,18 @@ bandyerPlugin.startChat({
                     withAudioUpgradableCallCapability: {recording: false}, // define if you want the audio upgradable call button in the chat UI, and set recording if you desire to be recorded.
                     withAudioVideoCallCapability: {recording: false} // define if you want the audio&video call button in the chat UI, and set recording if you desire to be recorded
 });
+```
+
+## Android change display mode
+This method is useful for use-cases where you need to show a prompt and don't want it to be invalidated by the call going into pip.
+For example: if you wish to show fingerprint dialog you should first put the current call in background, execute the fingerprint validation and then put back the call in foreground.
+
+```javascript
+bandyerPlugin.setDisplayModeForCurrentCall(CallDisplayMode.FOREGROUND); // CallDisplayMode.FOREGROUND | CallDisplayMode.FOREGROUND_PICTURE_IN_PICTURE | CallDisplayMode.BACKGROUND 
+```
+
+## Verify user
+To verify a user for the current call.
+```javascript
+bandyerPlugin.verifyCurrentCall(true);  
 ```
