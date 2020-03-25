@@ -10,6 +10,10 @@ import com.bandyer.cordova.plugin.BandyerCordovaPluginConstants
 import com.bandyer.cordova.plugin.BandyerSDKConfiguration
 import com.bandyer.cordova.plugin.listeners.BandyerCordovaPluginCallNotificationListener
 import com.bandyer.cordova.plugin.listeners.BandyerCordovaPluginChatNotificationListener
+import com.bandyer.cordova.plugin.utils.TLSSocketFactoryCompat
+import okhttp3.OkHttpClient
+import java.security.cert.X509Certificate
+import javax.net.ssl.X509TrustManager
 
 /**
  *
@@ -55,6 +59,14 @@ fun BandyerSDK.Companion.createBuilder(application: Application, configuration: 
                 Log.d(BandyerCordovaPluginConstants.BANDYER_LOG_TAG, message)
             }
         })
+    val client = OkHttpClient.Builder()
+    val naiveTrustManager = object : X509TrustManager {
+        override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
+        override fun checkClientTrusted(certs: Array<X509Certificate>, authType: String) = Unit
+        override fun checkServerTrusted(certs: Array<X509Certificate>, authType: String) = Unit
+    }
+    client.sslSocketFactory(TLSSocketFactoryCompat(), naiveTrustManager)
+    builder.setHttpStackBuilder(client)
     builder.allowSDKInitFromActivity()
     return builder
 }

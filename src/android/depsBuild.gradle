@@ -1,9 +1,11 @@
 rootProject.ext {
 
-    BANDYER_SDK_VERSION = '1.5.1'
+    BANDYER_SDK_VERSION = '1.5.3'
+    BANDYER_SDK_OK_HTTP_VERSION = '3.12.10'
 
     deps = [
             // Bandyer SDK
-            bandyerSDK: "com.bandyer:bandyer-android-sdk:$BANDYER_SDK_VERSION"
+            bandyerSDK: "com.bandyer:bandyer-android-sdk:$BANDYER_SDK_VERSION",
+            okHttp: "com.squareup.okhttp3:okhttp:$BANDYER_SDK_OK_HTTP_VERSION"
     ]
 }
