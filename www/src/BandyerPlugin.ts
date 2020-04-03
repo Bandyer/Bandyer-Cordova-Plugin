@@ -13,6 +13,7 @@ import {IllegalArgumentError} from "./errors/IllegalArgumentError";
 import {is} from "typescript-is";
 import {Environments} from "./Environments";
 import {CallDisplayMode} from "./CallDisplayMode";
+import {CallKitConfig} from "./CallKitConfig";
 
 /**
  * @ignore
@@ -92,11 +93,13 @@ export class BandyerPlugin extends EventListener {
             console.error("BandyerPluginSetup failed setup", error);
         };
 
+        const callkit: CallKitConfig = params.iosConfig.callkit !== undefined ? params.iosConfig.callkit : {enabled: params.iosConfig.callkitEnabled !== false};
+
         cordova.exec(success, fail, "BandyerPlugin", "initializeBandyer", [{
             environment: params.environment.name,
             appId: params.appId,
             logEnabled: params.logEnabled === true,
-            ios_callkitEnabled: params.iosConfig.callkitEnabled !== false,
+            ios_callkit: callkit,
             ios_fakeCapturerFileName: params.iosConfig.fakeCapturerFileName,
             ios_voipNotificationKeyPath: params.iosConfig.voipNotificationKeyPath,
             android_isCallEnabled: params.androidConfig.callEnabled !== false,

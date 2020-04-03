@@ -1,3 +1,5 @@
+import {CallKitConfig} from "./CallKitConfig";
+
 /**
  * Configuration for iOS platform
  */
@@ -8,8 +10,17 @@ export interface IosConfig {
      * <br/>
      * <br/>
      * <b><font color="blue">default</font>: true</b>
+     * @deprecated
      */
     callkitEnabled?: boolean;
+
+    /**
+     * Specify the callkit configuration to enable the usage and it's behaviour
+     * <br/>
+     * <br/>
+     * <b><font color="blue">default</font>: null</b>
+     */
+    callkit?: CallKitConfig;
 
     /**
      * Specify the file name of the sample video to be used as a fake capturer on an iOS simulator.
