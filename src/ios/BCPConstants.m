@@ -8,6 +8,10 @@
 NSString *const kBCPApplicationIDKey = @"appId";
 NSString *const kBCPEnvironmentKey = @"environment";
 NSString *const kBCPCallKitEnabledKey = @"ios_callkitEnabled";
+NSString *const kBCPCallKitConfigKey = @"ios_callkit";
+NSString *const kBCPCallKitConfigEnabledKey = @"enabled";
+NSString *const kBCPCallKitConfigRingtoneKey = @"ringtoneSoundName";
+NSString *const kBCPCallKitConfigIconKey = @"appIconName";
 NSString *const kBCPFakeCapturerFilenameKey = @"ios_fakeCapturerFileName";
 NSString *const kBCPVoipPushPayloadKey = @"ios_voipNotificationKeyPath";
 NSString *const kBCPLogEnabledKey = @"logEnabled";

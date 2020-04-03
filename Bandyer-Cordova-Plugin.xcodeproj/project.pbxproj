@@ -110,6 +110,7 @@
 		62DD2F5AD47AFE43B8D62855 /* BCPUsersDetailsCacheTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BCPUsersDetailsCacheTest.m; path = "test/ios/Unit Tests/BCPUsersDetailsCacheTest.m"; sourceTree = "<group>"; };
 		62DD2F940E1A6540D7789079 /* BCPUserInterfaceCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BCPUserInterfaceCoordinator.h; path = src/ios/BCPUserInterfaceCoordinator.h; sourceTree = "<group>"; };
 		92EF0F845638CEA147B69895 /* Pods-Bandyer-Cordova-PluginTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bandyer-Cordova-PluginTests.debug.xcconfig"; path = "Target Support Files/Pods-Bandyer-Cordova-PluginTests/Pods-Bandyer-Cordova-PluginTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A924CC35243782B300AD3805 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		A9637FF5234CC8C20050AAA7 /* Bandyer-Cordova-PluginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bandyer-Cordova-PluginTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9938BE3234CDA5F0065048E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "test/ios/Unit Tests/Info.plist"; sourceTree = "<group>"; };
 		A9C31AF822C22D1100BC33D5 /* Bandyer_Cordova_Plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bandyer_Cordova_Plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +204,7 @@
 		A9C31AEE22C22D1100BC33D5 = {
 			isa = PBXGroup;
 			children = (
+				A924CC35243782B300AD3805 /* www */,
 				A9638002234CCAE90050AAA7 /* Test */,
 				A9C31B1822C22DE900BC33D5 /* Source */,
 				A9C31AFC22C22D1100BC33D5 /* Info.plist */,

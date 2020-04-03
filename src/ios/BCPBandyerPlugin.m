@@ -55,13 +55,33 @@
     }
 
     config.environment = environment;
-    config.callKitEnabled = args[kBCPCallKitEnabledKey] ? YES : NO;
-
-    if (config.isCallKitEnabled)
+    if (@available(iOS 10.0, *))
     {
-        config.handleProvider = [[BCPContactHandleProvider alloc] initWithCache:self.usersCache];
-        config.pushRegistryDelegate = [[BCPPushTokenEventsReporter alloc] initWithEventEmitter:self.eventEmitter];
-        config.notificationPayloadKeyPath = args[kBCPVoipPushPayloadKey];
+        NSNumber * callkitEnabled = args[kBCPCallKitConfigKey][kBCPCallKitConfigEnabledKey];
+        config.callKitEnabled = [callkitEnabled boolValue];
+
+        if (config.isCallKitEnabled)
+        {
+            config.handleProvider = [[BCPContactHandleProvider alloc] initWithCache:self.usersCache];
+            config.nativeUIRingToneSound = args[kBCPCallKitConfigKey][kBCPCallKitConfigRingtoneKey];
+            NSString *appIconResourceName = args[kBCPCallKitConfigKey][kBCPCallKitConfigIconKey];
+
+            if (appIconResourceName)
+            {
+                NSString *path = [[NSBundle mainBundle] pathForResource:appIconResourceName ofType:@"png"];
+                if (path)
+                {
+                    UIImage *appIcon = [UIImage imageWithContentsOfFile:path];
+                    if (appIcon)
+                    {
+                        config.nativeUITemplateIconImageData = UIImagePNGRepresentation(appIcon);
+                    }
+                }
+            }
+
+            config.pushRegistryDelegate = [[BCPPushTokenEventsReporter alloc] initWithEventEmitter:self.eventEmitter];
+            config.notificationPayloadKeyPath = args[kBCPVoipPushPayloadKey];
+        }
     }
 
     self.coordinator.fakeCapturerFilename = args[kBCPFakeCapturerFilenameKey];
