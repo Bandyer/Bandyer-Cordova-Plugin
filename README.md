@@ -88,7 +88,11 @@ var bandyerPlugin = BandyerPlugin.setup({
             logEnabled: true, // enable the logger
             // optional you can disable one or more of the following capabilities, by default callkit is enabled
             iosConfig: {
-                callkitEnabled: true, // enable callkit on iOS 10+
+                callkit: {
+                    enabled: true, // enable callkit on iOS 10+
+                    appIconName: "logo_transparent", // optional but recommended
+                    ringtoneSoundName: "custom_ringtone.mp3" // optional
+                },
                 fakeCapturerFileName: null, // set this property to be able to execute on an ios simulator
                 voipNotificationKeyPath: 'keypath_to_bandyer_data' //this property is **required** if you enabled VoIP notifications in your app
             },
@@ -118,7 +122,7 @@ In order to get your device push token, you must listen for the **BandyerPlugin.
 
 ```javascript
 bandyerPlugin.on(BandyerPlugin.events.iOSVoipPushTokenUpdated, function (token) {
-				//Do something with the token received
+				// register the VoIP push token on your server
         });
 ```
 The token provided in the callback is the **string** representation of your device token. 
