@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CallType | Bandyer-Plugin</title>
+	<title>CallKitConfig | Bandyer-Plugin</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="calltype.html">CallType</a>
+					<a href="callkitconfig.html">CallKitConfig</a>
 				</li>
 			</ul>
-			<h1>Enumeration CallType</h1>
+			<h1>Interface CallKitConfig</h1>
 		</div>
 	</div>
 </header>
@@ -69,69 +69,86 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This class defines the types of calls supported.</p>
+						<p>Configuration for callkit</p>
 					</div>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">CallKitConfig</span>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Enumeration members</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="calltype.html#audio" class="tsd-kind-icon">AUDIO</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="calltype.html#audio_upgradable" class="tsd-kind-icon">AUDIO_<wbr>UPGRADABLE</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="calltype.html#audio_video" class="tsd-kind-icon">AUDIO_<wbr>VIDEO</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="callkitconfig.html#appiconname" class="tsd-kind-icon">app<wbr>Icon<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="callkitconfig.html#enabled" class="tsd-kind-icon">enabled</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="callkitconfig.html#ringtonesoundname" class="tsd-kind-icon">ringtone<wbr>Sound<wbr>Name</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Enumeration members</h2>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="audio" class="tsd-anchor"></a>
-					<h3>AUDIO</h3>
-					<div class="tsd-signature tsd-kind-icon">AUDIO<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;audio&quot;</span></div>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="appiconname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> app<wbr>Icon<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">app<wbr>Icon<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in www/src/CallType.ts:9</li>
+							<li>Defined in www/src/CallKitConfig.ts:20</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Audio only is a call that will only use the microphone</p>
+							<p>The icon resource name to be used in the callkit UI to represent the app
+								<br/>
+								<br/>
+							<b><font color="blue">default</font>: null</b></p>
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="audio_upgradable" class="tsd-anchor"></a>
-					<h3>AUDIO_<wbr>UPGRADABLE</h3>
-					<div class="tsd-signature tsd-kind-icon">AUDIO_<wbr>UPGRADABLE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;audioUpgradable&quot;</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="enabled" class="tsd-anchor"></a>
+					<h3>enabled</h3>
+					<div class="tsd-signature tsd-kind-icon">enabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in www/src/CallType.ts:14</li>
+							<li>Defined in www/src/CallKitConfig.ts:12</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Audio Upgradable is a call a type of call that starts in audio only and may be upgraded to audio&amp;video type</p>
+							<p>Set to false to disable
+								<br/>
+								<br/>
+							<b><font color="blue">default</font>: true</b></p>
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="audio_video" class="tsd-anchor"></a>
-					<h3>AUDIO_<wbr>VIDEO</h3>
-					<div class="tsd-signature tsd-kind-icon">AUDIO_<wbr>VIDEO<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;audioVideo&quot;</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="ringtonesoundname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ringtone<wbr>Sound<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">ringtone<wbr>Sound<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in www/src/CallType.ts:19</li>
+							<li>Defined in www/src/CallKitConfig.ts:28</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Audio Video is a call that will use both the camera and the microphone</p>
+							<p>The ringtone resource name to be used when callkit is launched
+								<br/>
+								<br/>
+							<b><font color="blue">default</font>: system</b></p>
 						</div>
 					</div>
 				</section>
@@ -148,28 +165,13 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-enum">
-						<a href="calldisplaymode.html" class="tsd-kind-icon">Call<wbr>Display<wbr>Mode</a>
+						<a href="../enums/calldisplaymode.html" class="tsd-kind-icon">Call<wbr>Display<wbr>Mode</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-enum">
-						<a href="calltype.html" class="tsd-kind-icon">Call<wbr>Type</a>
-						<ul>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="calltype.html#audio" class="tsd-kind-icon">AUDIO</a>
-							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="calltype.html#audio_upgradable" class="tsd-kind-icon">AUDIO_<wbr>UPGRADABLE</a>
-							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="calltype.html#audio_video" class="tsd-kind-icon">AUDIO_<wbr>VIDEO</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-enum">
-						<a href="events.html" class="tsd-kind-icon">Events</a>
+						<a href="../enums/calltype.html" class="tsd-kind-icon">Call<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="../enums/events.html" class="tsd-kind-icon">Events</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/bandyerplugin.html" class="tsd-kind-icon">Bandyer<wbr>Plugin</a>
@@ -184,31 +186,46 @@
 						<a href="../classes/illegalargumenterror.html" class="tsd-kind-icon">Illegal<wbr>Argument<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/androidconfig.html" class="tsd-kind-icon">Android<wbr>Config</a>
+						<a href="androidconfig.html" class="tsd-kind-icon">Android<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/bandyerpluginconfigs.html" class="tsd-kind-icon">Bandyer<wbr>Plugin<wbr>Configs</a>
+						<a href="bandyerpluginconfigs.html" class="tsd-kind-icon">Bandyer<wbr>Plugin<wbr>Configs</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="callkitconfig.html" class="tsd-kind-icon">Call<wbr>Kit<wbr>Config</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="callkitconfig.html#appiconname" class="tsd-kind-icon">app<wbr>Icon<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="callkitconfig.html#enabled" class="tsd-kind-icon">enabled</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="callkitconfig.html#ringtonesoundname" class="tsd-kind-icon">ringtone<wbr>Sound<wbr>Name</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-interface">
+						<a href="calloptions.html" class="tsd-kind-icon">Call<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/callkitconfig.html" class="tsd-kind-icon">Call<wbr>Kit<wbr>Config</a>
+						<a href="createcalloptions.html" class="tsd-kind-icon">Create<wbr>Call<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/calloptions.html" class="tsd-kind-icon">Call<wbr>Options</a>
+						<a href="createchatoptions.html" class="tsd-kind-icon">Create<wbr>Chat<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/createcalloptions.html" class="tsd-kind-icon">Create<wbr>Call<wbr>Options</a>
+						<a href="environment.html" class="tsd-kind-icon">Environment</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/createchatoptions.html" class="tsd-kind-icon">Create<wbr>Chat<wbr>Options</a>
+						<a href="iosconfig.html" class="tsd-kind-icon">Ios<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/environment.html" class="tsd-kind-icon">Environment</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/iosconfig.html" class="tsd-kind-icon">Ios<wbr>Config</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/userdetails.html" class="tsd-kind-icon">User<wbr>Details</a>
+						<a href="userdetails.html" class="tsd-kind-icon">User<wbr>Details</a>
 					</li>
 					<li class=" tsd-kind-event">
 						<a href="../globals.html#callerrorevent" class="tsd-kind-icon">Call<wbr>Error<wbr>Event</a>
