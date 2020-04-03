@@ -133,7 +133,11 @@ mulator_video_sample.mp4</code></pre>
             <span class="hljs-attr">logEnabled</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// enable the logger</span>
             <span class="hljs-comment">// optional you can disable one or more of the following capabilities, by default callkit is enabled</span>
             <span class="hljs-attr">iosConfig</span>: {
-                <span class="hljs-attr">callkitEnabled</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// enable callkit on iOS 10+</span>
+                <span class="hljs-attr">callkit</span>: {
+                    <span class="hljs-attr">enabled</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// enable callkit on iOS 10+</span>
+                    <span class="hljs-attr">appIconName</span>: <span class="hljs-string">"logo_transparent"</span>, <span class="hljs-comment">// optional but recommended</span>
+                    <span class="hljs-attr">ringtoneSoundName</span>: <span class="hljs-string">"custom_ringtone.mp3"</span> <span class="hljs-comment">// optional</span>
+                },
                 <span class="hljs-attr">fakeCapturerFileName</span>: <span class="hljs-literal">null</span>, <span class="hljs-comment">// set this property to be able to execute on an ios simulator</span>
                 <span class="hljs-attr">voipNotificationKeyPath</span>: <span class="hljs-string">'keypath_to_bandyer_data'</span> <span class="hljs-comment">//this property is **required** if you enabled VoIP notifications in your app</span>
             },
@@ -158,7 +162,7 @@ mulator_video_sample.mp4</code></pre>
 				</a>
 				<p>In order to get your device push token, you must listen for the <strong>BandyerPlugin.events.iOSVoipPushTokenUpdated</strong> event registering a callback as follows:</p>
 				<pre><code class="language-javascript">bandyerPlugin.on(BandyerPlugin.events.iOSVoipPushTokenUpdated, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">token</span>) </span>{
-                <span class="hljs-comment">//Do something with the token received</span>
+                <span class="hljs-comment">// register the VoIP push token on your server</span>
         });</code></pre>
 				<p>The token provided in the callback is the <strong>string</strong> representation of your device token.
 				Here&#39;s an example of a device token: <strong>dec105f879924349fd2fa9aa8bb8b70431d5f41d57bfa8e31a5d80a629774fd9</strong></p>
