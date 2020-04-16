@@ -10,7 +10,7 @@ import {UserDetails} from "./UserDetails";
 import {CreateChatOptions} from "./CreateChatOptions";
 import {CallType} from "./CallType";
 import {IllegalArgumentError} from "./errors/IllegalArgumentError";
-import {is} from "typescript-is";
+import {assertType} from "typescript-is";
 import {Environments} from "./Environments";
 import {CallDisplayMode} from "./CallDisplayMode";
 import {CallKitConfig} from "./CallKitConfig";
@@ -62,9 +62,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     static setup(params: BandyerPluginConfigs): BandyerPlugin {
-        if (!is<BandyerPluginConfigs>(params)) {
-            throw new IllegalArgumentError("Expected an object of type BandyerPluginConfigs!");
-        }
+        assertType<BandyerPluginConfigs>(params);
+
         if (params.appId === "") {
             throw new IllegalArgumentError("Expected a not empty appId!");
         }
@@ -139,9 +138,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     startFor(userAlias: string) {
-        if (!is<string>(userAlias)) {
-            throw new IllegalArgumentError("Expected userAlias as string!");
-        }
+        assertType<string>(userAlias);
+
         if (userAlias === "") {
             throw new IllegalArgumentError("Expected a not empty userAlias!");
         }
@@ -188,9 +186,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     startCall(callOptions: CreateCallOptions) {
-        if (!is<CreateCallOptions>(callOptions)) {
-            throw new IllegalArgumentError("Expected an object of type CreateCallOptions!");
-        }
+        assertType<CreateCallOptions>(callOptions);
+
         if (callOptions.userAliases.length === 0) {
             throw new IllegalArgumentError("No userAliases were provided!");
         }
@@ -211,9 +208,7 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     verifyCurrentCall(verify: boolean) {
-        if (!is<boolean>(verify)) {
-            throw new IllegalArgumentError("Expected a boolean parameter");
-        }
+        assertType<boolean>(verify);
 
         if (BandyerPlugin._isAndroid()) {
             cordova.exec(null, null, "BandyerPlugin", "verifyCurrentCall", [{verifyCall: verify}]);
@@ -229,9 +224,7 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     setDisplayModeForCurrentCall(mode: CallDisplayMode) {
-        if (!is<CallDisplayMode>(mode)) {
-            throw new IllegalArgumentError("Expected a boolean parameter");
-        }
+        assertType<CallDisplayMode>(mode);
 
         if (BandyerPlugin._isAndroid()) {
             cordova.exec(null, null, "BandyerPlugin", "setDisplayModeForCurrentCall", [{displayMode: mode}]);
@@ -246,9 +239,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     startCallFrom(url: string) {
-        if (!is<string>(url)) {
-            throw new IllegalArgumentError("Expected an url of type string!");
-        }
+        assertType<string>(url);
+
         if (url === "") {
             throw new IllegalArgumentError("Expected a not empty url!");
         }
@@ -266,9 +258,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     addUsersDetails(userDetails: UserDetails[]) {
-        if (!is<UserDetails[]>(userDetails)) {
-            throw new IllegalArgumentError("Expected an array of type UserDetails!");
-        }
+        assertType<UserDetails[]>(userDetails);
+
         if (userDetails.length === 0) {
             throw new IllegalArgumentError("No userDetails were provided!");
         }
@@ -302,9 +293,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     handlePushNotificationPayload(payload: string, success?: () => void, error?: () => void) {
-        if (!is<string>(payload)) {
-            throw new IllegalArgumentError("Expected a payload of type string!");
-        }
+        assertType<string>(payload);
+
         if (payload === "") {
             throw new IllegalArgumentError("Expected a not empty payload!");
         }
@@ -320,9 +310,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     startChat(chatOptions: CreateChatOptions) {
-        if (!is<CreateChatOptions>(chatOptions)) {
-            throw new IllegalArgumentError("Expected an object of type CreateChatOptions!");
-        }
+        assertType<CreateChatOptions>(chatOptions);
+
         if (chatOptions.userAlias === "") {
             throw new IllegalArgumentError("Expected a not empty userAlias!");
         }
