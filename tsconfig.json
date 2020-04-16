@@ -6,8 +6,9 @@
     "normalTypeScriptOptions": "here",
     "plugins": [
       {
-        "transform": "typescript-is/lib/transform-inline/transformer"
-      }
+        "transform": "typescript-is/lib/transform-inline/transformer",
+        "disallowSuperfluousObjectProperties": true
+      },
     ],
     "lib": [
       "dom",
