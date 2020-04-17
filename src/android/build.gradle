@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-kapt'
 
 def jsonFile = file('../../package.json')
 def properties = new groovy.json.JsonSlurper().parseText(jsonFile.text)
@@ -40,6 +40,8 @@ dependencies {
         exclude group:"org.conscrypt", module: "conscrypt-android"
     }
     implementation deps.okHttp
+    implementation deps.room
+    kapt deps.room_compiler
     implementation "org.apache.cordova:framework:8.0.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"

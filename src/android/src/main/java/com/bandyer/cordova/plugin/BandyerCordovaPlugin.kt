@@ -87,7 +87,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
 
     private fun clearUserCache(callbackContext: CallbackContext) {
         try {
-            bandyerCordovaPluginManager!!.clearUserCache(cordova.activity)
+            bandyerCordovaPluginManager!!.clearUserCache(cordova.context.applicationContext)
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)
@@ -123,7 +123,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
         try {
             mCallCallback = callbackContext
             if (args.length() == 0) return
-            bandyerCordovaPluginManager!!.addUserDetails(args)
+            bandyerCordovaPluginManager!!.addUserDetails(this, args)
         } catch (e: Throwable) {
             mCallCallback = null
             callbackContext.error(e.message)
@@ -132,7 +132,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
 
     private fun clearUsersDetails(callbackContext: CallbackContext) {
         try {
-            bandyerCordovaPluginManager!!.clearUserDetails()
+            bandyerCordovaPluginManager!!.clearUserDetails(cordova.context.applicationContext)
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)

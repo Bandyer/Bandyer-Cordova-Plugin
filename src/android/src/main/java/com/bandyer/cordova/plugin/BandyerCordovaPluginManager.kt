@@ -31,6 +31,9 @@ import com.bandyer.cordova.plugin.extensions.putJSONArray
 import com.bandyer.cordova.plugin.extensions.toCordovaModuleStatus
 import com.bandyer.cordova.plugin.intent.BandyerCallIntentBuilder
 import com.bandyer.cordova.plugin.intent.BandyerChatIntentBuilder
+import com.bandyer.cordova.plugin.repository.UserDetailsDB
+import com.bandyer.cordova.plugin.utils.IO
+import com.bandyer.cordova.plugin.utils.toUser
 import org.apache.cordova.CallbackContext
 import org.apache.cordova.PluginResult
 import org.json.JSONArray
@@ -162,8 +165,9 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
         BandyerSDKClient.getInstance().stopListening()
     }
 
-    fun clearUserCache(activity: Activity) {
-        activity.application.getSharedPreferences(BANDYER_CORDOVA_PLUGIN_PREF, Context.MODE_PRIVATE).edit().clear().apply()
+    fun clearUserCache(context: Context) {
+        context.getSharedPreferences(BANDYER_CORDOVA_PLUGIN_PREF, Context.MODE_PRIVATE).edit().clear().apply()
+        clearUserDetails(context)
         BandyerSDKClient.getInstance().clearUserCache()
         BandyerSDKClient.getInstance().dispose()
     }
@@ -229,7 +233,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
         bandyerCordovaPlugin.cordova.startActivityForResult(bandyerCordovaPlugin, bandyerChatIntent, BandyerCordovaPluginConstants.INTENT_REQUEST_CHAT_CODE)
     }
 
-    fun addUserDetails(args: JSONArray) {
+    fun addUserDetails(plugin: BandyerCordovaPlugin, args: JSONArray) {
         val userDetails = args.optJSONObject(0).optJSONArray(BandyerCordovaPluginConstants.ARG_USERS_DETAILS)
                 ?: JSONArray()
 
@@ -249,6 +253,11 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
             userJsonDetails?.optString(ARG_USER_DETAILS_IMAGEURL)?.takeIf { it != "" }?.let { userDetailsBuilder.withImageUrl(it) }
 
             usersDetailMap[userAlias] = userDetailsBuilder.build()
+
+            IO {
+                val db = UserDetailsDB.getInstance(plugin.cordova.context)
+                db?.userDao()?.insert(userDetailsBuilder.build().toUser())
+            }
         }
     }
 
@@ -256,7 +265,10 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
 
     fun chatError(reason: String) = sendEvent(Events.ChatError.name, reason)
 
-    fun clearUserDetails() = usersDetailMap.clear()
+    fun clearUserDetails(context: Context) {
+        usersDetailMap.clear()
+        IO { UserDetailsDB.getInstance(context)?.clearAllTables() }
+    }
 
 
     private fun notifyStatusChange(bandyerModule: BandyerModule, cordovaPluginStatus: BandyerCordovaPluginStatus) {

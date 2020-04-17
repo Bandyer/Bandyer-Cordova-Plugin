@@ -3,6 +3,8 @@ dependencies {
         exclude group:"org.conscrypt", module: "conscrypt-android"
     }
     implementation deps.okHttp
+    implementation deps.room
+    kapt deps.room_compiler
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 
