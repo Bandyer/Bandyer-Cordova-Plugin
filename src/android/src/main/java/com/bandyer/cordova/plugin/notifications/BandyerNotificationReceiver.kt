@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
+import androidx.core.app.JobIntentService.enqueueWork
 import com.bandyer.cordova.plugin.exceptions.BandyerCordovaPluginNotificationKeyNotFound
 import com.bandyer.cordova.plugin.exceptions.NotificationPayloadDataPathNotDefined
 import com.bandyer.cordova.plugin.extensions.asJSONObject
@@ -56,7 +57,7 @@ class BandyerNotificationReceiver : BroadcastReceiver() {
         serviceIntent.component = component
         serviceIntent.putExtra("payload", payload)
 
-        BandyerNotificationService.enqueueWork(context, component, BandyerNotificationReceiver::class.java.simpleName.hashCode(), serviceIntent)
+        BandyerNotificationService.enqueueWork(context, component, serviceIntent)
 
         if (isOrderedBroadcast) abortBroadcast()
         resultCode = Activity.RESULT_OK
