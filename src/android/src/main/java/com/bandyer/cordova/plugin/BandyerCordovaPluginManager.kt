@@ -226,7 +226,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
 
     fun setUserDetailsFormat(plugin: BandyerCordovaPlugin, args: JSONArray) {
         val usersDetailFormat = args.getJSONObject(0).optString(BandyerCordovaPluginConstants.ARG_USER_DETAILS_FORMAT)
-        val notificationUsersDetailFormat = args.getJSONObject(0).optString(BandyerCordovaPluginConstants.ARG_NOTIFICATION_USER_DETAILS_FORMAT)
+        val notificationUsersDetailFormat = args.getJSONObject(0).optString(BandyerCordovaPluginConstants.ARG_NOTIFICATION_USER_DETAILS_FORMAT).takeUnless { it.isEmpty() }
         mCordovaUserDetailsFormatter.update(plugin.cordova.context, usersDetailFormat, notificationUsersDetailFormat)
     }
 
