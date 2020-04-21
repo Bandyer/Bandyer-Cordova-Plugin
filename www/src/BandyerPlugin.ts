@@ -14,6 +14,8 @@ import {assertType} from "typescript-is";
 import {Environments} from "./Environments";
 import {CallDisplayMode} from "./CallDisplayMode";
 import {CallKitConfig} from "./CallKitConfig";
+import {UserDetailsFormat} from "./UserDetailsFormat";
+import {keys} from "ts-transformer-keys";
 
 /**
  * @ignore
@@ -266,6 +268,37 @@ export class BandyerPlugin extends EventListener {
         cordova.exec(null, null, "BandyerPlugin", "addUsersDetails", [{
             details: userDetails,
         }]);
+    }
+
+    setUserDetailsFormat(format: UserDetailsFormat) {
+        assertType<UserDetailsFormat>(format);
+
+        const keysOfProps = keys<UserDetails>();
+
+        const defaultKeywords = format.default.match(/(?<=\${)(.*?)(?=})/g);
+        validateKeywords(defaultKeywords);
+
+        if (format.android_notification) {
+            const androidNotificationKeywords = format.android_notification.match(/(?<=\${)(.*?)(?=})/g);
+            validateKeywords(androidNotificationKeywords);
+        }
+
+        cordova.exec(null, null, "BandyerPlugin", "setUserDetailsFormat", [{
+            format: format.default,
+            android_notification_format: format.android_notification,
+        }]);
+
+        function validateKeywords(keywords) {
+            if (!keywords) {
+                return;
+            }
+            keywords.forEach((key) => {
+                // @ts-ignore
+                if (keysOfProps.indexOf(key) === -1) {
+                    throw new IllegalArgumentError("Declared keyword=${" + key + "} is not allowed. The keywords allowed are: " + keysOfProps);
+                }
+            });
+        }
     }
 
     /**

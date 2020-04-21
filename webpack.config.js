@@ -1,4 +1,5 @@
-var path = require('path');
+const path = require('path');
+const keysTransformer = require('ts-transformer-keys/transformer').default;
 
 module.exports = {
     mode: "production",
@@ -52,9 +53,12 @@ module.exports = {
                 test: /\.tsx?$/,
                 loader: "awesome-typescript-loader",
                 options: {
-                    compiler: 'ttypescript'
+                    compiler: 'ttypescript',
+                    getCustomTransformers: program => ({
+                        before: [keysTransformer(program)]
+                    })
                 }
-            },
+            }
         ]
     },
     node: {

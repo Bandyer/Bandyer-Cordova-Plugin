@@ -9,6 +9,7 @@
         "transform": "typescript-is/lib/transform-inline/transformer",
         "disallowSuperfluousObjectProperties": true
       },
+      { "transform": "ts-transformer-keys/transformer" }
     ],
     "lib": [
       "dom",
