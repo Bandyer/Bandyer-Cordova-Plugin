@@ -2,6 +2,8 @@ package com.bandyer.cordova.plugin.utils
 
 import com.bandyer.android_sdk.utils.provider.UserDetails
 import com.bandyer.cordova.plugin.repository.User
+import java.util.regex.Pattern
+import kotlin.reflect.full.declaredMemberProperties
 
 /**
  *
@@ -31,4 +33,17 @@ fun UserDetails.toUser(): User {
 
         it.imageUrl = this.imageUrl
     }
+}
+
+fun UserDetails.formatBy(textToFormat: String): String {
+    var output = textToFormat
+    val regex = "(?<=\\$\\{)(.*?)(?=\\})";
+    val p = Pattern.compile(regex);
+    val m = p.matcher(textToFormat);
+    while (m.find()) {
+        val keyword = m.group()
+        val value = this::class::declaredMemberProperties.get().firstOrNull { it.name == keyword }
+        output = output.replace("\${$keyword}", value?.call(this).toString())
+    }
+    return output
 }

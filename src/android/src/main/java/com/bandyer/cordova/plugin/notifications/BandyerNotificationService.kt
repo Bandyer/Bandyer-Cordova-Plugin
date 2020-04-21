@@ -12,6 +12,7 @@ import com.bandyer.android_sdk.utils.provider.UserDetails
 import com.bandyer.android_sdk.utils.provider.UserDetailsProvider
 import com.bandyer.cordova.plugin.BandyerCordovaPluginManager
 import com.bandyer.cordova.plugin.BandyerSDKConfiguration
+import com.bandyer.cordova.plugin.CordovaUserDetailsFormatter
 import com.bandyer.cordova.plugin.exceptions.BandyerCordovaPluginMethodNotValidException
 import com.bandyer.cordova.plugin.extensions.createBuilder
 import com.bandyer.cordova.plugin.extensions.getJSONArray
@@ -62,6 +63,8 @@ class BandyerNotificationService : JobIntentService() {
                     }
                 }
             })
+
+            builder.withUserDetailsFormatter(CordovaUserDetailsFormatter(sharedPref))
 
             BandyerSDK.init(builder)
             BandyerSDKClient.getInstance().handleNotification(applicationContext, payload)

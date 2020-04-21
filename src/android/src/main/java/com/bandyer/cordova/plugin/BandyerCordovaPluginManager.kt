@@ -46,6 +46,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
     private var bandyerSDKConfiguration: BandyerSDKConfiguration? = null
 
     private val usersDetailMap = HashMap<String, UserDetails>()
+    private var mCordovaUserDetailsFormatter: CordovaUserDetailsFormatter = CordovaUserDetailsFormatter()
 
     companion object {
         const val BANDYER_CORDOVA_PLUGIN_PREF = "BANDYER_CORDOVA_PLUGIN_PREF"
@@ -115,6 +116,8 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
                 onUserDetailsListener.provide(details)
             }
         })
+
+        mCordovaUserDetailsFormatter?.let { builder.withUserDetailsFormatter(it) }
 
         BandyerSDK.init(builder)
 
@@ -219,6 +222,12 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
 
         val bandyerCallIntent = BandyerCallIntentBuilder(bandyerCordovaPlugin.cordova.activity, bandyerSDKConfiguration!!, args).build()
         bandyerCordovaPlugin.cordova.startActivityForResult(bandyerCordovaPlugin, bandyerCallIntent, BandyerCordovaPluginConstants.INTENT_REQUEST_CALL_CODE)
+    }
+
+    fun setUserDetailsFormat(plugin: BandyerCordovaPlugin, args: JSONArray) {
+        val usersDetailFormat = args.getJSONObject(0).optString(BandyerCordovaPluginConstants.ARG_USER_DETAILS_FORMAT)
+        val notificationUsersDetailFormat = args.getJSONObject(0).optString(BandyerCordovaPluginConstants.ARG_NOTIFICATION_USER_DETAILS_FORMAT)
+        mCordovaUserDetailsFormatter.update(plugin.cordova.context, usersDetailFormat, notificationUsersDetailFormat)
     }
 
     @Throws(BandyerCordovaPluginMethodNotValidException::class)

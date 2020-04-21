@@ -115,6 +115,10 @@ class BandyerCordovaPlugin : CordovaPlugin() {
         bandyerCordovaPluginManager!!.startCall(this, args)
     }
 
+    private fun setUserDetailsFormat(args:JSONArray,callbackContext: CallbackContext) {
+        bandyerCordovaPluginManager!!.setUserDetailsFormat(this, args)
+    }
+
     private fun startChat(args: JSONArray, callbackContext: CallbackContext) {
         bandyerCordovaPluginManager!!.startChat(this, args)
     }
