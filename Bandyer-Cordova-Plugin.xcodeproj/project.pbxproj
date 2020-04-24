@@ -170,22 +170,22 @@
 		A91AADC02452E5AF007003AF /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				A91AADC12452E5AF007003AF /* BCPExceptionsMatcher.h */,
-				A91AADC22452E5AF007003AF /* BCPPushTokenEventsReporterTest.m */,
-				A91AADC32452E5AF007003AF /* BCPUserInterfaceCoordinatorTest.m */,
-				A91AADC42452E5AF007003AF /* BCPUsersDetailsFetcherTest.m */,
-				A91AADC52452E5AF007003AF /* BCPiOS10AndAboveTestCase.h */,
-				A91AADC62452E5AF007003AF /* BCPTestCase.m */,
-				A91AADC72452E5AF007003AF /* BCPUsersDetailsCommandsHandlerTest.m */,
-				A91AADC82452E5AF007003AF /* BCPEventEmitterTest.m */,
-				A91AADC92452E5AF007003AF /* BCPExceptionsMatcher.m */,
-				A91AADCA2452E5AF007003AF /* BCPUsersDetailsCacheTest.m */,
-				A91AADCB2452E5AF007003AF /* BCPContactHandleProviderTest.m */,
-				A91AADCC2452E5AF007003AF /* BCPiOS10AndAboveTestCase.m */,
-				A91AADCD2452E5AF007003AF /* BCPTestCase.h */,
-				A91AADCE2452E5AF007003AF /* BCPChatClientEventsReporterTest.m */,
-				A91AADCF2452E5AF007003AF /* BCPTestingMacros.h */,
 				A91AADD02452E5AF007003AF /* BCPCallClientEventsReporterTest.m */,
+				A91AADCE2452E5AF007003AF /* BCPChatClientEventsReporterTest.m */,
+				A91AADCB2452E5AF007003AF /* BCPContactHandleProviderTest.m */,
+				A91AADC82452E5AF007003AF /* BCPEventEmitterTest.m */,
+				A91AADC12452E5AF007003AF /* BCPExceptionsMatcher.h */,
+				A91AADC92452E5AF007003AF /* BCPExceptionsMatcher.m */,
+				A91AADC52452E5AF007003AF /* BCPiOS10AndAboveTestCase.h */,
+				A91AADCC2452E5AF007003AF /* BCPiOS10AndAboveTestCase.m */,
+				A91AADC22452E5AF007003AF /* BCPPushTokenEventsReporterTest.m */,
+				A91AADCD2452E5AF007003AF /* BCPTestCase.h */,
+				A91AADC62452E5AF007003AF /* BCPTestCase.m */,
+				A91AADCF2452E5AF007003AF /* BCPTestingMacros.h */,
+				A91AADC32452E5AF007003AF /* BCPUserInterfaceCoordinatorTest.m */,
+				A91AADCA2452E5AF007003AF /* BCPUsersDetailsCacheTest.m */,
+				A91AADC72452E5AF007003AF /* BCPUsersDetailsCommandsHandlerTest.m */,
+				A91AADC42452E5AF007003AF /* BCPUsersDetailsFetcherTest.m */,
 				A91AADD12452E5AF007003AF /* CDVPluginResult_FactoryMethodsCategoryTest.m */,
 				A91AADD22452E5AF007003AF /* Info.plist */,
 			);
@@ -204,14 +204,14 @@
 		A9C31AEE22C22D1100BC33D5 = {
 			isa = PBXGroup;
 			children = (
-				A924CC35243782B300AD3805 /* www */,
-				A9638002234CCAE90050AAA7 /* Test */,
-				A9C31B1822C22DE900BC33D5 /* Source */,
-				A9C31AFC22C22D1100BC33D5 /* Info.plist */,
-				A9C31AF922C22D1100BC33D5 /* Products */,
-				23F87D898896910F1885862F /* Pods */,
-				D64815E97D96849B6E3D60F1 /* Frameworks */,
 				62DD2611AEC250BFC5FD7619 /* Config */,
+				D64815E97D96849B6E3D60F1 /* Frameworks */,
+				A9C31AFC22C22D1100BC33D5 /* Info.plist */,
+				23F87D898896910F1885862F /* Pods */,
+				A9C31AF922C22D1100BC33D5 /* Products */,
+				A9C31B1822C22DE900BC33D5 /* Source */,
+				A9638002234CCAE90050AAA7 /* Test */,
+				A924CC35243782B300AD3805 /* www */,
 			);
 			sourceTree = "<group>";
 		};
