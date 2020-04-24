@@ -8,10 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BCPUsersDetailsCache : NSObject
+@interface BCPUsersDetailsCache <__covariant KeyType, __covariant ValueType : BDKUserInfoDisplayItem *> : NSObject
 
-- (void)setItem:(BDKUserInfoDisplayItem *)item forKey:(NSString *)key;
-- (BDKUserInfoDisplayItem *)itemForKey:(NSString *)key;
+- (void)setItem:(nullable ValueType)item forKey:(KeyType <NSCopying> )key;
+- (nullable ValueType)itemForKey:(KeyType <NSCopying>)key;
 - (void)purge;
 
 @end
