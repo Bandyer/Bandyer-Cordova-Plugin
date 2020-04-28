@@ -1,3 +1,8 @@
+//
+// Copyright © 2019 Bandyer S.r.l. All Rights Reserved.
+// See LICENSE for licensing information
+//
+
 import {IosConfig} from "./IosConfig";
 import {AndroidConfig} from "./AndroidConfig";
 import {Environment} from "./Environments";

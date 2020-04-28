@@ -2,6 +2,7 @@
 // Copyright © 2019 Bandyer S.r.l. All Rights Reserved.
 // See LICENSE for licensing information
 //
+
 import "core-js/es/map";
 import {EventListener} from "./events/EventListener";
 import {BandyerPluginConfigs} from "./BandyerPluginConfigs";

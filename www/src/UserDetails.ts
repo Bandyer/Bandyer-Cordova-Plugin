@@ -1,3 +1,8 @@
+//
+// Copyright © 2019 Bandyer S.r.l. All Rights Reserved.
+// See LICENSE for licensing information
+//
+
 /**
  * This is used by Bandyer to define the user details in the call/chat UI
  */
