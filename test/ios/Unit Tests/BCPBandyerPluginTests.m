@@ -8,6 +8,7 @@
 
 #import "BCPTestCase.h"
 #import "BCPBandyerPlugin.h"
+#import "BCPUserInterfaceCoordinator.h"
 
 #import "CDVPluginResult+BCPFactoryMethods.h"
 
@@ -26,6 +27,7 @@ static inline id equalToResult(CDVPluginResult *result)
 
 @implementation BCPBandyerPluginTests
 {
+    UIViewController *viewController;
     BCPBandyerPlugin *sut;
     id<CDVCommandDelegate> delegate;
 }
@@ -34,10 +36,14 @@ static inline id equalToResult(CDVPluginResult *result)
 {
     [super setUp];
 
+    viewController = [UIViewController new];
     delegate = mockProtocol(@protocol(CDVCommandDelegate));
     sut = [[BCPBandyerPlugin alloc] init];
     sut.commandDelegate = delegate;
+    sut.viewController = viewController;
 }
+
+// MARK: Set User Details Format
 
 - (void)testReportsSuccessWhenSettingUserDetailsFormatIfCommandArgumentContainsTheExpectedData
 {
@@ -51,8 +57,10 @@ static inline id equalToResult(CDVPluginResult *result)
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_success]) callbackId:@"callbackId"];
 }
 
-- (void)testStoresFormatForLaterUseWhenSettingUserDetailsFormat
+- (void)testSetsUserDetailsFormatOnUserInterfaceCoordinator
 {
+    [sut pluginInitialize];
+
     NSDictionary *payload = @{
         @"default" : @"${firstName} ${lastName}"
     };
@@ -60,10 +68,11 @@ static inline id equalToResult(CDVPluginResult *result)
 
     [sut setUserDetailsFormat:command];
 
-    assertThat(sut.detailsFormat, equalTo(@"${firstName} ${lastName}"));
+    assertThat(sut.coordinator.userDetailsFormat, equalTo(@"${firstName} ${lastName}"));
 }
 
-- (void)testReportsFailureWhenSettingUserDetailsFormatIfFormatStringIsMissing {
+- (void)testReportsFailureWhenSettingUserDetailsFormatIfFormatStringIsMissing
+{
     CDVInvokedUrlCommand * command = [self makeCommand:@"callbackId" payload:@{}];
 
     [sut setUserDetailsFormat:command];

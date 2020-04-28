@@ -7,9 +7,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class BCPUsersDetailsCache;
+@class BCPUserInterfaceCoordinator;
+
 @interface BCPBandyerPlugin: CDVPlugin
 
-@property (nonatomic, copy, readonly, nullable) NSString *detailsFormat;
+@property (nonatomic, strong, readonly, nullable) BCPUsersDetailsCache *usersCache;
+@property (nonatomic, strong, readonly, nullable) BCPUserInterfaceCoordinator *coordinator;
 
 - (void)initializeBandyer:(CDVInvokedUrlCommand *)command;
 - (void)start:(CDVInvokedUrlCommand *)command;

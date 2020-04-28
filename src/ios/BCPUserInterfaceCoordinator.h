@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BCPUserInterfaceCoordinator : NSObject
 
 @property (nonatomic, strong) NSString *fakeCapturerFilename;
+@property (nonatomic, strong, nullable) NSString *userDetailsFormat;
 
 - (instancetype)initWithRootViewController:(UIViewController *)viewController usersCache:(BCPUsersDetailsCache *)cache;
 
