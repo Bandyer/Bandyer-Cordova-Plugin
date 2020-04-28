@@ -9,6 +9,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BCPBandyerPlugin: CDVPlugin
 
+@property (nonatomic, copy, readonly, nullable) NSString *detailsFormat;
+
 - (void)initializeBandyer:(CDVInvokedUrlCommand *)command;
 - (void)start:(CDVInvokedUrlCommand *)command;
 - (void)stop:(CDVInvokedUrlCommand *)command;
@@ -20,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)handlePushNotificationPayload:(CDVInvokedUrlCommand *)command;
 - (void)addUsersDetails:(CDVInvokedUrlCommand *)command;
 - (void)removeUsersDetails:(CDVInvokedUrlCommand *)command;
+- (void)setUserDetailsFormat:(CDVInvokedUrlCommand *)command;
 
 @end
 

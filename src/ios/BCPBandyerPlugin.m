@@ -27,6 +27,7 @@
 @property (nonatomic, strong, nullable) BCPEventEmitter *eventEmitter;
 @property (nonatomic, strong, nullable) BCPCallClientEventsReporter *callClientEventsReporter;
 @property (nonatomic, strong, nullable) BCPChatClientEventsReporter *chatClientEventsReporter;
+@property (nonatomic, copy, readwrite, nullable) NSString *detailsFormat;
 
 @end
 
@@ -228,6 +229,21 @@
 {
     BCPUsersDetailsCommandsHandler *handler = [[BCPUsersDetailsCommandsHandler alloc] initWithCommandDelegate:self.commandDelegate cache:self.usersCache];
     [handler removeUsersDetails:command];
+}
+
+- (void)setUserDetailsFormat:(CDVInvokedUrlCommand *)command
+{
+    NSDictionary *args = command.arguments.firstObject;
+
+    NSString *format = args[@"default"];
+    if (format != nil && [format isKindOfClass:NSString.class])
+    {
+        self.detailsFormat = format;
+        [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_success] callbackId:command.callbackId];
+    } else
+    {
+        [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_error] callbackId:command.callbackId];
+    }
 }
 
 - (void)reportCommandSucceeded:(CDVInvokedUrlCommand *)command
