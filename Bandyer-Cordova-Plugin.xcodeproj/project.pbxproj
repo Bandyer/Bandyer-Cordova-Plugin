@@ -54,6 +54,7 @@
 		A91AAE2124530A6E007003AF /* BCPUserDetailsFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AAE1F24530A6E007003AF /* BCPUserDetailsFormatter.h */; };
 		A91AAE2224530A6E007003AF /* BCPUserDetailsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AAE2024530A6E007003AF /* BCPUserDetailsFormatter.m */; };
 		A9637FFA234CC8C20050AAA7 /* Bandyer_Cordova_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C31AF822C22D1100BC33D5 /* Bandyer_Cordova_Plugin.framework */; };
+		A9A1A3F124586F0C0077A3DD /* BCPPluginResultMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A1A3F024586F0C0077A3DD /* BCPPluginResultMatcher.m */; };
 		A9EDB31124573E7500C57DE1 /* BCPBandyerPluginTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EDB31024573E7500C57DE1 /* BCPBandyerPluginTests.m */; };
 		C05E42F3BBA02E130BA1C106 /* Pods_Bandyer_Cordova_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8422BE86AF6E2A10F50E329 /* Pods_Bandyer_Cordova_Plugin.framework */; };
 /* End PBXBuildFile section */
@@ -127,6 +128,8 @@
 		A91AAE2024530A6E007003AF /* BCPUserDetailsFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPUserDetailsFormatter.m; sourceTree = "<group>"; };
 		A924CC35243782B300AD3805 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		A9637FF5234CC8C20050AAA7 /* Bandyer-Cordova-PluginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bandyer-Cordova-PluginTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9A1A3EF24586EA40077A3DD /* BCPPluginResultMatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCPPluginResultMatcher.h; sourceTree = "<group>"; };
+		A9A1A3F024586F0C0077A3DD /* BCPPluginResultMatcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPPluginResultMatcher.m; sourceTree = "<group>"; };
 		A9C31AF822C22D1100BC33D5 /* Bandyer_Cordova_Plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bandyer_Cordova_Plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9C31AFC22C22D1100BC33D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9EDB31024573E7500C57DE1 /* BCPBandyerPluginTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPBandyerPluginTests.m; sourceTree = "<group>"; };
@@ -205,10 +208,20 @@
 		A9638002234CCAE90050AAA7 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				A9A1A3EE24586E6A0077A3DD /* Helpers */,
 				A91AADC02452E5AF007003AF /* Unit Tests */,
 			);
 			name = Test;
 			path = test/ios;
+			sourceTree = "<group>";
+		};
+		A9A1A3EE24586E6A0077A3DD /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A9A1A3EF24586EA40077A3DD /* BCPPluginResultMatcher.h */,
+				A9A1A3F024586F0C0077A3DD /* BCPPluginResultMatcher.m */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		A9C31AEE22C22D1100BC33D5 = {
@@ -482,6 +495,7 @@
 				A91AADDB2452E5B0007003AF /* BCPContactHandleProviderTest.m in Sources */,
 				A91AADDC2452E5B0007003AF /* BCPiOS10AndAboveTestCase.m in Sources */,
 				A9EDB31124573E7500C57DE1 /* BCPBandyerPluginTests.m in Sources */,
+				A9A1A3F124586F0C0077A3DD /* BCPPluginResultMatcher.m in Sources */,
 				A91AADDD2452E5B0007003AF /* BCPChatClientEventsReporterTest.m in Sources */,
 				A91AAE1E245309E9007003AF /* BCPUserDetailsFormatterTests.m in Sources */,
 				A91AADDA2452E5B0007003AF /* BCPUsersDetailsCacheTest.m in Sources */,

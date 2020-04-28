@@ -9,17 +9,9 @@
 #import "BCPTestCase.h"
 #import "BCPBandyerPlugin.h"
 #import "BCPUserInterfaceCoordinator.h"
+#import "BCPPluginResultMatcher.h"
 
 #import "CDVPluginResult+BCPFactoryMethods.h"
-
-static inline id equalToResult(CDVPluginResult *result)
-{
-    return HC_allOf(
-             HC_hasProperty(@"status", HC_equalTo(result.status)),
-             HC_hasProperty(@"message", HC_equalTo(result.message)),
-             HC_hasProperty(@"keepCallback", HC_equalTo(result.keepCallback)),
-             nil);
-}
 
 @interface BCPBandyerPluginTests : BCPTestCase
 
