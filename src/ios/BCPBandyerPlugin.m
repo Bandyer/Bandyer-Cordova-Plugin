@@ -227,7 +227,7 @@
 - (void)removeUsersDetails:(CDVInvokedUrlCommand *)command 
 {
     BCPUsersDetailsCommandsHandler *handler = [[BCPUsersDetailsCommandsHandler alloc] initWithCommandDelegate:self.commandDelegate cache:self.usersCache];
-    [handler removeUsersDetails:command];
+    [handler purge:command];
 }
 
 - (void)setUserDetailsFormat:(CDVInvokedUrlCommand *)command

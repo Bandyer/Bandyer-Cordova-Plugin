@@ -128,7 +128,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     assertThat([cache itemForKey:@"alias1"], notNilValue());
 
     CDVInvokedUrlCommand *removeCommand = [self makeCommandWithArgs:nil];
-    [sut removeUsersDetails:removeCommand];
+    [sut purge:removeCommand];
     assertThat([cache itemForKey:@"alias1"], nilValue());
 }
 
@@ -147,7 +147,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     [sut addUsersDetails:addCommand];
 
     CDVInvokedUrlCommand *removeCommand = [self makeCommandWithArgs:nil];
-    [sut removeUsersDetails:removeCommand];
+    [sut purge:removeCommand];
 
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_success]) callbackId:removeCommand.callbackId];
 }
