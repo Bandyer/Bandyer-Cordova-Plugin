@@ -5,6 +5,7 @@
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
+#import <PushKit/PushKit.h>
 
 #import "BCPTestCase.h"
 #import "BCPTestingMacros.h"
@@ -13,6 +14,37 @@
 #import "BCPPushTokenEventsReporter.h"
 #import "BCPEventEmitter.h"
 #import "BCPBandyerEvents.h"
+
+@interface BCPFakePushCredentials : PKPushCredentials
+
+@property (readwrite, copy) PKPushType type;
+@property (readwrite, copy) NSData *token;
+
+@end
+
+@implementation BCPFakePushCredentials
+{
+    PKPushType _fakeType;
+    NSData *_fakeToken;
+}
+
+@synthesize type = _fakeType;
+@synthesize token = _fakeToken;
+
+- (instancetype)init
+{
+    self = [super init];
+
+    if (self)
+    {
+        _fakeType = PKPushTypeVoIP;
+        _fakeToken = nil;
+    }
+
+    return self;
+}
+
+@end
 
 @interface BCPPushTokenEventsReporterTest : BCPTestCase
 
@@ -41,14 +73,13 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testFiresPushTokenUpdatedEvent
 {
-    PKPushCredentials *credentials = mock(PKPushCredentials.class);
-    NSString *tokenAsString = @"5b4b68e78c03e2d3b4a7e29e2b7d4429aa497538ac6c8520c6a7c278b5e4047e";
-    NSData *tokenAsData = [self tokenData:tokenAsString];
+    BCPFakePushCredentials *credentials = [BCPFakePushCredentials new];
+    NSString *token = @"5b4b68e78c03e2d3b4a7e29e2b7d4429aa497538ac6c8520c6a7c278b5e4047e";
+    credentials.token = [self tokenDataFrom:token];
 
-    [given([credentials token]) willReturn:tokenAsData];
     [sut pushRegistry:nil didUpdatePushCredentials:credentials forType:PKPushTypeVoIP];
 
-    [verify(emitter) sendEvent:[[BCPBandyerEvents iOSVoipPushTokenUpdated] value] withArgs:@[tokenAsString]];
+    [verify(emitter) sendEvent:[[BCPBandyerEvents iOSVoipPushTokenUpdated] value] withArgs:@[token]];
 }
 
 - (void)testFiresPushTokenInvalidatedEvent
@@ -58,7 +89,11 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     [verify(emitter) sendEvent:[[BCPBandyerEvents iOSVoipPushTokenInvalidated] value] withArgs:@[]];
 }
 
-- (NSData *)tokenData:(NSString *)string
+__SUPPRESS_WARNINGS_FOR_TEST_END
+
+// MARK: Helpers
+
+- (NSData *)tokenDataFrom:(NSString *)string
 {
     NSMutableData *stringData = [[NSMutableData alloc] init];
     unsigned char whole_byte;
@@ -72,7 +107,5 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     }
     return stringData;
 }
-
-__SUPPRESS_WARNINGS_FOR_TEST_END
 
 @end

@@ -8,6 +8,8 @@
 #import "BCPMacros.h"
 #import "BCPBandyerEvents.h"
 
+#import <Bandyer/PKPushCredentials+BCXAdditions.h>
+
 @interface BCPPushTokenEventsReporter ()
 
 @property (nonatomic, strong, readonly) BCPEventEmitter *emitter;
@@ -32,20 +34,12 @@
 
 - (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)pushCredentials forType:(PKPushType)type
 {
-    NSData *tokenData = pushCredentials.token;
+    NSString *token = [pushCredentials bcx_tokenAsString];
 
-    if (tokenData.length == 0)
+    if (token.length == 0)
         return;
 
-    const char *bytes = [tokenData bytes];
-    NSMutableString *token = [NSMutableString string];
-
-    for (NSUInteger i = 0; i < tokenData.length; i++)
-    {
-        [token appendFormat:@"%02.2hhx", bytes[i]];
-    }
-
-    [self.emitter sendEvent:[[BCPBandyerEvents iOSVoipPushTokenUpdated] value] withArgs:@[[token copy]]];
+    [self.emitter sendEvent:[[BCPBandyerEvents iOSVoipPushTokenUpdated] value] withArgs:@[token]];
 }
 
 - (void)pushRegistry:(PKPushRegistry *)registry didInvalidatePushTokenForType:(PKPushType)type
