@@ -185,14 +185,7 @@
 				A91AADCE2452E5AF007003AF /* BCPChatClientEventsReporterTest.m */,
 				A91AADCB2452E5AF007003AF /* BCPContactHandleProviderTest.m */,
 				A91AADC82452E5AF007003AF /* BCPEventEmitterTest.m */,
-				A91AADC12452E5AF007003AF /* BCPExceptionsMatcher.h */,
-				A91AADC92452E5AF007003AF /* BCPExceptionsMatcher.m */,
-				A91AADC52452E5AF007003AF /* BCPiOS10AndAboveTestCase.h */,
-				A91AADCC2452E5AF007003AF /* BCPiOS10AndAboveTestCase.m */,
 				A91AADC22452E5AF007003AF /* BCPPushTokenEventsReporterTest.m */,
-				A91AADCD2452E5AF007003AF /* BCPTestCase.h */,
-				A91AADC62452E5AF007003AF /* BCPTestCase.m */,
-				A91AADCF2452E5AF007003AF /* BCPTestingMacros.h */,
 				A91AADC32452E5AF007003AF /* BCPUserInterfaceCoordinatorTest.m */,
 				A91AADCA2452E5AF007003AF /* BCPUsersDetailsCacheTest.m */,
 				A91AADC72452E5AF007003AF /* BCPUsersDetailsCommandsHandlerTest.m */,
@@ -208,6 +201,7 @@
 		A9638002234CCAE90050AAA7 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				A9A1A3F22458744E0077A3DD /* Base */,
 				A9A1A3EE24586E6A0077A3DD /* Helpers */,
 				A91AADC02452E5AF007003AF /* Unit Tests */,
 			);
@@ -218,10 +212,24 @@
 		A9A1A3EE24586E6A0077A3DD /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A91AADCF2452E5AF007003AF /* BCPTestingMacros.h */,
+				A91AADC12452E5AF007003AF /* BCPExceptionsMatcher.h */,
+				A91AADC92452E5AF007003AF /* BCPExceptionsMatcher.m */,
 				A9A1A3EF24586EA40077A3DD /* BCPPluginResultMatcher.h */,
 				A9A1A3F024586F0C0077A3DD /* BCPPluginResultMatcher.m */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A9A1A3F22458744E0077A3DD /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADC52452E5AF007003AF /* BCPiOS10AndAboveTestCase.h */,
+				A91AADCC2452E5AF007003AF /* BCPiOS10AndAboveTestCase.m */,
+				A91AADCD2452E5AF007003AF /* BCPTestCase.h */,
+				A91AADC62452E5AF007003AF /* BCPTestCase.m */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		A9C31AEE22C22D1100BC33D5 = {
