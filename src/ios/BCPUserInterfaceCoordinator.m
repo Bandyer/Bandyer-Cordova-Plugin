@@ -6,7 +6,7 @@
 #import "BCPUserInterfaceCoordinator.h"
 #import "BCPMacros.h"
 #import "BCPUsersDetailsCache.h"
-#import "BCPUsersDetailsFetcher.h"
+#import "BCPUsersDetailsProvider.h"
 #import "BCPUserDetailsFormatter.h"
 
 #import <Bandyer/Bandyer.h>
@@ -69,7 +69,7 @@
 - (void)setupNotificationView
 {
     self.messageNotificationController = [BCHMessageNotificationController new];
-    self.messageNotificationController.configuration = [[BCHMessageNotificationControllerConfiguration alloc] initWithUserInfoFetcher:[[BCPUsersDetailsFetcher alloc] initWithCache:self.cache]];;
+    self.messageNotificationController.configuration = [[BCHMessageNotificationControllerConfiguration alloc] initWithUserInfoFetcher:[[BCPUsersDetailsProvider alloc] initWithCache:self.cache]];;
     self.messageNotificationController.delegate = self;
     self.messageNotificationController.parentViewController = self.viewController;
 }
@@ -126,7 +126,7 @@
         channelViewController.modalPresentationStyle = UIModalPresentationFullScreen;
     }
 
-    BCPUsersDetailsFetcher *fetcher = [[BCPUsersDetailsFetcher alloc] initWithCache:self.cache];
+    BCPUsersDetailsProvider *fetcher = [[BCPUsersDetailsProvider alloc] initWithCache:self.cache];
     BCHChannelViewControllerConfiguration *configuration = [[BCHChannelViewControllerConfiguration alloc] initWithAudioButton:YES videoButton:YES userInfoFetcher:fetcher];
     channelViewController.configuration = configuration;
     channelViewController.intent = intent;
@@ -142,7 +142,7 @@
 {
     BDKCallViewControllerConfiguration *config = [BDKCallViewControllerConfiguration new];
     config.fakeCapturerFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:self.fakeCapturerFilename ofType:@"mp4"]];
-    config.userInfoFetcher = [[BCPUsersDetailsFetcher alloc] initWithCache:self.cache];
+    config.userInfoFetcher = [[BCPUsersDetailsProvider alloc] initWithCache:self.cache];
 
     if (self.userDetailsFormat)
     {

@@ -10,7 +10,7 @@
 		8B3356EBB56A649B8A360CEB /* Pods_Bandyer_Cordova_PluginTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E26705AAB9FB6D90AC8CF14C /* Pods_Bandyer_Cordova_PluginTests.framework */; };
 		A91AADD32452E5AF007003AF /* BCPPushTokenEventsReporterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADC22452E5AF007003AF /* BCPPushTokenEventsReporterTest.m */; };
 		A91AADD42452E5AF007003AF /* BCPUserInterfaceCoordinatorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADC32452E5AF007003AF /* BCPUserInterfaceCoordinatorTest.m */; };
-		A91AADD52452E5AF007003AF /* BCPUsersDetailsFetcherTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADC42452E5AF007003AF /* BCPUsersDetailsFetcherTest.m */; };
+		A91AADD52452E5AF007003AF /* BCPUsersDetailsProviderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADC42452E5AF007003AF /* BCPUsersDetailsProviderTest.m */; };
 		A91AADD62452E5AF007003AF /* BCPTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADC62452E5AF007003AF /* BCPTestCase.m */; };
 		A91AADD72452E5AF007003AF /* BCPUsersDetailsCommandsHandlerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADC72452E5AF007003AF /* BCPUsersDetailsCommandsHandlerTest.m */; };
 		A91AADD82452E5AF007003AF /* BCPEventEmitterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADC82452E5AF007003AF /* BCPEventEmitterTest.m */; };
@@ -38,14 +38,14 @@
 		A91AAE0C2452E639007003AF /* BCPEventEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AADEF2452E638007003AF /* BCPEventEmitter.h */; };
 		A91AAE0D2452E639007003AF /* BCPConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AADF02452E638007003AF /* BCPConstants.h */; };
 		A91AAE0E2452E639007003AF /* BCPMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AADF12452E638007003AF /* BCPMacros.h */; };
-		A91AAE0F2452E639007003AF /* BCPUsersDetailsFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AADF22452E638007003AF /* BCPUsersDetailsFetcher.h */; };
+		A91AAE0F2452E639007003AF /* BCPUsersDetailsProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AADF22452E638007003AF /* BCPUsersDetailsProvider.h */; };
 		A91AAE102452E639007003AF /* BCPUsersDetailsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADF32452E638007003AF /* BCPUsersDetailsCache.m */; };
 		A91AAE112452E639007003AF /* BCPPushTokenEventsReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADF42452E639007003AF /* BCPPushTokenEventsReporter.m */; };
 		A91AAE122452E639007003AF /* NSString+BandyerPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AADF52452E639007003AF /* NSString+BandyerPlugin.h */; };
 		A91AAE132452E639007003AF /* BCPPushTokenEventsReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AADF62452E639007003AF /* BCPPushTokenEventsReporter.h */; };
 		A91AAE142452E639007003AF /* BCPCallClientEventsReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AADF72452E639007003AF /* BCPCallClientEventsReporter.h */; };
 		A91AAE152452E639007003AF /* BCPChatClientEventsReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADF82452E639007003AF /* BCPChatClientEventsReporter.m */; };
-		A91AAE162452E639007003AF /* BCPUsersDetailsFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADF92452E639007003AF /* BCPUsersDetailsFetcher.m */; };
+		A91AAE162452E639007003AF /* BCPUsersDetailsProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADF92452E639007003AF /* BCPUsersDetailsProvider.m */; };
 		A91AAE172452E639007003AF /* BCPEventEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADFA2452E639007003AF /* BCPEventEmitter.m */; };
 		A91AAE182452E639007003AF /* BCPBandyerEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADFB2452E639007003AF /* BCPBandyerEvents.m */; };
 		A91AAE192452E639007003AF /* BCPContactHandleProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AADFC2452E639007003AF /* BCPContactHandleProvider.h */; };
@@ -80,7 +80,7 @@
 		A91AADC12452E5AF007003AF /* BCPExceptionsMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPExceptionsMatcher.h; sourceTree = "<group>"; };
 		A91AADC22452E5AF007003AF /* BCPPushTokenEventsReporterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPPushTokenEventsReporterTest.m; sourceTree = "<group>"; };
 		A91AADC32452E5AF007003AF /* BCPUserInterfaceCoordinatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPUserInterfaceCoordinatorTest.m; sourceTree = "<group>"; };
-		A91AADC42452E5AF007003AF /* BCPUsersDetailsFetcherTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPUsersDetailsFetcherTest.m; sourceTree = "<group>"; };
+		A91AADC42452E5AF007003AF /* BCPUsersDetailsProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPUsersDetailsProviderTest.m; sourceTree = "<group>"; };
 		A91AADC52452E5AF007003AF /* BCPiOS10AndAboveTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPiOS10AndAboveTestCase.h; sourceTree = "<group>"; };
 		A91AADC62452E5AF007003AF /* BCPTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPTestCase.m; sourceTree = "<group>"; };
 		A91AADC72452E5AF007003AF /* BCPUsersDetailsCommandsHandlerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPUsersDetailsCommandsHandlerTest.m; sourceTree = "<group>"; };
@@ -112,14 +112,14 @@
 		A91AADEF2452E638007003AF /* BCPEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPEventEmitter.h; sourceTree = "<group>"; };
 		A91AADF02452E638007003AF /* BCPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPConstants.h; sourceTree = "<group>"; };
 		A91AADF12452E638007003AF /* BCPMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPMacros.h; sourceTree = "<group>"; };
-		A91AADF22452E638007003AF /* BCPUsersDetailsFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPUsersDetailsFetcher.h; sourceTree = "<group>"; };
+		A91AADF22452E638007003AF /* BCPUsersDetailsProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPUsersDetailsProvider.h; sourceTree = "<group>"; };
 		A91AADF32452E638007003AF /* BCPUsersDetailsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPUsersDetailsCache.m; sourceTree = "<group>"; };
 		A91AADF42452E639007003AF /* BCPPushTokenEventsReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPPushTokenEventsReporter.m; sourceTree = "<group>"; };
 		A91AADF52452E639007003AF /* NSString+BandyerPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BandyerPlugin.h"; sourceTree = "<group>"; };
 		A91AADF62452E639007003AF /* BCPPushTokenEventsReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPPushTokenEventsReporter.h; sourceTree = "<group>"; };
 		A91AADF72452E639007003AF /* BCPCallClientEventsReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPCallClientEventsReporter.h; sourceTree = "<group>"; };
 		A91AADF82452E639007003AF /* BCPChatClientEventsReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPChatClientEventsReporter.m; sourceTree = "<group>"; };
-		A91AADF92452E639007003AF /* BCPUsersDetailsFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPUsersDetailsFetcher.m; sourceTree = "<group>"; };
+		A91AADF92452E639007003AF /* BCPUsersDetailsProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPUsersDetailsProvider.m; sourceTree = "<group>"; };
 		A91AADFA2452E639007003AF /* BCPEventEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPEventEmitter.m; sourceTree = "<group>"; };
 		A91AADFB2452E639007003AF /* BCPBandyerEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPBandyerEvents.m; sourceTree = "<group>"; };
 		A91AADFC2452E639007003AF /* BCPContactHandleProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPContactHandleProvider.h; sourceTree = "<group>"; };
@@ -263,8 +263,8 @@
 			children = (
 				A91AADFC2452E639007003AF /* BCPContactHandleProvider.h */,
 				A91AADE22452E638007003AF /* BCPContactHandleProvider.m */,
-				A91AADF22452E638007003AF /* BCPUsersDetailsFetcher.h */,
-				A91AADF92452E639007003AF /* BCPUsersDetailsFetcher.m */,
+				A91AADF22452E638007003AF /* BCPUsersDetailsProvider.h */,
+				A91AADF92452E639007003AF /* BCPUsersDetailsProvider.m */,
 			);
 			name = Providers;
 			sourceTree = "<group>";
@@ -403,7 +403,7 @@
 		A9A1A406245877D90077A3DD /* Providers */ = {
 			isa = PBXGroup;
 			children = (
-				A91AADC42452E5AF007003AF /* BCPUsersDetailsFetcherTest.m */,
+				A91AADC42452E5AF007003AF /* BCPUsersDetailsProviderTest.m */,
 				A91AADCB2452E5AF007003AF /* BCPContactHandleProviderTest.m */,
 			);
 			path = Providers;
@@ -486,7 +486,7 @@
 				A91AAE0D2452E639007003AF /* BCPConstants.h in Headers */,
 				A91AAE042452E639007003AF /* BCPUserInterfaceCoordinator.h in Headers */,
 				A91AAE092452E639007003AF /* BCPUsersDetailsCache.h in Headers */,
-				A91AAE0F2452E639007003AF /* BCPUsersDetailsFetcher.h in Headers */,
+				A91AAE0F2452E639007003AF /* BCPUsersDetailsProvider.h in Headers */,
 				A91AAE082452E639007003AF /* BCPUsersDetailsCommandsHandler.h in Headers */,
 				A91AAE002452E639007003AF /* CDVPluginResult+BCPFactoryMethods.h in Headers */,
 				A91AAE192452E639007003AF /* BCPContactHandleProvider.h in Headers */,
@@ -667,7 +667,7 @@
 				A91AADDE2452E5B0007003AF /* BCPCallClientEventsReporterTest.m in Sources */,
 				A91AADD92452E5AF007003AF /* BCPExceptionsMatcher.m in Sources */,
 				A91AADDF2452E5B0007003AF /* CDVPluginResult_FactoryMethodsCategoryTest.m in Sources */,
-				A91AADD52452E5AF007003AF /* BCPUsersDetailsFetcherTest.m in Sources */,
+				A91AADD52452E5AF007003AF /* BCPUsersDetailsProviderTest.m in Sources */,
 				A91AADD62452E5AF007003AF /* BCPTestCase.m in Sources */,
 				A91AADD72452E5AF007003AF /* BCPUsersDetailsCommandsHandlerTest.m in Sources */,
 				A91AADD82452E5AF007003AF /* BCPEventEmitterTest.m in Sources */,
@@ -693,7 +693,7 @@
 				A91AAE112452E639007003AF /* BCPPushTokenEventsReporter.m in Sources */,
 				A91AAE172452E639007003AF /* BCPEventEmitter.m in Sources */,
 				A91AAE022452E639007003AF /* BCPCallClientEventsReporter.m in Sources */,
-				A91AAE162452E639007003AF /* BCPUsersDetailsFetcher.m in Sources */,
+				A91AAE162452E639007003AF /* BCPUsersDetailsProvider.m in Sources */,
 				A91AAE072452E639007003AF /* BCPUserInterfaceCoordinator.m in Sources */,
 				A91AAE102452E639007003AF /* BCPUsersDetailsCache.m in Sources */,
 				A91AAE0A2452E639007003AF /* BCPBandyerPlugin.m in Sources */,
