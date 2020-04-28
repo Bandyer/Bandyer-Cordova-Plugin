@@ -181,18 +181,11 @@
 		A91AADC02452E5AF007003AF /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				A91AADD02452E5AF007003AF /* BCPCallClientEventsReporterTest.m */,
-				A91AADCE2452E5AF007003AF /* BCPChatClientEventsReporterTest.m */,
-				A91AADCB2452E5AF007003AF /* BCPContactHandleProviderTest.m */,
-				A91AADC82452E5AF007003AF /* BCPEventEmitterTest.m */,
-				A91AADC22452E5AF007003AF /* BCPPushTokenEventsReporterTest.m */,
-				A91AADC32452E5AF007003AF /* BCPUserInterfaceCoordinatorTest.m */,
-				A91AADCA2452E5AF007003AF /* BCPUsersDetailsCacheTest.m */,
-				A91AADC72452E5AF007003AF /* BCPUsersDetailsCommandsHandlerTest.m */,
-				A91AADC42452E5AF007003AF /* BCPUsersDetailsFetcherTest.m */,
-				A91AADD12452E5AF007003AF /* CDVPluginResult_FactoryMethodsCategoryTest.m */,
+				A9A1A404245877AF0077A3DD /* UI Coordinator */,
+				A9A1A403245877930077A3DD /* User Details */,
+				A9A1A4022458776E0077A3DD /* Categories */,
+				A9A1A3FF245877380077A3DD /* Events */,
 				A91AADD22452E5AF007003AF /* Info.plist */,
-				A91AAE1D245309E9007003AF /* BCPUserDetailsFormatterTests.m */,
 				A9EDB31024573E7500C57DE1 /* BCPBandyerPluginTests.m */,
 			);
 			path = "Unit Tests";
@@ -232,6 +225,203 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		A9A1A3F3245875990077A3DD /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADE42452E638007003AF /* BCPBandyerEvents.h */,
+				A91AADFB2452E639007003AF /* BCPBandyerEvents.m */,
+				A9A1A3FD2458766C0077A3DD /* Emitter */,
+				A9A1A3FC245876600077A3DD /* Reporters */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
+		A9A1A3F4245875C30077A3DD /* User Details */ = {
+			isa = PBXGroup;
+			children = (
+				A9A1A3F7245875F10077A3DD /* Cache */,
+				A9A1A3F8245875F90077A3DD /* Command Handler */,
+				A9A1A3F6245875E90077A3DD /* Providers */,
+				A9A1A3F5245875E00077A3DD /* Formatter */,
+			);
+			name = "User Details";
+			sourceTree = "<group>";
+		};
+		A9A1A3F5245875E00077A3DD /* Formatter */ = {
+			isa = PBXGroup;
+			children = (
+				A91AAE1F24530A6E007003AF /* BCPUserDetailsFormatter.h */,
+				A91AAE2024530A6E007003AF /* BCPUserDetailsFormatter.m */,
+			);
+			name = Formatter;
+			sourceTree = "<group>";
+		};
+		A9A1A3F6245875E90077A3DD /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADFC2452E639007003AF /* BCPContactHandleProvider.h */,
+				A91AADE22452E638007003AF /* BCPContactHandleProvider.m */,
+				A91AADF22452E638007003AF /* BCPUsersDetailsFetcher.h */,
+				A91AADF92452E639007003AF /* BCPUsersDetailsFetcher.m */,
+			);
+			name = Providers;
+			sourceTree = "<group>";
+		};
+		A9A1A3F7245875F10077A3DD /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADEC2452E638007003AF /* BCPUsersDetailsCache.h */,
+				A91AADF32452E638007003AF /* BCPUsersDetailsCache.m */,
+			);
+			name = Cache;
+			sourceTree = "<group>";
+		};
+		A9A1A3F8245875F90077A3DD /* Command Handler */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADEB2452E638007003AF /* BCPUsersDetailsCommandsHandler.h */,
+				A91AADFD2452E639007003AF /* BCPUsersDetailsCommandsHandler.m */,
+			);
+			name = "Command Handler";
+			sourceTree = "<group>";
+		};
+		A9A1A3F92458761E0077A3DD /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADE32452E638007003AF /* CDVPluginResult+BCPFactoryMethods.h */,
+				A91AADE92452E638007003AF /* CDVPluginResult+BCPFactoryMethods.m */,
+				A91AADF52452E639007003AF /* NSString+BandyerPlugin.h */,
+				A91AADE62452E638007003AF /* NSString+BandyerPlugin.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		A9A1A3FA2458762A0077A3DD /* UI Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADE72452E638007003AF /* BCPUserInterfaceCoordinator.h */,
+				A91AADEA2452E638007003AF /* BCPUserInterfaceCoordinator.m */,
+			);
+			name = "UI Coordinator";
+			sourceTree = "<group>";
+		};
+		A9A1A3FC245876600077A3DD /* Reporters */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADF62452E639007003AF /* BCPPushTokenEventsReporter.h */,
+				A91AADF42452E639007003AF /* BCPPushTokenEventsReporter.m */,
+				A91AADF72452E639007003AF /* BCPCallClientEventsReporter.h */,
+				A91AADE52452E638007003AF /* BCPCallClientEventsReporter.m */,
+				A91AADE12452E638007003AF /* BCPChatClientEventsReporter.h */,
+				A91AADF82452E639007003AF /* BCPChatClientEventsReporter.m */,
+			);
+			name = Reporters;
+			sourceTree = "<group>";
+		};
+		A9A1A3FD2458766C0077A3DD /* Emitter */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADEF2452E638007003AF /* BCPEventEmitter.h */,
+				A91AADFA2452E639007003AF /* BCPEventEmitter.m */,
+			);
+			name = Emitter;
+			sourceTree = "<group>";
+		};
+		A9A1A3FE245876860077A3DD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADF12452E638007003AF /* BCPMacros.h */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		A9A1A3FF245877380077A3DD /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				A9A1A401245877570077A3DD /* Reporters */,
+				A9A1A400245877430077A3DD /* Emitter */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		A9A1A400245877430077A3DD /* Emitter */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADC82452E5AF007003AF /* BCPEventEmitterTest.m */,
+			);
+			path = Emitter;
+			sourceTree = "<group>";
+		};
+		A9A1A401245877570077A3DD /* Reporters */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADC22452E5AF007003AF /* BCPPushTokenEventsReporterTest.m */,
+				A91AADD02452E5AF007003AF /* BCPCallClientEventsReporterTest.m */,
+				A91AADCE2452E5AF007003AF /* BCPChatClientEventsReporterTest.m */,
+			);
+			path = Reporters;
+			sourceTree = "<group>";
+		};
+		A9A1A4022458776E0077A3DD /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADD12452E5AF007003AF /* CDVPluginResult_FactoryMethodsCategoryTest.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		A9A1A403245877930077A3DD /* User Details */ = {
+			isa = PBXGroup;
+			children = (
+				A9A1A407245877EF0077A3DD /* Formatter */,
+				A9A1A406245877D90077A3DD /* Providers */,
+				A9A1A405245877C30077A3DD /* Cache */,
+				A9A1A408245877FA0077A3DD /* Command Handler */,
+			);
+			path = "User Details";
+			sourceTree = "<group>";
+		};
+		A9A1A404245877AF0077A3DD /* UI Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADC32452E5AF007003AF /* BCPUserInterfaceCoordinatorTest.m */,
+			);
+			path = "UI Coordinator";
+			sourceTree = "<group>";
+		};
+		A9A1A405245877C30077A3DD /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADCA2452E5AF007003AF /* BCPUsersDetailsCacheTest.m */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		A9A1A406245877D90077A3DD /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADC42452E5AF007003AF /* BCPUsersDetailsFetcherTest.m */,
+				A91AADCB2452E5AF007003AF /* BCPContactHandleProviderTest.m */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		A9A1A407245877EF0077A3DD /* Formatter */ = {
+			isa = PBXGroup;
+			children = (
+				A91AAE1D245309E9007003AF /* BCPUserDetailsFormatterTests.m */,
+			);
+			path = Formatter;
+			sourceTree = "<group>";
+		};
+		A9A1A408245877FA0077A3DD /* Command Handler */ = {
+			isa = PBXGroup;
+			children = (
+				A91AADC72452E5AF007003AF /* BCPUsersDetailsCommandsHandlerTest.m */,
+			);
+			path = "Command Handler";
+			sourceTree = "<group>";
+		};
 		A9C31AEE22C22D1100BC33D5 = {
 			isa = PBXGroup;
 			children = (
@@ -258,37 +448,15 @@
 		A9C31B1822C22DE900BC33D5 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				A91AADE42452E638007003AF /* BCPBandyerEvents.h */,
-				A91AADFB2452E639007003AF /* BCPBandyerEvents.m */,
 				A91AADEE2452E638007003AF /* BCPBandyerPlugin.h */,
 				A91AADED2452E638007003AF /* BCPBandyerPlugin.m */,
-				A91AADF72452E639007003AF /* BCPCallClientEventsReporter.h */,
-				A91AADE52452E638007003AF /* BCPCallClientEventsReporter.m */,
-				A91AADE12452E638007003AF /* BCPChatClientEventsReporter.h */,
-				A91AADF82452E639007003AF /* BCPChatClientEventsReporter.m */,
 				A91AADF02452E638007003AF /* BCPConstants.h */,
 				A91AADE82452E638007003AF /* BCPConstants.m */,
-				A91AADFC2452E639007003AF /* BCPContactHandleProvider.h */,
-				A91AADE22452E638007003AF /* BCPContactHandleProvider.m */,
-				A91AADEF2452E638007003AF /* BCPEventEmitter.h */,
-				A91AADFA2452E639007003AF /* BCPEventEmitter.m */,
-				A91AADF12452E638007003AF /* BCPMacros.h */,
-				A91AADF62452E639007003AF /* BCPPushTokenEventsReporter.h */,
-				A91AADF42452E639007003AF /* BCPPushTokenEventsReporter.m */,
-				A91AADE72452E638007003AF /* BCPUserInterfaceCoordinator.h */,
-				A91AADEA2452E638007003AF /* BCPUserInterfaceCoordinator.m */,
-				A91AADEC2452E638007003AF /* BCPUsersDetailsCache.h */,
-				A91AADF32452E638007003AF /* BCPUsersDetailsCache.m */,
-				A91AADEB2452E638007003AF /* BCPUsersDetailsCommandsHandler.h */,
-				A91AADFD2452E639007003AF /* BCPUsersDetailsCommandsHandler.m */,
-				A91AADF22452E638007003AF /* BCPUsersDetailsFetcher.h */,
-				A91AADF92452E639007003AF /* BCPUsersDetailsFetcher.m */,
-				A91AADE32452E638007003AF /* CDVPluginResult+BCPFactoryMethods.h */,
-				A91AADE92452E638007003AF /* CDVPluginResult+BCPFactoryMethods.m */,
-				A91AADF52452E639007003AF /* NSString+BandyerPlugin.h */,
-				A91AADE62452E638007003AF /* NSString+BandyerPlugin.m */,
-				A91AAE1F24530A6E007003AF /* BCPUserDetailsFormatter.h */,
-				A91AAE2024530A6E007003AF /* BCPUserDetailsFormatter.m */,
+				A9A1A3F92458761E0077A3DD /* Categories */,
+				A9A1A3F3245875990077A3DD /* Events */,
+				A9A1A3FA2458762A0077A3DD /* UI Coordinator */,
+				A9A1A3F4245875C30077A3DD /* User Details */,
+				A9A1A3FE245876860077A3DD /* Utils */,
 			);
 			name = Source;
 			path = src/ios;
