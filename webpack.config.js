@@ -1,5 +1,5 @@
 const path = require('path');
-const keysTransformer = require('ts-transformer-keys/transformer').default;
+const typeStructureTransformer = require('@bandyer/ts-transformer-type-structure/transformer').default;
 
 module.exports = {
     mode: "production",
@@ -55,7 +55,7 @@ module.exports = {
                 options: {
                     compiler: 'ttypescript',
                     getCustomTransformers: program => ({
-                        before: [keysTransformer(program)]
+                        before: [typeStructureTransformer(program)]
                     })
                 }
             }

@@ -8,7 +8,7 @@
         "transform": "typescript-is/lib/transform-inline/transformer",
         "disallowSuperfluousObjectProperties": true
       },
-      { "transform": "ts-transformer-keys/transformer" }
+      { "transform": "@bandyer/ts-transformer-type-structure/transformer" }
     ],
     "lib": [
       "dom",

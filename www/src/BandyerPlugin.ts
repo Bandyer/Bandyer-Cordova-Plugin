@@ -15,7 +15,7 @@ import {Environments} from "./Environments";
 import {CallDisplayMode} from "./CallDisplayMode";
 import {CallKitConfig} from "./CallKitConfig";
 import {UserDetailsFormat} from "./UserDetailsFormat";
-import {keys} from "ts-transformer-keys";
+import {keys} from "@bandyer/ts-transformer-type-structure";
 
 /**
  * @ignore
@@ -293,7 +293,6 @@ export class BandyerPlugin extends EventListener {
                 return;
             }
             keywords.forEach((key) => {
-                // @ts-ignore
                 if (keysOfProps.indexOf(key) === -1) {
                     throw new IllegalArgumentError("Declared keyword=${" + key + "} is not allowed. The keywords allowed are: " + keysOfProps);
                 }

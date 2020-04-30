@@ -55,6 +55,7 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.9.0",
     "@babel/runtime-corejs3": "^7.5.5",
+    "@bandyer/ts-transformer-type-structure": "^1.0.0",
     "@types/cordova": "0.0.34",
     "@types/jest": "^25.2.1",
     "@types/webpack-env": "^1.15.1",
@@ -80,8 +81,5 @@
     "typescript-is": "^0.12.2",
     "webpack": "^4.36.1",
     "webpack-cli": "^3.3.6"
-  },
-  "dependencies": {
-    "ts-transformer-keys": "^0.4.1"
   }
 }
