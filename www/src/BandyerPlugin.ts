@@ -21,7 +21,7 @@ import {keys} from "@bandyer/ts-transformer-type-structure";
 /**
  * @ignore
  */
-declare let cordova: any;
+declare let cordova: Cordova;
 
 /**
  * @ignore
