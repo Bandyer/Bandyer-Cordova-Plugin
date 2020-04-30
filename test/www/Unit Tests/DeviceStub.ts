@@ -1,3 +1,4 @@
 export class DeviceStub {
-    platform: string = "ios"
+    platform: string = "ios";
+    isVirtual: boolean = false;
 }
