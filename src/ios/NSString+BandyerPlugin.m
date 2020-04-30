@@ -7,27 +7,28 @@
 
 @implementation NSString (BandyerPlugin)
 
-- (nullable BDKEnvironment *)toBDKEnvironment {
+- (nullable BDKEnvironment *)toBDKEnvironment
+{
     NSString *environment = [self lowercaseString];
     
-    if ([environment isEqualToString:@"sandbox"]) {
+    if ([environment isEqualToString:@"sandbox"])
         return BDKEnvironment.sandbox;
     
-    } else if ([environment isEqualToString:@"production"]) {
+    if ([environment isEqualToString:@"production"])
         return BDKEnvironment.production;
-    }
     
     return nil;
 }
 
-- (BDKCallType)toBDKCallType {
-    if ([[self lowercaseString] isEqualToString:@"audio"]) {
+- (BDKCallType)toBDKCallType
+{
+    if ([[self lowercaseString] isEqualToString:@"audio"])
         return BDKCallTypeAudioOnly;
-    } else if ([[self lowercaseString] isEqualToString:@"audioUpgradable"]) {
+
+    if ([[self lowercaseString] isEqualToString:@"audioupgradable"])
         return BDKCallTypeAudioUpgradable;
-    } else {
-        return BDKCallTypeAudioVideo;
-    }
+
+    return BDKCallTypeAudioVideo;
 }
 
 @end

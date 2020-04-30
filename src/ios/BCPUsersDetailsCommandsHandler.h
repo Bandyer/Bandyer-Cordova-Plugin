@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCommandDelegate:(id <CDVCommandDelegate>)commandDelegate cache:(BCPUsersDetailsCache *)cache;
 
 - (void)addUsersDetails:(CDVInvokedUrlCommand *)command;
-- (void)removeUsersDetails:(CDVInvokedUrlCommand *)command;
+- (void)purge:(CDVInvokedUrlCommand *)command;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

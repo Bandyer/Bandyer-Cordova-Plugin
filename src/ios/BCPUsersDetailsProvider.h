@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BCPUsersDetailsFetcher : NSObject <BDKUserInfoFetcher>
+@interface BCPUsersDetailsProvider : NSObject <BDKUserInfoFetcher>
 
 - (instancetype)initWithCache:(BCPUsersDetailsCache *)cache;
 

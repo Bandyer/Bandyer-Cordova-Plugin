@@ -98,7 +98,7 @@
     return item;
 }
 
-- (void)removeUsersDetails:(CDVInvokedUrlCommand *)command
+- (void)purge:(CDVInvokedUrlCommand *)command
 {
     [self.cache purge];
     [self reportCommandSucceeded:command];

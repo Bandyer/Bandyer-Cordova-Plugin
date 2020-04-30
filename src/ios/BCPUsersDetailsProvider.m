@@ -3,17 +3,17 @@
 // See LICENSE.txt for licensing information
 //
 
-#import "BCPUsersDetailsFetcher.h"
+#import "BCPUsersDetailsProvider.h"
 #import "BCPUsersDetailsCache.h"
 #import "BCPMacros.h"
 
-@interface BCPUsersDetailsFetcher ()
+@interface BCPUsersDetailsProvider ()
 
 @property (nonatomic, strong, readonly) BCPUsersDetailsCache *cache;
 
 @end
 
-@implementation BCPUsersDetailsFetcher
+@implementation BCPUsersDetailsProvider
 
 - (instancetype)initWithCache:(BCPUsersDetailsCache *)cache
 {
@@ -48,7 +48,7 @@
 
 - (id)copyWithZone:(nullable NSZone *)zone
 {
-    BCPUsersDetailsFetcher *copy = (BCPUsersDetailsFetcher *) [[[self class] allocWithZone:zone] init];
+    BCPUsersDetailsProvider *copy = (BCPUsersDetailsProvider *) [[[self class] allocWithZone:zone] init];
 
     if (copy != nil)
     {

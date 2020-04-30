@@ -8,13 +8,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BCPUsersDetailsCache : NSObject <BDKUserInfoFetcher, NSCopying>
+@interface BCPUsersDetailsCache <__covariant KeyType, __covariant ValueType : BDKUserInfoDisplayItem *> : NSObject
 
-- (void)addUsersDetails:(NSArray<NSDictionary *> *)details NS_DEPRECATED_IOS(9.0, 13.0);
-- (void)removeUsersDetails NS_DEPRECATED_IOS(9.0, 13.0);
-
-- (void)setItem:(BDKUserInfoDisplayItem *)item forKey:(NSString *)key;
-- (BDKUserInfoDisplayItem *)itemForKey:(NSString *)key;
+- (void)setItem:(nullable ValueType)item forKey:(KeyType <NSCopying> )key;
+- (nullable ValueType)itemForKey:(KeyType <NSCopying>)key;
 - (void)purge;
 
 @end

@@ -1,3 +1,8 @@
+//
+// Copyright © 2020 Bandyer S.r.l. All Rights Reserved.
+// See LICENSE for licensing information
+//
+
 import {Environments} from "../../../www/src/Environments";
 import {BandyerPlugin} from "../../../www/src/BandyerPlugin";
 import {CordovaSpy} from "./CordovaSpy";

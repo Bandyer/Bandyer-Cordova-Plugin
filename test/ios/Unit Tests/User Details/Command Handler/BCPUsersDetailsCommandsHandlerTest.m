@@ -10,10 +10,12 @@
 #import "BCPTestCase.h"
 #import "BCPTestingMacros.h"
 #import "BCPExceptionsMatcher.h"
+#import "BCPPluginResultMatcher.h"
 
 #import "BCPUsersDetailsCommandsHandler.h"
 #import "BCPUsersDetailsCache.h"
 #import "BCPConstants.h"
+#import "CDVPluginResult+BCPFactoryMethods.h"
 
 @interface BCPUsersDetailsCommandsHandlerTest : BCPTestCase
 
@@ -43,7 +45,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     assertThat(^{[[BCPUsersDetailsCommandsHandler alloc] initWithCommandDelegate:delegate cache:nil];}, throwsInvalidArgumentException());
 }
 
-- (void)testAddsUsersDetailsInCache
+- (void)testAddsUsersDetailsToCache
 {
     NSArray *args = @[
         @{
@@ -55,33 +57,42 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
         }
     ];
 
-    CDVInvokedUrlCommand *command = [self createCommandWithArgs:args];
+    CDVInvokedUrlCommand *command = [self makeCommandWithArgs:args];
     [sut addUsersDetails:command];
 
-    HCArgumentCaptor *captor = [HCArgumentCaptor new];
-    [verify(delegate) sendPluginResult:(id) captor callbackId:command.callbackId];
-    CDVPluginResult *result = captor.value;
-    assertThat(result.status, equalTo(@(CDVCommandStatus_OK)));
-
     BDKUserInfoDisplayItem *item = [cache itemForKey:@"alias1"];
-
     assertThat(item, notNilValue());
     assertThat(item.firstName, equalTo(@"name"));
     assertThat(item.lastName, equalTo(@"last"));
     assertThat(item.email, equalTo(@"email@bandyer.com"));
 }
 
+- (void)testReportsSuccessWhenUserDetailsAreAddedToCache
+{
+    NSArray *args = @[
+        @{
+            kBCPUserDetailsKey: @[
+            @{
+                @"userAlias": @"alias1", @"firstName": @"name", @"lastName": @"last", @"email": @"email@bandyer.com",
+            }
+        ]
+        }
+    ];
+
+    CDVInvokedUrlCommand *command = [self makeCommandWithArgs:args];
+    [sut addUsersDetails:command];
+
+    [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_success]) callbackId:command.callbackId];
+}
+
 - (void)testReportsErrorWhenUnexpectedArgumentListIsReceived
 {
     NSArray *args = @[@{}];
 
-    CDVInvokedUrlCommand *command = [self createCommandWithArgs:args];
+    CDVInvokedUrlCommand *command = [self makeCommandWithArgs:args];
     [sut addUsersDetails:command];
 
-    HCArgumentCaptor *captor = [HCArgumentCaptor new];
-    [verify(delegate) sendPluginResult:(id) captor callbackId:command.callbackId];
-    CDVPluginResult *result = captor.value;
-    assertThat(result.status, equalTo(@(CDVCommandStatus_ERROR)));
+    [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_error]) callbackId:command.callbackId];
 }
 
 - (void)testReportsErrorWhenUserDetailsDictionaryDoesNotContainAnArray
@@ -94,13 +105,10 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
         }
     ];
 
-    CDVInvokedUrlCommand *command = [self createCommandWithArgs:args];
+    CDVInvokedUrlCommand *command = [self makeCommandWithArgs:args];
     [sut addUsersDetails:command];
 
-    HCArgumentCaptor *captor = [HCArgumentCaptor new];
-    [verify(delegate) sendPluginResult:(id) captor callbackId:command.callbackId];
-    CDVPluginResult *result = captor.value;
-    assertThat(result.status, equalTo(@(CDVCommandStatus_ERROR)));
+    [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_error]) callbackId:command.callbackId];
 }
 
 - (void)testPurgesCache
@@ -115,23 +123,38 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
         }
     ];
 
-    CDVInvokedUrlCommand *addCommand = [self createCommandWithArgs:args];
+    CDVInvokedUrlCommand *addCommand = [self makeCommandWithArgs:args];
     [sut addUsersDetails:addCommand];
-
     assertThat([cache itemForKey:@"alias1"], notNilValue());
 
-    CDVInvokedUrlCommand *removeCommand = [self createCommandWithArgs:nil];
-    [sut removeUsersDetails:removeCommand];
-
+    CDVInvokedUrlCommand *removeCommand = [self makeCommandWithArgs:nil];
+    [sut purge:removeCommand];
     assertThat([cache itemForKey:@"alias1"], nilValue());
-
-    HCArgumentCaptor *captor = [HCArgumentCaptor new];
-    [verify(delegate) sendPluginResult:(id) captor callbackId:removeCommand.callbackId];
-    CDVPluginResult *result = captor.value;
-    assertThat(result.status, equalTo(@(CDVCommandStatus_OK)));
 }
 
-- (CDVInvokedUrlCommand *)createCommandWithArgs:(nullable NSArray *)args
+- (void)testReportsSuccessAfterPurgingCache
+{
+    NSArray *args = @[
+        @{
+            kBCPUserDetailsKey: @[
+            @{
+                @"userAlias": @"alias1", @"firstName": @"name", @"lastName": @"last", @"email": @"email@bandyer.com",
+            }
+        ]
+        }
+    ];
+    CDVInvokedUrlCommand *addCommand = [self makeCommandWithArgs:args];
+    [sut addUsersDetails:addCommand];
+
+    CDVInvokedUrlCommand *removeCommand = [self makeCommandWithArgs:nil];
+    [sut purge:removeCommand];
+
+    [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_success]) callbackId:removeCommand.callbackId];
+}
+
+// MARK: Helpers
+
+- (CDVInvokedUrlCommand *)makeCommandWithArgs:(nullable NSArray *)args
 {
     NSString *callbackId = [NSString stringWithFormat:@"callback_id#%d", arc4random()];
     return [[CDVInvokedUrlCommand alloc] initWithArguments:args callbackId:callbackId className:@"class_name" methodName:@"method_name"];

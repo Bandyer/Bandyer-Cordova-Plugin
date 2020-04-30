@@ -1,3 +1,8 @@
+//
+// Copyright © 2019 Bandyer S.r.l. All Rights Reserved.
+// See LICENSE for licensing information
+//
+
 /* tslint:disable:unified-signatures */
 import {Events} from "./Events";
 import {CallStatusChangedEvent} from "./call/CallStatusChangedEvent";

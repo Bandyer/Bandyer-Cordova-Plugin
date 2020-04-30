@@ -1,3 +1,8 @@
+//
+// Copyright © 2020 Bandyer S.r.l. All Rights Reserved.
+// See LICENSE for licensing information
+//
+
 export class CordovaSpy implements Cordova {
     platformId: string;
     plugins: CordovaPlugins;
