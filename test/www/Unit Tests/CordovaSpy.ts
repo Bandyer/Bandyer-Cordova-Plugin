@@ -1,4 +1,4 @@
-export class CordovaStub implements Cordova {
+export class CordovaSpy implements Cordova {
     exec(success: (data: any) => any, fail: (err: any) => any, service: string, action: string, args?: any[]): void {
     }
 

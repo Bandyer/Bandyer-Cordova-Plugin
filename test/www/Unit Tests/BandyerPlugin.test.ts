@@ -1,11 +1,11 @@
 import {Environments} from "../../../www/src/Environments";
 import {BandyerPlugin} from "../../../www/src/BandyerPlugin";
-import {CordovaStub} from "./CordovaStub";
+import {CordovaSpy} from "./CordovaSpy";
 import {DeviceStub} from "./DeviceStub";
 
 beforeEach(() => {
     globalThis.device = new DeviceStub();
-    globalThis.cordova = new CordovaStub();
+    globalThis.cordova = new CordovaSpy();
 });
 
 afterEach(() => {
