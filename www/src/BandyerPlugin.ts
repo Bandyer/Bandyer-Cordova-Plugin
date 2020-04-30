@@ -17,6 +17,7 @@ import {CallDisplayMode} from "./CallDisplayMode";
 import {CallKitConfig} from "./CallKitConfig";
 import {UserDetailsFormat} from "./UserDetailsFormat";
 import {keys} from "@bandyer/ts-transformer-type-structure";
+import {validateKeywords, matchGroup} from "./utils/Utils";
 
 /**
  * @ignore
@@ -274,31 +275,20 @@ export class BandyerPlugin extends EventListener {
     setUserDetailsFormat(format: UserDetailsFormat) {
         assertType<UserDetailsFormat>(format);
 
-        const keysOfProps = keys<UserDetails>();
+        const keysOfUserDetails = keys<UserDetails>();
 
-        const defaultKeywords = format.default.match(/(?<=\${)(.*?)(?=})/g);
-        validateKeywords(defaultKeywords);
+        const defaultKeywords = matchGroup(format.default, /\${([\w]+)}/g, 1);
+        validateKeywords(keysOfUserDetails, defaultKeywords);
 
         if (format.android_notification) {
-            const androidNotificationKeywords = format.android_notification.match(/(?<=\${)(.*?)(?=})/g);
-            validateKeywords(androidNotificationKeywords);
+            const androidNotificationKeywords = matchGroup(format.android_notification, /\${([\w]+)}/g, 1);
+            validateKeywords(keysOfUserDetails, androidNotificationKeywords);
         }
 
         cordova.exec(null, null, "BandyerPlugin", "setUserDetailsFormat", [{
             format: format.default,
             android_notification_format: format.android_notification,
         }]);
-
-        function validateKeywords(keywords) {
-            if (!keywords) {
-                return;
-            }
-            keywords.forEach((key) => {
-                if (keysOfProps.indexOf(key) === -1) {
-                    throw new IllegalArgumentError("Declared keyword=${" + key + "} is not allowed. The keywords allowed are: " + keysOfProps);
-                }
-            });
-        }
     }
 
     /**
