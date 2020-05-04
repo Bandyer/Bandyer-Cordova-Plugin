@@ -368,7 +368,7 @@ describe('User details', function () {
         expect(addDetails).toThrowError(Error);
     })
 
-    test('Calls "removeUsersDetails" action when requested to clear the user details cache', () => {
+    test('Calls "removeUsersDetails" action with an empty argument list', () => {
         const sut = makeSUT();
 
         sut.removeUsersDetails();
@@ -468,6 +468,80 @@ describe('User details', function () {
         expect(invocation.args).toContainEqual({
             format: "${firstName} ${lastName}",
             android_notification_format: "${firstName} ${lastName}",
+        });
+    });
+
+    test('When running an Android device, calls "clearUserCache" action when asked to clear the user cache', () => {
+        device.simulateAndroid();
+        const sut = makeSUT();
+
+        sut.clearUserCache();
+
+        const invocation = cordovaSpy.execInvocations[1];
+        expect(invocation.service).toMatch('BandyerPlugin');
+        expect(invocation.action).toMatch('clearUserCache');
+        expect(invocation.args).toHaveLength(0);
+    });
+});
+
+describe('Push notifications handling', () => {
+
+    test('Throws an invalid argument error when an empty payload is provided as argument', () => {
+        const sut = makeSUT();
+
+        const handleNotification = () => {
+            sut.handlePushNotificationPayload("");
+        };
+
+        expect(handleNotification).toThrowError(Error);
+    });
+
+    test('Calls "handlePushNotificationPayload" with the payload received as argument', () => {
+        const sut = makeSUT();
+
+        sut.handlePushNotificationPayload("Some push payload");
+
+        const invocation = cordovaSpy.execInvocations[1];
+        expect(invocation.service).toMatch('BandyerPlugin');
+        expect(invocation.action).toMatch('handlePushNotificationPayload');
+        expect(invocation.args).toContainEqual({
+            payload: "Some push payload"
+        });
+    });
+});
+
+describe('Starting a chat', () => {
+
+    test('Throws an invalid argument error when an empty user alias is provided as argument', () => {
+        const sut = makeSUT();
+
+        const startChat = () => {
+            sut.startChat({
+                userAlias: ""
+            });
+        };
+
+        expect(startChat).toThrowError(Error);
+    });
+
+    test('Calls "startChat" action with the call options provided as its arguments', () => {
+        const sut = makeSUT();
+
+        sut.startChat({
+            userAlias: "bob",
+            withAudioCallCapability: {recording: false},
+            withAudioUpgradableCallCapability: {recording: false},
+            withAudioVideoCallCapability: {recording: false}
+        });
+
+        const invocation = cordovaSpy.execInvocations[1];
+        expect(invocation.service).toMatch('BandyerPlugin');
+        expect(invocation.action).toMatch('startChat');
+        expect(invocation.args).toContainEqual({
+            userAlias: "bob",
+            audio: { recording: false },
+            audioUpgradable: { recording: false },
+            audioVideo: { recording: false}
         });
     });
 });
