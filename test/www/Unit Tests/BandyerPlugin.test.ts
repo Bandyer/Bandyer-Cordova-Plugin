@@ -88,21 +88,27 @@ describe('Plugin setup', function () {
         BandyerPlugin.setup(config);
 
         expect(cordovaSpy.execInvocations.length).toEqual(1);
-        expect(cordovaSpy.execInvocations[0].service).toMatch('BandyerPlugin');
-        expect(cordovaSpy.execInvocations[0].action).toMatch('initializeBandyer');
-        expect(cordovaSpy.execInvocations[0].args).toBeDefined();
-        expect(cordovaSpy.execInvocations[0].args[0]).toBeDefined();
-        expect(cordovaSpy.execInvocations[0].args[0]["environment"]).toMatch('sandbox');
-        expect(cordovaSpy.execInvocations[0].args[0]["appId"]).toMatch('mAppId_a21393y2a4ada1231');
-        expect(cordovaSpy.execInvocations[0].args[0]["logEnabled"]).toBeTruthy();
-        expect(cordovaSpy.execInvocations[0].args[0]["ios_callkit"]).toBeTruthy();
-        expect(cordovaSpy.execInvocations[0].args[0]["ios_fakeCapturerFileName"]).toMatch('filename.mp4');
-        expect(cordovaSpy.execInvocations[0].args[0]["ios_voipNotificationKeyPath"]).toMatch('VoIPKeyPath');
-        expect(cordovaSpy.execInvocations[0].args[0]["android_isCallEnabled"]).toBeTruthy();
-        expect(cordovaSpy.execInvocations[0].args[0]["android_isFileSharingEnabled"]).toBeTruthy();
-        expect(cordovaSpy.execInvocations[0].args[0]["android_isScreenSharingEnabled"]).toBeTruthy();
-        expect(cordovaSpy.execInvocations[0].args[0]["android_isChatEnabled"]).toBeTruthy();
-        expect(cordovaSpy.execInvocations[0].args[0]["android_isWhiteboardEnabled"]).toBeTruthy();
+
+        const invocation = cordovaSpy.execInvocations[0];
+        expect(invocation.service).toMatch('BandyerPlugin');
+        expect(invocation.action).toMatch('initializeBandyer');
+        expect(invocation.args).toBeDefined();
+
+        const firstArg = invocation.args[0];
+        expect(firstArg).toBeDefined();
+        expect(firstArg["environment"]).toMatch('sandbox');
+        expect(firstArg["appId"]).toMatch('mAppId_a21393y2a4ada1231');
+        expect(firstArg["logEnabled"]).toEqual(true);
+        expect(firstArg["ios_callkit"]["enabled"]).toEqual(true);
+        expect(firstArg["ios_callkit"]["appIconName"]).toMatch("AppIcon");
+        expect(firstArg["ios_callkit"]["ringtoneSoundName"]).toMatch("ringtone.mp3");
+        expect(firstArg["ios_fakeCapturerFileName"]).toMatch('filename.mp4');
+        expect(firstArg["ios_voipNotificationKeyPath"]).toMatch('VoIPKeyPath');
+        expect(firstArg["android_isCallEnabled"]).toEqual(true);
+        expect(firstArg["android_isFileSharingEnabled"]).toEqual(true);
+        expect(firstArg["android_isScreenSharingEnabled"]).toEqual(true);
+        expect(firstArg["android_isChatEnabled"]).toEqual(true);
+        expect(firstArg["android_isWhiteboardEnabled"]).toEqual(true);
     })
 });
 
