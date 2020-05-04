@@ -118,8 +118,7 @@ describe('Plugin setup', function () {
 describe('Plugin start', () => {
 
     test('Throws an illegal argument error when user alias is empty', () => {
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         const start = () => {
             sut.startFor("")
@@ -129,8 +128,7 @@ describe('Plugin start', () => {
     });
 
     test('Calls start action with the user alias provided', () => {
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         sut.startFor("usr_12345");
 
@@ -147,8 +145,7 @@ describe('Plugin start', () => {
 describe('Plugin stop', () => {
 
     test('Calls stop action with an empty argument list', () => {
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         sut.stop();
 
@@ -162,8 +159,7 @@ describe('Plugin stop', () => {
 describe('Plugin pause', () => {
 
     test('Calls pause action with an empty argument list', () => {
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         sut.pause();
 
@@ -177,8 +173,7 @@ describe('Plugin pause', () => {
 describe('Plugin resume', () => {
 
     test('Calls resume action with an empty argument list', () => {
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         sut.resume();
 
@@ -192,8 +187,7 @@ describe('Plugin resume', () => {
 describe('Plugin state', () => {
 
     test('Calls state action with an empty argument list', () => {
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         sut.state();
 
@@ -207,8 +201,7 @@ describe('Plugin state', () => {
 describe('Starting a call', () => {
 
     test('Throws invalid argument error when empty user alias array is provided', () => {
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         const options = {
             userAliases : [],
@@ -223,8 +216,7 @@ describe('Starting a call', () => {
     });
 
     test('Throws invalid argument error when any user alias is an empty string', () => {
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         const options = {
             userAliases : ["bob", "alice", ""],
@@ -239,8 +231,7 @@ describe('Starting a call', () => {
     });
 
     test('Throws an assertion error when the argument provided is missing required field', () => {
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         const options = {
             callType:  CallType.AUDIO_VIDEO
@@ -255,8 +246,7 @@ describe('Starting a call', () => {
     });
 
     test('Calls startCall action providing the call options as arguments', () =>{
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         const options = {
             recording: true,
@@ -278,8 +268,7 @@ describe('Starting a call', () => {
     });
 
     test('Throws an invalid argument error when the provided URL is an empty string', () => {
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         const start = () => {
             sut.startCallFrom("");
@@ -289,8 +278,7 @@ describe('Starting a call', () => {
     });
 
     test('Call startCall action with the provided URL as argument', () => {
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         sut.startCallFrom("https://acme.bandyer.com/call/12345")
 
@@ -307,8 +295,7 @@ describe('In call user verification', () => {
 
     test('When running on Android device, calls verifyCurrentCall with the argument provided as verification object parameter', () => {
         device.simulateAndroid();
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         sut.verifyCurrentCall(true);
 
@@ -325,8 +312,7 @@ describe('Call display mode', () => {
 
     test('When running on Android device, calls "setDisplayModeForCurrentCall" providing the mode received as first argument', () => {
         device.simulateAndroid();
-        var config = makePluginConfig();
-        const sut = BandyerPlugin.setup(config);
+        const sut = makeSUT();
 
         sut.setDisplayModeForCurrentCall(CallDisplayMode.FOREGROUND_PICTURE_IN_PICTURE);
 
@@ -338,6 +324,10 @@ describe('Call display mode', () => {
         })
     });
 });
+
+function makeSUT() {
+    return BandyerPlugin.setup(makePluginConfig());
+}
 
 function makePluginConfig(): BandyerPluginConfigs {
     return {
