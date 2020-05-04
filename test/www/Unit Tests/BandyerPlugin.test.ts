@@ -325,6 +325,153 @@ describe('Call display mode', () => {
     });
 });
 
+describe('User details', function () {
+
+    test('Throws invalid argument error when adding an empty array', () => {
+        const sut = makeSUT();
+
+        const addDetails = () => {
+            sut.addUsersDetails([]);
+        }
+
+        expect(addDetails).toThrowError(Error);
+    });
+
+    test('Calls "addUsersDetails" action providing the user details received as arguments', () => {
+        const sut = makeSUT();
+
+        const userDetails = [
+            {userAlias: "usr_12345", firstName: "Alice", lastName: "Appleseed"},
+            {userAlias: "usr_54321", firstName: "Bob", lastName: "Appleseed"},
+        ]
+        sut.addUsersDetails(userDetails);
+
+        const invocation = cordovaSpy.execInvocations[1];
+        expect(invocation.service).toMatch('BandyerPlugin');
+        expect(invocation.action).toMatch('addUsersDetails');
+        expect(invocation.args).toContainEqual({
+            details: [
+                {userAlias: "usr_12345", firstName: "Alice", lastName: "Appleseed"},
+                {userAlias: "usr_54321", firstName: "Bob", lastName: "Appleseed"},
+            ]
+        })
+    });
+
+    test('Throws assertion error when any user detail entry is missing required field', () => {
+        const sut = makeSUT();
+
+        const addDetails = () => {
+            // @ts-ignore
+            sut.addUsersDetails([{firstName: 'Foo', lastName: 'Bar'}]);
+        }
+
+        expect(addDetails).toThrowError(Error);
+    })
+
+    test('Calls "removeUsersDetails" action when requested to clear the user details cache', () => {
+        const sut = makeSUT();
+
+        sut.removeUsersDetails();
+
+        const invocation = cordovaSpy.execInvocations[1];
+        expect(invocation.service).toMatch('BandyerPlugin');
+        expect(invocation.action).toMatch('removeUsersDetails');
+        expect(invocation.args).toHaveLength(0);
+    });
+
+    test('Throws invalid argument error when "default format" does not contain any keyword matching any "UserDetails" property', () => {
+        const sut = makeSUT();
+
+        const setFormat = () => {
+            sut.setUserDetailsFormat({
+                default: "{fooBar}",
+            })
+        }
+
+        expect(setFormat).toThrowError(Error);
+    });
+
+    test('Throws invalid argument error when "default format" contains some keyword not matching any "UserDetails" property', () => {
+        const sut = makeSUT();
+
+        const setFormat = () => {
+            sut.setUserDetailsFormat({
+                default: "${firstName} ${fooBar}",
+            })
+        }
+
+        expect(setFormat).toThrowError(Error);
+    });
+
+    test('Throws invalid argument error when "default format" does not contain any keyword in the format {KEYWORD_NAME}', () => {
+        const sut = makeSUT();
+
+        const setFormat = () => {
+            sut.setUserDetailsFormat({
+                default: "{fooBar",
+            })
+        }
+
+        expect(setFormat).toThrowError(Error);
+    });
+
+    test('Throws invalid argument error when "android notification format" does not contain any keyword matching any "UserDetails" property', () => {
+        const sut = makeSUT();
+
+        const setFormat = () => {
+            sut.setUserDetailsFormat({
+                default: "${firstName} ${lastName}",
+                android_notification: "{fooBar}"
+            })
+        }
+
+        expect(setFormat).toThrowError(Error);
+    });
+
+    test('Throws invalid argument error when "android notification format" contains some keyword not matching any "UserDetails" property', () => {
+        const sut = makeSUT();
+
+        const setFormat = () => {
+            sut.setUserDetailsFormat({
+                default: "${firstName} ${lastName}",
+                android_notification: "${fooBar}"
+            })
+        }
+
+        expect(setFormat).toThrowError(Error);
+    });
+
+    test('Throws invalid argument error when "android notification format" does not contain any keyword in the format {KEYWORD_NAME}', () => {
+        const sut = makeSUT();
+
+        const setFormat = () => {
+            sut.setUserDetailsFormat({
+                default: "${firstName} ${lastName}",
+                android_notification: "${fooBar"
+            })
+        }
+
+        expect(setFormat).toThrowError(Error);
+    });
+
+    test('Calls "setUserDetailsFormat" action providing the formats received as argument', () => {
+        const sut = makeSUT();
+
+        sut.setUserDetailsFormat({
+            default: "${firstName} ${lastName}",
+            android_notification: "${firstName} ${lastName}"
+        });
+
+        const invocation = cordovaSpy.execInvocations[1];
+        expect(invocation.service).toMatch('BandyerPlugin');
+        expect(invocation.action).toMatch('setUserDetailsFormat');
+        expect(invocation.args).toContainEqual({
+            format: "${firstName} ${lastName}",
+            android_notification_format: "${firstName} ${lastName}",
+        });
+    });
+});
+
 function makeSUT() {
     return BandyerPlugin.setup(makePluginConfig());
 }
