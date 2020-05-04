@@ -16,8 +16,7 @@ import {Environments} from "./Environments";
 import {CallDisplayMode} from "./CallDisplayMode";
 import {CallKitConfig} from "./CallKitConfig";
 import {UserDetailsFormat} from "./UserDetailsFormat";
-import {keys} from "@bandyer/ts-transformer-type-structure";
-import {validateKeywords, matchGroup} from "./utils/Utils";
+import {UserDetailsFormatValidator} from "./UserDetailsFormatValidator"
 
 /**
  * @ignore
@@ -275,14 +274,11 @@ export class BandyerPlugin extends EventListener {
     setUserDetailsFormat(format: UserDetailsFormat) {
         assertType<UserDetailsFormat>(format);
 
-        const keysOfUserDetails = keys<UserDetails>();
-
-        const defaultKeywords = matchGroup(format.default, /\${([\w]+)}/g, 1);
-        validateKeywords(keysOfUserDetails, defaultKeywords);
+        const validator = new UserDetailsFormatValidator();
+        validator.validate(format.default)
 
         if (format.android_notification) {
-            const androidNotificationKeywords = matchGroup(format.android_notification, /\${([\w]+)}/g, 1);
-            validateKeywords(keysOfUserDetails, androidNotificationKeywords);
+            validator.validate(format.android_notification)
         }
 
         cordova.exec(null, null, "BandyerPlugin", "setUserDetailsFormat", [{
