@@ -94,12 +94,14 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
     val currentState: String
         get() = convertToString(BandyerSDKClient.getInstance().state)
 
+    private var keepalive: Boolean = false
+
     @SuppressLint("NewApi")
     @Throws(BandyerCordovaPluginExceptions::class)
     fun setup(application: Application, args: JSONArray) {
 
         bandyerSDKConfiguration = BandyerSDKConfiguration.Builder(args).build()
-
+        keepalive = (args.get(0) as JSONObject).getBoolean(BandyerCordovaPluginConstants.ARG_KEEP_ALIVE)
         if (bandyerSDKConfiguration == null)
             throw BandyerCordovaPluginMethodNotValidException("A setup method call is needed before a call operation")
 
@@ -132,7 +134,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
         }
 
         val options = BandyerSDKClientOptions.Builder()
-                .keepListeningForEventsInBackground(false)
+                .keepListeningForEventsInBackground(keepalive)
                 .build()
 
         addObservers()

@@ -13,6 +13,7 @@ object BandyerCordovaPluginConstants {
     const val ARG_WHITEBOARD_ENABLED = "android_isWhiteboardEnabled"
     const val ARG_SCREENSHARING_ENABLED = "android_isScreenSharingEnabled"
     const val ARG_CHAT_ENABLED = "android_isChatEnabled"
+    const val ARG_KEEP_ALIVE = "android_keepListeningForEventsInBackground"
 
     // START
     const val ARG_USER_ALIAS = "userAlias"

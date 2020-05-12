@@ -53,7 +53,7 @@ describe('Plugin setup', function () {
         expect(setup).toThrowError(Error);
     });
 
-    test('Throws an invalid argument exception when running in a simulator and iOSConfiguration is missing the fake capturer filename', () =>{
+    test('Throws an invalid argument exception when running in a simulator and iOSConfiguration is missing the fake capturer filename', () => {
         device.simulateVirtual();
 
         const setup = () => {
@@ -66,18 +66,19 @@ describe('Plugin setup', function () {
     });
 
     test('Calls "initializeBandyer" action with the argument provided in config parameter', () => {
-        var config = {
+        const config = {
             environment: Environments.sandbox(),
             appId: 'mAppId_a21393y2a4ada1231',
             logEnabled: true,
-            androidConfig : {
+            androidConfig: {
                 callEnabled: true,
                 fileSharingEnabled: true,
                 screenSharingEnabled: true,
                 chatEnabled: true,
                 whiteboardEnabled: true,
+                keepListeningForEventsInBackground: true,
             },
-            iosConfig : {
+            iosConfig: {
                 voipNotificationKeyPath: 'VoIPKeyPath',
                 fakeCapturerFileName: 'filename.mp4',
                 callkit: {
@@ -86,7 +87,7 @@ describe('Plugin setup', function () {
                     ringtoneSoundName: "ringtone.mp3"
                 }
             }
-        }
+        };
 
         BandyerPlugin.setup(config);
 
@@ -112,6 +113,7 @@ describe('Plugin setup', function () {
         expect(firstArg["android_isScreenSharingEnabled"]).toEqual(true);
         expect(firstArg["android_isChatEnabled"]).toEqual(true);
         expect(firstArg["android_isWhiteboardEnabled"]).toEqual(true);
+        expect(firstArg["android_keepListeningForEventsInBackground"]).toEqual(true);
     })
 });
 
@@ -122,7 +124,7 @@ describe('Plugin start', () => {
 
         const start = () => {
             sut.startFor("")
-        }
+        };
 
         expect(start).toThrowError(Error);
     });
@@ -138,7 +140,7 @@ describe('Plugin start', () => {
         expect(invocation.service).toMatch('BandyerPlugin');
         expect(invocation.action).toMatch('start');
         expect(invocation.args).toBeDefined();
-        expect(invocation.args[0]["userAlias"]).toMatch('usr_12345')
+        expect(invocation.args[0]["userAlias"]).toMatch('usr_12345');
     });
 });
 
@@ -204,13 +206,13 @@ describe('Starting a call', () => {
         const sut = makeSUT();
 
         const options = {
-            userAliases : [],
-            callType:  CallType.AUDIO_VIDEO
-        }
+            userAliases: [],
+            callType: CallType.AUDIO_VIDEO
+        };
 
         const start = () => {
             sut.startCall(options);
-        }
+        };
 
         expect(start).toThrowError(Error);
     });
@@ -219,13 +221,13 @@ describe('Starting a call', () => {
         const sut = makeSUT();
 
         const options = {
-            userAliases : ["bob", "alice", ""],
-            callType:  CallType.AUDIO_VIDEO
-        }
+            userAliases: ["bob", "alice", ""],
+            callType: CallType.AUDIO_VIDEO
+        };
 
         const start = () => {
             sut.startCall(options);
-        }
+        };
 
         expect(start).toThrowError(Error);
     });
@@ -234,25 +236,25 @@ describe('Starting a call', () => {
         const sut = makeSUT();
 
         const options = {
-            callType:  CallType.AUDIO_VIDEO
-        }
+            callType: CallType.AUDIO_VIDEO
+        };
 
         const start = () => {
             // @ts-ignore
             sut.startCall(options);
-        }
+        };
 
         expect(start).toThrowError(Error);
     });
 
-    test('Calls startCall action providing the call options as arguments', () =>{
+    test('Calls startCall action providing the call options as arguments', () => {
         const sut = makeSUT();
 
         const options = {
             recording: true,
-            userAliases : ["bob", "alice"],
-            callType:  CallType.AUDIO_VIDEO
-        }
+            userAliases: ["bob", "alice"],
+            callType: CallType.AUDIO_VIDEO
+        };
 
         sut.startCall(options);
 
@@ -272,7 +274,7 @@ describe('Starting a call', () => {
 
         const start = () => {
             sut.startCallFrom("");
-        }
+        };
 
         expect(start).toThrowError(Error);
     });
@@ -332,7 +334,7 @@ describe('User details', function () {
 
         const addDetails = () => {
             sut.addUsersDetails([]);
-        }
+        };
 
         expect(addDetails).toThrowError(Error);
     });
@@ -343,7 +345,7 @@ describe('User details', function () {
         const userDetails = [
             {userAlias: "usr_12345", firstName: "Alice", lastName: "Appleseed"},
             {userAlias: "usr_54321", firstName: "Bob", lastName: "Appleseed"},
-        ]
+        ];
         sut.addUsersDetails(userDetails);
 
         const invocation = cordovaSpy.execInvocations[1];
@@ -363,10 +365,10 @@ describe('User details', function () {
         const addDetails = () => {
             // @ts-ignore
             sut.addUsersDetails([{firstName: 'Foo', lastName: 'Bar'}]);
-        }
+        };
 
         expect(addDetails).toThrowError(Error);
-    })
+    });
 
     test('Calls "removeUsersDetails" action with an empty argument list', () => {
         const sut = makeSUT();
@@ -386,7 +388,7 @@ describe('User details', function () {
             sut.setUserDetailsFormat({
                 default: "{fooBar}",
             })
-        }
+        };
 
         expect(setFormat).toThrowError(Error);
     });
@@ -398,7 +400,7 @@ describe('User details', function () {
             sut.setUserDetailsFormat({
                 default: "${firstName} ${fooBar}",
             })
-        }
+        };
 
         expect(setFormat).toThrowError(Error);
     });
@@ -410,7 +412,7 @@ describe('User details', function () {
             sut.setUserDetailsFormat({
                 default: "{fooBar",
             })
-        }
+        };
 
         expect(setFormat).toThrowError(Error);
     });
@@ -423,7 +425,7 @@ describe('User details', function () {
                 default: "${firstName} ${lastName}",
                 android_notification: "{fooBar}"
             })
-        }
+        };
 
         expect(setFormat).toThrowError(Error);
     });
@@ -436,7 +438,7 @@ describe('User details', function () {
                 default: "${firstName} ${lastName}",
                 android_notification: "${fooBar}"
             })
-        }
+        };
 
         expect(setFormat).toThrowError(Error);
     });
@@ -449,7 +451,7 @@ describe('User details', function () {
                 default: "${firstName} ${lastName}",
                 android_notification: "${fooBar"
             })
-        }
+        };
 
         expect(setFormat).toThrowError(Error);
     });
@@ -539,9 +541,9 @@ describe('Starting a chat', () => {
         expect(invocation.action).toMatch('startChat');
         expect(invocation.args).toContainEqual({
             userAlias: "bob",
-            audio: { recording: false },
-            audioUpgradable: { recording: false },
-            audioVideo: { recording: false}
+            audio: {recording: false},
+            audioUpgradable: {recording: false},
+            audioVideo: {recording: false}
         });
     });
 });
@@ -558,13 +560,14 @@ function makePluginConfig(): BandyerPluginConfigs {
             screenSharingEnabled: true,
             chatEnabled: true,
             whiteboardEnabled: true,
+            keepListeningForEventsInBackground: true,
         },
         appId: 'Some APP ID',
         environment: Environments.sandbox(),
         iosConfig: {
             voipNotificationKeyPath: 'Notification key path',
             fakeCapturerFileName: 'my-video.mp4',
-            callkit : {
+            callkit: {
                 appIconName: 'AppIcon',
                 enabled: true,
                 ringtoneSoundName: 'MyRingtone'

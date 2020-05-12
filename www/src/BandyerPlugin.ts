@@ -109,6 +109,7 @@ export class BandyerPlugin extends EventListener {
             android_isScreenSharingEnabled: params.androidConfig.screenSharingEnabled !== false,
             android_isChatEnabled: params.androidConfig.chatEnabled !== false,
             android_isWhiteboardEnabled: params.androidConfig.whiteboardEnabled !== false,
+            android_keepListeningForEventsInBackground: params.androidConfig.keepListeningForEventsInBackground === true,
         }]);
 
         this.instance = new BandyerPlugin();
