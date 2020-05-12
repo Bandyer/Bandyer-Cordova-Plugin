@@ -42,4 +42,16 @@ export interface AndroidConfig {
      * <b><font color="blue">default</font>: true</b>
      */
     whiteboardEnabled?: boolean;
+
+    /**
+     * Set to true to keep receiving events when in background
+     * <br/>
+     * This will allow your application to receive events while in background such as chat messages and incoming calls even without push notifications.
+     * <br/>
+     * Be aware that Android may kill your app at anytime while in background.
+     * <br/>
+     * <br/>
+     * <b><font color="blue">default</font>: false</b>
+     */
+    keepListeningForEventsInBackground?: boolean;
 }
