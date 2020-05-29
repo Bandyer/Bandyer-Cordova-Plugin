@@ -3,9 +3,6 @@
 // See LICENSE for licensing information
 //
 
-#import <Bandyer/Bandyer.h>
-#import <Bandyer/Bandyer-Swift.h>
-
 #import "BCPBandyerPlugin.h"
 #import "BCPUsersDetailsCache.h"
 #import "BCPUsersDetailsCommandsHandler.h"
@@ -20,10 +17,13 @@
 #import "CDVPluginResult+BCPFactoryMethods.h"
 #import "NSString+BandyerPlugin.h"
 
+#import <Bandyer/Bandyer.h>
+#import <Bandyer/Bandyer-Swift.h>
+
 @interface BCPBandyerPlugin () <BCXCallClientObserver>
 
-@property (nonatomic, strong, nullable) BCPUsersDetailsCache *usersCache;
-@property (nonatomic, strong, nullable) BCPUserInterfaceCoordinator *coordinator;
+@property (nonatomic, strong, readwrite, nullable) BCPUsersDetailsCache *usersCache;
+@property (nonatomic, strong, readwrite, nullable) BCPUserInterfaceCoordinator *coordinator;
 @property (nonatomic, strong, nullable) BCPEventEmitter *eventEmitter;
 @property (nonatomic, strong, nullable) BCPCallClientEventsReporter *callClientEventsReporter;
 @property (nonatomic, strong, nullable) BCPChatClientEventsReporter *chatClientEventsReporter;
@@ -227,8 +227,25 @@
 - (void)removeUsersDetails:(CDVInvokedUrlCommand *)command 
 {
     BCPUsersDetailsCommandsHandler *handler = [[BCPUsersDetailsCommandsHandler alloc] initWithCommandDelegate:self.commandDelegate cache:self.usersCache];
-    [handler removeUsersDetails:command];
+    [handler purge:command];
 }
+
+- (void)setUserDetailsFormat:(CDVInvokedUrlCommand *)command
+{
+    NSDictionary *args = command.arguments.firstObject;
+
+    NSString *format = args[@"default"];
+    if (format != nil && [format isKindOfClass:NSString.class])
+    {
+        self.coordinator.userDetailsFormat = format;
+        [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_success] callbackId:command.callbackId];
+    } else
+    {
+        [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_error] callbackId:command.callbackId];
+    }
+}
+
+// MARK: Command result reporting
 
 - (void)reportCommandSucceeded:(CDVInvokedUrlCommand *)command
 {
@@ -244,6 +261,8 @@
 {
     [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_error] callbackId:command.callbackId];
 }
+
+// MARK: BCXCallClientObserver
 
 - (void)callClient:(id <BCXCallClient>)client didReceiveIncomingCall:(id <BCXCall>)call
 {

@@ -3,13 +3,14 @@
 // See LICENSE.txt for licensing information
 //
 
-#import <Bandyer/Bandyer.h>
-#import <Bandyer/Bandyer-Swift.h>
-
 #import "BCPUserInterfaceCoordinator.h"
 #import "BCPMacros.h"
 #import "BCPUsersDetailsCache.h"
-#import "BCPUsersDetailsFetcher.h"
+#import "BCPUsersDetailsProvider.h"
+#import "BCPUserDetailsFormatter.h"
+
+#import <Bandyer/Bandyer.h>
+#import <Bandyer/Bandyer-Swift.h>
 
 @interface BCPUserInterfaceCoordinator () <BDKCallWindowDelegate, BCHChannelViewControllerDelegate, BCHMessageNotificationControllerDelegate, BDKCallBannerControllerDelegate>
 
@@ -17,7 +18,7 @@
 @property (nonatomic, strong, readonly) BCPUsersDetailsCache *cache;
 @property (nonatomic, strong) BDKCallBannerController *callBannerController;
 @property (nonatomic, strong) BCHMessageNotificationController *messageNotificationController;
-@property (nonatomic, strong) BDKCallWindow *callWindow;
+@property (nonatomic, strong, readwrite) BDKCallWindow *callWindow;
 
 @end
 
@@ -57,10 +58,18 @@
     return self;
 }
 
+- (void)sdkInitialized
+{
+    [self setupCallBannerView];
+    [self setupNotificationView];
+    [self.messageNotificationController show];
+    [self.callBannerController show];
+}
+
 - (void)setupNotificationView
 {
     self.messageNotificationController = [BCHMessageNotificationController new];
-    self.messageNotificationController.configuration = [[BCHMessageNotificationControllerConfiguration alloc] initWithUserInfoFetcher:[[BCPUsersDetailsFetcher alloc] initWithCache:self.cache]];;
+    self.messageNotificationController.configuration = [[BCHMessageNotificationControllerConfiguration alloc] initWithUserInfoFetcher:[[BCPUsersDetailsProvider alloc] initWithCache:self.cache]];;
     self.messageNotificationController.delegate = self;
     self.messageNotificationController.parentViewController = self.viewController;
 }
@@ -70,14 +79,6 @@
     self.callBannerController = [BDKCallBannerController new];
     self.callBannerController.delegate = self;
     self.callBannerController.parentViewController = self.viewController;
-}
-
-- (void)sdkInitialized
-{
-    [self setupCallBannerView];
-    [self setupNotificationView];
-    [self.messageNotificationController show];
-    [self.callBannerController show];
 }
 
 //-------------------------------------------------------------------------------------------
@@ -125,7 +126,7 @@
         channelViewController.modalPresentationStyle = UIModalPresentationFullScreen;
     }
 
-    BCPUsersDetailsFetcher *fetcher = [[BCPUsersDetailsFetcher alloc] initWithCache:self.cache];
+    BCPUsersDetailsProvider *fetcher = [[BCPUsersDetailsProvider alloc] initWithCache:self.cache];
     BCHChannelViewControllerConfiguration *configuration = [[BCHChannelViewControllerConfiguration alloc] initWithAudioButton:YES videoButton:YES userInfoFetcher:fetcher];
     channelViewController.configuration = configuration;
     channelViewController.intent = intent;
@@ -141,7 +142,12 @@
 {
     BDKCallViewControllerConfiguration *config = [BDKCallViewControllerConfiguration new];
     config.fakeCapturerFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:self.fakeCapturerFilename ofType:@"mp4"]];
-    config.userInfoFetcher = [[BCPUsersDetailsFetcher alloc] initWithCache:self.cache];
+    config.userInfoFetcher = [[BCPUsersDetailsProvider alloc] initWithCache:self.cache];
+
+    if (self.userDetailsFormat)
+    {
+        config.callInfoTitleFormatter = [[BCPUserDetailsFormatter alloc] initWithFormat:self.userDetailsFormat];
+    }
 
     [self.callWindow setConfiguration:config];
 

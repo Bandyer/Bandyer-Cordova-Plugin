@@ -1,0 +1,8 @@
+{
+  "name": "bandyer-cordova-plugin-integration-tests",
+  "version": "1.0.0",
+  "description": "Suite of integration tests for the bandyer cordova plugin",
+  "main": "www/Integration Tests/index.js",
+  "author": "Bandyer",
+  "license": "LGPL-3.0-or-later"
+}

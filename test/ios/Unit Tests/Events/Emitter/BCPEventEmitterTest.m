@@ -11,6 +11,7 @@
 #import "BCPTestCase.h"
 #import "BCPTestingMacros.h"
 #import "BCPExceptionsMatcher.h"
+#import "BCPPluginResultMatcher.h"
 
 #import "BCPEventEmitter.h"
 
@@ -44,14 +45,10 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
     [sut sendEvent:@"foo" withArgs:@[@"bar", @"quux"]];
 
-    HCArgumentCaptor *captor = [HCArgumentCaptor new];
-    [verify(commandDelegate) sendPluginResult:(id) captor callbackId:@"CallbackId"];
+    CDVPluginResult *expectedResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:@{@"event": @"foo", @"args": @[@"bar", @"quux"]}];
+    expectedResult.keepCallback = @YES;
 
-    CDVPluginResult *result = captor.value;
-    assertThat(result, notNilValue());
-    assertThat(result.status, equalTo(@(CDVCommandStatus_OK)));
-    assertThat(result.message, equalTo(@{@"event": @"foo", @"args": @[@"bar", @"quux"]}));
-    assertThat(result.keepCallback, equalTo(@(YES)));
+    [verify(commandDelegate) sendPluginResult:equalToResult(expectedResult) callbackId:@"CallbackId"];
 }
 
 __SUPPRESS_WARNINGS_FOR_TEST_END

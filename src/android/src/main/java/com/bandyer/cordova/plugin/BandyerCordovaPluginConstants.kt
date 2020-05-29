@@ -50,6 +50,11 @@ object BandyerCordovaPluginConstants {
     const val ARG_USER_DETAILS_EMAIL = "email"
     const val ARG_USER_DETAILS_IMAGEURL = "profileImageUrl"
 
+
+    // USER DETAILS FORMATTER
+    const val ARG_USER_DETAILS_FORMAT= "format"
+    const val ARG_NOTIFICATION_USER_DETAILS_FORMAT = "android_notification_format"
+
     // INTENT
     const val INTENT_REQUEST_CALL_CODE = 101
     const val INTENT_REQUEST_CHAT_CODE = 102

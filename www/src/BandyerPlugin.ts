@@ -2,6 +2,7 @@
 // Copyright © 2019 Bandyer S.r.l. All Rights Reserved.
 // See LICENSE for licensing information
 //
+
 import "core-js/es/map";
 import {EventListener} from "./events/EventListener";
 import {BandyerPluginConfigs} from "./BandyerPluginConfigs";
@@ -10,15 +11,17 @@ import {UserDetails} from "./UserDetails";
 import {CreateChatOptions} from "./CreateChatOptions";
 import {CallType} from "./CallType";
 import {IllegalArgumentError} from "./errors/IllegalArgumentError";
-import {is} from "typescript-is";
+import {assertType} from "typescript-is";
 import {Environments} from "./Environments";
 import {CallDisplayMode} from "./CallDisplayMode";
 import {CallKitConfig} from "./CallKitConfig";
+import {UserDetailsFormat} from "./UserDetailsFormat";
+import {UserDetailsFormatValidator} from "./UserDetailsFormatValidator";
 
 /**
  * @ignore
  */
-declare let cordova: any;
+declare let cordova: Cordova;
 
 /**
  * @ignore
@@ -62,14 +65,13 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     static setup(params: BandyerPluginConfigs): BandyerPlugin {
-        if (!is<BandyerPluginConfigs>(params)) {
-            throw new IllegalArgumentError("Expected an object of type BandyerPluginConfigs!");
-        }
+        assertType<BandyerPluginConfigs>(params);
+
         if (params.appId === "") {
             throw new IllegalArgumentError("Expected a not empty appId!");
         }
 
-        if (this._isIos() && device.isVirtual && (!params.iosConfig.fakeCapturerFileName || params.iosConfig.fakeCapturerFileName === "")) {
+        if (this._isIos() && device.isVirtual && (params.iosConfig?.fakeCapturerFileName === undefined || params.iosConfig?.fakeCapturerFileName === "")) {
             throw new IllegalArgumentError("Expected a valid file name to initialize the fake capturer on a simulator!");
         }
 
@@ -93,21 +95,21 @@ export class BandyerPlugin extends EventListener {
             console.error("BandyerPluginSetup failed setup", error);
         };
 
-        const callkit: CallKitConfig = params.iosConfig.callkit !== undefined ? params.iosConfig.callkit : {enabled: params.iosConfig.callkitEnabled !== false};
+        const callkit: CallKitConfig = params.iosConfig?.callkit !== undefined ? params.iosConfig.callkit : {enabled: params.iosConfig?.callkitEnabled !== false};
 
         cordova.exec(success, fail, "BandyerPlugin", "initializeBandyer", [{
             environment: params.environment.name,
             appId: params.appId,
             logEnabled: params.logEnabled === true,
             ios_callkit: callkit,
-            ios_fakeCapturerFileName: params.iosConfig.fakeCapturerFileName,
-            ios_voipNotificationKeyPath: params.iosConfig.voipNotificationKeyPath,
-            android_isCallEnabled: params.androidConfig.callEnabled !== false,
-            android_isFileSharingEnabled: params.androidConfig.fileSharingEnabled !== false,
-            android_isScreenSharingEnabled: params.androidConfig.screenSharingEnabled !== false,
-            android_isChatEnabled: params.androidConfig.chatEnabled !== false,
-            android_isWhiteboardEnabled: params.androidConfig.whiteboardEnabled !== false,
-            android_keepListeningForEventsInBackground: params.androidConfig.keepListeningForEventsInBackground === true,
+            ios_fakeCapturerFileName: params.iosConfig?.fakeCapturerFileName,
+            ios_voipNotificationKeyPath: params.iosConfig?.voipNotificationKeyPath,
+            android_isCallEnabled: params.androidConfig?.callEnabled !== false,
+            android_isFileSharingEnabled: params.androidConfig?.fileSharingEnabled !== false,
+            android_isScreenSharingEnabled: params.androidConfig?.screenSharingEnabled !== false,
+            android_isChatEnabled: params.androidConfig?.chatEnabled !== false,
+            android_isWhiteboardEnabled: params.androidConfig?.whiteboardEnabled !== false,
+            android_keepListeningForEventsInBackground: params.androidConfig?.keepListeningForEventsInBackground === true,
         }]);
 
         this.instance = new BandyerPlugin();
@@ -140,9 +142,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     startFor(userAlias: string) {
-        if (!is<string>(userAlias)) {
-            throw new IllegalArgumentError("Expected userAlias as string!");
-        }
+        assertType<string>(userAlias);
+
         if (userAlias === "") {
             throw new IllegalArgumentError("Expected a not empty userAlias!");
         }
@@ -189,9 +190,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     startCall(callOptions: CreateCallOptions) {
-        if (!is<CreateCallOptions>(callOptions)) {
-            throw new IllegalArgumentError("Expected an object of type CreateCallOptions!");
-        }
+        assertType<CreateCallOptions>(callOptions);
+
         if (callOptions.userAliases.length === 0) {
             throw new IllegalArgumentError("No userAliases were provided!");
         }
@@ -212,9 +212,7 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     verifyCurrentCall(verify: boolean) {
-        if (!is<boolean>(verify)) {
-            throw new IllegalArgumentError("Expected a boolean parameter");
-        }
+        assertType<boolean>(verify);
 
         if (BandyerPlugin._isAndroid()) {
             cordova.exec(null, null, "BandyerPlugin", "verifyCurrentCall", [{verifyCall: verify}]);
@@ -230,9 +228,7 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     setDisplayModeForCurrentCall(mode: CallDisplayMode) {
-        if (!is<CallDisplayMode>(mode)) {
-            throw new IllegalArgumentError("Expected a boolean parameter");
-        }
+        assertType<CallDisplayMode>(mode);
 
         if (BandyerPlugin._isAndroid()) {
             cordova.exec(null, null, "BandyerPlugin", "setDisplayModeForCurrentCall", [{displayMode: mode}]);
@@ -247,9 +243,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     startCallFrom(url: string) {
-        if (!is<string>(url)) {
-            throw new IllegalArgumentError("Expected an url of type string!");
-        }
+        assertType<string>(url);
+
         if (url === "") {
             throw new IllegalArgumentError("Expected a not empty url!");
         }
@@ -267,14 +262,29 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     addUsersDetails(userDetails: UserDetails[]) {
-        if (!is<UserDetails[]>(userDetails)) {
-            throw new IllegalArgumentError("Expected an array of type UserDetails!");
-        }
+        assertType<UserDetails[]>(userDetails);
+
         if (userDetails.length === 0) {
             throw new IllegalArgumentError("No userDetails were provided!");
         }
         cordova.exec(null, null, "BandyerPlugin", "addUsersDetails", [{
             details: userDetails,
+        }]);
+    }
+
+    setUserDetailsFormat(format: UserDetailsFormat) {
+        assertType<UserDetailsFormat>(format);
+
+        const validator = new UserDetailsFormatValidator();
+        validator.validate(format.default);
+
+        if (format.android_notification) {
+            validator.validate(format.android_notification);
+        }
+
+        cordova.exec(null, null, "BandyerPlugin", "setUserDetailsFormat", [{
+            format: format.default,
+            android_notification_format: format.android_notification,
         }]);
     }
 
@@ -303,9 +313,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     handlePushNotificationPayload(payload: string, success?: () => void, error?: () => void) {
-        if (!is<string>(payload)) {
-            throw new IllegalArgumentError("Expected a payload of type string!");
-        }
+        assertType<string>(payload);
+
         if (payload === "") {
             throw new IllegalArgumentError("Expected a not empty payload!");
         }
@@ -321,9 +330,8 @@ export class BandyerPlugin extends EventListener {
      * @throws IllegalArgumentError
      */
     startChat(chatOptions: CreateChatOptions) {
-        if (!is<CreateChatOptions>(chatOptions)) {
-            throw new IllegalArgumentError("Expected an object of type CreateChatOptions!");
-        }
+        assertType<CreateChatOptions>(chatOptions);
+
         if (chatOptions.userAlias === "") {
             throw new IllegalArgumentError("Expected a not empty userAlias!");
         }

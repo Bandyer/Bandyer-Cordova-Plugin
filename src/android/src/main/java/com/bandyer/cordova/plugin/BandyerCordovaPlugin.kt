@@ -87,7 +87,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
 
     private fun clearUserCache(callbackContext: CallbackContext) {
         try {
-            bandyerCordovaPluginManager!!.clearUserCache(cordova.activity)
+            bandyerCordovaPluginManager!!.clearUserCache(cordova.context.applicationContext)
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)
@@ -115,6 +115,10 @@ class BandyerCordovaPlugin : CordovaPlugin() {
         bandyerCordovaPluginManager!!.startCall(this, args)
     }
 
+    private fun setUserDetailsFormat(args:JSONArray,callbackContext: CallbackContext) {
+        bandyerCordovaPluginManager!!.setUserDetailsFormat(this, args)
+    }
+
     private fun startChat(args: JSONArray, callbackContext: CallbackContext) {
         bandyerCordovaPluginManager!!.startChat(this, args)
     }
@@ -123,16 +127,16 @@ class BandyerCordovaPlugin : CordovaPlugin() {
         try {
             mCallCallback = callbackContext
             if (args.length() == 0) return
-            bandyerCordovaPluginManager!!.addUserDetails(args)
+            bandyerCordovaPluginManager!!.addUserDetails(this, args)
         } catch (e: Throwable) {
             mCallCallback = null
             callbackContext.error(e.message)
         }
     }
 
-    private fun clearUsersDetails(callbackContext: CallbackContext) {
+    private fun removeUsersDetails(callbackContext: CallbackContext) {
         try {
-            bandyerCordovaPluginManager!!.clearUserDetails()
+            bandyerCordovaPluginManager!!.removeUsersDetails(cordova.context.applicationContext)
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)

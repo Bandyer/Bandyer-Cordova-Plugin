@@ -1,11 +1,16 @@
 rootProject.ext {
 
-    BANDYER_SDK_VERSION = '1.5.3'
+    BANDYER_SDK_VERSION = '1.5.5'
     BANDYER_SDK_OK_HTTP_VERSION = '3.12.10'
+    BANDYER_SDK_ROOM_VERSION = "2.2.5"
+
+    apply plugin: 'kotlin-kapt'
 
     deps = [
             // Bandyer SDK
             bandyerSDK: "com.bandyer:bandyer-android-sdk:$BANDYER_SDK_VERSION",
-            okHttp: "com.squareup.okhttp3:okhttp:$BANDYER_SDK_OK_HTTP_VERSION"
+            okHttp: "com.squareup.okhttp3:okhttp:$BANDYER_SDK_OK_HTTP_VERSION",
+            room: "androidx.room:room-runtime:$BANDYER_SDK_ROOM_VERSION",
+            room_compiler: "androidx.room:room-compiler:$BANDYER_SDK_ROOM_VERSION"
     ]
 }

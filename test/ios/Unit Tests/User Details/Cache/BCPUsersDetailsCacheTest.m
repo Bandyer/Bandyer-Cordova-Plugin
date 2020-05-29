@@ -6,6 +6,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 #import "BCPTestCase.h"
+#import "BCPTestingMacros.h"
 #import "BCPExceptionsMatcher.h"
 #import "BCPUsersDetailsCache.h"
 
@@ -24,6 +25,8 @@
 
     sut = [BCPUsersDetailsCache new];
 }
+
+__SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testSetsItem
 {
@@ -66,5 +69,7 @@
     assertThat([sut itemForKey:item2.alias], nilValue());
     assertThat([sut itemForKey:item3.alias], nilValue());
 }
+
+__SUPPRESS_WARNINGS_FOR_TEST_END
 
 @end

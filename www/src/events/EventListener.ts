@@ -1,9 +1,13 @@
+//
+// Copyright © 2019 Bandyer S.r.l. All Rights Reserved.
+// See LICENSE for licensing information
+//
+
 /* tslint:disable:unified-signatures */
 import {Events} from "./Events";
 import {CallStatusChangedEvent} from "./call/CallStatusChangedEvent";
 import {ChatStatusChangedEvent} from "./chat/ChatStatusChangedEvent";
-import {IllegalArgumentError} from "../errors/IllegalArgumentError";
-import {is} from "typescript-is";
+import {assertType} from "typescript-is";
 import {SetupErrorEvent} from "./SetupErrorEvent";
 import {CallErrorEvent} from "./call/CallErrorEvent";
 import {ChatErrorEvent} from "./chat/ChatErrorEvent";
@@ -26,9 +30,7 @@ export abstract class EventListener implements CallStatusChangedEvent, ChatStatu
     on(event: Events.iOSVoipPushTokenUpdated, callback: (token: string) => void);
     on(event: Events.iOSVoipPushTokenInvalidated, callback: () => void);
     on(event: Events.callModuleStatusChanged | Events.chatModuleStatusChanged | Events.setupError | Events.callError | Events.chatError | Events.iOSVoipPushTokenUpdated | Events.iOSVoipPushTokenInvalidated, callback: ((status: string) => void) | (() => void)) {
-        if (!is<Events>(event)) {
-            throw new IllegalArgumentError("Expected an event of type Events!");
-        }
+        assertType<Events>(event);
         this._registerForEvent(event, callback);
     }
 

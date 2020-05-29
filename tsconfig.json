@@ -3,11 +3,12 @@
     "outDir": "./www/out",
     "allowJs": true,
     "target": "es5",
-    "normalTypeScriptOptions": "here",
     "plugins": [
       {
-        "transform": "typescript-is/lib/transform-inline/transformer"
-      }
+        "transform": "typescript-is/lib/transform-inline/transformer",
+        "disallowSuperfluousObjectProperties": true
+      },
+      { "transform": "@bandyer/ts-transformer-type-structure/transformer" }
     ],
     "lib": [
       "dom",

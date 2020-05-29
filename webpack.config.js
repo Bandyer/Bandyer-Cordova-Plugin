@@ -1,4 +1,5 @@
-var path = require('path');
+const path = require('path');
+const typeStructureTransformer = require('@bandyer/ts-transformer-type-structure/transformer').default;
 
 module.exports = {
     mode: "production",
@@ -52,9 +53,12 @@ module.exports = {
                 test: /\.tsx?$/,
                 loader: "awesome-typescript-loader",
                 options: {
-                    compiler: 'ttypescript'
+                    compiler: 'ttypescript',
+                    getCustomTransformers: program => ({
+                        before: [typeStructureTransformer(program)]
+                    })
                 }
-            },
+            }
         ]
     },
     node: {

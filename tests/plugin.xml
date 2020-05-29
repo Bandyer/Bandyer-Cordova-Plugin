@@ -1,0 +1,7 @@
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="bandyer-cordova-plugin-integration-tests" version="0.0.1">
+    <name>Bandyer Cordova Plugin Integration Tests</name>
+    <license>Apache 2.0</license>
+    <js-module src="www/Integration Tests/index.js" name="tests"/>
+</plugin>

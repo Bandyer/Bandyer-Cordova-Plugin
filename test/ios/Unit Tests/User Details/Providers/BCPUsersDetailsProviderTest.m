@@ -9,17 +9,17 @@
 #import "BCPTestingMacros.h"
 #import "BCPExceptionsMatcher.h"
 
-#import "BCPUsersDetailsFetcher.h"
+#import "BCPUsersDetailsProvider.h"
 #import "BCPUsersDetailsCache.h"
 
-@interface BCPUsersDetailsFetcherTest : BCPTestCase
+@interface BCPUsersDetailsProviderTest : BCPTestCase
 
 @end
 
-@implementation BCPUsersDetailsFetcherTest
+@implementation BCPUsersDetailsProviderTest
 {
     BCPUsersDetailsCache *cache;
-    BCPUsersDetailsFetcher *sut;
+    BCPUsersDetailsProvider *sut;
     BDKUserInfoDisplayItem *item1;
     BDKUserInfoDisplayItem *item2;
 }
@@ -32,14 +32,14 @@
     item2 = [[BDKUserInfoDisplayItem alloc] initWithAlias:@"alias2"];
 
     cache = [BCPUsersDetailsCache new];
-    sut = [[BCPUsersDetailsFetcher alloc] initWithCache:cache];
+    sut = [[BCPUsersDetailsProvider alloc] initWithCache:cache];
 }
 
 __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testThrowsInvalidArgumentExceptionWhenNilCacheIsProvidedInInitialization
 {
-    assertThat(^{[[BCPUsersDetailsFetcher alloc] initWithCache:nil];}, throwsInvalidArgumentException());
+    assertThat(^{[[BCPUsersDetailsProvider alloc] initWithCache:nil];}, throwsInvalidArgumentException());
 }
 
 - (void)testFetchesUsersDetailsFromCache
@@ -78,7 +78,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testCopyReturnsACopy
 {
-    BCPUsersDetailsFetcher *copy = [sut copy];
+    BCPUsersDetailsProvider *copy = [sut copy];
 
     assertThat(copy, notNilValue());
     assertThat(copy, isNot(sameInstance(sut)));
