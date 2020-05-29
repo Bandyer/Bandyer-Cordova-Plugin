@@ -1,3 +1,5 @@
+apply plugin: 'kotlin-kapt'
+
 dependencies {
     implementation (deps.bandyerSDK) {
         exclude group:"org.conscrypt", module: "conscrypt-android"

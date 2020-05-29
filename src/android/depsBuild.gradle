@@ -4,8 +4,6 @@ rootProject.ext {
     BANDYER_SDK_OK_HTTP_VERSION = '3.12.10'
     BANDYER_SDK_ROOM_VERSION = "2.2.5"
 
-    apply plugin: 'kotlin-kapt'
-
     deps = [
             // Bandyer SDK
             bandyerSDK: "com.bandyer:bandyer-android-sdk:$BANDYER_SDK_VERSION",
