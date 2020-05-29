@@ -134,9 +134,9 @@ class BandyerCordovaPlugin : CordovaPlugin() {
         }
     }
 
-    private fun clearUsersDetails(callbackContext: CallbackContext) {
+    private fun removeUsersDetails(callbackContext: CallbackContext) {
         try {
-            bandyerCordovaPluginManager!!.clearUserDetails(cordova.context.applicationContext)
+            bandyerCordovaPluginManager!!.removeUsersDetails(cordova.context.applicationContext)
             callbackContext.success()
         } catch (e: Throwable) {
             callbackContext.error(e.message)

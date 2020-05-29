@@ -276,7 +276,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
 
     fun chatError(reason: String) = sendEvent(Events.ChatError.name, reason)
 
-    fun clearUserDetails(context: Context) {
+    fun removeUsersDetails(context: Context) {
         usersDetailMap.clear()
         IO { UserDetailsDB.getInstance(context)?.clearAllTables() }
     }
