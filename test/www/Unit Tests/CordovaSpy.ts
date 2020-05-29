@@ -18,6 +18,18 @@ export class CordovaSpy implements Cordova {
         this.execInvocations.push(inv);
     }
 
+    simulateSuccess(data: any) {
+        this.execInvocations.forEach((it) => {
+            it.success(data)
+        })
+    }
+
+    simulateFailure(err: any) {
+        this.execInvocations.forEach((it) => {
+            it.fail(err)
+        })
+    }
+
     require(moduleName: string): any {
         return null;
     }
