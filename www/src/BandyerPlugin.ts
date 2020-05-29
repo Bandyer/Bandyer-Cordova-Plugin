@@ -16,7 +16,7 @@ import {Environments} from "./Environments";
 import {CallDisplayMode} from "./CallDisplayMode";
 import {CallKitConfig} from "./CallKitConfig";
 import {UserDetailsFormat} from "./UserDetailsFormat";
-import {UserDetailsFormatValidator} from "./UserDetailsFormatValidator"
+import {UserDetailsFormatValidator} from "./UserDetailsFormatValidator";
 
 /**
  * @ignore
@@ -94,7 +94,6 @@ export class BandyerPlugin extends EventListener {
         const fail = (error) => {
             console.error("BandyerPluginSetup failed setup", error);
         };
-
 
         const callkit: CallKitConfig = params.iosConfig?.callkit !== undefined ? params.iosConfig.callkit : {enabled: params.iosConfig?.callkitEnabled !== false};
 
@@ -277,10 +276,10 @@ export class BandyerPlugin extends EventListener {
         assertType<UserDetailsFormat>(format);
 
         const validator = new UserDetailsFormatValidator();
-        validator.validate(format.default)
+        validator.validate(format.default);
 
         if (format.android_notification) {
-            validator.validate(format.android_notification)
+            validator.validate(format.android_notification);
         }
 
         cordova.exec(null, null, "BandyerPlugin", "setUserDetailsFormat", [{

@@ -27,12 +27,13 @@ export class UserDetailsFormatValidator {
     }
 
     private findKeywords(format: string): string[] {
-        const regex = /\${([\w]+)}/g
+        const regex = /\${([\w]+)}/g;
         let match;
         const matches: string[] = [];
         while ((match = regex.exec(format)) !== null) {
-            if (match[1] && match[1] !== null)
+            if (match[1] && match[1] !== null) {
                 matches.push(match[1]);
+            }
         }
         return matches;
     }
