@@ -10,6 +10,11 @@
  * You can listen to these events via [[BandyerPlugin.on]]
  */
 export enum Events {
+
+    /**
+     * @see [[SetupSuccessEvent]]
+     */
+    setupSuccess = "setupSuccess",
     /**
      * @see [[SetupErrorEvent]]
      */

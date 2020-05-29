@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BCPBandyerEvents *)iOSVoipPushTokenInvalidated;
 + (BCPBandyerEvents *)iOSVoipPushTokenUpdated;
 + (BCPBandyerEvents *)setupError;
++ (BCPBandyerEvents *)setupSuccess;
 @end
 
 

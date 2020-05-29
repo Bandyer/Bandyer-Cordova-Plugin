@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
         @"iOSVoipPushTokenInvalidated": [[BCPBandyerEvents alloc] initWithValue:@"iOSVoipPushTokenInvalidated"],
         @"iOSVoipPushTokenUpdated": [[BCPBandyerEvents alloc] initWithValue:@"iOSVoipPushTokenUpdated"],
         @"setupError": [[BCPBandyerEvents alloc] initWithValue:@"setupError"],
+        @"setupSuccess": [[BCPBandyerEvents alloc] initWithValue:@"setupSuccess"],
     };
 }
 
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BCPBandyerEvents *)iOSVoipPushTokenInvalidated { return BCPBandyerEvents.values[@"iOSVoipPushTokenInvalidated"]; }
 + (BCPBandyerEvents *)iOSVoipPushTokenUpdated { return BCPBandyerEvents.values[@"iOSVoipPushTokenUpdated"]; }
 + (BCPBandyerEvents *)setupError { return BCPBandyerEvents.values[@"setupError"]; }
++ (BCPBandyerEvents *)setupSuccess { return BCPBandyerEvents.values[@"setupSuccess"]; }
 
 + (instancetype _Nullable)withValue:(NSString *)value
 {

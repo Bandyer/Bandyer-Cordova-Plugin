@@ -12,11 +12,12 @@ import {SetupErrorEvent} from "./SetupErrorEvent";
 import {CallErrorEvent} from "./call/CallErrorEvent";
 import {ChatErrorEvent} from "./chat/ChatErrorEvent";
 import {VoipPushTokenEvents} from "./call/VoipPushTokenEvents";
+import {SetupSuccessEvent} from "./SetupSuccessEvent";
 
 /**
  * Event listener used to subscribe to the events fired by the Bandyer plugin
  */
-export abstract class EventListener implements CallStatusChangedEvent, ChatStatusChangedEvent, SetupErrorEvent, CallErrorEvent, ChatErrorEvent, VoipPushTokenEvents {
+export abstract class EventListener implements CallStatusChangedEvent, ChatStatusChangedEvent, SetupSuccessEvent, SetupErrorEvent, CallErrorEvent, ChatErrorEvent, VoipPushTokenEvents {
     /**
      * Available events
      */
@@ -24,12 +25,13 @@ export abstract class EventListener implements CallStatusChangedEvent, ChatStatu
 
     on(event: Events.callModuleStatusChanged, callback: (status: string) => void);
     on(event: Events.chatModuleStatusChanged, callback: (status: string) => void);
+    on(event: Events.setupSuccess, callback: () => void);
     on(event: Events.setupError, callback: (reason: string) => void);
     on(event: Events.callError, callback: (reason: string) => void);
     on(event: Events.chatError, callback: (reason: string) => void);
     on(event: Events.iOSVoipPushTokenUpdated, callback: (token: string) => void);
     on(event: Events.iOSVoipPushTokenInvalidated, callback: () => void);
-    on(event: Events.callModuleStatusChanged | Events.chatModuleStatusChanged | Events.setupError | Events.callError | Events.chatError | Events.iOSVoipPushTokenUpdated | Events.iOSVoipPushTokenInvalidated, callback: ((status: string) => void) | (() => void)) {
+    on(event: Events.callModuleStatusChanged | Events.chatModuleStatusChanged | Events.setupSuccess | Events.setupError | Events.callError | Events.chatError | Events.iOSVoipPushTokenUpdated | Events.iOSVoipPushTokenInvalidated, callback: ((status: string) => void) | (() => void)) {
         assertType<Events>(event);
         this._registerForEvent(event, callback);
     }
