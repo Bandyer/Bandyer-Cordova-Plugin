@@ -71,7 +71,7 @@ export class BandyerPlugin extends EventListener {
             throw new IllegalArgumentError("Expected a not empty appId!");
         }
 
-        if (this._isIos() && device.isVirtual && (!params.iosConfig.fakeCapturerFileName || params.iosConfig.fakeCapturerFileName === "")) {
+        if (this._isIos() && device.isVirtual && (params.iosConfig?.fakeCapturerFileName  == undefined  || params.iosConfig?.fakeCapturerFileName === "")) {
             throw new IllegalArgumentError("Expected a valid file name to initialize the fake capturer on a simulator!");
         }
 

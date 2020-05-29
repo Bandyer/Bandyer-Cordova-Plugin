@@ -118,7 +118,7 @@ describe('Plugin setup', function () {
         expect(firstArg["android_keepListeningForEventsInBackground"]).toEqual(true);
     });
 
-    test('Calls "initializeBandyer" action with the mandatory only arguments provided in config parameter', () => {
+    test('When running on generic device, calls "initializeBandyer" action with the mandatory only arguments provided in config parameter', () => {
         const config = {
             environment: Environments.sandbox(),
             appId: 'mAppId_a21393y2a4ada1231'
@@ -151,7 +151,22 @@ describe('Plugin setup', function () {
         expect(firstArg["android_isChatEnabled"]).toEqual(true);
         expect(firstArg["android_isWhiteboardEnabled"]).toEqual(true);
         expect(firstArg["android_keepListeningForEventsInBackground"]).toEqual(false);
-    })
+    });
+
+    test('When running on iOS simulator, throws an error if fakeCapturerFileName mandatory parameter is missing during plugin setup', () => {
+        device.simulateVirtual();
+        device.simulateiOS();
+        const config = {
+            environment: Environments.sandbox(),
+            appId: 'mAppId_a21393y2a4ada1231'
+        };
+
+        const setup = () => {
+            BandyerPlugin.setup(config);
+        };
+
+        expect(setup).toThrowError("Expected a valid file name to initialize the fake capturer on a simulator!");
+    });
 });
 
 describe('Plugin start', () => {
