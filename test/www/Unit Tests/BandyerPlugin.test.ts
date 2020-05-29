@@ -27,6 +27,22 @@ afterEach(() => {
     BandyerPlugin.instance = undefined;
 });
 
+describe('Plugin setupAsync', function () {
+
+    test('Promise fails when called with invalid arguments', (done) => {
+        const config: BandyerPluginConfigs = makePluginConfig();
+        config.appId = undefined;
+        const promise = BandyerPlugin.setupAsync(config);
+        promise.then(() => {
+                fail("This should fail");
+                done();
+            },
+            (err) => {
+                done()
+            });
+    });
+});
+
 describe('Plugin setup', function () {
 
     test('Throws an invalid argument exception when appId parameter is missing', () => {

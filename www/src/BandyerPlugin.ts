@@ -117,6 +117,25 @@ export class BandyerPlugin extends EventListener {
     }
 
     /**
+     * Call this method when device is ready to setup the plugin
+     * @param params
+     */
+    static setupAsync(params: BandyerPluginConfigs): Promise<BandyerPlugin> {
+
+        function error(err: any) {
+            //
+        }
+
+        function success(data: any) {
+            //
+        }
+
+        return new Promise<BandyerPlugin>((s, e) => {
+            e();
+        });
+    }
+
+    /**
      * @ignore
      * @private
      */
