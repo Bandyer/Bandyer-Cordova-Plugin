@@ -160,6 +160,40 @@ bandyerPlugin.startChat({
                     withAudioVideoCallCapability: {recording: false} // define if you want the audio&video call button in the chat UI, and set recording if you desire to be recorded
 });
 ```
+## Set user details
+This method will allow you to set your user details DB from which the sdk will read when needed to show the information.
+> Be sure to have this always up to date, otherwise if an incoming call is received and the user is missing in this set the userAlias will be printed on the UI.
+```javascript
+var arrayUserDetails = [
+            {userAlias: "user_1", firstName : "User1Name", lastName:"User1Surname"},
+            {userAlias: "user_2", firstName : "User2Name", lastName:"User2Surname"}
+];
+
+bandyerPlugin.addUsersDetails(arrayUserDetails);
+```
+
+## Remove all user details
+This method will allow you to remove all the user info from the local app DB.
+```javascript
+bandyerPlugin.removeUsersDetails();
+```
+
+## Set user details format
+This method will allow you to specify how you want your user details to be displayed.
+> Be aware that you can specify only keywords which exist in the UserDetails type.
+
+For example: if you wish to show only the firstName while your dataset contains also the lastName you may change it here.
+```javascript
+bandyerPlugin.setUserDetailsFormat({
+    default: "${firstName} ${lastName}",
+    android_notification_format: "${firstName} ${lastName}" // optional if you wish to personalize the details in the notification.
+});
+```
+
+## Remove all the cached info in preferences and DBs
+```javascript
+bandyerPlugin.clearUserCache();
+```
 
 ## Android change display mode
 This method is useful for use-cases where you need to show a prompt and don't want it to be invalidated by the call going into pip.
