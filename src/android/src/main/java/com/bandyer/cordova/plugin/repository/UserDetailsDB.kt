@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase
  *
  * @author kristiyan
  */
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class], version = 1, exportSchema = false)
 abstract class UserDetailsDB : RoomDatabase() {
 
     companion object {
