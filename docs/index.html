@@ -197,6 +197,40 @@ bandyerPlugin.startFor(<span class="hljs-string">'usr_xxx'</span>);</code></pre>
                     <span class="hljs-attr">withAudioUpgradableCallCapability</span>: {<span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>}, <span class="hljs-comment">// define if you want the audio upgradable call button in the chat UI, and set recording if you desire to be recorded.</span>
                     <span class="hljs-attr">withAudioVideoCallCapability</span>: {<span class="hljs-attr">recording</span>: <span class="hljs-literal">false</span>} <span class="hljs-comment">// define if you want the audio&amp;video call button in the chat UI, and set recording if you desire to be recorded</span>
 });</code></pre>
+				<a href="#set-user-details" id="set-user-details" style="color: inherit; text-decoration: none;">
+					<h2>Set user details</h2>
+				</a>
+				<p>This method will allow you to set your user details DB from which the sdk will read when needed to show the information.</p>
+				<blockquote>
+					<p>Be sure to have this always up to date, otherwise if an incoming call is received and the user is missing in this set the userAlias will be printed on the UI.</p>
+				</blockquote>
+				<pre><code class="language-javascript"><span class="hljs-keyword">var</span> arrayUserDetails = [
+            {<span class="hljs-attr">userAlias</span>: <span class="hljs-string">"user_1"</span>, <span class="hljs-attr">firstName</span> : <span class="hljs-string">"User1Name"</span>, <span class="hljs-attr">lastName</span>:<span class="hljs-string">"User1Surname"</span>},
+            {<span class="hljs-attr">userAlias</span>: <span class="hljs-string">"user_2"</span>, <span class="hljs-attr">firstName</span> : <span class="hljs-string">"User2Name"</span>, <span class="hljs-attr">lastName</span>:<span class="hljs-string">"User2Surname"</span>}
+];
+
+bandyerPlugin.addUsersDetails(arrayUserDetails);</code></pre>
+				<a href="#remove-all-user-details" id="remove-all-user-details" style="color: inherit; text-decoration: none;">
+					<h2>Remove all user details</h2>
+				</a>
+				<p>This method will allow you to remove all the user info from the local app DB.</p>
+				<pre><code class="language-javascript">bandyerPlugin.removeUsersDetails();</code></pre>
+				<a href="#set-user-details-format" id="set-user-details-format" style="color: inherit; text-decoration: none;">
+					<h2>Set user details format</h2>
+				</a>
+				<p>This method will allow you to specify how you want your user details to be displayed.</p>
+				<blockquote>
+					<p>Be aware that you can specify only keywords which exist in the UserDetails type.</p>
+				</blockquote>
+				<p>For example: if you wish to show only the firstName while your dataset contains also the lastName you may change it here.</p>
+				<pre><code class="language-javascript">bandyerPlugin.setUserDetailsFormat({
+    <span class="hljs-attr">default</span>: <span class="hljs-string">"${firstName} ${lastName}"</span>,
+    <span class="hljs-attr">android_notification_format</span>: <span class="hljs-string">"${firstName} ${lastName}"</span> <span class="hljs-comment">// optional if you wish to personalize the details in the notification.</span>
+});</code></pre>
+				<a href="#remove-all-the-cached-info-in-preferences-and-dbs" id="remove-all-the-cached-info-in-preferences-and-dbs" style="color: inherit; text-decoration: none;">
+					<h2>Remove all the cached info in preferences and DBs</h2>
+				</a>
+				<pre><code class="language-javascript">bandyerPlugin.clearUserCache();</code></pre>
 				<a href="#android-change-display-mode" id="android-change-display-mode" style="color: inherit; text-decoration: none;">
 					<h2>Android change display mode</h2>
 				</a>
@@ -246,6 +280,9 @@ bandyerPlugin.startFor(<span class="hljs-string">'usr_xxx'</span>);</code></pre>
 					<li class=" tsd-kind-class">
 						<a href="classes/illegalargumenterror.html" class="tsd-kind-icon">Illegal<wbr>Argument<wbr>Error</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/userdetailsformatvalidator.html" class="tsd-kind-icon">User<wbr>Details<wbr>Format<wbr>Validator</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/androidconfig.html" class="tsd-kind-icon">Android<wbr>Config</a>
 					</li>
@@ -272,6 +309,9 @@ bandyerPlugin.startFor(<span class="hljs-string">'usr_xxx'</span>);</code></pre>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/userdetails.html" class="tsd-kind-icon">User<wbr>Details</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/userdetailsformat.html" class="tsd-kind-icon">User<wbr>Details<wbr>Format</a>
 					</li>
 					<li class=" tsd-kind-event">
 						<a href="globals.html#callerrorevent" class="tsd-kind-icon">Call<wbr>Error<wbr>Event</a>
@@ -317,6 +357,9 @@ bandyerPlugin.startFor(<span class="hljs-string">'usr_xxx'</span>);</code></pre>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
 			</ul>
 		</div>
 	</div>
