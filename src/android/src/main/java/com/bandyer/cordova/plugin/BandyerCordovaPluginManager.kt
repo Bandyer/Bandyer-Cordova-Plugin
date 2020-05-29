@@ -172,7 +172,7 @@ class BandyerCordovaPluginManager(var bandyerCallbackContext: CallbackContext?) 
 
     fun clearUserCache(context: Context) {
         context.getSharedPreferences(BANDYER_CORDOVA_PLUGIN_PREF, Context.MODE_PRIVATE).edit().clear().apply()
-        clearUserDetails(context)
+        removeUsersDetails(context)
         BandyerSDKClient.getInstance().clearUserCache()
         BandyerSDKClient.getInstance().dispose()
     }
