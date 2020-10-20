@@ -36,7 +36,6 @@
 @implementation BCPBandyerPluginTests
 {
     UIViewController *viewController;
-    BCPBandyerPlugin *sut;
     id<CDVCommandDelegate> delegate;
 }
 
@@ -46,9 +45,6 @@
 
     viewController = [UIViewController new];
     delegate = mockProtocol(@protocol(CDVCommandDelegate));
-    sut = [[BCPBandyerPlugin alloc] init];
-    sut.commandDelegate = delegate;
-    sut.viewController = viewController;
 }
 
 // MARK: Initialize
@@ -58,7 +54,6 @@
     BCPBandyerPlugin *sut = [self makeSUT];
 
     CDVInvokedUrlCommand *command = [self makeCommand:@"callbackId" payload:@{}];
-
     [sut initializeBandyer:command];
 
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_error]) callbackId:@"callbackId"];
@@ -67,10 +62,10 @@
 - (void)testInitializeBandyerReportsErrorWhenAppIdIsMissing
 {
     BCPBandyerPlugin *sut = [self makeSUT];
+
     CDVInvokedUrlCommand *command = [self makeCommand:@"callbackId" payload:@{
         @"environment" : @"sandbox"
     }];
-
     [sut initializeBandyer:command];
 
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_error]) callbackId:@"callbackId"];
@@ -79,11 +74,11 @@
 - (void)testInitializeBandyerReportsErrorWhenAppIdIsBlank
 {
     BCPBandyerPlugin *sut = [self makeSUT];
+
     CDVInvokedUrlCommand *command = [self makeCommand:@"callbackId" payload:@{
         @"environment" : @"sandbox",
         @"appId" : [NSString string]
     }];
-
     [sut initializeBandyer:command];
 
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_error]) callbackId:@"callbackId"];
@@ -93,11 +88,11 @@
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
     BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
+
     CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{
         @"environment" : @"sandbox",
         @"appId" : @"appId"
     }];
-
     [sut initializeBandyer:command];
 
     HCArgumentCaptor *configCaptor = [HCArgumentCaptor new];
@@ -110,11 +105,11 @@
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
     BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
+
     CDVInvokedUrlCommand *command = [self makeCommand:@"callbackId" payload:@{
         @"environment" : @"sandbox",
         @"appId" : @"appId"
     }];
-
     [sut initializeBandyer:command];
 
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_success]) callbackId:@"callbackId"];
@@ -124,12 +119,12 @@
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
     BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
+
     CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{
         @"environment" : @"sandbox",
         @"appId" : @"appId",
         @"logEnabled" : @YES
     }];
-
     [self addTeardownBlock:^{
         BandyerSDK.logLevel = BDFLogLevelOff;
     }];
@@ -141,8 +136,7 @@
 - (void)testInitializeBandyerTellsUICoordinatorTheSDKHasBeenInitialized
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock];
-    [sut pluginInitialize];
+    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
 
     CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{
         @"environment" : @"sandbox",
@@ -159,9 +153,9 @@
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
     BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
+
     CDVInvokedUrlCommand *command = [self makeCommand:@"callbackId" payload:@{
     }];
-
     [sut start:command];
 
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_error]) callbackId:@"callbackId"];
@@ -171,10 +165,10 @@
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
     BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
+
     CDVInvokedUrlCommand *command = [self makeCommand:@"callbackId" payload:@{
         @"userAlias" : [NSString string]
     }];
-
     [sut start:command];
 
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_error]) callbackId:@"callbackId"];
@@ -324,9 +318,8 @@
 - (void)testStartCallReportsSuccessOnSuccess
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock];
+    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
 
-    [sut pluginInitialize];
     CDVInvokedUrlCommand *command = [self makeCommand:@"commandId"
                                               payload:@{
                                                   @"callee" : @[@"foobar"],
@@ -341,9 +334,8 @@
 - (void)testStartCallTellsUICoordinatorToHandleMakeCallIntentWhenArgumentsProvideOutgoingCallInformation
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock];
+    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
 
-    [sut pluginInitialize];
     CDVInvokedUrlCommand *command = [self makeCommand:@"commandId"
                                               payload:@{
                                                   @"callee" : @[@"foobar"],
@@ -364,9 +356,8 @@
 - (void)testStartCallTellsUICoordinatorToHandleJoinURLIntentWhenArgumentsProvideJoinURL
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock];
+    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
 
-    [sut pluginInitialize];
     CDVInvokedUrlCommand *command = [self makeCommand:@"commandId"
                                               payload:@{
                                                   @"joinUrl" : @"https://www.bandyer.com/"
@@ -384,9 +375,8 @@
 - (void)testStartChatReportsErrorWhenArgumentsArrayDoesNotContainUserAlias
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
+    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock initializePlugin:YES];
 
-    [sut pluginInitialize];
     CDVInvokedUrlCommand *command = [self makeCommand:@"commandId"
                                               payload:@{}];
     [sut startChat:command];
@@ -397,9 +387,8 @@
 - (void)testStartChatTellsUICoordinatorToHandleOpenChatIntent
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock];
+    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
 
-    [sut pluginInitialize];
     CDVInvokedUrlCommand *command = [self makeCommand:@"commandId"
                                               payload:@{
                                                   @"userAlias" : @"foobar"
@@ -412,9 +401,8 @@
 - (void)testStartChatReportsSuccessOnSuccess
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock];
+    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
 
-    [sut pluginInitialize];
     CDVInvokedUrlCommand *command = [self makeCommand:@"commandId"
                                               payload:@{
                                                   @"userAlias" : @"foobar"
@@ -442,8 +430,7 @@
 - (void)testAddUserDetailsAddsUserDetailsToCache
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
-    [sut pluginInitialize];
+    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock initializePlugin:YES];
 
     CDVInvokedUrlCommand *command = [self makeCommand:@"commandId" payload:@{
         @"details" : @[@{@"userAlias" : @"foobar"}]
@@ -456,8 +443,7 @@
 - (void)testAddUserDetailsReportsSuccessOnSuccess
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
-    [sut pluginInitialize];
+    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock initializePlugin:YES];
 
     CDVInvokedUrlCommand *command = [self makeCommand:@"commandId" payload:@{
         @"details" : @[@{@"userAlias" : @"foobar"}]
@@ -470,8 +456,7 @@
 - (void)testAddUserDetailsReportsErrorWhenDetailsArrayIsMissingFromArgumentsArray
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
-    [sut pluginInitialize];
+    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock initializePlugin:YES];
 
     CDVInvokedUrlCommand *command = [self makeCommand:@"commandId" payload:@{
     }];
@@ -485,8 +470,7 @@
 - (void)testRemoveUsersDetailsReportsSuccessOnSuccess
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
-    [sut pluginInitialize];
+    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock initializePlugin:YES];
 
     CDVInvokedUrlCommand *addCommand = [self makeCommand:@"commandId" payload:@{
         @"details" : @[@{@"userAlias" : @"foobar"}]
@@ -502,11 +486,12 @@
 
 - (void)testReportsSuccessWhenSettingUserDetailsFormatIfCommandArgumentContainsTheExpectedData
 {
+    BCPBandyerPlugin *sut = [self makeSUTInitializePlugin:YES];
+
     NSDictionary *payload = @{
         @"default" : @"${firstName} ${lastName}"
     };
     CDVInvokedUrlCommand * command = [self makeCommand:@"callbackId" payload:payload];
-
     [sut setUserDetailsFormat:command];
 
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_success]) callbackId:@"callbackId"];
@@ -514,13 +499,12 @@
 
 - (void)testSetsUserDetailsFormatOnUserInterfaceCoordinator
 {
-    [sut pluginInitialize];
+    BCPBandyerPlugin *sut = [self makeSUTInitializePlugin:YES];
 
     NSDictionary *payload = @{
         @"default" : @"${firstName} ${lastName}"
     };
     CDVInvokedUrlCommand * command = [self makeCommand:@"callbackId" payload:payload];
-
     [sut setUserDetailsFormat:command];
 
     assertThat(sut.coordinator.userDetailsFormat, equalTo(@"${firstName} ${lastName}"));
@@ -528,8 +512,9 @@
 
 - (void)testReportsFailureWhenSettingUserDetailsFormatIfFormatStringIsMissing
 {
-    CDVInvokedUrlCommand * command = [self makeCommand:@"callbackId" payload:@{}];
+    BCPBandyerPlugin *sut = [self makeSUTInitializePlugin:YES];
 
+    CDVInvokedUrlCommand * command = [self makeCommand:@"callbackId" payload:@{}];
     [sut setUserDetailsFormat:command];
 
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_error]) callbackId:@"callbackId"];
@@ -537,11 +522,12 @@
 
 - (void)testReportsFailureWhenSettingUserDetailsFormatIfFormatIsNotAString
 {
+    BCPBandyerPlugin *sut = [self makeSUTInitializePlugin:YES];
+
     NSDictionary *payload = @{
         @"default" : @1
     };
     CDVInvokedUrlCommand * command = [self makeCommand:@"callbackId" payload:payload];
-
     [sut setUserDetailsFormat:command];
 
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_error]) callbackId:@"callbackId"];
@@ -585,22 +571,43 @@
 
 - (BCPBandyerPlugin *)makeSUT
 {
-    return [self makeSUTWithSDK:BandyerSDK.instance];
+    return [self makeSUTInitializePlugin:NO];
+}
+
+- (BCPBandyerPlugin *)makeSUTInitializePlugin:(BOOL)initializePlugin
+{
+    return [self makeSUTWithSDK:mock(BandyerSDK.class) initializePlugin:initializePlugin];
 }
 
 - (BCPBandyerPlugin *)makeSUTWithSDK:(BandyerSDK *)sdk
 {
-    BCPBandyerPlugin *sut = [[BCPBandyerPlugin alloc] initWithBandyerSDK:sdk];
-    sut.commandDelegate = delegate;
-    sut.viewController = viewController;
-    return sut;
+    return [self makeSUTWithSDK:sdk initializePlugin:NO];
+}
+
+- (BCPBandyerPlugin *)makeSUTWithSDK:(BandyerSDK *)sdk initializePlugin:(BOOL)initializePlugin
+{
+    return [self makeSUTWithSDK:sdk class:BCPBandyerPlugin.class initializePlugin:initializePlugin];
 }
 
 - (BCPBandyerPlugin *)makeExposedSUTWithSDK:(BandyerSDK *)sdk
 {
-    BCPBandyerPlugin *sut = [[BCPBandyerPluginExposed alloc] initWithBandyerSDK:sdk];
+    return [self makeExposedSUTWithSDK:sdk initializePlugin:NO];
+}
+
+- (BCPBandyerPlugin *)makeExposedSUTWithSDK:(BandyerSDK *)sdk initializePlugin:(BOOL)initializePlugin
+{
+    return [self makeSUTWithSDK:sdk class:BCPBandyerPluginExposed.class initializePlugin:initializePlugin];
+}
+
+- (BCPBandyerPlugin *)makeSUTWithSDK:(BandyerSDK *)sdk class:(Class)class initializePlugin:(BOOL)initializePlugin
+{
+    BCPBandyerPlugin *sut = [[class alloc] initWithBandyerSDK:sdk];
     sut.commandDelegate = delegate;
     sut.viewController = viewController;
+
+    if (initializePlugin)
+        [sut pluginInitialize];
+
     return sut;
 }
 
