@@ -31,7 +31,20 @@
             _callWindow = BDKCallWindow.instance;
         } else
         {
-            _callWindow = [[BDKCallWindow alloc] init];
+            if (@available(iOS 13.0, *))
+            {
+                UIScene *scene = [UIApplication.sharedApplication.connectedScenes.allObjects firstObject];
+                if ([scene isKindOfClass:UIWindowScene.class])
+                {
+                    _callWindow = [[BDKCallWindow alloc] initWithWindowScene:(UIWindowScene *)scene];
+                } else
+                {
+                    _callWindow = [[BDKCallWindow alloc] init];
+                }
+            } else
+            {
+                _callWindow = [[BDKCallWindow alloc] init];
+            }
         }
 
         _callWindow.callDelegate = self;
