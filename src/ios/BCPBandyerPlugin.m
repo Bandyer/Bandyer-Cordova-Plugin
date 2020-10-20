@@ -11,7 +11,7 @@
 #import "BCPContactHandleProvider.h"
 #import "BCPPushTokenEventsReporter.h"
 #import "BCPChatClientEventsReporter.h"
-
+#import "BCPUsersDetailsProvider.h"
 #import "CDVPluginResult+BCPFactoryMethods.h"
 #import "NSString+BandyerPlugin.h"
 
@@ -122,7 +122,7 @@
     }
 
     [self.sdk initializeWithApplicationId:appID config:config];
-
+    self.sdk.userInfoFetcher = [[BCPUsersDetailsProvider alloc] initWithCache:self.usersCache];
     [self.coordinator sdkInitialized];
     self.callClientEventsReporter = [[BCPCallClientEventsReporter alloc] initWithCallClient:self.sdk.callClient eventEmitter:self.eventEmitter];
     [self.callClientEventsReporter start];

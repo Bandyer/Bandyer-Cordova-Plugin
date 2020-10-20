@@ -12,6 +12,7 @@
 #import "BCPUserInterfaceCoordinator.h"
 #import "BCPPluginResultMatcher.h"
 #import "BCPUsersDetailsCache.h"
+#import "BCPUsersDetailsProvider.h"
 #import "CDVPluginResult+BCPFactoryMethods.h"
 
 @interface BCPBandyerPluginExposed : BCPBandyerPlugin
@@ -87,7 +88,7 @@
 - (void)testInitializeBandyerInitializesTheNativeSDK
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
+    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
 
     CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{
         @"environment" : @"sandbox",
@@ -101,10 +102,24 @@
     assertThat(config.environment.name, equalTo(BDKEnvironment.sandbox.name));
 }
 
+- (void)testInitializeBandyerAddUserDetailsProviderToNativeSDK
+{
+    BandyerSDK *sdkMock = [self makeSDKMock];
+    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
+
+    CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{
+        @"environment" : @"sandbox",
+        @"appId" : @"appId"
+    }];
+    [sut initializeBandyer:command];
+
+    [verify(sdkMock) setUserInfoFetcher:instanceOf(BCPUsersDetailsProvider.class)];
+}
+
 - (void)testInitializeBandyerNotifiesSuccess
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
+    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
 
     CDVInvokedUrlCommand *command = [self makeCommand:@"callbackId" payload:@{
         @"environment" : @"sandbox",
@@ -118,7 +133,7 @@
 - (void)testInitializeBandyerEnablesLoggingWhenEnableLogFlagIsProvidedInConfig
 {
     BandyerSDK *sdkMock = [self makeSDKMock];
-    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
+    BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
 
     CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{
         @"environment" : @"sandbox",
