@@ -1,7 +1,5 @@
-//
 // Copyright © 2019 Bandyer S.r.l. All rights reserved.
 // See LICENSE.txt for licensing information
-//
 
 #import "BCPUserInterfaceCoordinator.h"
 #import "BCPMacros.h"
@@ -10,68 +8,54 @@
 #import "BCPUserDetailsFormatter.h"
 
 #import <Bandyer/Bandyer.h>
-#import <Bandyer/Bandyer-Swift.h>
 
-@interface BCPUserInterfaceCoordinator () <BDKCallWindowDelegate, BCHChannelViewControllerDelegate, BCHMessageNotificationControllerDelegate, BDKCallBannerControllerDelegate>
+@interface BCPUserInterfaceCoordinator () <BDKCallWindowDelegate, BCHChannelViewControllerDelegate, BDKCallBannerControllerDelegate, BDKInAppChatNotificationTouchListener, BDKInAppFileShareNotificationTouchListener>
 
 @property (nonatomic, weak, readonly) UIViewController *viewController;
-@property (nonatomic, strong, readonly) BCPUsersDetailsCache *cache;
 @property (nonatomic, strong) BDKCallBannerController *callBannerController;
-@property (nonatomic, strong) BCHMessageNotificationController *messageNotificationController;
 @property (nonatomic, strong, readwrite) BDKCallWindow *callWindow;
 
 @end
 
 @implementation BCPUserInterfaceCoordinator
 
-- (BDKCallWindow *)callWindow
+- (void)setSdk:(BandyerSDK *)sdk
 {
-    if (!_callWindow)
+    _sdk = sdk;
+
+    if (sdk != nil)
     {
-        if (BDKCallWindow.instance)
-        {
-            _callWindow = BDKCallWindow.instance;
-        } else
-        {
-            _callWindow = [[BDKCallWindow alloc] init];
-        }
-
-        _callWindow.callDelegate = self;
+        [self didSetSdk];
     }
-
-    return _callWindow;
 }
 
-- (instancetype)initWithRootViewController:(UIViewController *)viewController usersCache:(BCPUsersDetailsCache *)cache
+- (instancetype)initWithRootViewController:(UIViewController *)viewController
 {
     BCPAssertOrThrowInvalidArgument(viewController, @"A view controller must be provided, got nil");
-    BCPAssertOrThrowInvalidArgument(cache, @"Users details cache must be provided, got nil");
 
     self = [super init];
 
     if (self)
     {
         _viewController = viewController;
-        _cache = cache;
     }
 
     return self;
 }
 
-- (void)sdkInitialized
+- (void)didSetSdk
 {
     [self setupCallBannerView];
-    [self setupNotificationView];
-    [self.messageNotificationController show];
+    [self setupInAppNotifications];
     [self.callBannerController show];
 }
 
-- (void)setupNotificationView
+- (void)setupInAppNotifications
 {
-    self.messageNotificationController = [BCHMessageNotificationController new];
-    self.messageNotificationController.configuration = [[BCHMessageNotificationControllerConfiguration alloc] initWithUserInfoFetcher:[[BCPUsersDetailsProvider alloc] initWithCache:self.cache]];;
-    self.messageNotificationController.delegate = self;
-    self.messageNotificationController.parentViewController = self.viewController;
+    self.sdk.notificationsCoordinator.chatListener = self;
+    self.sdk.notificationsCoordinator.fileShareListener = self;
+    self.sdk.notificationsCoordinator.formatter = [self makeFormatterIfPossible];
+    [self.sdk.notificationsCoordinator start];
 }
 
 - (void)setupCallBannerView
@@ -81,9 +65,38 @@
     self.callBannerController.parentViewController = self.viewController;
 }
 
-//-------------------------------------------------------------------------------------------
+- (void)makeCallWindowIfNeeded
+{
+    if (_callWindow == nil)
+    {
+        if (BDKCallWindow.instance)
+        {
+            _callWindow = BDKCallWindow.instance;
+        } else
+        {
+            if (@available(iOS 13.0, *))
+            {
+                UIScene *scene = [UIApplication.sharedApplication.connectedScenes.allObjects firstObject];
+                if ([scene isKindOfClass:UIWindowScene.class])
+                {
+                    _callWindow = [[BDKCallWindow alloc] initWithWindowScene:(UIWindowScene *)scene];
+                } else
+                {
+                    _callWindow = [[BDKCallWindow alloc] init];
+                }
+            } else
+            {
+                _callWindow = [[BDKCallWindow alloc] init];
+            }
+        }
+
+        _callWindow.callDelegate = self;
+    }
+}
+
+//------------------------------------------------------------------------
 #pragma mark - Handling intent
-//-------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------
 
 - (void)handleIntent:(id <BDKIntent>)intent
 {
@@ -94,22 +107,21 @@
         [self presentChatFrom:self.viewController intent:intent];
     else
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"An unknown intent type has been provided" userInfo:nil];
-
 }
 
-//-------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 #pragma mark - Present Chat ViewController
-//-------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 
-- (void)presentChatFrom:(BCHChatNotification *)notification
+- (void)presentChatFrom:(BDKChatNotification *)notification
 {
-    if (!self.viewController.presentedViewController)
+    if (self.viewController.presentedViewController == nil)
     {
         [self presentChatFrom:self.viewController notification:notification];
     }
 }
 
-- (void)presentChatFrom:(UIViewController *)controller notification:(BCHChatNotification *)notification
+- (void)presentChatFrom:(UIViewController *)controller notification:(BDKChatNotification *)notification
 {
     BCHOpenChatIntent *intent = [BCHOpenChatIntent openChatFrom:notification];
 
@@ -126,34 +138,33 @@
         channelViewController.modalPresentationStyle = UIModalPresentationFullScreen;
     }
 
-    BCPUsersDetailsProvider *fetcher = [[BCPUsersDetailsProvider alloc] initWithCache:self.cache];
-    BCHChannelViewControllerConfiguration *configuration = [[BCHChannelViewControllerConfiguration alloc] initWithAudioButton:YES videoButton:YES userInfoFetcher:fetcher];
+    NSFormatter *formatter = [self makeFormatterIfPossible];
+    BCHChannelViewControllerConfiguration *configuration = [[BCHChannelViewControllerConfiguration alloc] initWithAudioButton:YES videoButton:YES formatter:formatter];
     channelViewController.configuration = configuration;
     channelViewController.intent = intent;
 
     [controller presentViewController:channelViewController animated:YES completion:nil];
 }
 
-//-------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 #pragma mark - Present Call ViewController
-//-------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 
 - (void)presentCallInterfaceForIntent:(id <BDKIntent>)intent
 {
     BDKCallViewControllerConfiguration *config = [BDKCallViewControllerConfiguration new];
     config.fakeCapturerFileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:self.fakeCapturerFilename ofType:@"mp4"]];
-    config.userInfoFetcher = [[BCPUsersDetailsProvider alloc] initWithCache:self.cache];
 
-    if (self.userDetailsFormat)
+    NSFormatter *formatter = [self makeFormatterIfPossible];
+    if (formatter != nil)
     {
         config.callInfoTitleFormatter = [[BCPUserDetailsFormatter alloc] initWithFormat:self.userDetailsFormat];
     }
 
+    [self makeCallWindowIfNeeded];
     [self.callWindow setConfiguration:config];
-
-    [self.callWindow shouldPresentCallViewControllerWithIntent:intent completion:^(BOOL succeeded) {
-
-        if (!succeeded)
+    [self.callWindow presentCallViewControllerFor:intent completion:^(NSError * _Nullable error) {
+        if (error != nil)
         {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Another call ongoing." preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:NULL];
@@ -164,22 +175,28 @@
     }];
 }
 
-//-------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------
 #pragma mark - Hide Call ViewController
-//-------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------
 
 - (void)hideCallInterface
 {
     self.callWindow.hidden = YES;
 }
 
-//-------------------------------------------------------------------------------------------
+- (void)destroyCallWindow
+{
+    self.callWindow = nil;
+}
+
+//--------------------------------------------------------------------
 #pragma mark - Call window delegate
-//-------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------
 
 - (void)callWindowDidFinish:(BDKCallWindow *)window
 {
     [self hideCallInterface];
+    [self destroyCallWindow];
 }
 
 - (void)callWindow:(BDKCallWindow *)window openChatWith:(BCHOpenChatIntent *)intent
@@ -188,9 +205,9 @@
     [self presentChatFrom:self.viewController intent:intent];
 }
 
-//-------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------
 #pragma mark - Channel view controller delegate
-//-------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------
 
 - (void)channelViewControllerDidFinish:(BCHChannelViewController *)controller
 {
@@ -205,20 +222,6 @@
 - (void)channelViewController:(BCHChannelViewController *)controller didTapVideoCallWith:(NSArray *)users
 {
     [self presentCallInterfaceForIntent:[BDKMakeCallIntent intentWithCallee:users type:BDKCallTypeAudioVideo]];
-}
-
-- (void)channelViewController:(BCHChannelViewController *)controller didTouchNotification:(BCHChatNotification *)notification
-{
-    if ([self.viewController.presentedViewController isKindOfClass:BCHChannelViewController.class])
-    {
-        [controller dismissViewControllerAnimated:YES completion:^{
-            [self presentChatFrom:notification];
-        }];
-
-        return;
-    }
-
-    [self presentChatFrom:notification];
 }
 
 - (void)channelViewController:(BCHChannelViewController *)controller willHide:(BDKCallBannerView *)banner
@@ -236,18 +239,33 @@
     }];
 }
 
-//-------------------------------------------------------------------------------------------
-#pragma mark - Message Notification Controller delegate
-//-------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------
+#pragma mark - In app notifications touch listeners
+//----------------------------------------------------------------------
 
-- (void)messageNotificationController:(BCHMessageNotificationController *)controller didTouch:(BCHChatNotification *)notification
+- (void)didTouchChatNotification:(BDKChatNotification *)notification
 {
-    [self presentChatFrom:notification];
+    [self hideCallInterface];
+
+    if ([self.viewController.presentedViewController isKindOfClass:BCHChannelViewController.class])
+    {
+        [self.viewController.presentedViewController dismissViewControllerAnimated:YES completion:^{
+            [self presentChatFrom:notification];
+        }];
+    } else
+    {
+        [self presentChatFrom:notification];
+    }
 }
 
-//-------------------------------------------------------------------------------------------
+- (void)didTouchFileShareNotification:(BDKFileShareNotification *)notification
+{
+    [self.callWindow presentCallViewControllerFor:[BDKOpenDownloadsIntent new] completion:^(NSError * _Nullable error) {}];
+}
+
+//----------------------------------------------------------
 #pragma mark - Call Banner Controller delegate
-//-------------------------------------------------------------------------------------------
+//----------------------------------------------------------
 
 - (void)callBannerController:(BDKCallBannerController *)controller willHide:(BDKCallBannerView *)banner
 {
@@ -260,6 +278,18 @@
 - (void)callBannerController:(BDKCallBannerController *)controller didTouch:(BDKCallBannerView *)banner
 {
     [self presentCallInterfaceForIntent:self.callWindow.intent];
+}
+
+//------------------------------------------------------------
+#pragma mark - Formatter
+//------------------------------------------------------------
+
+- (nullable NSFormatter *)makeFormatterIfPossible
+{
+    if (self.userDetailsFormat != nil)
+        return [[BCPUserDetailsFormatter alloc] initWithFormat:self.userDetailsFormat];
+
+    return nil;
 }
 
 @end

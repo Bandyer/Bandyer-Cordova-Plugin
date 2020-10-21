@@ -1,28 +1,25 @@
 PODS:
-  - Bandyer (1.4.0):
-    - Bandyer/WebRTC (= 1.4.0)
-    - Socket.IO-Client-Swift (~> 15.1)
+  - Bandyer (1.7.2):
+    - Socket.IO-Client-Swift (~> 15.2)
     - TwilioChatClient (~> 2.6)
-  - Bandyer/WebRTC (1.4.0):
-    - Socket.IO-Client-Swift (~> 15.1)
-    - TwilioChatClient (~> 2.6)
-  - Cordova (4.5.4)
+  - Cordova (5.1.1)
   - OCHamcrest (7.1.2)
   - OCMockito (5.1.2):
     - OCHamcrest (~> 7.0)
   - Socket.IO-Client-Swift (15.2.0):
     - Starscream (~> 3.1)
   - Starscream (3.1.1)
-  - TwilioChatClient (2.6.5)
+  - TwilioChatClient (2.6.6)
 
 DEPENDENCIES:
-  - Bandyer (from `https://github.com/Bandyer/Bandyer-iOS-SDK.git`, tag `1.4.0`)
-  - Cordova (~> 4.5.4)
+  - Bandyer (~> 1.7.2)
+  - Cordova (~> 5.1)
   - OCHamcrest (~> 7.1)
   - OCMockito (~> 5.1)
 
 SPEC REPOS:
   trunk:
+    - Bandyer
     - Cordova
     - OCHamcrest
     - OCMockito
@@ -30,25 +27,15 @@ SPEC REPOS:
     - Starscream
     - TwilioChatClient
 
-EXTERNAL SOURCES:
-  Bandyer:
-    :git: https://github.com/Bandyer/Bandyer-iOS-SDK.git
-    :tag: 1.4.0
-
-CHECKOUT OPTIONS:
-  Bandyer:
-    :git: https://github.com/Bandyer/Bandyer-iOS-SDK.git
-    :tag: 1.4.0
-
 SPEC CHECKSUMS:
-  Bandyer: 406c164a8246f76be8f02043d0413f4a503d7693
-  Cordova: 90a337977b8667a80483f559268c82062b1183da
+  Bandyer: 8418cb7cc051a9b92ad123a8ef8f95ddd32e3f8c
+  Cordova: 5490a208d8396a5cdbbba24732cb2f8779123f8e
   OCHamcrest: b284c9592c28c1e4025a8542e67ea41a635d0d73
   OCMockito: 51a534e667194e1ecae88c5def301cc8b0ab3cc7
   Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
-  TwilioChatClient: c7d2cc9c7769f9f082bbac719c09192e62bf26cc
+  TwilioChatClient: 23168c2df8e306da1cedcad1d60ba69862235358
 
-PODFILE CHECKSUM: 29887175eebba6043a9d2f9b40f648f4480c1e8a
+PODFILE CHECKSUM: b262223a9ef406a9f92e83d987ce71e741bf5261
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

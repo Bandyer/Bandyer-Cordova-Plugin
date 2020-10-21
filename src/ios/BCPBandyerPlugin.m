@@ -1,7 +1,5 @@
-//
 // Copyright © 2019 Bandyer S.r.l. All Rights Reserved.
 // See LICENSE for licensing information
-//
 
 #import "BCPBandyerPlugin.h"
 #import "BCPUsersDetailsCache.h"
@@ -13,12 +11,11 @@
 #import "BCPContactHandleProvider.h"
 #import "BCPPushTokenEventsReporter.h"
 #import "BCPChatClientEventsReporter.h"
-
+#import "BCPUsersDetailsProvider.h"
 #import "CDVPluginResult+BCPFactoryMethods.h"
 #import "NSString+BandyerPlugin.h"
 
 #import <Bandyer/Bandyer.h>
-#import <Bandyer/Bandyer-Swift.h>
 
 @interface BCPBandyerPlugin () <BCXCallClientObserver>
 
@@ -27,17 +24,48 @@
 @property (nonatomic, strong, nullable) BCPEventEmitter *eventEmitter;
 @property (nonatomic, strong, nullable) BCPCallClientEventsReporter *callClientEventsReporter;
 @property (nonatomic, strong, nullable) BCPChatClientEventsReporter *chatClientEventsReporter;
+@property (nonatomic, strong, readwrite) BandyerSDK *sdk;
 
 @end
 
 @implementation BCPBandyerPlugin
 
-- (void)pluginInitialize 
+- (instancetype)init
+{
+    self = [self initWithBandyerSDK:BandyerSDK.instance];
+    return self;
+}
+
+- (instancetype)initWithBandyerSDK:(BandyerSDK *)sdk
+{
+    NSParameterAssert(sdk);
+
+    self = [super init];
+    if (self)
+    {
+        _sdk = sdk;
+    }
+    return self;
+}
+
+- (void)pluginInitialize
 {
     [super pluginInitialize];
 
+    [self setupSDKIfNeeded];
     self.usersCache = [BCPUsersDetailsCache new];
-    self.coordinator = [[BCPUserInterfaceCoordinator alloc] initWithRootViewController:self.viewController usersCache:self.usersCache];
+    self.coordinator = [self makeUserInterfaceCoordinator];
+}
+
+- (BCPUserInterfaceCoordinator *)makeUserInterfaceCoordinator
+{
+    return [[BCPUserInterfaceCoordinator alloc] initWithRootViewController:self.viewController];
+}
+
+- (void)setupSDKIfNeeded
+{
+    if (_sdk == nil)
+        _sdk = BandyerSDK.instance;
 }
 
 - (void)initializeBandyer:(CDVInvokedUrlCommand *)command 
@@ -96,15 +124,15 @@
 
     if ([args[kBCPLogEnabledKey] boolValue] == YES)
     {
-        [BDKConfig setLogLevel:BDFDDLogLevelAll];
+        BandyerSDK.logLevel = BDFLogLevelAll;
     }
 
-    [BandyerSDK.instance initializeWithApplicationId:appID config:config];
-
-    [self.coordinator sdkInitialized];
-    self.callClientEventsReporter = [[BCPCallClientEventsReporter alloc] initWithCallClient:BandyerSDK.instance.callClient eventEmitter:self.eventEmitter];
+    [self.sdk initializeWithApplicationId:appID config:config];
+    self.sdk.userInfoFetcher = [[BCPUsersDetailsProvider alloc] initWithCache:self.usersCache];
+    self.coordinator.sdk = self.sdk;
+    self.callClientEventsReporter = [[BCPCallClientEventsReporter alloc] initWithCallClient:self.sdk.callClient eventEmitter:self.eventEmitter];
     [self.callClientEventsReporter start];
-    self.chatClientEventsReporter = [[BCPChatClientEventsReporter alloc] initWithChatClient:BandyerSDK.instance.chatClient eventEmitter:self.eventEmitter];
+    self.chatClientEventsReporter = [[BCPChatClientEventsReporter alloc] initWithChatClient:self.sdk.chatClient eventEmitter:self.eventEmitter];
     [self.chatClientEventsReporter start];
     [self reportCommandSucceeded:command];
 }
@@ -120,47 +148,44 @@
         return;
     }
 
-    [BandyerSDK.instance.callClient addObserver:self queue:dispatch_get_main_queue()];
-    [BandyerSDK.instance.callClient start:user];
-    [BandyerSDK.instance.chatClient start:user];
+    [self.sdk.callClient addObserver:self queue:dispatch_get_main_queue()];
+    [self.sdk.callClient start:user];
+    [self.sdk.chatClient start:user];
 
     [self reportCommandSucceeded:command];
 }
 
 - (void)stop:(CDVInvokedUrlCommand *)command 
 {
-    [BandyerSDK.instance.callClient removeObserver:self];
-    [BandyerSDK.instance.callClient stop];
-    [BandyerSDK.instance.chatClient stop];
+    [self.sdk.callClient removeObserver:self];
+    [self.sdk.callClient stop];
+    [self.sdk.chatClient stop];
 
     [self reportCommandSucceeded:command];
 }
 
 - (void)pause:(CDVInvokedUrlCommand *)command 
 {
-    [BandyerSDK.instance.callClient pause];
-    [BandyerSDK.instance.chatClient pause];
+    [self.sdk.callClient pause];
+    [self.sdk.chatClient pause];
 
     [self reportCommandSucceeded:command];
 }
 
 - (void)resume:(CDVInvokedUrlCommand *)command 
 {
-    [BandyerSDK.instance.callClient resume];
-    [BandyerSDK.instance.chatClient resume];
+    [self.sdk.callClient resume];
+    [self.sdk.chatClient resume];
 
     [self reportCommandSucceeded:command];
 }
 
 - (void)state:(CDVInvokedUrlCommand *)command 
 {
-    BCXCallClientState state = [BandyerSDK.instance.callClient state];
+    BCXCallClientState state = [self.sdk.callClient state];
     NSString *stateAsString = [NSStringFromBCXCallClientState(state) lowercaseString];
 
-    if (stateAsString)
-        [self reportCommandSucceeded:command withMessageAsString:stateAsString];
-    else
-        [self reportCommandFailed:command];
+    [self reportCommandSucceeded:command withMessageAsString:stateAsString];
 }
 
 - (void)handlePushNotificationPayload:(CDVInvokedUrlCommand *)command 
