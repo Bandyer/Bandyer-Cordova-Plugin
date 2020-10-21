@@ -159,7 +159,7 @@
     }];
     [sut initializeBandyer:command];
 
-    [verify(sut.coordinator) sdkInitialized];
+    [verify(sut.coordinator) setSdk:sdkMock];
 }
 
 // MARK: Start

@@ -16,7 +16,6 @@
 #import "NSString+BandyerPlugin.h"
 
 #import <Bandyer/Bandyer.h>
-#import <Bandyer/Bandyer-Swift.h>
 
 @interface BCPBandyerPlugin () <BCXCallClientObserver>
 
@@ -25,7 +24,7 @@
 @property (nonatomic, strong, nullable) BCPEventEmitter *eventEmitter;
 @property (nonatomic, strong, nullable) BCPCallClientEventsReporter *callClientEventsReporter;
 @property (nonatomic, strong, nullable) BCPChatClientEventsReporter *chatClientEventsReporter;
-@property (nonatomic, strong, readonly) BandyerSDK *sdk;
+@property (nonatomic, strong, readwrite) BandyerSDK *sdk;
 
 @end
 
@@ -53,13 +52,20 @@
 {
     [super pluginInitialize];
 
+    [self setupSDKIfNeeded];
     self.usersCache = [BCPUsersDetailsCache new];
     self.coordinator = [self makeUserInterfaceCoordinator];
 }
 
 - (BCPUserInterfaceCoordinator *)makeUserInterfaceCoordinator
 {
-    return [[BCPUserInterfaceCoordinator alloc] initWithRootViewController:self.viewController usersCache:self.usersCache];
+    return [[BCPUserInterfaceCoordinator alloc] initWithRootViewController:self.viewController];
+}
+
+- (void)setupSDKIfNeeded
+{
+    if (_sdk == nil)
+        _sdk = BandyerSDK.instance;
 }
 
 - (void)initializeBandyer:(CDVInvokedUrlCommand *)command 
@@ -123,7 +129,7 @@
 
     [self.sdk initializeWithApplicationId:appID config:config];
     self.sdk.userInfoFetcher = [[BCPUsersDetailsProvider alloc] initWithCache:self.usersCache];
-    [self.coordinator sdkInitialized];
+    self.coordinator.sdk = self.sdk;
     self.callClientEventsReporter = [[BCPCallClientEventsReporter alloc] initWithCallClient:self.sdk.callClient eventEmitter:self.eventEmitter];
     [self.callClientEventsReporter start];
     self.chatClientEventsReporter = [[BCPChatClientEventsReporter alloc] initWithChatClient:self.sdk.chatClient eventEmitter:self.eventEmitter];

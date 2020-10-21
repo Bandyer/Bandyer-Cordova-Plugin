@@ -2,20 +2,20 @@
 // See LICENSE.txt for licensing information
 
 #import <UIKit/UIKit.h>
-#import <Bandyer/BDKIntent.h>
 
-@class BCPUsersDetailsCache;
+@protocol BDKIntent;
+@class BandyerSDK;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BCPUserInterfaceCoordinator : NSObject
 
-@property (nonatomic, strong) NSString *fakeCapturerFilename;
+@property (nonatomic, strong, nullable) BandyerSDK *sdk;
+@property (nonatomic, strong, nullable) NSString *fakeCapturerFilename;
 @property (nonatomic, strong, nullable) NSString *userDetailsFormat;
 
-- (instancetype)initWithRootViewController:(UIViewController *)viewController usersCache:(BCPUsersDetailsCache *)cache;
+- (instancetype)initWithRootViewController:(UIViewController *)viewController;
 
-- (void)sdkInitialized;
 - (void)handleIntent:(id <BDKIntent>)intent;
 
 - (instancetype)init NS_UNAVAILABLE;

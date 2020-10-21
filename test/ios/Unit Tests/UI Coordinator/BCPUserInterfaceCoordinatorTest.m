@@ -1,7 +1,5 @@
-//
 // Copyright © 2019 Bandyer S.r.l. All rights reserved.
 // See LICENSE.txt for licensing information
-//
 
 #import <OCHamcrest/OCHamcrest.h>
 
@@ -22,8 +20,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testThrowsInvalidArgumentExceptionWhenMandatoryArgumentIsMissingDuringInitialization
 {
-    assertThat(^{[[BCPUserInterfaceCoordinator alloc] initWithRootViewController:nil usersCache:[BCPUsersDetailsCache new]];}, throwsInvalidArgumentException());
-    assertThat(^{[[BCPUserInterfaceCoordinator alloc] initWithRootViewController:[[UIViewController alloc] init] usersCache:nil];}, throwsInvalidArgumentException());
+    assertThat(^{[[BCPUserInterfaceCoordinator alloc] initWithRootViewController:nil];}, throwsInvalidArgumentException());
 }
 
 __SUPPRESS_WARNINGS_FOR_TEST_END
