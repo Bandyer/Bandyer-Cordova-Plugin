@@ -60,10 +60,9 @@
         <source-file src="src/ios/CDVPluginResult+BCPFactoryMethods.m" />
         <podspec>
             <config>
-                <source url="https://github.com/CocoaPods/Specs.git" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Bandyer" spec="1.4.0" />
+                <pod name="Bandyer" spec="1.7.2" />
             </pods>
         </podspec>
         <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />
