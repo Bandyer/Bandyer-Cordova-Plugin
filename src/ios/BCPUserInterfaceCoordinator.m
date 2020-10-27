@@ -115,7 +115,12 @@
 
 - (void)presentChatFrom:(BDKChatNotification *)notification
 {
-    if (self.viewController.presentedViewController == nil)
+    if (self.viewController.presentedViewController != nil)
+    {
+        [self.viewController dismissViewControllerAnimated:YES completion:^{
+            [self presentChatFrom:notification];
+        }];
+    } else
     {
         [self presentChatFrom:self.viewController notification:notification];
     }
@@ -196,7 +201,6 @@
 - (void)callWindowDidFinish:(BDKCallWindow *)window
 {
     [self hideCallInterface];
-    [self destroyCallWindow];
 }
 
 - (void)callWindow:(BDKCallWindow *)window openChatWith:(BCHOpenChatIntent *)intent
@@ -211,7 +215,7 @@
 
 - (void)channelViewControllerDidFinish:(BCHChannelViewController *)controller
 {
-    [controller dismissViewControllerAnimated:YES completion:nil];
+    [self.viewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)channelViewController:(BCHChannelViewController *)controller didTapAudioCallWith:(NSArray *)users
@@ -234,7 +238,7 @@
 
 - (void)channelViewController:(BCHChannelViewController *)controller didTouchBanner:(BDKCallBannerView *)banner
 {
-    [controller dismissViewControllerAnimated:YES completion:^{
+    [self.viewController dismissViewControllerAnimated:YES completion:^{
         [self presentCallInterfaceForIntent:self.callWindow.intent];
     }];
 }
@@ -245,17 +249,9 @@
 
 - (void)didTouchChatNotification:(BDKChatNotification *)notification
 {
-    [self hideCallInterface];
-
-    if ([self.viewController.presentedViewController isKindOfClass:BCHChannelViewController.class])
-    {
-        [self.viewController.presentedViewController dismissViewControllerAnimated:YES completion:^{
-            [self presentChatFrom:notification];
-        }];
-    } else
-    {
+    [self.callWindow dismissCallViewControllerWithCompletion:^{
         [self presentChatFrom:notification];
-    }
+    }];
 }
 
 - (void)didTouchFileShareNotification:(BDKFileShareNotification *)notification
