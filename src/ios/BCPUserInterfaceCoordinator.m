@@ -8,6 +8,7 @@
 #import "BCPUserDetailsFormatter.h"
 
 #import <Bandyer/Bandyer.h>
+#import <Cordova/CDVPlugin.h>
 
 @interface BCPUserInterfaceCoordinator () <BDKCallWindowDelegate, BCHChannelViewControllerDelegate, BDKCallBannerControllerDelegate, BDKInAppChatNotificationTouchListener, BDKInAppFileShareNotificationTouchListener>
 
@@ -60,6 +61,7 @@
 
 - (void)setupCallBannerView
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillTransitionToSize:) name:CDVViewWillTransitionToSizeNotification object:nil];
     self.callBannerController = [BDKCallBannerController new];
     self.callBannerController.delegate = self;
     self.callBannerController.parentViewController = self.viewController;
@@ -115,7 +117,12 @@
 
 - (void)presentChatFrom:(BDKChatNotification *)notification
 {
-    if (self.viewController.presentedViewController == nil)
+    if (self.viewController.presentedViewController != nil)
+    {
+        [self.viewController dismissViewControllerAnimated:YES completion:^{
+            [self presentChatFrom:notification];
+        }];
+    } else
     {
         [self presentChatFrom:self.viewController notification:notification];
     }
@@ -196,7 +203,6 @@
 - (void)callWindowDidFinish:(BDKCallWindow *)window
 {
     [self hideCallInterface];
-    [self destroyCallWindow];
 }
 
 - (void)callWindow:(BDKCallWindow *)window openChatWith:(BCHOpenChatIntent *)intent
@@ -211,7 +217,7 @@
 
 - (void)channelViewControllerDidFinish:(BCHChannelViewController *)controller
 {
-    [controller dismissViewControllerAnimated:YES completion:nil];
+    [self.viewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)channelViewController:(BCHChannelViewController *)controller didTapAudioCallWith:(NSArray *)users
@@ -234,7 +240,7 @@
 
 - (void)channelViewController:(BCHChannelViewController *)controller didTouchBanner:(BDKCallBannerView *)banner
 {
-    [controller dismissViewControllerAnimated:YES completion:^{
+    [self.viewController dismissViewControllerAnimated:YES completion:^{
         [self presentCallInterfaceForIntent:self.callWindow.intent];
     }];
 }
@@ -245,17 +251,9 @@
 
 - (void)didTouchChatNotification:(BDKChatNotification *)notification
 {
-    [self hideCallInterface];
-
-    if ([self.viewController.presentedViewController isKindOfClass:BCHChannelViewController.class])
-    {
-        [self.viewController.presentedViewController dismissViewControllerAnimated:YES completion:^{
-            [self presentChatFrom:notification];
-        }];
-    } else
-    {
+    [self.callWindow dismissCallViewControllerWithCompletion:^{
         [self presentChatFrom:notification];
-    }
+    }];
 }
 
 - (void)didTouchFileShareNotification:(BDKFileShareNotification *)notification
@@ -278,6 +276,17 @@
 - (void)callBannerController:(BDKCallBannerController *)controller didTouch:(BDKCallBannerView *)banner
 {
     [self presentCallInterfaceForIntent:self.callWindow.intent];
+}
+
+//----------------------------------------------------------
+#pragma mark - UIViewController willTransitionToSize
+//----------------------------------------------------------
+
+- (void)viewWillTransitionToSize:(NSNotification *)notification
+{
+    NSValue *value = (NSValue *)notification.object;
+    CGSize size = [value CGSizeValue];
+    [self.callBannerController viewWillTransitionTo:size withTransitionCoordinator:nil];
 }
 
 //------------------------------------------------------------
