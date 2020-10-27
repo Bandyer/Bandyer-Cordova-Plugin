@@ -8,6 +8,7 @@
 #import "BCPUserDetailsFormatter.h"
 
 #import <Bandyer/Bandyer.h>
+#import <Cordova/CDVPlugin.h>
 
 @interface BCPUserInterfaceCoordinator () <BDKCallWindowDelegate, BCHChannelViewControllerDelegate, BDKCallBannerControllerDelegate, BDKInAppChatNotificationTouchListener, BDKInAppFileShareNotificationTouchListener>
 
@@ -60,6 +61,7 @@
 
 - (void)setupCallBannerView
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillTransitionToSize:) name:CDVViewWillTransitionToSizeNotification object:nil];
     self.callBannerController = [BDKCallBannerController new];
     self.callBannerController.delegate = self;
     self.callBannerController.parentViewController = self.viewController;
@@ -274,6 +276,17 @@
 - (void)callBannerController:(BDKCallBannerController *)controller didTouch:(BDKCallBannerView *)banner
 {
     [self presentCallInterfaceForIntent:self.callWindow.intent];
+}
+
+//----------------------------------------------------------
+#pragma mark - UIViewController willTransitionToSize
+//----------------------------------------------------------
+
+- (void)viewWillTransitionToSize:(NSNotification *)notification
+{
+    NSValue *value = (NSValue *)notification.object;
+    CGSize size = [value CGSizeValue];
+    [self.callBannerController viewWillTransitionTo:size withTransitionCoordinator:nil];
 }
 
 //------------------------------------------------------------
