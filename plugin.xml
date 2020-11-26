@@ -68,7 +68,7 @@
         <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />
     </platform>
 
-    <platform kotlin="1.3.40" name="android">
+    <platform kotlin="1.4.10" name="android">
         <apply-plugin>kotlin-android-extension</apply-plugin>
         <apply-plugin>kotlin-apt</apply-plugin>
 

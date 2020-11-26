@@ -7,12 +7,12 @@ def jsonFile = file('../../package.json')
 def properties = new groovy.json.JsonSlurper().parseText(jsonFile.text)
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName properties.version
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -33,9 +33,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation (deps.bandyerSDK) {
         exclude group:"org.conscrypt", module: "conscrypt-android"
     }
@@ -45,7 +45,7 @@ dependencies {
     implementation "org.apache.cordova:framework:8.0.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation 'androidx.core:core:1.2.0'
+    implementation 'androidx.core:core:1.3.2'
 }
 
 repositories {
