@@ -1,5 +1,5 @@
 {
-  "name": "cordova-plugin-bandyer",
+  "name": "@bandyer/cordova-plugin-bandyer",
   "private": true,
   "version": "0.6.4",
   "description": "Bandyer as simple as making a phone call",
@@ -11,9 +11,8 @@
   "bugs": {
     "url": "https://github.com/Bandyer/Bandyer-Cordova-Plugin/issues"
   },
-  "_location": "/cordova-plugin-bandyer",
   "cordova": {
-    "id": "cordova-plugin-bandyer",
+    "id": "@bandyer/cordova-plugin-bandyer",
     "platforms": [
       "ios",
       "android"
