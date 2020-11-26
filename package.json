@@ -1,5 +1,5 @@
 {
-  "name": "@bandyer/cordova-plugin-bandyer",
+  "name": "cordova-plugin-bandyer",
   "private": true,
   "version": "0.6.4",
   "description": "Bandyer as simple as making a phone call",
