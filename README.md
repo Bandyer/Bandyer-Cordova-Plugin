@@ -19,13 +19,13 @@ cordova plugin add @bandyer/cordova-plugin-bandyer
 ## How to link local plugin:
 Link the local plugin to the project
 ```bash
-cordova plugin add ../{path-to-local-plugin} --link
+cordova plugin add @bandyer/cordova-plugin-bandyer --searchPath ${path-to-local-plugin}  --link
 ```
 
 ## How to remove the plugin:
 
 ```bash
-cordova plugin remove cordova-plugin-bandyer
+cordova plugin remove @bandyer/cordova-plugin-bandyer
 ```
 
 ## Update the Cordova platforms
