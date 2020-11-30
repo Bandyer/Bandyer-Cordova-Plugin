@@ -70,7 +70,7 @@
 
     <platform kotlin="1.4.10" name="android">
         <apply-plugin>kotlin-android-extension</apply-plugin>
-        <apply-plugin>kotlin-apt</apply-plugin>
+        <apply-plugin>kotlin-kapt</apply-plugin>
 
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="BandyerPlugin">
