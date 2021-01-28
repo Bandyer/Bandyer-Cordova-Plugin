@@ -107,6 +107,9 @@ var bandyerPlugin = BandyerPlugin.setup({
 })
 ```
 
+**Android notificationKeyPath you may find an example here**
+https://github.com/Bandyer/Bandyer-Cordova-Example/blob/master/config.xml#L25-L43
+
 ## Plugin listen for errors/events
 To listen for events and/or errors register
 Check the documentation [here](https://bandyer.github.io/Bandyer-Cordova-Plugin//enums/events.html) for a complete list.
