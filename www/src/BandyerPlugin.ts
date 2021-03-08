@@ -37,7 +37,7 @@ const _bandyerHandlers = new Map();
 /**
  * BandyerPlugin
  */
-export class BandyerPlugin extends EventListener {
+export default class BandyerPlugin extends EventListener {
 
     /**
      * <b>To create an instance of the Bandyer Plugin call the [[setup]] method</b>
