@@ -8,7 +8,7 @@ ext {
     }
 
     if (project.hasProperty('cdvTargetSdkVersion')) {
-       cdvBuildToolsVersion = 30
+        cdvTargetSdkVersion = 30
     }
 }
 
