@@ -83,11 +83,11 @@ cordova <span class="hljs-keyword">plugin</span> add cordova-<span class="hljs-k
 					<h2>How to link local plugin:</h2>
 				</a>
 				<p>Link the local plugin to the project</p>
-				<pre><code class="language-bash">cordova plugin add ../{path-to-local-plugin} --link</code></pre>
+				<pre><code class="language-bash">cordova plugin add @bandyer/cordova-plugin-bandyer --searchPath <span class="hljs-variable">${path-to-local-plugin}</span>  --link</code></pre>
 				<a href="#how-to-remove-the-plugin" id="how-to-remove-the-plugin" style="color: inherit; text-decoration: none;">
 					<h2>How to remove the plugin:</h2>
 				</a>
-				<pre><code class="language-bash">cordova plugin remove cordova-plugin-bandyer</code></pre>
+				<pre><code class="language-bash">cordova plugin remove @bandyer/cordova-plugin-bandyer</code></pre>
 				<a href="#update-the-cordova-platforms" id="update-the-cordova-platforms" style="color: inherit; text-decoration: none;">
 					<h2>Update the Cordova platforms</h2>
 				</a>
@@ -150,6 +150,8 @@ mulator_video_sample.mp4</code></pre>
                 <span class="hljs-attr">whiteboardEnabled</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// enable whiteboard module on android</span>
             }
 })</code></pre>
+				<p><strong>Android notificationKeyPath you may find an example here</strong>
+				<a href="https://github.com/Bandyer/Bandyer-Cordova-Example/blob/master/config.xml#L25-L43">https://github.com/Bandyer/Bandyer-Cordova-Example/blob/master/config.xml#L25-L43</a></p>
 				<a href="#plugin-listen-for-errorsevents" id="plugin-listen-for-errorsevents" style="color: inherit; text-decoration: none;">
 					<h2>Plugin listen for errors/events</h2>
 				</a>

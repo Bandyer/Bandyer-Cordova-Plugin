@@ -1,7 +1,7 @@
 {
   "name": "@bandyer/cordova-plugin-bandyer",
   "private": true,
-  "version": "0.6.5",
+  "version": "0.6.6",
   "main": "./www/out/bandyer-plugin.min.js",
   "types": "./www/out/types/BandyerPlugin.d.ts",
   "description": "Bandyer as simple as making a phone call",
