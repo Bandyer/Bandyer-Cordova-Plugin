@@ -1,11 +1,10 @@
 const path = require('path');
 const typeStructureTransformer = require('@bandyer/ts-transformer-type-structure/transformer').default;
+const typescriptIsTransformer = require('typescript-is/lib/transform-inline/transformer').default
 
 module.exports = {
     mode: "production",
-    entry: {
-        main: ['./www/src/BandyerPlugin.ts']
-    },
+    entry: './www/src/BandyerPlugin.ts',
 
     // Enable sourcemaps for debugging webpack's output.
     //devtool: "source-map",
@@ -18,13 +17,13 @@ module.exports = {
         filename: 'bandyer-plugin.min.js',
         library: 'BandyerPlugin',
         libraryTarget: 'umd',
-        libraryExport: 'BandyerPlugin',
+        libraryExport: 'default',
         umdNamedDefine: true
     },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.tsx$/,
                 loader: 'babel-loader',
                 options: {
                     configFile: path.resolve('babel.config.js')
@@ -34,7 +33,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.js$/,
+                test: /\.tsx$/,
                 loader: 'babel-loader',
                 options: {
                     configFile: path.resolve('commonjs-babel.config.js')
@@ -50,12 +49,14 @@ module.exports = {
             //     loader: "source-map-loader"
             // },
             {
-                test: /\.tsx?$/,
-                loader: "awesome-typescript-loader",
+                test: /\.ts$/,
+                loader: 'ts-loader', // or 'awesome-typescript-loader'
+                exclude: /node_modules/,
                 options: {
-                    compiler: 'ttypescript',
                     getCustomTransformers: program => ({
-                        before: [typeStructureTransformer(program)]
+                        before: [
+                            typeStructureTransformer(program),
+                            typescriptIsTransformer(program)]
                     })
                 }
             }

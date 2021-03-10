@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "./www/out",
+    "outDir": "./www/out/types",
     "allowJs": true,
     "target": "es5",
+    "declaration": true,
+    "esModuleInterop": true,
     "plugins": [
       {
         "transform": "typescript-is/lib/transform-inline/transformer",
