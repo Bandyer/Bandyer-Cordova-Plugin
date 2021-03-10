@@ -20,8 +20,8 @@ import javax.net.ssl.X509TrustManager
  * @author kristiyan
  */
 
-fun BandyerSDK.Companion.createBuilder(application: Application, configuration: BandyerSDKConfiguration): BandyerSDK.Builder {
-    val builder = BandyerSDK.Builder(application, configuration.appId!!)
+fun BandyerSDK.Companion.createBuilder(application: Application, configuration: BandyerSDKConfiguration): BandyerSDK.Configuration {
+    val builder = BandyerSDK.Configuration(application, configuration.appId!!)
     when {
         configuration.isProdEnvironment -> builder.setEnvironment(Environment.production())
         configuration.isSandboxEnvironment -> builder.setEnvironment(Environment.sandbox())
