@@ -27,7 +27,7 @@ class BandyerCordovaPlugin : CordovaPlugin() {
                 params.length() > 0 ->
                     if (callbackContext != null) function.call(this, params, callbackContext)
                     else function.call(this, params)
-                else ->
+                else                ->
                     if (callbackContext != null) function.call(this, callbackContext)
                     else function.call(this)
             }
@@ -53,92 +53,97 @@ class BandyerCordovaPlugin : CordovaPlugin() {
         bandyerCordovaPluginManager = BandyerCordovaPluginManager(bandyerCallbackContext)
     }
 
-    private fun initializeBandyer(args: JSONArray, callbackContext: CallbackContext) {
+    private fun initializeBandyer(args: JSONArray, callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         bandyerCallbackContext = callbackContext
         bandyerCordovaPluginManager?.bandyerCallbackContext = callbackContext
         bandyerCordovaPluginManager!!.setup(application, args)
         cordova.setActivityResultCallback(this)
     }
 
-    private fun start(args: JSONArray, callbackContext: CallbackContext) {
+    private fun start(args: JSONArray, callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         bandyerCordovaPluginManager!!.start(cordova.activity, args)
     }
 
-    private fun resume(callbackContext: CallbackContext) {
+    private fun resume(callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         bandyerCordovaPluginManager!!.resume()
     }
 
-    private fun pause(callbackContext: CallbackContext) {
+    private fun pause(callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         bandyerCordovaPluginManager!!.pause()
     }
 
-    private fun stop(callbackContext: CallbackContext) {
+    private fun stop(callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         bandyerCordovaPluginManager!!.stop()
     }
 
-    private fun state(callbackContext: CallbackContext) {
+    private fun state(callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         try {
             val currentState = bandyerCordovaPluginManager!!.currentState
             callbackContext.success(currentState)
-        } catch (e: Throwable) {
+        }
+        catch (e: Throwable) {
             callbackContext.error(e.message)
         }
     }
 
-    private fun clearUserCache(callbackContext: CallbackContext) {
+    private fun clearUserCache(callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         try {
             bandyerCordovaPluginManager!!.clearUserCache(cordova.context.applicationContext)
             callbackContext.success()
-        } catch (e: Throwable) {
+        }
+        catch (e: Throwable) {
             callbackContext.error(e.message)
         }
     }
 
-    private fun handlePushNotificationPayload(args: JSONArray, callbackContext: CallbackContext) {
+    private fun handlePushNotificationPayload(args: JSONArray, callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         try {
             bandyerCordovaPluginManager!!.handlePushNotificationPayload(application, args)
             callbackContext.success()
-        } catch (e: Throwable) {
+        }
+        catch (e: Throwable) {
             callbackContext.error(e.message)
         }
     }
 
-    private fun verifyCurrentCall(args: JSONArray, callbackContext: CallbackContext) {
+    private fun verifyCurrentCall(args: JSONArray, callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         bandyerCordovaPluginManager!!.verifyCurrentCall(args)
     }
 
-    private fun setDisplayModeForCurrentCall(args: JSONArray, callbackContext: CallbackContext) {
+    private fun setDisplayModeForCurrentCall(args: JSONArray, callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         bandyerCordovaPluginManager!!.setDisplayModeForCurrentCall(args)
     }
 
-    private fun startCall(args: JSONArray, callbackContext: CallbackContext) {
+    private fun startCall(args: JSONArray, callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         bandyerCordovaPluginManager!!.startCall(this, args)
     }
 
-    private fun setUserDetailsFormat(args:JSONArray,callbackContext: CallbackContext) {
+    private fun setUserDetailsFormat(args: JSONArray, callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         bandyerCordovaPluginManager!!.setUserDetailsFormat(this, args)
     }
 
-    private fun startChat(args: JSONArray, callbackContext: CallbackContext) {
+    private fun startChat(args: JSONArray, callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         bandyerCordovaPluginManager!!.startChat(this, args)
     }
 
-    private fun addUsersDetails(args: JSONArray, callbackContext: CallbackContext) {
+    private fun addUsersDetails(args: JSONArray, callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         try {
             mCallCallback = callbackContext
-            if (args.length() == 0) return
+            if (args.length() == 0) return@runOnUiThread
             bandyerCordovaPluginManager!!.addUserDetails(this, args)
-        } catch (e: Throwable) {
+        }
+        catch (e: Throwable) {
             mCallCallback = null
             callbackContext.error(e.message)
         }
     }
 
-    private fun removeUsersDetails(callbackContext: CallbackContext) {
+    private fun removeUsersDetails(callbackContext: CallbackContext) = cordova.activity.runOnUiThread {
         try {
             bandyerCordovaPluginManager!!.removeUsersDetails(cordova.context.applicationContext)
             callbackContext.success()
-        } catch (e: Throwable) {
+        }
+        catch (e: Throwable) {
             callbackContext.error(e.message)
         }
     }

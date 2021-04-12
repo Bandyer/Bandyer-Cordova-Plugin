@@ -30,5 +30,6 @@ repositories {
     mavenLocal()
     google()
     mavenCentral()
+    maven { url 'https://maven.bandyer.com/releases' }
     jcenter()
 }
