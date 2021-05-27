@@ -162,8 +162,8 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 - (void)testReplacesTokensForEveryItemInTheArrayJoiningTheReplacedStringsWithAComma
 {
     BCPUserDetailsFormatter *sut = [self makeSUT:@"${firstname} ${lastname}"];
-    BDKUserInfoDisplayItem *firstItem = [self makeAnItemWithFirstname:@"Bob" lastname:@"Appleseed"];
-    BDKUserInfoDisplayItem *secondItem = [self makeAnItemWithFirstname:@"Jane" lastname:@"Appleseed"];
+    BDKUserInfoDisplayItem *firstItem = [self makeAnItemWithAlias:@"bob" firstname:@"Bob" lastname:@"Appleseed"];
+    BDKUserInfoDisplayItem *secondItem = [self makeAnItemWithAlias:@"jane" firstname:@"Jane" lastname:@"Appleseed"];
     NSArray<BDKUserInfoDisplayItem *>*items = @[firstItem, secondItem];
 
     NSString *string = [sut stringForObjectValue:items];
@@ -175,13 +175,24 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 - (void)testStringForObjectValueShouldDiscardAnyItemInTheArrayThatIsNotADisplayItem
 {
     BCPUserDetailsFormatter *sut = [self makeSUT:@"${firstname} ${lastname}"];
-    BDKUserInfoDisplayItem *firstItem = [self makeAnItemWithFirstname:@"Bob" lastname:@"Appleseed"];
+    BDKUserInfoDisplayItem *firstItem = [self makeAnItemWithAlias:@"alias" firstname:@"Bob" lastname:@"Appleseed"];
     NSArray *items = @[firstItem, @"foreign item"];
 
     NSString *string = [sut stringForObjectValue:items];
 
     assertThat(string, notNilValue());
     assertThat(string, equalTo(@"Bob Appleseed"));
+}
+
+- (void)testReturnsUserAliasWhenNoneOfTheTokensCanBeReplacedBecauseTheItemDoesNotProvideAnyValueForTheTokensDefinedInTheFormat
+{
+    BCPUserDetailsFormatter *sut = [self makeSUT:@"${firstname} ${lastname}"];
+    BDKUserInfoDisplayItem *item = [self makeAnItemWithAlias:@"alias"];
+    NSArray<BDKUserInfoDisplayItem *>*items = @[item];
+
+    NSString *string = [sut stringForObjectValue:items];
+
+    assertThat(string, equalTo(item.alias));
 }
 
 // MARK: Helpers
@@ -193,15 +204,21 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (BDKUserInfoDisplayItem *)makeAnItem
 {
-    return [self makeAnItemWithFirstname:@"Robert" lastname:@"Appleseed"];
+    return [self makeAnItemWithAlias:@"alias"];
 }
 
-- (BDKUserInfoDisplayItem *)makeAnItemWithFirstname:(NSString *)firstname lastname:(NSString *)lastname
+- (BDKUserInfoDisplayItem *)makeAnItemWithAlias:(NSString *)alias
 {
-    NSParameterAssert(firstname);
-    NSParameterAssert(lastname);
+    return [self makeAnItemWithAlias:alias firstname:nil lastname:nil];
+}
 
-    BDKUserInfoDisplayItem *item = [[BDKUserInfoDisplayItem alloc] initWithAlias:@"alias"];
+- (BDKUserInfoDisplayItem *)makeAnItemWithAlias:(NSString *)alias
+                                      firstname:(nullable NSString *)firstname
+                                       lastname:(nullable NSString *)lastname
+{
+    NSParameterAssert(alias);
+
+    BDKUserInfoDisplayItem *item = [[BDKUserInfoDisplayItem alloc] initWithAlias:alias];
     item.firstName = firstname;
     item.lastName = lastname;
     item.email = @"bob.appleseed@acme.com";

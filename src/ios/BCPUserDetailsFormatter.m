@@ -75,7 +75,11 @@
         }
     }
 
-    return [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *whitespaceTrimmed = [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+    if (whitespaceTrimmed == nil || [whitespaceTrimmed isEqualToString:[NSString string]])
+        return item.alias;
+    return whitespaceTrimmed;
 }
 
 - (NSArray<NSString *>*)matchingTokensInFormat
