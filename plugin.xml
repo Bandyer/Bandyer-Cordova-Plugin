@@ -60,6 +60,7 @@
         <source-file src="src/ios/CDVPluginResult+BCPFactoryMethods.m" />
         <podspec>
             <config>
+                <source url="https://cdn.cocoapods.org/" />
             </config>
             <pods use-frameworks="true">
                 <pod name="Bandyer" spec="1.7.3" />

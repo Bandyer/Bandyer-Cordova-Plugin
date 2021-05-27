@@ -159,6 +159,42 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     assertThat(string, equalTo(@"Bob"));
 }
 
+- (void)testReplacesTokensForEveryItemInTheArrayJoiningTheReplacedStringsWithAComma
+{
+    BCPUserDetailsFormatter *sut = [self makeSUT:@"${firstname} ${lastname}"];
+    BDKUserInfoDisplayItem *firstItem = [self makeAnItemWithAlias:@"bob" firstname:@"Bob" lastname:@"Appleseed"];
+    BDKUserInfoDisplayItem *secondItem = [self makeAnItemWithAlias:@"jane" firstname:@"Jane" lastname:@"Appleseed"];
+    NSArray<BDKUserInfoDisplayItem *>*items = @[firstItem, secondItem];
+
+    NSString *string = [sut stringForObjectValue:items];
+
+    assertThat(string, notNilValue());
+    assertThat(string, equalTo(@"Bob Appleseed, Jane Appleseed"));
+}
+
+- (void)testStringForObjectValueShouldDiscardAnyItemInTheArrayThatIsNotADisplayItem
+{
+    BCPUserDetailsFormatter *sut = [self makeSUT:@"${firstname} ${lastname}"];
+    BDKUserInfoDisplayItem *firstItem = [self makeAnItemWithAlias:@"alias" firstname:@"Bob" lastname:@"Appleseed"];
+    NSArray *items = @[firstItem, @"foreign item"];
+
+    NSString *string = [sut stringForObjectValue:items];
+
+    assertThat(string, notNilValue());
+    assertThat(string, equalTo(@"Bob Appleseed"));
+}
+
+- (void)testReturnsUserAliasWhenNoneOfTheTokensCanBeReplacedBecauseTheItemDoesNotProvideAnyValueForTheTokensDefinedInTheFormat
+{
+    BCPUserDetailsFormatter *sut = [self makeSUT:@"${firstname} ${lastname}"];
+    BDKUserInfoDisplayItem *item = [self makeAnItemWithAlias:@"alias"];
+    NSArray<BDKUserInfoDisplayItem *>*items = @[item];
+
+    NSString *string = [sut stringForObjectValue:items];
+
+    assertThat(string, equalTo(item.alias));
+}
+
 // MARK: Helpers
 
 - (BCPUserDetailsFormatter *)makeSUT:(NSString *)format
@@ -168,14 +204,29 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (BDKUserInfoDisplayItem *)makeAnItem
 {
-    BDKUserInfoDisplayItem *item = [[BDKUserInfoDisplayItem alloc] initWithAlias:@"alias"];
-    item.firstName = @"Robert";
-    item.lastName = @"Appleseed";
+    return [self makeAnItemWithAlias:@"alias"];
+}
+
+- (BDKUserInfoDisplayItem *)makeAnItemWithAlias:(NSString *)alias
+{
+    return [self makeAnItemWithAlias:alias firstname:nil lastname:nil];
+}
+
+- (BDKUserInfoDisplayItem *)makeAnItemWithAlias:(NSString *)alias
+                                      firstname:(nullable NSString *)firstname
+                                       lastname:(nullable NSString *)lastname
+{
+    NSParameterAssert(alias);
+
+    BDKUserInfoDisplayItem *item = [[BDKUserInfoDisplayItem alloc] initWithAlias:alias];
+    item.firstName = firstname;
+    item.lastName = lastname;
     item.email = @"bob.appleseed@acme.com";
     item.nickname = @"Bob";
     item.imageURL = [NSURL fileURLWithPath:@"img/res/bob.png"];
     return item;
 }
+
 
 __SUPPRESS_WARNINGS_FOR_TEST_END
 

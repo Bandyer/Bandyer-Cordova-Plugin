@@ -21,6 +21,7 @@ NSString *const kBCPCallTypeKey = @"callType";
 NSString *const kBCPJoinUrlKey = @"joinUrl";
 NSString *const kBCPRecordingKey = @"recording";
 NSString *const kBCPUserDetailsKey = @"details";
+NSString *const kBCPDetailsFormatterFormatKey = @"format";
 NSString *const kBCPAudioOnlyTypeKey = @"audio";
 NSString *const kBCPAudioUpgradableTypeKey = @"audioUpgradable";
 NSString *const kBCPAudioVideoTypeKey = @"audioVideo";

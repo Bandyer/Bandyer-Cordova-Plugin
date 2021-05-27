@@ -37,10 +37,27 @@
 
 - (nullable NSString *)stringForObjectValue:(id)obj
 {
-    if (![obj isKindOfClass:BDKUserInfoDisplayItem.class])
-        return nil;
+    if ([obj isKindOfClass:NSArray.class])
+        return [self stringForUserDisplayItems:obj];
 
-    return [self stringForUserDisplayItem:(BDKUserInfoDisplayItem*) obj];
+    if ([obj isKindOfClass:BDKUserInfoDisplayItem.class])
+        return [self stringForUserDisplayItem:(BDKUserInfoDisplayItem*) obj];
+
+    return nil;
+}
+
+- (NSString *)stringForUserDisplayItems:(NSArray<BDKUserInfoDisplayItem *> *)items
+{
+    NSMutableArray<NSString *> *strings = [NSMutableArray array];
+    for (BDKUserInfoDisplayItem *item in items)
+    {
+        NSString *string = [self stringForObjectValue:item];
+
+        if (string != nil)
+            [strings addObject:string];
+    }
+
+    return [strings componentsJoinedByString:@", "];
 }
 
 - (nullable NSString *)stringForUserDisplayItem:(BDKUserInfoDisplayItem *)item
@@ -58,7 +75,11 @@
         }
     }
 
-    return [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *whitespaceTrimmed = [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+
+    if (whitespaceTrimmed == nil || [whitespaceTrimmed isEqualToString:[NSString string]])
+        return item.alias;
+    return whitespaceTrimmed;
 }
 
 - (NSArray<NSString *>*)matchingTokensInFormat

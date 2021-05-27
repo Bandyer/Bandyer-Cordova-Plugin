@@ -274,7 +274,7 @@
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_success]) callbackId:@"commandId"];
 }
 
-// MARK: Pause
+// MARK: Resume
 
 - (void)testResumeResumesCallAndChatClients
 {
@@ -502,10 +502,8 @@
 - (void)testReportsSuccessWhenSettingUserDetailsFormatIfCommandArgumentContainsTheExpectedData
 {
     BCPBandyerPlugin *sut = [self makeSUTInitializePlugin:YES];
+    NSDictionary *payload = [self makeSetUserDetailsFormatCommandPayload:@"${firstName} ${lastName}"];
 
-    NSDictionary *payload = @{
-        @"default" : @"${firstName} ${lastName}"
-    };
     CDVInvokedUrlCommand * command = [self makeCommand:@"callbackId" payload:payload];
     [sut setUserDetailsFormat:command];
 
@@ -515,10 +513,8 @@
 - (void)testSetsUserDetailsFormatOnUserInterfaceCoordinator
 {
     BCPBandyerPlugin *sut = [self makeSUTInitializePlugin:YES];
+    NSDictionary *payload = [self makeSetUserDetailsFormatCommandPayload:@"${firstName} ${lastName}"];
 
-    NSDictionary *payload = @{
-        @"default" : @"${firstName} ${lastName}"
-    };
     CDVInvokedUrlCommand * command = [self makeCommand:@"callbackId" payload:payload];
     [sut setUserDetailsFormat:command];
 
@@ -539,9 +535,7 @@
 {
     BCPBandyerPlugin *sut = [self makeSUTInitializePlugin:YES];
 
-    NSDictionary *payload = @{
-        @"default" : @1
-    };
+    NSDictionary *payload = [self makeSetUserDetailsFormatCommandPayload:@1];
     CDVInvokedUrlCommand * command = [self makeCommand:@"callbackId" payload:payload];
     [sut setUserDetailsFormat:command];
 
@@ -624,6 +618,13 @@
         [sut pluginInitialize];
 
     return sut;
+}
+
+- (NSDictionary *)makeSetUserDetailsFormatCommandPayload:(id)format
+{
+    return @{
+        @"format" : format
+    };
 }
 
 @end
