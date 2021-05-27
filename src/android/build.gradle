@@ -51,6 +51,7 @@ dependencies {
 repositories {
     mavenLocal()
     google()
+    maven { url 'https://maven.bandyer.com/releases/' }
     maven { url 'https://jitpack.io' }
     mavenCentral()
 }
