@@ -259,7 +259,7 @@
 {
     NSDictionary *args = command.arguments.firstObject;
 
-    NSString *format = args[@"default"];
+    NSString *format = args[kBCPDetailsFormatterFormatKey];
     if (format != nil && [format isKindOfClass:NSString.class])
     {
         self.coordinator.userDetailsFormat = format;

@@ -1,5 +1,5 @@
 PODS:
-  - Bandyer (1.7.2):
+  - Bandyer (1.7.3):
     - Socket.IO-Client-Swift (~> 15.2)
     - TwilioChatClient (~> 2.6)
   - Cordova (5.1.1)
@@ -12,7 +12,7 @@ PODS:
   - TwilioChatClient (2.6.6)
 
 DEPENDENCIES:
-  - Bandyer (~> 1.7.2)
+  - Bandyer (~> 1.7.3)
   - Cordova (~> 5.1)
   - OCHamcrest (~> 7.1)
   - OCMockito (~> 5.1)
@@ -28,7 +28,7 @@ SPEC REPOS:
     - TwilioChatClient
 
 SPEC CHECKSUMS:
-  Bandyer: 8418cb7cc051a9b92ad123a8ef8f95ddd32e3f8c
+  Bandyer: da2c05379f29ddeb3360d272f9dededc88bcf927
   Cordova: 5490a208d8396a5cdbbba24732cb2f8779123f8e
   OCHamcrest: b284c9592c28c1e4025a8542e67ea41a635d0d73
   OCMockito: 51a534e667194e1ecae88c5def301cc8b0ab3cc7
@@ -36,6 +36,6 @@ SPEC CHECKSUMS:
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   TwilioChatClient: 23168c2df8e306da1cedcad1d60ba69862235358
 
-PODFILE CHECKSUM: b262223a9ef406a9f92e83d987ce71e741bf5261
+PODFILE CHECKSUM: 89533ee52dbdc96623fc8c4a0578bc99a8e9f169
 
 COCOAPODS: 1.9.3
