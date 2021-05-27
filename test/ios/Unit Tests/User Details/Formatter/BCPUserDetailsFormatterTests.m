@@ -159,6 +159,31 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     assertThat(string, equalTo(@"Bob"));
 }
 
+- (void)testReplacesTokensForEveryItemInTheArrayJoiningTheReplacedStringsWithAComma
+{
+    BCPUserDetailsFormatter *sut = [self makeSUT:@"${firstname} ${lastname}"];
+    BDKUserInfoDisplayItem *firstItem = [self makeAnItemWithFirstname:@"Bob" lastname:@"Appleseed"];
+    BDKUserInfoDisplayItem *secondItem = [self makeAnItemWithFirstname:@"Jane" lastname:@"Appleseed"];
+    NSArray<BDKUserInfoDisplayItem *>*items = @[firstItem, secondItem];
+
+    NSString *string = [sut stringForObjectValue:items];
+
+    assertThat(string, notNilValue());
+    assertThat(string, equalTo(@"Bob Appleseed, Jane Appleseed"));
+}
+
+- (void)testStringForObjectValueShouldDiscardAnyItemInTheArrayThatIsNotADisplayItem
+{
+    BCPUserDetailsFormatter *sut = [self makeSUT:@"${firstname} ${lastname}"];
+    BDKUserInfoDisplayItem *firstItem = [self makeAnItemWithFirstname:@"Bob" lastname:@"Appleseed"];
+    NSArray *items = @[firstItem, @"foreign item"];
+
+    NSString *string = [sut stringForObjectValue:items];
+
+    assertThat(string, notNilValue());
+    assertThat(string, equalTo(@"Bob Appleseed"));
+}
+
 // MARK: Helpers
 
 - (BCPUserDetailsFormatter *)makeSUT:(NSString *)format
@@ -168,14 +193,23 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (BDKUserInfoDisplayItem *)makeAnItem
 {
+    return [self makeAnItemWithFirstname:@"Robert" lastname:@"Appleseed"];
+}
+
+- (BDKUserInfoDisplayItem *)makeAnItemWithFirstname:(NSString *)firstname lastname:(NSString *)lastname
+{
+    NSParameterAssert(firstname);
+    NSParameterAssert(lastname);
+
     BDKUserInfoDisplayItem *item = [[BDKUserInfoDisplayItem alloc] initWithAlias:@"alias"];
-    item.firstName = @"Robert";
-    item.lastName = @"Appleseed";
+    item.firstName = firstname;
+    item.lastName = lastname;
     item.email = @"bob.appleseed@acme.com";
     item.nickname = @"Bob";
     item.imageURL = [NSURL fileURLWithPath:@"img/res/bob.png"];
     return item;
 }
+
 
 __SUPPRESS_WARNINGS_FOR_TEST_END
 
