@@ -10,12 +10,24 @@
 @end
 
 @implementation BCPFormatterProxy
+@synthesize formatter = _formatter;
 
 - (void)setFormatter:(NSFormatter *)formatter
 {
     BCPAssertOrThrowInvalidArgument(formatter, @"A formatter must be provided, got nil");
 
-    _formatter = formatter;
+    @synchronized (self)
+    {
+        _formatter = formatter;
+    }
+}
+
+- (NSFormatter *)formatter
+{
+    @synchronized (self)
+    {
+        return _formatter;
+    }
 }
 
 - (instancetype)init
