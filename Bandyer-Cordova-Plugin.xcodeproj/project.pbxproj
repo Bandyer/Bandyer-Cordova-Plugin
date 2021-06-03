@@ -54,6 +54,9 @@
 		A91AAE2124530A6E007003AF /* BCPUserDetailsFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AAE1F24530A6E007003AF /* BCPUserDetailsFormatter.h */; };
 		A91AAE2224530A6E007003AF /* BCPUserDetailsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AAE2024530A6E007003AF /* BCPUserDetailsFormatter.m */; };
 		A9637FFA234CC8C20050AAA7 /* Bandyer_Cordova_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C31AF822C22D1100BC33D5 /* Bandyer_Cordova_Plugin.framework */; };
+		A99B60AF2669019E009D4174 /* BCPFormatterProxyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A99B60AE2669019E009D4174 /* BCPFormatterProxyTests.m */; };
+		A99B60B226690276009D4174 /* BCPFormatterProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = A99B60B026690276009D4174 /* BCPFormatterProxy.h */; };
+		A99B60B326690276009D4174 /* BCPFormatterProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = A99B60B126690276009D4174 /* BCPFormatterProxy.m */; };
 		A9A1A3F124586F0C0077A3DD /* BCPPluginResultMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A1A3F024586F0C0077A3DD /* BCPPluginResultMatcher.m */; };
 		A9A1A40A2458788C0077A3DD /* NSString_BandyerPluginTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A9A1A4092458788C0077A3DD /* NSString_BandyerPluginTests.m */; };
 		A9EDB31124573E7500C57DE1 /* BCPBandyerPluginTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EDB31024573E7500C57DE1 /* BCPBandyerPluginTests.m */; };
@@ -129,6 +132,9 @@
 		A91AAE2024530A6E007003AF /* BCPUserDetailsFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPUserDetailsFormatter.m; sourceTree = "<group>"; };
 		A924CC35243782B300AD3805 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		A9637FF5234CC8C20050AAA7 /* Bandyer-Cordova-PluginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bandyer-Cordova-PluginTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A99B60AE2669019E009D4174 /* BCPFormatterProxyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPFormatterProxyTests.m; sourceTree = "<group>"; };
+		A99B60B026690276009D4174 /* BCPFormatterProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCPFormatterProxy.h; sourceTree = "<group>"; };
+		A99B60B126690276009D4174 /* BCPFormatterProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPFormatterProxy.m; sourceTree = "<group>"; };
 		A9A1A3EF24586EA40077A3DD /* BCPPluginResultMatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCPPluginResultMatcher.h; sourceTree = "<group>"; };
 		A9A1A3F024586F0C0077A3DD /* BCPPluginResultMatcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPPluginResultMatcher.m; sourceTree = "<group>"; };
 		A9A1A4092458788C0077A3DD /* NSString_BandyerPluginTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSString_BandyerPluginTests.m; sourceTree = "<group>"; };
@@ -252,6 +258,8 @@
 		A9A1A3F5245875E00077A3DD /* Formatter */ = {
 			isa = PBXGroup;
 			children = (
+				A99B60B026690276009D4174 /* BCPFormatterProxy.h */,
+				A99B60B126690276009D4174 /* BCPFormatterProxy.m */,
 				A91AAE1F24530A6E007003AF /* BCPUserDetailsFormatter.h */,
 				A91AAE2024530A6E007003AF /* BCPUserDetailsFormatter.m */,
 			);
@@ -412,6 +420,7 @@
 		A9A1A407245877EF0077A3DD /* Formatter */ = {
 			isa = PBXGroup;
 			children = (
+				A99B60AE2669019E009D4174 /* BCPFormatterProxyTests.m */,
 				A91AAE1D245309E9007003AF /* BCPUserDetailsFormatterTests.m */,
 			);
 			path = Formatter;
@@ -492,6 +501,7 @@
 				A91AAE192452E639007003AF /* BCPContactHandleProvider.h in Headers */,
 				A91AAE012452E639007003AF /* BCPBandyerEvents.h in Headers */,
 				A91AAE132452E639007003AF /* BCPPushTokenEventsReporter.h in Headers */,
+				A99B60B226690276009D4174 /* BCPFormatterProxy.h in Headers */,
 				A91AAE122452E639007003AF /* NSString+BandyerPlugin.h in Headers */,
 				A91AADFE2452E639007003AF /* BCPChatClientEventsReporter.h in Headers */,
 				A91AAE2124530A6E007003AF /* BCPUserDetailsFormatter.h in Headers */,
@@ -673,6 +683,7 @@
 				A91AADD82452E5AF007003AF /* BCPEventEmitterTest.m in Sources */,
 				A91AADDB2452E5B0007003AF /* BCPContactHandleProviderTest.m in Sources */,
 				A91AADDC2452E5B0007003AF /* BCPiOS10AndAboveTestCase.m in Sources */,
+				A99B60AF2669019E009D4174 /* BCPFormatterProxyTests.m in Sources */,
 				A9EDB31124573E7500C57DE1 /* BCPBandyerPluginTests.m in Sources */,
 				A9A1A3F124586F0C0077A3DD /* BCPPluginResultMatcher.m in Sources */,
 				A91AADDD2452E5B0007003AF /* BCPChatClientEventsReporterTest.m in Sources */,
@@ -697,6 +708,7 @@
 				A91AAE072452E639007003AF /* BCPUserInterfaceCoordinator.m in Sources */,
 				A91AAE102452E639007003AF /* BCPUsersDetailsCache.m in Sources */,
 				A91AAE0A2452E639007003AF /* BCPBandyerPlugin.m in Sources */,
+				A99B60B326690276009D4174 /* BCPFormatterProxy.m in Sources */,
 				A91AAE062452E639007003AF /* CDVPluginResult+BCPFactoryMethods.m in Sources */,
 				A91AAE2224530A6E007003AF /* BCPUserDetailsFormatter.m in Sources */,
 				A91AAE032452E639007003AF /* NSString+BandyerPlugin.m in Sources */,
