@@ -12,6 +12,7 @@
 
 #import "BCPContactHandleProvider.h"
 #import "BCPUsersDetailsCache.h"
+#import "BCPUserDetailsFormatter.h"
 
 API_AVAILABLE(ios(10.0)) @interface BCPContactHandleProviderTest : BCPiOS10AndAboveTestCase
 
@@ -57,9 +58,32 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     assertThat(^{[[BCPContactHandleProvider alloc] initWithCache:nil];}, throwsInvalidArgumentException());
 }
 
-- (void)testCreatesGenericContactHandleWithContactFullname
+- (void)testThrowsInvalidArgumentExcpetionWhenNilFormatIsProvided
+{
+    assertThat(^{ sut.format = nil; }, throwsInvalidArgumentException());
+}
+
+- (void)testCreatesContactHandleWithAliasesAsHandleValueUsingDefaultFormatterWhenNoFormatIsProvided
 {
     [self populateCache];
+
+    XCTestExpectation *expc = [self expectationWithDescription:@"Callback invoked"];
+
+    [sut handleForAliases:@[item1.alias] completion:^(CXHandle *handle) {
+        [expc fulfill];
+
+        assertThat(handle, notNilValue());
+        assertThatInteger(handle.type, equalToInteger(CXHandleTypeGeneric));
+        assertThat(handle.value, equalTo(item1.alias));
+    }];
+
+    [self waitForExpectations:@[expc] timeout:0];
+}
+
+- (void)testCreatesGenericContactHandleWithContactFullnameAsHandleValueWhenFormatIsProvided
+{
+    [self populateCache];
+    sut.format = @"${firstname} ${lastname}";
 
     XCTestExpectation *expc = [self expectationWithDescription:@"Callback invoked"];
 
@@ -77,6 +101,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 - (void)testCreatesGenericContactHandleWhenItemIsMissingFromCache
 {
     [self populateCache];
+    sut.format = @"${firstname} ${lastname}";
 
     XCTestExpectation *expc = [self expectationWithDescription:@"Callback invoked"];
 
@@ -91,9 +116,10 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     [self waitForExpectations:@[expc] timeout:0];
 }
 
-- (void)testCreatesGenericContactHandleWithAliasWhenItemIsMissingFullname
+- (void)testCreatesGenericContactHandleWithAliasAsHandleValueWhenItemIsMissingTheRequestedValues
 {
     [self populateCache];
+    sut.format = @"${firstname} ${lastname}";
 
     XCTestExpectation *expc = [self expectationWithDescription:@"Callback invoked"];
 
@@ -108,9 +134,10 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     [self waitForExpectations:@[expc] timeout:0];
 }
 
-- (void)testCreatesGenericContactHandleConcatenatingItemsFullnames
+- (void)testCreatesGenericContactHandleConcatenatingItemsFullnamesAsHandleValue
 {
     [self populateCache];
+    sut.format = @"${firstname} ${lastname}";
 
     XCTestExpectation *expc = [self expectationWithDescription:@"Callback invoked"];
 
@@ -151,6 +178,34 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     assertThat(copy, notNilValue());
     assertThat(copy, isNot(sameInstance(sut)));
 }
+
+- (void)testCopyReturnsCopyWithTheSameFormatter
+{
+    [self populateCache];
+    sut.format = @"${firstname} ${lastname}";
+
+    BCPContactHandleProvider *copy = [sut copy];
+
+    XCTestExpectation *expc1 = [self expectationWithDescription:@"Original instance completion block invoked"];
+
+    [sut handleForAliases:@[item1.alias] completion:^(CXHandle * _Nonnull handle) {
+        [expc1 fulfill];
+
+        assertThat(handle.value, equalTo([NSString stringWithFormat:@"%@ %@", item1.firstName, item1.lastName]));
+    }];
+
+    XCTestExpectation *expc2 = [self expectationWithDescription:@"Copy instance completion block invoked"];
+
+    [copy handleForAliases:@[item1.alias] completion:^(CXHandle * _Nonnull handle) {
+        [expc2 fulfill];
+
+        assertThat(handle.value, equalTo([NSString stringWithFormat:@"%@ %@", item1.firstName, item1.lastName]));
+    }];
+
+    [self waitForExpectations:@[expc1, expc2] timeout:0];
+}
+
+#pragma mark - Helpers
 
 - (void)populateCache
 {

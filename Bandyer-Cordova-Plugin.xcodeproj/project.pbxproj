@@ -183,12 +183,12 @@
 		A91AADC02452E5AF007003AF /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				A9A1A404245877AF0077A3DD /* UI Coordinator */,
-				A9A1A403245877930077A3DD /* User Details */,
+				A9EDB31024573E7500C57DE1 /* BCPBandyerPluginTests.m */,
 				A9A1A4022458776E0077A3DD /* Categories */,
 				A9A1A3FF245877380077A3DD /* Events */,
 				A91AADD22452E5AF007003AF /* Info.plist */,
-				A9EDB31024573E7500C57DE1 /* BCPBandyerPluginTests.m */,
+				A9A1A404245877AF0077A3DD /* UI Coordinator */,
+				A9A1A403245877930077A3DD /* User Details */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -403,8 +403,8 @@
 		A9A1A406245877D90077A3DD /* Providers */ = {
 			isa = PBXGroup;
 			children = (
-				A91AADC42452E5AF007003AF /* BCPUsersDetailsProviderTest.m */,
 				A91AADCB2452E5AF007003AF /* BCPContactHandleProviderTest.m */,
+				A91AADC42452E5AF007003AF /* BCPUsersDetailsProviderTest.m */,
 			);
 			path = Providers;
 			sourceTree = "<group>";

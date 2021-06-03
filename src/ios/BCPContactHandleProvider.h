@@ -14,6 +14,8 @@ API_AVAILABLE(ios(10.0)) @interface BCPContactHandleProvider : NSObject <BCXHand
 
 - (instancetype)initWithCache:(BCPUsersDetailsCache *)cache;
 
+- (void)setFormat:(NSString *)format;
+
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 

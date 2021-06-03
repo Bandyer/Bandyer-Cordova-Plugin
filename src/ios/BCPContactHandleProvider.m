@@ -9,14 +9,21 @@
 #import "BCPContactHandleProvider.h"
 #import "BCPUsersDetailsCache.h"
 #import "BCPMacros.h"
+#import "BCPUserDetailsFormatter.h"
 
 @interface BCPContactHandleProvider ()
 
 @property (nonatomic, strong, readonly) BCPUsersDetailsCache *cache;
+@property (nonatomic, strong, readwrite) BCPUserDetailsFormatter *formatter;
 
 @end
 
 @implementation BCPContactHandleProvider
+
+- (void)setFormat:(NSString *)format
+{
+    _formatter = [[BCPUserDetailsFormatter alloc] initWithFormat:format];
+}
 
 - (instancetype)initWithCache:(BCPUsersDetailsCache *)cache
 {
@@ -27,6 +34,7 @@
     if (self)
     {
         _cache = cache;
+        _formatter = [[BCPUserDetailsFormatter alloc] initWithFormat:@"${useralias}"];
     }
 
     return self;
@@ -46,26 +54,21 @@
     if (aliases.count == 0)
         return @"Unknown";
 
-    NSMutableArray *handles = [NSMutableArray arrayWithCapacity:aliases.count];
+    NSArray<BDKUserInfoDisplayItem *>* items = [self itemsForAliases:aliases];
+    return [self.formatter stringForObjectValue:items];
+}
+
+- (NSArray<BDKUserInfoDisplayItem *> *)itemsForAliases:(NSArray<NSString *> *)aliases
+{
+    NSMutableArray *items = [NSMutableArray array];
 
     for (NSString *alias in aliases)
     {
         BDKUserInfoDisplayItem *item = [self.cache itemForKey:alias] ?: [[BDKUserInfoDisplayItem alloc] initWithAlias:alias];
-
-        NSString *value = [self handleValueForItem:item];
-
-        [handles addObject:value];
+        [items addObject:item];
     }
 
-    return [handles componentsJoinedByString:@", "];
-}
-
-- (NSString *)handleValueForItem:(BDKUserInfoDisplayItem *)item
-{
-    if (item.firstName.length > 0 && item.lastName.length > 0)
-        return [NSString stringWithFormat:@"%@ %@", item.firstName, item.lastName];
-    else
-        return item.alias;
+    return items;
 }
 
 - (id)copyWithZone:(nullable NSZone *)zone
@@ -75,10 +78,10 @@
     if (copy != nil)
     {
         copy->_cache = _cache;
+        copy->_formatter = [_formatter copyWithZone:zone];
     }
 
     return copy;
 }
-
 
 @end
