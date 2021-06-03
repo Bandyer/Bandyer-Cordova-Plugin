@@ -14,28 +14,23 @@
 #import "BCPUsersDetailsCache.h"
 #import "BCPUserDetailsFormatter.h"
 
-API_AVAILABLE(ios(10.0)) @interface BCPContactHandleProviderTest : BCPiOS10AndAboveTestCase
+API_AVAILABLE(ios(10.0))
+@interface BCPContactHandleProviderTest : BCPiOS10AndAboveTestCase
 
 @end
 
 @implementation BCPContactHandleProviderTest
 {
-    BCPUsersDetailsCache *cache;
     BDKUserInfoDisplayItem *item1;
     BDKUserInfoDisplayItem *item2;
     BDKUserInfoDisplayItem *item3;
-    BCPContactHandleProvider *sut;
 }
 
 - (void)setUp
 {
     [super setUp];
 
-    cache = [BCPUsersDetailsCache new];
-
     [self createItems];
-
-    sut = [[BCPContactHandleProvider alloc] initWithCache:cache];
 }
 
 - (void)createItems
@@ -53,37 +48,17 @@ API_AVAILABLE(ios(10.0)) @interface BCPContactHandleProviderTest : BCPiOS10AndAb
 
 __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
-- (void)testThrowsInvalidArgumentExceptionWhenNilCacheIsProvidedInInitialization
+- (void)testThrowsInvalidArgumentExceptionWhenMandatoryArgumentIsNotProvidedInDesignatedInitializer
 {
-    assertThat(^{[[BCPContactHandleProvider alloc] initWithCache:nil];}, throwsInvalidArgumentException());
+    assertThat(^{[[BCPContactHandleProvider alloc] initWithCache:nil formatter:[NSFormatter new]];}, throwsInvalidArgumentException());
+    assertThat(^{[[BCPContactHandleProvider alloc] initWithCache:[self makeEmptyCache] formatter:nil];}, throwsInvalidArgumentException());
 }
 
-- (void)testThrowsInvalidArgumentExcpetionWhenNilFormatIsProvided
+- (void)testCreatesGenericHandleWithValueFormattedByTheFormatterProvidedInInitialization
 {
-    assertThat(^{ sut.format = nil; }, throwsInvalidArgumentException());
-}
-
-- (void)testCreatesContactHandleWithAliasesAsHandleValueUsingDefaultFormatterWhenNoFormatIsProvided
-{
-    [self populateCache];
-
-    XCTestExpectation *expc = [self expectationWithDescription:@"Callback invoked"];
-
-    [sut handleForAliases:@[item1.alias] completion:^(CXHandle *handle) {
-        [expc fulfill];
-
-        assertThat(handle, notNilValue());
-        assertThatInteger(handle.type, equalToInteger(CXHandleTypeGeneric));
-        assertThat(handle.value, equalTo(item1.alias));
-    }];
-
-    [self waitForExpectations:@[expc] timeout:0];
-}
-
-- (void)testCreatesGenericContactHandleWithContactFullnameAsHandleValueWhenFormatIsProvided
-{
-    [self populateCache];
-    sut.format = @"${firstname} ${lastname}";
+    BCPUsersDetailsCache *cache = [self makePopulatedCache];
+    NSFormatter *formatter = [self makeDetailsFormatter:@"${firstname} ${lastname}"];
+    BCPContactHandleProvider *sut = [self makeSUTWithCache:cache formatter:formatter];
 
     XCTestExpectation *expc = [self expectationWithDescription:@"Callback invoked"];
 
@@ -100,8 +75,9 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testCreatesGenericContactHandleWhenItemIsMissingFromCache
 {
-    [self populateCache];
-    sut.format = @"${firstname} ${lastname}";
+    BCPUsersDetailsCache *cache = [self makePopulatedCache];
+    NSFormatter *formatter = [self makeDetailsFormatter:@"${firstname} ${lastname}"];
+    BCPContactHandleProvider *sut = [self makeSUTWithCache:cache formatter:formatter];
 
     XCTestExpectation *expc = [self expectationWithDescription:@"Callback invoked"];
 
@@ -118,8 +94,9 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testCreatesGenericContactHandleWithAliasAsHandleValueWhenItemIsMissingTheRequestedValues
 {
-    [self populateCache];
-    sut.format = @"${firstname} ${lastname}";
+    BCPUsersDetailsCache *cache = [self makePopulatedCache];
+    NSFormatter *formatter = [self makeDetailsFormatter:@"${firstname} ${lastname}"];
+    BCPContactHandleProvider *sut = [self makeSUTWithCache:cache formatter:formatter];
 
     XCTestExpectation *expc = [self expectationWithDescription:@"Callback invoked"];
 
@@ -136,8 +113,9 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testCreatesGenericContactHandleConcatenatingItemsFullnamesAsHandleValue
 {
-    [self populateCache];
-    sut.format = @"${firstname} ${lastname}";
+    BCPUsersDetailsCache *cache = [self makePopulatedCache];
+    NSFormatter *formatter = [self makeDetailsFormatter:@"${firstname} ${lastname}"];
+    BCPContactHandleProvider *sut = [self makeSUTWithCache:cache formatter:formatter];
 
     XCTestExpectation *expc = [self expectationWithDescription:@"Callback invoked"];
 
@@ -156,7 +134,9 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testCreatesUnknownContactHandleWhenEmptyAliasesArrayIsProvided
 {
-    [self populateCache];
+    BCPUsersDetailsCache *cache = [self makePopulatedCache];
+    NSFormatter *formatter = [self makeDetailsFormatter:@"${firstname} ${lastname}"];
+    BCPContactHandleProvider *sut = [self makeSUTWithCache:cache formatter:formatter];
 
     XCTestExpectation *expc = [self expectationWithDescription:@"Callback invoked"];
 
@@ -173,6 +153,10 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testCopyReturnsCopy
 {
+    BCPUsersDetailsCache *cache = [self makePopulatedCache];
+    NSFormatter *formatter = [self makeDetailsFormatter:@"${firstname} ${lastname}"];
+    BCPContactHandleProvider *sut = [self makeSUTWithCache:cache formatter:formatter];
+
     BCPContactHandleProvider *copy = [sut copy];
 
     assertThat(copy, notNilValue());
@@ -181,8 +165,9 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testCopyReturnsCopyWithTheSameFormatter
 {
-    [self populateCache];
-    sut.format = @"${firstname} ${lastname}";
+    BCPUsersDetailsCache *cache = [self makePopulatedCache];
+    NSFormatter *formatter = [self makeDetailsFormatter:@"${firstname} ${lastname}"];
+    BCPContactHandleProvider *sut = [self makeSUTWithCache:cache formatter:formatter];
 
     BCPContactHandleProvider *copy = [sut copy];
 
@@ -207,11 +192,30 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 #pragma mark - Helpers
 
-- (void)populateCache
+- (BCPContactHandleProvider *)makeSUTWithCache:(BCPUsersDetailsCache *)cache formatter:(NSFormatter *)formatter
 {
+    return [[BCPContactHandleProvider alloc] initWithCache:cache formatter:formatter];
+}
+
+- (BCPUsersDetailsCache *)makePopulatedCache
+{
+    BCPUsersDetailsCache* cache = [self makeEmptyCache];
+
     [cache setItem:item1 forKey:item1.alias];
     [cache setItem:item2 forKey:item2.alias];
     [cache setItem:item3 forKey:item3.alias];
+
+    return cache;
+}
+
+- (BCPUsersDetailsCache *)makeEmptyCache
+{
+    return [BCPUsersDetailsCache new];
+}
+
+- (NSFormatter *)makeDetailsFormatter:(NSString *)format
+{
+    return [[BCPUserDetailsFormatter alloc] initWithFormat:format];
 }
 
 __SUPPRESS_WARNINGS_FOR_TEST_END

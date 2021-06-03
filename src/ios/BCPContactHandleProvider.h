@@ -10,11 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-API_AVAILABLE(ios(10.0)) @interface BCPContactHandleProvider : NSObject <BCXHandleProvider>
+API_AVAILABLE(ios(10.0))
+@interface BCPContactHandleProvider : NSObject <BCXHandleProvider>
 
-- (instancetype)initWithCache:(BCPUsersDetailsCache *)cache;
-
-- (void)setFormat:(NSString *)format;
+- (instancetype)initWithCache:(BCPUsersDetailsCache *)cache formatter:(NSFormatter *)formatter;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

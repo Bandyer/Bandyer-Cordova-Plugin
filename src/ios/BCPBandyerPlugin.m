@@ -90,7 +90,7 @@
 
         if (config.isCallKitEnabled)
         {
-            config.handleProvider = [[BCPContactHandleProvider alloc] initWithCache:self.usersCache];
+            config.handleProvider = [[BCPContactHandleProvider alloc] initWithCache:self.usersCache formatter:[NSFormatter new]];
             config.nativeUIRingToneSound = args[kBCPCallKitConfigKey][kBCPCallKitConfigRingtoneKey];
             NSString *appIconResourceName = args[kBCPCallKitConfigKey][kBCPCallKitConfigIconKey];
 

@@ -14,27 +14,23 @@
 @interface BCPContactHandleProvider ()
 
 @property (nonatomic, strong, readonly) BCPUsersDetailsCache *cache;
-@property (nonatomic, strong, readwrite) BCPUserDetailsFormatter *formatter;
+@property (nonatomic, strong, readwrite) NSFormatter *formatter;
 
 @end
 
 @implementation BCPContactHandleProvider
 
-- (void)setFormat:(NSString *)format
-{
-    _formatter = [[BCPUserDetailsFormatter alloc] initWithFormat:format];
-}
-
-- (instancetype)initWithCache:(BCPUsersDetailsCache *)cache
+- (instancetype)initWithCache:(BCPUsersDetailsCache *)cache formatter:(NSFormatter *)formatter
 {
     BCPAssertOrThrowInvalidArgument(cache, @"A cache must be provided, got nil");
+    BCPAssertOrThrowInvalidArgument(formatter, @"A formatter must be provided, got nil");
 
     self = [super init];
 
     if (self)
     {
         _cache = cache;
-        _formatter = [[BCPUserDetailsFormatter alloc] initWithFormat:@"${useralias}"];
+        _formatter = formatter;
     }
 
     return self;
