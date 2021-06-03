@@ -27,17 +27,26 @@
 
 - (void)setItem:(nullable BDKUserInfoDisplayItem *)item forKey:(id<NSCopying>)key
 {
-    self.cache[key] = item;
+    @synchronized (self)
+    {
+        self.cache[key] = item;
+    }
 }
 
 - (nullable BDKUserInfoDisplayItem *)itemForKey:(id<NSCopying>)key
 {
-    return self.cache[key];
+    @synchronized (self)
+    {
+        return self.cache[key];
+    }
 }
 
 - (void)purge
 {
-    [self.cache removeAllObjects];
+    @synchronized (self)
+    {
+        [self.cache removeAllObjects];
+    }
 }
 
 @end

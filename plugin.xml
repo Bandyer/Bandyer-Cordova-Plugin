@@ -54,6 +54,8 @@
         <source-file src="src/ios/BCPPushTokenEventsReporter.m" />
         <header-file src="src/ios/BCPUserDetailsFormatter.h" />
         <source-file src="src/ios/BCPUserDetailsFormatter.m" />
+        <header-file src="src/ios/BCPFormatterProxy.h" />
+        <source-file src="src/ios/BCPFormatterProxy.m" />
         <header-file src="src/ios/NSString+BandyerPlugin.h" />
         <source-file src="src/ios/NSString+BandyerPlugin.m" />
         <header-file src="src/ios/CDVPluginResult+BCPFactoryMethods.h" />

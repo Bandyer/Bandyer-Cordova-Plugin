@@ -12,6 +12,8 @@
 #import "BCPPushTokenEventsReporter.h"
 #import "BCPChatClientEventsReporter.h"
 #import "BCPUsersDetailsProvider.h"
+#import "BCPFormatterProxy.h"
+#import "BCPUserDetailsFormatter.h"
 #import "CDVPluginResult+BCPFactoryMethods.h"
 #import "NSString+BandyerPlugin.h"
 
@@ -19,6 +21,7 @@
 
 @interface BCPBandyerPlugin () <BCXCallClientObserver>
 
+@property (nonatomic, strong) BCPFormatterProxy *formatterProxy;
 @property (nonatomic, strong, readwrite, nullable) BCPUsersDetailsCache *usersCache;
 @property (nonatomic, strong, readwrite, nullable) BCPUserInterfaceCoordinator *coordinator;
 @property (nonatomic, strong, nullable) BCPEventEmitter *eventEmitter;
@@ -53,6 +56,7 @@
     [super pluginInitialize];
 
     [self setupSDKIfNeeded];
+    self.formatterProxy = [BCPFormatterProxy new];
     self.usersCache = [BCPUsersDetailsCache new];
     self.coordinator = [self makeUserInterfaceCoordinator];
 }
@@ -90,7 +94,7 @@
 
         if (config.isCallKitEnabled)
         {
-            config.handleProvider = [[BCPContactHandleProvider alloc] initWithCache:self.usersCache];
+            config.handleProvider = [[BCPContactHandleProvider alloc] initWithCache:self.usersCache formatter:self.formatterProxy];
             config.nativeUIRingToneSound = args[kBCPCallKitConfigKey][kBCPCallKitConfigRingtoneKey];
             NSString *appIconResourceName = args[kBCPCallKitConfigKey][kBCPCallKitConfigIconKey];
 
@@ -263,6 +267,7 @@
     if (format != nil && [format isKindOfClass:NSString.class])
     {
         self.coordinator.userDetailsFormat = format;
+        self.formatterProxy.formatter = [[BCPUserDetailsFormatter alloc] initWithFormat:format];
         [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_success] callbackId:command.callbackId];
     } else
     {
