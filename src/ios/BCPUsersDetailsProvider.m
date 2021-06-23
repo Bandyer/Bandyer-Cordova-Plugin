@@ -1,7 +1,5 @@
-//
 // Copyright © 2019 Bandyer S.r.l. All rights reserved.
 // See LICENSE.txt for licensing information
-//
 
 #import "BCPUsersDetailsProvider.h"
 #import "BCPUsersDetailsCache.h"
@@ -29,7 +27,7 @@
     return self;
 }
 
-- (void)fetchUsers:(NSArray<NSString *> *)aliases completion:(void (^)(NSArray<BDKUserDetails *> *_Nullable items))completion
+- (void)provideDetails:(nonnull NSArray<NSString *> *)aliases completion:(nonnull void (^)(NSArray<BDKUserDetails *> * _Nonnull))completion
 {
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:aliases.count];
 
@@ -46,17 +44,9 @@
     completion(items);
 }
 
-- (id)copyWithZone:(nullable NSZone *)zone
+- (void)provideHandle:(nonnull NSArray<NSString *> *)aliases completion:(nonnull void (^)(CXHandle * _Nonnull))completion
 {
-    BCPUsersDetailsProvider *copy = (BCPUsersDetailsProvider *) [[[self class] allocWithZone:zone] init];
 
-    if (copy != nil)
-    {
-        copy->_cache = _cache;
-    }
-
-    return copy;
 }
-
 
 @end
