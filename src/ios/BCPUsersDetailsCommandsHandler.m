@@ -89,7 +89,7 @@
     NSString *urlAsString = dictionary[@"profileImageUrl"];
     BDKUserDetails *item = [[BDKUserDetails alloc] initWithAlias:alias
                                                        firstname:dictionary[@"firstName"]
-                                                        lastname:dictionary[@"lastname"]
+                                                        lastname:dictionary[@"lastName"]
                                                            email:dictionary[@"email"]
                                                         imageURL:urlAsString ? [NSURL URLWithString:urlAsString] : nil];
 
