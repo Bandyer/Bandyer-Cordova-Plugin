@@ -145,7 +145,7 @@
     }];
     [sut initializeBandyer:command];
 
-    assertThatInteger(BandyerSDK.logLevel, equalToInteger(BDKLogLevelOff));
+    assertThatInteger(BandyerSDK.logLevel, equalToInteger(BDKLogLevelAll));
 }
 
 - (void)testInitializeBandyerTellsUICoordinatorTheSDKHasBeenInitialized
@@ -189,6 +189,21 @@
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_error]) callbackId:@"callbackId"];
 }
 
+- (void)testStartOpenUserSession
+{
+    id callClient = [self makeCallClientMock];
+    id chatClient = [self makeChatClientMock];
+    BandyerSDK *sdkMock = [self makeSDKWithCallClient:callClient chatClient:chatClient];
+    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
+
+    CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{
+        @"userAlias" : @"foobar"
+    }];
+    [sut start:command];
+
+    [verify(sdkMock) openSessionWithUserId:@"foobar"];
+}
+
 - (void)testStartStartsCallAndChatClients
 {
     id callClient = [self makeCallClientMock];
@@ -202,8 +217,8 @@
     [sut start:command];
 
     [[verify(callClient) withMatcher:notNilValue() forArgument:1] addObserver:sut queue:anything()];
-    [verify(callClient) start:@"foobar"];
-    [verify(chatClient) start:@"foobar"];
+    [(id<BDKCallClient>)verify(callClient) start];
+    [(id<BDKChatClient>)verify(chatClient) start];
 }
 
 - (void)testStartReportsSuccessOnSuccess
@@ -245,6 +260,19 @@
     [sut stop:command];
 
     [verify(delegate) sendPluginResult:equalToResult([CDVPluginResult bcp_success]) callbackId:@"commandId"];
+}
+
+- (void)testStopClosesUserSession
+{
+    id callClient = [self makeCallClientMock];
+    id chatClient = [self makeChatClientMock];
+    BandyerSDK *sdkMock = [self makeSDKWithCallClient:callClient chatClient:chatClient];
+    BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
+
+    CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{}];
+    [sut stop:command];
+
+    [verify(sdkMock) closeSession];
 }
 
 // MARK: Pause

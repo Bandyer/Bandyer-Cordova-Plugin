@@ -165,7 +165,8 @@
     [self.sdk.callClient removeObserver:self];
     [self.sdk.callClient stop];
     [self.sdk.chatClient stop];
-
+    [self.sdk closeSession];
+    
     [self reportCommandSucceeded:command];
 }
 
