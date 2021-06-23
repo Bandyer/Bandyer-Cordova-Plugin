@@ -115,7 +115,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 - (void)testReturnsSentence
 {
     BCPUserDetailsFormatter *sut = [self makeSUT:@"Hello my name is: ${firstName} ${lastName}, friends call me ${nickname}"];
-    BDKUserDetails *item = [self makeAnItemWithAlias:@"bob" firstname:@"Robert" lastname:@"Appleseed"];
+    BDKUserDetails *item = [self makeAnItemWithAlias:@"bob" firstname:@"Robert" lastname:@"Appleseed" email:nil nickname:@"Bob"];
 
     NSString *string = [sut stringForObjectValue:item];
 

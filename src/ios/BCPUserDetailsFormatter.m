@@ -25,8 +25,8 @@
         _format = [format copy];
         _tokenPropertyMap = @{
             @"${useralias}" : @"alias",
-            @"${firstname}" : @"firstName",
-            @"${lastname}" : @"lastName",
+            @"${firstname}" : @"firstname",
+            @"${lastname}" : @"lastname",
             @"${nickname}" : @"nickname",
             @"${email}" : @"email",
         };
