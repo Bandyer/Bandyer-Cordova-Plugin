@@ -8,7 +8,6 @@
 #import "BCPConstants.h"
 #import "BCPEventEmitter.h"
 #import "BCPCallClientEventsReporter.h"
-#import "BCPContactHandleProvider.h"
 #import "BCPPushTokenEventsReporter.h"
 #import "BCPChatClientEventsReporter.h"
 #import "BCPUsersDetailsProvider.h"
@@ -132,7 +131,7 @@
     }
 
     [self.sdk initializeWithApplicationId:appID config:config];
-    self.sdk.userDetailsProvider = [[BCPUsersDetailsProvider alloc] initWithCache:self.usersCache];
+    self.sdk.userDetailsProvider = [[BCPUsersDetailsProvider alloc] initWithCache:self.usersCache formatter:self.formatterProxy];
     self.coordinator.sdk = self.sdk;
     self.callClientEventsReporter = [[BCPCallClientEventsReporter alloc] initWithCallClient:self.sdk.callClient eventEmitter:self.eventEmitter];
     [self.callClientEventsReporter start];
@@ -166,7 +165,7 @@
     [self.sdk.callClient stop];
     [self.sdk.chatClient stop];
     [self.sdk closeSession];
-    
+
     [self reportCommandSucceeded:command];
 }
 

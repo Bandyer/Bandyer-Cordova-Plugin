@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BCPUsersDetailsProvider : NSObject <BDKUserDetailsProvider>
 
-- (instancetype)initWithCache:(BCPUsersDetailsCache *)cache;
+- (instancetype)initWithCache:(BCPUsersDetailsCache *)cache formatter:(NSFormatter *)formatter;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
