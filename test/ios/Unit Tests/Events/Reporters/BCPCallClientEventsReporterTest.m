@@ -24,7 +24,7 @@
 @implementation BCPCallClientEventsReporterTest
 {
     BCPEventEmitter *emitter;
-    id <BCXCallClient> callClient;
+    id <BDKCallClient> callClient;
     BCPCallClientEventsReporter *sut;
 }
 
@@ -33,7 +33,7 @@
     [super setUp];
 
     emitter = mock(BCPEventEmitter.class);
-    callClient = mockProtocol(@protocol(BCXCallClient));
+    callClient = mockProtocol(@protocol(BDKCallClient));
     sut = [[BCPCallClientEventsReporter alloc] initWithCallClient:callClient eventEmitter:emitter];
 }
 

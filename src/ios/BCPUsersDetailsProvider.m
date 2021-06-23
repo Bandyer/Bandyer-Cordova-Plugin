@@ -29,18 +29,18 @@
     return self;
 }
 
-- (void)fetchUsers:(NSArray<NSString *> *)aliases completion:(void (^)(NSArray<BDKUserInfoDisplayItem *> *_Nullable items))completion
+- (void)fetchUsers:(NSArray<NSString *> *)aliases completion:(void (^)(NSArray<BDKUserDetails *> *_Nullable items))completion
 {
     NSMutableArray *items = [NSMutableArray arrayWithCapacity:aliases.count];
 
     for (NSString *alias in aliases)
     {
-        BDKUserInfoDisplayItem *item = [self.cache itemForKey:alias];
+        BDKUserDetails *item = [self.cache itemForKey:alias];
 
         if (item)
             [items addObject:item];
         else
-            [items addObject:[[BDKUserInfoDisplayItem alloc] initWithAlias:alias]];
+            [items addObject:[[BDKUserDetails alloc] initWithAlias:alias]];
     }
 
     completion(items);

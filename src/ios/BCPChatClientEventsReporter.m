@@ -11,7 +11,7 @@
 
 @interface BCPChatClientEventsReporter ()
 
-@property (nonatomic, strong, readonly) id <BCHChatClient> client;
+@property (nonatomic, strong, readonly) id <BDKChatClient> client;
 @property (nonatomic, strong, readonly) BCPEventEmitter *emitter;
 @property (nonatomic, assign, readwrite, getter=isRunning) BOOL running;
 
@@ -19,7 +19,7 @@
 
 @implementation BCPChatClientEventsReporter
 
-- (instancetype)initWithChatClient:(id <BCHChatClient>)chatClient eventEmitter:(BCPEventEmitter *)eventEmitter
+- (instancetype)initWithChatClient:(id <BDKChatClient>)chatClient eventEmitter:(BCPEventEmitter *)eventEmitter
 {
     BCPAssertOrThrowInvalidArgument(chatClient, @"A chat client must be provided, got nil");
     BCPAssertOrThrowInvalidArgument(eventEmitter, @"An event emitter must be provided, got nil");
@@ -53,27 +53,27 @@
     self.running = NO;
 }
 
-- (void)chatClientDidStart:(id <BCHChatClient>)client
+- (void)chatClientDidStart:(id <BDKChatClient>)client
 {
     [self.emitter sendEvent:[[BCPBandyerEvents chatModuleStatusChanged] value] withArgs:@[kBCPClientReadyJSEvent]];
 }
 
-- (void)chatClientDidPause:(id <BCHChatClient>)client
+- (void)chatClientDidPause:(id <BDKChatClient>)client
 {
     [self.emitter sendEvent:[[BCPBandyerEvents chatModuleStatusChanged] value] withArgs:@[kBCPClientPausedJSEvent]];
 }
 
-- (void)chatClientDidStop:(id <BCHChatClient>)client
+- (void)chatClientDidStop:(id <BDKChatClient>)client
 {
     [self.emitter sendEvent:[[BCPBandyerEvents chatModuleStatusChanged] value] withArgs:@[kBCPClientStoppedJSEvent]];
 }
 
-- (void)chatClientDidResume:(id <BCHChatClient>)client
+- (void)chatClientDidResume:(id <BDKChatClient>)client
 {
     [self.emitter sendEvent:[[BCPBandyerEvents chatModuleStatusChanged] value] withArgs:@[kBCPClientReadyJSEvent]];
 }
 
-- (void)chatClient:(id <BCHChatClient>)client didFailWithError:(NSError *)error
+- (void)chatClient:(id <BDKChatClient>)client didFailWithError:(NSError *)error
 {
     [self.emitter sendEvent:[[BCPBandyerEvents chatError] value] withArgs:@[[error localizedDescription] ?: [NSNull null]]];
     [self.emitter sendEvent:[[BCPBandyerEvents chatModuleStatusChanged] value] withArgs:@[kBCPClientFailedJSEvent]];

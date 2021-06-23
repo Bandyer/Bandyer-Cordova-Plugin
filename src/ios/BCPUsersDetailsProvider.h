@@ -4,13 +4,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Bandyer/BDKUserInfoFetcher.h>
+#import <Bandyer/BDKUserDetailsProvider.h>
 
 @class BCPUsersDetailsCache;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BCPUsersDetailsProvider : NSObject <BDKUserInfoFetcher>
+@interface BCPUsersDetailsProvider : NSObject <BDKUserDetailsProvider>
 
 - (instancetype)initWithCache:(BCPUsersDetailsCache *)cache;
 

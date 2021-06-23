@@ -21,7 +21,7 @@
 
 @implementation BCPChatClientEventsReporterTest
 {
-    id <BCHChatClient> client;
+    id <BDKChatClient> client;
     BCPEventEmitter *emitter;
     BCPChatClientEventsReporter *sut;
 }
@@ -30,7 +30,7 @@
 {
     [super setUp];
 
-    client = mockProtocol(@protocol(BCHChatClient));
+    client = mockProtocol(@protocol(BDKChatClient));
     emitter = mock(BCPEventEmitter.class);
     sut = [[BCPChatClientEventsReporter alloc] initWithChatClient:client eventEmitter:emitter];
 }

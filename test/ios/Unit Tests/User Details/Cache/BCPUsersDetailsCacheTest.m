@@ -30,20 +30,17 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testSetsItem
 {
-    BDKUserInfoDisplayItem *item = [[BDKUserInfoDisplayItem alloc] initWithAlias:@"alias"];
-    item.firstName = @"First Name";
-    item.lastName = @"Last Name";
+    BDKUserDetails *item = [[BDKUserDetails alloc] initWithAlias:@"alias" firstname:@"First Name" lastname:@"Last Name"];
 
     [sut setItem:item forKey:item.alias];
 
-    BDKUserInfoDisplayItem *storedItem = [sut itemForKey:item.alias];
-
+    BDKUserDetails *storedItem = [sut itemForKey:item.alias];
     assertThat(storedItem, equalTo(item));
 }
 
 - (void)testThrowsInvalidArgumentExceptionWhenSettingAnItemWithANilKey
 {
-    BDKUserInfoDisplayItem *item = [[BDKUserInfoDisplayItem alloc] initWithAlias:@"alias"];
+    BDKUserDetails *item = [[BDKUserDetails alloc] initWithAlias:@"alias"];
 
     assertThat(^{[sut setItem:item forKey:nil];}, throwsInvalidArgumentException());
 }
@@ -55,9 +52,9 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 - (void)testPurgesAllItems
 {
-    BDKUserInfoDisplayItem *item1 = [[BDKUserInfoDisplayItem alloc] initWithAlias:@"alias1"];
-    BDKUserInfoDisplayItem *item2 = [[BDKUserInfoDisplayItem alloc] initWithAlias:@"alias2"];
-    BDKUserInfoDisplayItem *item3 = [[BDKUserInfoDisplayItem alloc] initWithAlias:@"alias3"];
+    BDKUserDetails *item1 = [[BDKUserDetails alloc] initWithAlias:@"alias1"];
+    BDKUserDetails *item2 = [[BDKUserDetails alloc] initWithAlias:@"alias2"];
+    BDKUserDetails *item3 = [[BDKUserDetails alloc] initWithAlias:@"alias3"];
 
     [sut setItem:item1 forKey:item1.alias];
     [sut setItem:item2 forKey:item2.alias];

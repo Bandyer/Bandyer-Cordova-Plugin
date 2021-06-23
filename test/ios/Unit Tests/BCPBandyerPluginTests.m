@@ -113,7 +113,7 @@
     }];
     [sut initializeBandyer:command];
 
-    [verify(sdkMock) setUserInfoFetcher:instanceOf(BCPUsersDetailsProvider.class)];
+    [verify(sdkMock) setUserDetailsProvider:instanceOf(BCPUsersDetailsProvider.class)];
 }
 
 - (void)testInitializeBandyerNotifiesSuccess
@@ -141,11 +141,11 @@
         @"logEnabled" : @YES
     }];
     [self addTeardownBlock:^{
-        BandyerSDK.logLevel = BDFLogLevelOff;
+        BandyerSDK.logLevel = BDKLogLevelOff;
     }];
     [sut initializeBandyer:command];
 
-    assertThatInteger(BandyerSDK.logLevel, equalToInteger(BDFLogLevelAll));
+    assertThatInteger(BandyerSDK.logLevel, equalToInteger(BDKLogLevelOff));
 }
 
 - (void)testInitializeBandyerTellsUICoordinatorTheSDKHasBeenInitialized
@@ -310,7 +310,7 @@
     BandyerSDK *sdkMock = [self makeSDKWithCallClient:callClient chatClient:chatClient];
     BCPBandyerPlugin *sut = [self makeSUTWithSDK:sdkMock];
 
-    [given([callClient state]) willReturnInteger:BCXCallClientStateRunning];
+    [given([callClient state]) willReturnInteger:BDKCallClientStateRunning];
     CDVInvokedUrlCommand *command = [self makeCommand:@"commandId" payload:@{}];
     [sut state:command];
 
@@ -361,11 +361,11 @@
 
     HCArgumentCaptor *intentCaptor = [HCArgumentCaptor new];
     [verify(sut.coordinator) handleIntent:(id)intentCaptor];
-    BDKMakeCallIntent *intent = intentCaptor.value;
-    assertThat(intent.callee, equalTo(@[@"foobar"]));
-    assertThatInteger(intent.callType, equalToInteger(BDKCallTypeAudioOnly));
-    assertThatBool(intent.record, isTrue());
-    assertThatUnsignedInteger(intent.maximumDuration, equalToUnsignedInteger(0));
+    BDKStartOutgoingCallIntent *intent = intentCaptor.value;
+    assertThat(intent.callees, equalTo(@[@"foobar"]));
+    assertThatInteger(intent.options.callType, equalToInteger(BDKCallTypeAudioOnly));
+    assertThatBool(intent.options.isRecorded, isTrue());
+    assertThatUnsignedInteger(intent.options.maximumDuration, equalToUnsignedInteger(0));
 }
 
 - (void)testStartCallTellsUICoordinatorToHandleJoinURLIntentWhenArgumentsProvideJoinURL
@@ -410,7 +410,7 @@
                                               }];
     [sut startChat:command];
 
-    [verify(sut.coordinator) handleIntent:instanceOf(BCHOpenChatIntent.class)];
+    [verify(sut.coordinator) handleIntent:instanceOf(BDKOpenChatIntent.class)];
 }
 
 - (void)testStartChatReportsSuccessOnSuccess
@@ -555,14 +555,14 @@
     return [self makeCommand:@"callbackId" payload:payload];
 }
 
-- (id<BCXCallClient>)makeCallClientMock
+- (id<BDKCallClient>)makeCallClientMock
 {
-    return mockProtocol(@protocol(BCXCallClient));
+    return mockProtocol(@protocol(BDKCallClient));
 }
 
-- (id<BCHChatClient>)makeChatClientMock
+- (id<BDKChatClient>)makeChatClientMock
 {
-    return mockProtocol(@protocol(BCHChatClient));
+    return mockProtocol(@protocol(BDKChatClient));
 }
 
 - (BandyerSDK *)makeSDKMock
@@ -570,7 +570,7 @@
     return [self makeSDKWithCallClient:[self makeCallClientMock] chatClient:[self makeChatClientMock]];
 }
 
-- (BandyerSDK *)makeSDKWithCallClient:(id<BCXCallClient>)callClient chatClient:(id<BCHChatClient>)chatClient
+- (BandyerSDK *)makeSDKWithCallClient:(id<BDKCallClient>)callClient chatClient:(id<BDKChatClient>)chatClient
 {
     BandyerSDK *m = mock(BandyerSDK.class);
     [given([m callClient]) willReturn:callClient];

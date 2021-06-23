@@ -7,7 +7,7 @@
 
 @interface BCPUsersDetailsCache ()
 
-@property (nonatomic, strong) NSMutableDictionary <id<NSCopying>, BDKUserInfoDisplayItem *> *cache;
+@property (nonatomic, strong) NSMutableDictionary <id<NSCopying>, BDKUserDetails *> *cache;
 
 @end
 
@@ -25,7 +25,7 @@
     return self;
 }
 
-- (void)setItem:(nullable BDKUserInfoDisplayItem *)item forKey:(id<NSCopying>)key
+- (void)setItem:(nullable BDKUserDetails *)item forKey:(id<NSCopying>)key
 {
     @synchronized (self)
     {
@@ -33,7 +33,7 @@
     }
 }
 
-- (nullable BDKUserInfoDisplayItem *)itemForKey:(id<NSCopying>)key
+- (nullable BDKUserDetails *)itemForKey:(id<NSCopying>)key
 {
     @synchronized (self)
     {

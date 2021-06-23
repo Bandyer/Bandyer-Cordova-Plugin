@@ -10,7 +10,7 @@
 #import <Bandyer/Bandyer.h>
 #import <Cordova/CDVPlugin.h>
 
-@interface BCPUserInterfaceCoordinator () <BDKCallWindowDelegate, BCHChannelViewControllerDelegate, BDKCallBannerControllerDelegate, BDKInAppChatNotificationTouchListener, BDKInAppFileShareNotificationTouchListener>
+@interface BCPUserInterfaceCoordinator () <BDKCallWindowDelegate, BDKChannelViewControllerDelegate, BDKCallBannerControllerDelegate, BDKInAppChatNotificationTouchListener, BDKInAppFileShareNotificationTouchListener>
 
 @property (nonatomic, weak, readonly) UIViewController *viewController;
 @property (nonatomic, strong) BDKCallBannerController *callBannerController;
@@ -102,10 +102,10 @@
 
 - (void)handleIntent:(id <BDKIntent>)intent
 {
-    if ([intent isKindOfClass:BDKMakeCallIntent.class] || [intent isKindOfClass:BDKJoinURLIntent.class] ||
-        [intent isKindOfClass:BDKIncomingCallHandlingIntent.class])
+    if ([intent isKindOfClass:BDKStartOutgoingCallIntent.class] || [intent isKindOfClass:BDKJoinURLIntent.class] ||
+        [intent isKindOfClass:BDKHandleIncomingCallIntent.class])
         [self presentCallInterfaceForIntent:intent];
-    else if ([intent isKindOfClass:BCHOpenChatIntent.class])
+    else if ([intent isKindOfClass:BDKOpenChatIntent.class])
         [self presentChatFrom:self.viewController intent:intent];
     else
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"An unknown intent type has been provided" userInfo:nil];
@@ -130,14 +130,14 @@
 
 - (void)presentChatFrom:(UIViewController *)controller notification:(BDKChatNotification *)notification
 {
-    BCHOpenChatIntent *intent = [BCHOpenChatIntent openChatFrom:notification];
+    BDKOpenChatIntent *intent = [BDKOpenChatIntent openChatFrom:notification];
 
     [self presentChatFrom:controller intent:intent];
 }
 
-- (void)presentChatFrom:(UIViewController *)controller intent:(BCHOpenChatIntent *)intent
+- (void)presentChatFrom:(UIViewController *)controller intent:(BDKOpenChatIntent *)intent
 {
-    BCHChannelViewController *channelViewController = [[BCHChannelViewController alloc] init];
+    BDKChannelViewController *channelViewController = [[BDKChannelViewController alloc] init];
     channelViewController.delegate = self;
 
     if (@available(ios 13.0, *))
@@ -146,7 +146,7 @@
     }
 
     NSFormatter *formatter = [self makeFormatterIfPossible];
-    BCHChannelViewControllerConfiguration *configuration = [[BCHChannelViewControllerConfiguration alloc] initWithAudioButton:YES videoButton:YES formatter:formatter];
+    BDKChannelViewControllerConfiguration *configuration = [[BDKChannelViewControllerConfiguration alloc] initWithAudioButton:YES videoButton:YES formatter:formatter];
     channelViewController.configuration = configuration;
     channelViewController.intent = intent;
 
@@ -205,7 +205,7 @@
     [self hideCallInterface];
 }
 
-- (void)callWindow:(BDKCallWindow *)window openChatWith:(BCHOpenChatIntent *)intent
+- (void)callWindow:(BDKCallWindow *)window openChatWith:(BDKOpenChatIntent *)intent
 {
     [self hideCallInterface];
     [self presentChatFrom:self.viewController intent:intent];
@@ -215,35 +215,31 @@
 #pragma mark - Channel view controller delegate
 //---------------------------------------------------------------------
 
-- (void)channelViewControllerDidFinish:(BCHChannelViewController *)controller
+- (void)channelViewControllerDidFinish:(BDKChannelViewController *)controller
 {
     [self.viewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)channelViewController:(BCHChannelViewController *)controller didTapAudioCallWith:(NSArray *)users
+- (void)channelViewController:(BDKChannelViewController *)controller didTapAudioCallWith:(NSArray *)users
 {
-    [self presentCallInterfaceForIntent:[BDKMakeCallIntent intentWithCallee:users type:BDKCallTypeAudioUpgradable]];
+    BDKCallOptions *callOptions = [BDKCallOptions optionsWithCallType:BDKCallTypeAudioUpgradable];
+    BDKStartOutgoingCallIntent *intent = [[BDKStartOutgoingCallIntent alloc] initWithCallees:users options:callOptions];
+    [self presentCallInterfaceForIntent:intent];
 }
 
-- (void)channelViewController:(BCHChannelViewController *)controller didTapVideoCallWith:(NSArray *)users
+- (void)channelViewController:(BDKChannelViewController *)controller didTapVideoCallWith:(NSArray *)users
 {
-    [self presentCallInterfaceForIntent:[BDKMakeCallIntent intentWithCallee:users type:BDKCallTypeAudioVideo]];
+    BDKCallOptions *callOptions = [BDKCallOptions optionsWithCallType:BDKCallTypeAudioVideo];
+    BDKStartOutgoingCallIntent *intent = [[BDKStartOutgoingCallIntent alloc] initWithCallees:users options:callOptions];
+    [self presentCallInterfaceForIntent:intent];
 }
 
-- (void)channelViewController:(BCHChannelViewController *)controller willHide:(BDKCallBannerView *)banner
-{
-}
-
-- (void)channelViewController:(BCHChannelViewController *)controller willShow:(BDKCallBannerView *)banner
-{
-}
-
-- (void)channelViewController:(BCHChannelViewController *)controller didTouchBanner:(BDKCallBannerView *)banner
-{
-    [self.viewController dismissViewControllerAnimated:YES completion:^{
-        [self presentCallInterfaceForIntent:self.callWindow.intent];
-    }];
-}
+//- (void)channelViewController:(BDKChannelViewController *)controller didTouchBanner:(BDKCallBannerView *)banner
+//{
+//    [self.viewController dismissViewControllerAnimated:YES completion:^{
+//        [self presentCallInterfaceForIntent:self.callWindow.intent];
+//    }];
+//}
 
 //----------------------------------------------------------------------
 #pragma mark - In app notifications touch listeners
@@ -265,15 +261,15 @@
 #pragma mark - Call Banner Controller delegate
 //----------------------------------------------------------
 
-- (void)callBannerController:(BDKCallBannerController *)controller willHide:(BDKCallBannerView *)banner
+- (void)callBannerControllerWillHideBanner:(BDKCallBannerController *)controller
 {
 }
 
-- (void)callBannerController:(BDKCallBannerController *)controller willShow:(BDKCallBannerView *)banner
+- (void)callBannerControllerWillShowBanner:(BDKCallBannerController *)controller
 {
 }
 
-- (void)callBannerController:(BDKCallBannerController *)controller didTouch:(BDKCallBannerView *)banner
+- (void)callBannerControllerDidTouchBanner:(BDKCallBannerController *)controller
 {
     [self presentCallInterfaceForIntent:self.callWindow.intent];
 }

@@ -1,11 +1,11 @@
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'Bandyer-Cordova-Plugin' do
   project 'Bandyer-Cordova-Plugin'
   use_frameworks!
 
   pod 'Cordova', '~> 5.1'
-  pod 'Bandyer', '~> 1.7.3'
+  pod 'Bandyer', '~> 2.0.0' 
 end
 
 target 'Bandyer-Cordova-PluginTests' do

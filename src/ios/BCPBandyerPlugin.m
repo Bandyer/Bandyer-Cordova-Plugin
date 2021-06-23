@@ -19,7 +19,7 @@
 
 #import <Bandyer/Bandyer.h>
 
-@interface BCPBandyerPlugin () <BCXCallClientObserver>
+@interface BCPBandyerPlugin () <BDKCallClientObserver>
 
 @property (nonatomic, strong) BCPFormatterProxy *formatterProxy;
 @property (nonatomic, strong, readwrite, nullable) BCPUsersDetailsCache *usersCache;
@@ -94,7 +94,7 @@
 
         if (config.isCallKitEnabled)
         {
-            config.handleProvider = [[BCPContactHandleProvider alloc] initWithCache:self.usersCache formatter:self.formatterProxy];
+//            config.handleProvider = [[BCPContactHandleProvider alloc] initWithCache:self.usersCache formatter:self.formatterProxy];
             config.nativeUIRingToneSound = args[kBCPCallKitConfigKey][kBCPCallKitConfigRingtoneKey];
             NSString *appIconResourceName = args[kBCPCallKitConfigKey][kBCPCallKitConfigIconKey];
 
@@ -128,11 +128,11 @@
 
     if ([args[kBCPLogEnabledKey] boolValue] == YES)
     {
-        BandyerSDK.logLevel = BDFLogLevelAll;
+        BandyerSDK.logLevel = BDKLogLevelAll;
     }
 
     [self.sdk initializeWithApplicationId:appID config:config];
-    self.sdk.userInfoFetcher = [[BCPUsersDetailsProvider alloc] initWithCache:self.usersCache];
+    self.sdk.userDetailsProvider = [[BCPUsersDetailsProvider alloc] initWithCache:self.usersCache];
     self.coordinator.sdk = self.sdk;
     self.callClientEventsReporter = [[BCPCallClientEventsReporter alloc] initWithCallClient:self.sdk.callClient eventEmitter:self.eventEmitter];
     [self.callClientEventsReporter start];
@@ -152,9 +152,10 @@
         return;
     }
 
+    [self.sdk openSessionWithUserId:user];
     [self.sdk.callClient addObserver:self queue:dispatch_get_main_queue()];
-    [self.sdk.callClient start:user];
-    [self.sdk.chatClient start:user];
+    [self.sdk.callClient start];
+    [self.sdk.chatClient start];
 
     [self reportCommandSucceeded:command];
 }
@@ -186,8 +187,7 @@
 
 - (void)state:(CDVInvokedUrlCommand *)command 
 {
-    BCXCallClientState state = [self.sdk.callClient state];
-    NSString *stateAsString = [NSStringFromBCXCallClientState(state) lowercaseString];
+    NSString *stateAsString = [self stringFromCallClientState:self.sdk.callClient];
 
     [self reportCommandSucceeded:command withMessageAsString:stateAsString];
 }
@@ -218,7 +218,8 @@
         intent = [BDKJoinURLIntent intentWithURL:[NSURL URLWithString:joinUrl]];
     } else
     {
-        intent = [BDKMakeCallIntent intentWithCallee:callee type:typeCall record:recording maximumDuration:0];
+        BDKCallOptions *callOptions = [BDKCallOptions optionsWithCallType:typeCall recorded:recording];
+        intent = [[BDKStartOutgoingCallIntent alloc] initWithCallees:callee options:callOptions];
     }
 
     [self.coordinator handleIntent:intent];
@@ -241,7 +242,7 @@
     }
 
     //TODO: HANDLE CALL OPTIONS
-    BCHOpenChatIntent *intent = [BCHOpenChatIntent openChatWith:user];
+    BDKOpenChatIntent *intent = [BDKOpenChatIntent openChatWith:user];
     [self.coordinator handleIntent:intent];
 
     [self reportCommandSucceeded:command];
@@ -292,11 +293,31 @@
     [self.commandDelegate sendPluginResult:[CDVPluginResult bcp_error] callbackId:command.callbackId];
 }
 
-// MARK: BCXCallClientObserver
+// MARK: BDKCallClientObserver
 
-- (void)callClient:(id <BCXCallClient>)client didReceiveIncomingCall:(id <BCXCall>)call
+- (void)callClient:(id <BDKCallClient>)client didReceiveIncomingCall:(id <BDKCall>)call
 {
-    [self.coordinator handleIntent:[BDKIncomingCallHandlingIntent new]];
+    [self.coordinator handleIntent:[[BDKHandleIncomingCallIntent alloc] initWithCall:call]];
+}
+
+- (NSString *)stringFromCallClientState:(id<BDKCallClient>)client
+{
+    switch (client.state) {
+        case BDKCallClientStateStopped:
+            return @"stopped";
+        case BDKCallClientStateStarting:
+            return @"starting";
+        case BDKCallClientStateRunning:
+            return @"running";
+        case BDKCallClientStateResuming:
+            return @"resuming";
+        case BDKCallClientStatePaused:
+            return @"paused";
+        case BDKCallClientStateReconnecting:
+            return @"reconnecting";
+        case BDKCallClientStateFailed:
+            return @"failed";
+    }
 }
 
 @end
