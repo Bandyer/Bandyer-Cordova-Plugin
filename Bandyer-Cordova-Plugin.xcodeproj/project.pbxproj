@@ -16,7 +16,6 @@
 		A91AADD82452E5AF007003AF /* BCPEventEmitterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADC82452E5AF007003AF /* BCPEventEmitterTest.m */; };
 		A91AADD92452E5AF007003AF /* BCPExceptionsMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADC92452E5AF007003AF /* BCPExceptionsMatcher.m */; };
 		A91AADDA2452E5B0007003AF /* BCPUsersDetailsCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADCA2452E5AF007003AF /* BCPUsersDetailsCacheTest.m */; };
-		A91AADDC2452E5B0007003AF /* BCPiOS10AndAboveTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADCC2452E5AF007003AF /* BCPiOS10AndAboveTestCase.m */; };
 		A91AADDD2452E5B0007003AF /* BCPChatClientEventsReporterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADCE2452E5AF007003AF /* BCPChatClientEventsReporterTest.m */; };
 		A91AADDE2452E5B0007003AF /* BCPCallClientEventsReporterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADD02452E5AF007003AF /* BCPCallClientEventsReporterTest.m */; };
 		A91AADDF2452E5B0007003AF /* CDVPluginResult_FactoryMethodsCategoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AADD12452E5AF007003AF /* CDVPluginResult_FactoryMethodsCategoryTest.m */; };
@@ -81,13 +80,11 @@
 		A91AADC22452E5AF007003AF /* BCPPushTokenEventsReporterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPPushTokenEventsReporterTest.m; sourceTree = "<group>"; };
 		A91AADC32452E5AF007003AF /* BCPUserInterfaceCoordinatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPUserInterfaceCoordinatorTest.m; sourceTree = "<group>"; };
 		A91AADC42452E5AF007003AF /* BCPUsersDetailsProviderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPUsersDetailsProviderTest.m; sourceTree = "<group>"; };
-		A91AADC52452E5AF007003AF /* BCPiOS10AndAboveTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPiOS10AndAboveTestCase.h; sourceTree = "<group>"; };
 		A91AADC62452E5AF007003AF /* BCPTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPTestCase.m; sourceTree = "<group>"; };
 		A91AADC72452E5AF007003AF /* BCPUsersDetailsCommandsHandlerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPUsersDetailsCommandsHandlerTest.m; sourceTree = "<group>"; };
 		A91AADC82452E5AF007003AF /* BCPEventEmitterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPEventEmitterTest.m; sourceTree = "<group>"; };
 		A91AADC92452E5AF007003AF /* BCPExceptionsMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPExceptionsMatcher.m; sourceTree = "<group>"; };
 		A91AADCA2452E5AF007003AF /* BCPUsersDetailsCacheTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPUsersDetailsCacheTest.m; sourceTree = "<group>"; };
-		A91AADCC2452E5AF007003AF /* BCPiOS10AndAboveTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPiOS10AndAboveTestCase.m; sourceTree = "<group>"; };
 		A91AADCD2452E5AF007003AF /* BCPTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPTestCase.h; sourceTree = "<group>"; };
 		A91AADCE2452E5AF007003AF /* BCPChatClientEventsReporterTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCPChatClientEventsReporterTest.m; sourceTree = "<group>"; };
 		A91AADCF2452E5AF007003AF /* BCPTestingMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCPTestingMacros.h; sourceTree = "<group>"; };
@@ -219,8 +216,6 @@
 		A9A1A3F22458744E0077A3DD /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				A91AADC52452E5AF007003AF /* BCPiOS10AndAboveTestCase.h */,
-				A91AADCC2452E5AF007003AF /* BCPiOS10AndAboveTestCase.m */,
 				A91AADCD2452E5AF007003AF /* BCPTestCase.h */,
 				A91AADC62452E5AF007003AF /* BCPTestCase.m */,
 			);
@@ -671,7 +666,6 @@
 				A91AADD62452E5AF007003AF /* BCPTestCase.m in Sources */,
 				A91AADD72452E5AF007003AF /* BCPUsersDetailsCommandsHandlerTest.m in Sources */,
 				A91AADD82452E5AF007003AF /* BCPEventEmitterTest.m in Sources */,
-				A91AADDC2452E5B0007003AF /* BCPiOS10AndAboveTestCase.m in Sources */,
 				A99B60AF2669019E009D4174 /* BCPFormatterProxyTests.m in Sources */,
 				A9EDB31124573E7500C57DE1 /* BCPBandyerPluginTests.m in Sources */,
 				A9A1A3F124586F0C0077A3DD /* BCPPluginResultMatcher.m in Sources */,
