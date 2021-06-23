@@ -234,13 +234,6 @@
     [self presentCallInterfaceForIntent:intent];
 }
 
-//- (void)channelViewController:(BDKChannelViewController *)controller didTouchBanner:(BDKCallBannerView *)banner
-//{
-//    [self.viewController dismissViewControllerAnimated:YES completion:^{
-//        [self presentCallInterfaceForIntent:self.callWindow.intent];
-//    }];
-//}
-
 //----------------------------------------------------------------------
 #pragma mark - In app notifications touch listeners
 //----------------------------------------------------------------------
