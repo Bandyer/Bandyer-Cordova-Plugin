@@ -14,6 +14,11 @@
         <clobbers target="BandyerPlugin" />
     </js-module>
 
+    <engines>
+        <engine name="cordova" version=">=9.0.0" />
+        <engine name="cordova-ios" version=">=6.0.0" />
+        <engine name="apple-ios" version=">=10.0.0" />
+    </engines>
 
     <platform name="ios">
         <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
