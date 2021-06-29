@@ -1,18 +1,16 @@
-//
 // Copyright © 2019 Bandyer S.r.l. All rights reserved.
 // See LICENSE.txt for licensing information
-//
 
 #import <Foundation/Foundation.h>
-#import <Bandyer/BDKUserInfoFetcher.h>
+#import <Bandyer/BDKUserDetailsProvider.h>
 
 @class BCPUsersDetailsCache;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BCPUsersDetailsProvider : NSObject <BDKUserInfoFetcher>
+@interface BCPUsersDetailsProvider : NSObject <BDKUserDetailsProvider>
 
-- (instancetype)initWithCache:(BCPUsersDetailsCache *)cache;
+- (instancetype)initWithCache:(BCPUsersDetailsCache *)cache formatter:(NSFormatter *)formatter;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;

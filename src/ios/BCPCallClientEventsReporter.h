@@ -4,18 +4,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Bandyer/BCXCallClientObserver.h>
-#import <Bandyer/BCXCallClient.h>
+#import <Bandyer/BDKCallClientObserver.h>
+#import <Bandyer/BDKCallClient.h>
 
 @class BCPEventEmitter;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BCPCallClientEventsReporter : NSObject <BCXCallClientObserver>
+@interface BCPCallClientEventsReporter : NSObject <BDKCallClientObserver>
 
 @property (nonatomic, assign, readonly, getter=isRunning) BOOL running;
 
-- (instancetype)initWithCallClient:(id <BCXCallClient>)callClient eventEmitter:(BCPEventEmitter *)emitter;
+- (instancetype)initWithCallClient:(id <BDKCallClient>)callClient eventEmitter:(BCPEventEmitter *)emitter;
 
 - (void)start;
 - (void)stop;

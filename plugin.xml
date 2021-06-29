@@ -14,6 +14,11 @@
         <clobbers target="BandyerPlugin" />
     </js-module>
 
+    <engines>
+        <engine name="cordova" version=">=9.0.0" />
+        <engine name="cordova-ios" version=">=6.0.0" />
+        <engine name="apple-ios" version=">=10.0.0" />
+    </engines>
 
     <platform name="ios">
         <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
@@ -44,8 +49,6 @@
         <source-file src="src/ios/BCPEventEmitter.m" />
         <header-file src="src/ios/BCPUsersDetailsProvider.h" />
         <source-file src="src/ios/BCPUsersDetailsProvider.m" />
-        <header-file src="src/ios/BCPContactHandleProvider.h" />
-        <source-file src="src/ios/BCPContactHandleProvider.m" />
         <header-file src="src/ios/BCPUsersDetailsCommandsHandler.h" />
         <source-file src="src/ios/BCPUsersDetailsCommandsHandler.m" />
         <header-file src="src/ios/BCPUserInterfaceCoordinator.h" />
@@ -65,7 +68,7 @@
                 <source url="https://cdn.cocoapods.org/" />
             </config>
             <pods use-frameworks="true">
-                <pod name="Bandyer" spec="1.7.3" />
+                <pod name="Bandyer" spec="2.0.0" />
             </pods>
         </podspec>
         <dependency id="cordova-plugin-device" url="https://github.com/apache/cordova-plugin-device" />

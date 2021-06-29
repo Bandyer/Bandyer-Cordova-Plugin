@@ -4,18 +4,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Bandyer/BCHChatClientObserver.h>
-#import <Bandyer/BCHChatClient.h>
+#import <Bandyer/BDKChatClientObserver.h>
+#import <Bandyer/BDKChatClient.h>
 
 @class BCPEventEmitter;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BCPChatClientEventsReporter : NSObject <BCHChatClientObserver>
+@interface BCPChatClientEventsReporter : NSObject <BDKChatClientObserver>
 
 @property (nonatomic, assign, readonly, getter=isRunning) BOOL running;
 
-- (instancetype)initWithChatClient:(id <BCHChatClient>)chatClient eventEmitter:(BCPEventEmitter *)eventEmitter;
+- (instancetype)initWithChatClient:(id <BDKChatClient>)chatClient eventEmitter:(BCPEventEmitter *)eventEmitter;
 
 - (void)start;
 - (void)stop;

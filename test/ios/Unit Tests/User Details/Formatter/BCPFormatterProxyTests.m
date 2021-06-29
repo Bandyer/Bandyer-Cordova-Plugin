@@ -2,7 +2,7 @@
 // See LICENSE.txt for licensing information
 
 #import <OCHamcrest/OCHamcrest.h>
-#import <Bandyer/BDKUserInfoDisplayItem.h>
+#import <Bandyer/BDKUserDetails.h>
 
 #import "BCPTestCase.h"
 #import "BCPTestingMacros.h"
@@ -23,7 +23,7 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 {
     BCPFormatterProxy *sut = [BCPFormatterProxy new];
 
-    BDKUserInfoDisplayItem *item = [self makeItem];
+    BDKUserDetails *item = [self makeItem];
     NSString *string = [sut stringForObjectValue:item];
 
     assertThat(string, equalTo(item.alias));
@@ -35,10 +35,10 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     BCPFormatterProxy *sut = [BCPFormatterProxy new];
     sut.formatter = realFormatter;
 
-    BDKUserInfoDisplayItem *item = [self makeItem];
+    BDKUserDetails *item = [self makeItem];
     NSString *string = [sut stringForObjectValue:item];
 
-    assertThat(string, equalTo([NSString stringWithFormat:@"%@ %@", item.firstName, item.lastName]));
+    assertThat(string, equalTo([NSString stringWithFormat:@"%@ %@", item.firstname, item.lastname]));
 }
 
 - (void)testSetFormatterShouldThrowAnInvalidArgumentExceptionWhenNilValueIsProvided
@@ -50,12 +50,11 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
 
 // MARK: Helpers
 
-- (BDKUserInfoDisplayItem *)makeItem
+- (BDKUserDetails *)makeItem
 {
-    BDKUserInfoDisplayItem *item = [[BDKUserInfoDisplayItem alloc] initWithAlias:@"bob"];
-    item.firstName = @"Robert";
-    item.lastName = @"Martin";
-    return item;
+    return [[BDKUserDetails alloc] initWithAlias:@"bob"
+                                       firstname:@"Robert"
+                                        lastname:@"Martin"];
 }
 
 __SUPPRESS_WARNINGS_FOR_TEST_END

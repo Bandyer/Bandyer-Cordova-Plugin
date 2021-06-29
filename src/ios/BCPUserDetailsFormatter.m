@@ -4,7 +4,7 @@
 #import "BCPUserDetailsFormatter.h"
 #import "BCPMacros.h"
 
-#import <Bandyer/Bandyer.h>
+#import <Bandyer/BDKUserDetails.h>
 
 @interface BCPUserDetailsFormatter()
 
@@ -25,8 +25,8 @@
         _format = [format copy];
         _tokenPropertyMap = @{
             @"${useralias}" : @"alias",
-            @"${firstname}" : @"firstName",
-            @"${lastname}" : @"lastName",
+            @"${firstname}" : @"firstname",
+            @"${lastname}" : @"lastname",
             @"${nickname}" : @"nickname",
             @"${email}" : @"email",
         };
@@ -40,16 +40,16 @@
     if ([obj isKindOfClass:NSArray.class])
         return [self stringForUserDisplayItems:obj];
 
-    if ([obj isKindOfClass:BDKUserInfoDisplayItem.class])
-        return [self stringForUserDisplayItem:(BDKUserInfoDisplayItem*) obj];
+    if ([obj isKindOfClass:BDKUserDetails.class])
+        return [self stringForUserDisplayItem:(BDKUserDetails*) obj];
 
     return nil;
 }
 
-- (NSString *)stringForUserDisplayItems:(NSArray<BDKUserInfoDisplayItem *> *)items
+- (NSString *)stringForUserDisplayItems:(NSArray<BDKUserDetails *> *)items
 {
     NSMutableArray<NSString *> *strings = [NSMutableArray array];
-    for (BDKUserInfoDisplayItem *item in items)
+    for (BDKUserDetails *item in items)
     {
         NSString *string = [self stringForObjectValue:item];
 
@@ -60,7 +60,7 @@
     return [strings componentsJoinedByString:@", "];
 }
 
-- (nullable NSString *)stringForUserDisplayItem:(BDKUserInfoDisplayItem *)item
+- (nullable NSString *)stringForUserDisplayItem:(BDKUserDetails *)item
 {
     NSString *result = [self.format copy];
     NSArray<NSString *>*tokens = [self matchingTokensInFormat];

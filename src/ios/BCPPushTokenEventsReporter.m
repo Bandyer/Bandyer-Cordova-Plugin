@@ -8,7 +8,7 @@
 #import "BCPMacros.h"
 #import "BCPBandyerEvents.h"
 
-#import <Bandyer/PKPushCredentials+BCXAdditions.h>
+#import <Bandyer/PKPushCredentials+BDKToken.h>
 
 @interface BCPPushTokenEventsReporter ()
 
@@ -34,7 +34,7 @@
 
 - (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)pushCredentials forType:(PKPushType)type
 {
-    NSString *token = [pushCredentials bcx_tokenAsString];
+    NSString *token = [pushCredentials bdk_tokenAsString];
 
     if (token.length == 0)
         return;

@@ -67,13 +67,13 @@
 
 - (void)updateCacheWithItemFromDictionary:(NSDictionary *)dictionary
 {
-    BDKUserInfoDisplayItem *item = [self itemFromDictionary:dictionary];
+    BDKUserDetails *item = [self itemFromDictionary:dictionary];
 
     if (item)
         [self.cache setItem:item forKey:item.alias];
 }
 
-- (nullable BDKUserInfoDisplayItem *)itemFromDictionary:(NSDictionary *)dictionary
+- (nullable BDKUserDetails *)itemFromDictionary:(NSDictionary *)dictionary
 {
     if (![dictionary isKindOfClass:NSDictionary.class])
         return nil;
@@ -86,14 +86,12 @@
     if (alias.length == 0)
         return nil;
 
-    BDKUserInfoDisplayItem *item = [[BDKUserInfoDisplayItem alloc] initWithAlias:alias];
-    item.firstName = dictionary[@"firstName"];
-    item.lastName = dictionary[@"lastName"];
-    item.email = dictionary[@"email"];
-
     NSString *urlAsString = dictionary[@"profileImageUrl"];
-    if (urlAsString)
-        item.imageURL = [NSURL URLWithString:urlAsString];
+    BDKUserDetails *item = [[BDKUserDetails alloc] initWithAlias:alias
+                                                       firstname:dictionary[@"firstName"]
+                                                        lastname:dictionary[@"lastName"]
+                                                           email:dictionary[@"email"]
+                                                        imageURL:urlAsString ? [NSURL URLWithString:urlAsString] : nil];
 
     return item;
 }

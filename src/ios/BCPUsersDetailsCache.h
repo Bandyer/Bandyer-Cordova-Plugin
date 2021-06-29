@@ -4,11 +4,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Bandyer/Bandyer.h>
+#import <Bandyer/BDKUserDetails.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BCPUsersDetailsCache <__covariant KeyType, __covariant ValueType : BDKUserInfoDisplayItem *> : NSObject
+@interface BCPUsersDetailsCache <__covariant KeyType, __covariant ValueType : BDKUserDetails *> : NSObject
 
 - (void)setItem:(nullable ValueType)item forKey:(KeyType <NSCopying> )key;
 - (nullable ValueType)itemForKey:(KeyType <NSCopying>)key;

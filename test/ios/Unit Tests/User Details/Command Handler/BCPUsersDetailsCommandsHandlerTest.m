@@ -60,10 +60,10 @@ __SUPPRESS_WARNINGS_FOR_TEST_BEGIN
     CDVInvokedUrlCommand *command = [self makeCommandWithArgs:args];
     [sut addUsersDetails:command];
 
-    BDKUserInfoDisplayItem *item = [cache itemForKey:@"alias1"];
+    BDKUserDetails *item = [cache itemForKey:@"alias1"];
     assertThat(item, notNilValue());
-    assertThat(item.firstName, equalTo(@"name"));
-    assertThat(item.lastName, equalTo(@"last"));
+    assertThat(item.firstname, equalTo(@"name"));
+    assertThat(item.lastname, equalTo(@"last"));
     assertThat(item.email, equalTo(@"email@bandyer.com"));
 }
 
