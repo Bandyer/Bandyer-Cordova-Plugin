@@ -12,19 +12,50 @@ cordova plugin add cordova-plugin-androidx // needed for android
 
 Open the **terminal** in your Cordova-App folder and run the following commands
 
-```
+```sh
 cordova plugin add @bandyer/cordova-plugin-bandyer
 ```
 
+### Advanced installation options
+
+Starting from the **0.8.0** version, the iOS plugin supports the broadcast screen sharing feature of the native BandyerSDK. In order to enable the broadcast screen sharing tool in your cordova app you must add the plugin providing some settings. Below you'll find a table containing the settings you can customize both from the CLI and from the config.xml file of your app
+
+| variable                    | example                        | default  | notes                                                                                            |
+|-----------------------------|--------------------------------|----------|----------------------------------------------------------------------------------------|
+| `IOS_APP_GROUP_IDENTIFIER` | group.com.acme.MyApp            | ""       | **iOS only** Represents the security app group identifier shared by the app and the upload extension. It's a mandatory argument, if you don't provide a value, a default empty value will be used but the broadcast tool will be disabled  |
+| `IOS_EXTENSION_BUNDLE_ID`  | com.acme.MyApp.UploadExtension | ""        | **iOS only** Represents the broadcast upload extension bundle identifier. It's a mandatory argument, if you don't provide any value a default empty value will be used but the broadcast tool will be disabled |
+
+#### Example
+
+From the CLI:
+
+```sh
+cordova plugin add @bandyer/cordova-plugin-bandyer \
+ --variable IOS_APP_GROUP_IDENTIFIER=group.com.acme.MyApp \
+ --variable IOS_EXTENSION_BUNDLE_ID=com.acme.MyApp.UploadExtension
+```
+
+In the config.xml:
+
+```xml
+<plugin name="@bandyer/cordova-plugin-bandyer">
+  <variable name="IOS_APP_GROUP_IDENTIFIER" value="group.com.acme.MyApp" />
+  <variable name="IOS_EXTENSION_BUNDLE_ID" value="com.acme.MyApp.UploadExtension" />
+</plugin>
+
+```
+
+
 ## How to link local plugin:
 Link the local plugin to the project
-```bash
+
+```sh
 cordova plugin add @bandyer/cordova-plugin-bandyer --searchPath ${path-to-local-plugin}  --link
 ```
 
 ## How to remove the plugin:
 
-```bash
+```sh
 cordova plugin remove @bandyer/cordova-plugin-bandyer
 ```
 
