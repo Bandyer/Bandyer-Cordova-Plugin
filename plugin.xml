@@ -21,6 +21,9 @@
     </engines>
 
     <platform name="ios">
+        <preference name="IOS_APP_GROUP_IDENTIFIER" default="" />
+        <preference name="IOS_EXTENSION_BUNDLE_ID" default="" />
+
         <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
             <string>Necessaria per l'utilizzo della libreria</string>
         </config-file>
@@ -32,6 +35,16 @@
                 <param name="ios-package" value="BCPBandyerPlugin" />
             </feature>
         </config-file>
+
+        <config-file target="*/BandyerConfig.plist" parent="broadcast">
+            <dict>
+                <key>appGroupIdentifier</key>
+                <string>$IOS_APP_GROUP_IDENTIFIER</string>
+                <key>extensionBundleIdentifier</key>
+                <string>$IOS_EXTENSION_BUNDLE_ID</string>
+            </dict>
+        </config-file>
+
         <header-file src="src/ios/BCPMacros.h" />
         <header-file src="src/ios/BCPFunctions.h" />
         <header-file src="src/ios/BCPConstants.h" />
