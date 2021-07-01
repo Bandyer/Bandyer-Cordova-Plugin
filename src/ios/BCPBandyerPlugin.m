@@ -117,14 +117,18 @@
 
     if (@available(iOS 12.0, *))
     {
-        BCPBroadcastConfigurationPlistReader *reader = [[BCPBroadcastConfigurationPlistReader alloc] init];
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"BandyerConfig" withExtension:@"plist"];
-        NSError *error = nil;
-        BDKBroadcastScreensharingToolConfiguration *toolConfig = [reader read:url error:&error];
-        if (toolConfig != nil)
-            config.broadcastScreensharingConfiguration = toolConfig;
-        else
-            NSLog(@"An error occurred while setting up the broadcast screen sharing tool: %@", error);
+        NSNumber *broadcastEnabled = args[kBCPBroadcastScreensharingEnabledKey];
+        if (broadcastEnabled != nil && [broadcastEnabled boolValue])
+        {
+            BCPBroadcastConfigurationPlistReader *reader = [[BCPBroadcastConfigurationPlistReader alloc] init];
+            NSURL *url = [[NSBundle mainBundle] URLForResource:@"BandyerConfig" withExtension:@"plist"];
+            NSError *error = nil;
+            BDKBroadcastScreensharingToolConfiguration *toolConfig = [reader read:url error:&error];
+            if (toolConfig != nil)
+                config.broadcastScreensharingConfiguration = toolConfig;
+            else
+                NSLog(@"An error occurred while setting up the broadcast screen sharing tool: %@", error);
+        }
     }
 
     self.coordinator.fakeCapturerFilename = args[kBCPFakeCapturerFilenameKey];

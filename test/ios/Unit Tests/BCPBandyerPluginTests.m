@@ -178,7 +178,8 @@
 
         CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{
             @"environment" : @"sandbox",
-            @"appId" : @"appId"
+            @"appId" : @"appId",
+            @"ios_broadcastScreenSharingEnabled" : @YES
         }];
         [sut initializeBandyer:command];
 
@@ -211,7 +212,8 @@
 
         CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{
             @"environment" : @"sandbox",
-            @"appId" : @"appId"
+            @"appId" : @"appId",
+            @"ios_broadcastScreenSharingEnabled" : @YES
         }];
         [sut initializeBandyer:command];
 
