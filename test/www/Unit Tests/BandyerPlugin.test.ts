@@ -4,7 +4,7 @@
 //
 
 import {Environments} from "../../../www/src/Environments";
-import {BandyerPlugin} from "../../../www/src/BandyerPlugin";
+import BandyerPlugin from "../../../www/src/BandyerPlugin";
 import {CordovaSpy} from "./CordovaSpy";
 import {DeviceStub} from "./DeviceStub";
 import {BandyerPluginConfigs} from "../../../www/src/BandyerPluginConfigs";
