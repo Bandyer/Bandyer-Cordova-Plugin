@@ -69,7 +69,7 @@
         <header-file src="src/ios/CDVPluginResult+BCPFactoryMethods.h" />
         <source-file src="src/ios/CDVPluginResult+BCPFactoryMethods.m" />
 
-        <resource-file src="src/ios/Resources/BandyerConfig.plist" />
+        <resource-file src="res/ios/BandyerConfig.plist" />
 
         <podspec>
             <config>

@@ -50,7 +50,6 @@
 		A91AAE2124530A6E007003AF /* BCPUserDetailsFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = A91AAE1F24530A6E007003AF /* BCPUserDetailsFormatter.h */; };
 		A91AAE2224530A6E007003AF /* BCPUserDetailsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AAE2024530A6E007003AF /* BCPUserDetailsFormatter.m */; };
 		A9637FFA234CC8C20050AAA7 /* Bandyer_Cordova_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C31AF822C22D1100BC33D5 /* Bandyer_Cordova_Plugin.framework */; };
-		A992C3FB268DB1F6001EBBAB /* BandyerConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A992C3FA268DB1F6001EBBAB /* BandyerConfig.plist */; };
 		A992C3FE268DD09E001EBBAB /* BCPBroadcastConfigurationPlistReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A992C3FD268DD09E001EBBAB /* BCPBroadcastConfigurationPlistReaderTests.m */; };
 		A992C402268DD149001EBBAB /* BCPBroadcastConfigurationPlistReader.h in Headers */ = {isa = PBXBuildFile; fileRef = A992C400268DD149001EBBAB /* BCPBroadcastConfigurationPlistReader.h */; };
 		A992C403268DD149001EBBAB /* BCPBroadcastConfigurationPlistReader.m in Sources */ = {isa = PBXBuildFile; fileRef = A992C401268DD149001EBBAB /* BCPBroadcastConfigurationPlistReader.m */; };
@@ -64,6 +63,7 @@
 		A992C418268DEBCB001EBBAB /* missing_broadcast.plist in Resources */ = {isa = PBXBuildFile; fileRef = A992C417268DEB85001EBBAB /* missing_broadcast.plist */; };
 		A992C41A268DED46001EBBAB /* mismatched_group.plist in Resources */ = {isa = PBXBuildFile; fileRef = A992C419268DED35001EBBAB /* mismatched_group.plist */; };
 		A992C41C268DEDB9001EBBAB /* mismatched_extension_identifier.plist in Resources */ = {isa = PBXBuildFile; fileRef = A992C41B268DEDAA001EBBAB /* mismatched_extension_identifier.plist */; };
+		A992C428268E074D001EBBAB /* BandyerConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = A992C427268E074D001EBBAB /* BandyerConfig.plist */; };
 		A99B60AF2669019E009D4174 /* BCPFormatterProxyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A99B60AE2669019E009D4174 /* BCPFormatterProxyTests.m */; };
 		A99B60B226690276009D4174 /* BCPFormatterProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = A99B60B026690276009D4174 /* BCPFormatterProxy.h */; };
 		A99B60B326690276009D4174 /* BCPFormatterProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = A99B60B126690276009D4174 /* BCPFormatterProxy.m */; };
@@ -137,7 +137,6 @@
 		A91AAE2024530A6E007003AF /* BCPUserDetailsFormatter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPUserDetailsFormatter.m; sourceTree = "<group>"; };
 		A924CC35243782B300AD3805 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		A9637FF5234CC8C20050AAA7 /* Bandyer-Cordova-PluginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bandyer-Cordova-PluginTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A992C3FA268DB1F6001EBBAB /* BandyerConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = BandyerConfig.plist; sourceTree = "<group>"; };
 		A992C3FD268DD09E001EBBAB /* BCPBroadcastConfigurationPlistReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPBroadcastConfigurationPlistReaderTests.m; sourceTree = "<group>"; };
 		A992C400268DD149001EBBAB /* BCPBroadcastConfigurationPlistReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCPBroadcastConfigurationPlistReader.h; sourceTree = "<group>"; };
 		A992C401268DD149001EBBAB /* BCPBroadcastConfigurationPlistReader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPBroadcastConfigurationPlistReader.m; sourceTree = "<group>"; };
@@ -153,6 +152,7 @@
 		A992C417268DEB85001EBBAB /* missing_broadcast.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = missing_broadcast.plist; sourceTree = "<group>"; };
 		A992C419268DED35001EBBAB /* mismatched_group.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = mismatched_group.plist; sourceTree = "<group>"; };
 		A992C41B268DEDAA001EBBAB /* mismatched_extension_identifier.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = mismatched_extension_identifier.plist; sourceTree = "<group>"; };
+		A992C427268E074D001EBBAB /* BandyerConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = BandyerConfig.plist; path = res/ios/BandyerConfig.plist; sourceTree = "<group>"; };
 		A99B60AE2669019E009D4174 /* BCPFormatterProxyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPFormatterProxyTests.m; sourceTree = "<group>"; };
 		A99B60B026690276009D4174 /* BCPFormatterProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCPFormatterProxy.h; sourceTree = "<group>"; };
 		A99B60B126690276009D4174 /* BCPFormatterProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPFormatterProxy.m; sourceTree = "<group>"; };
@@ -233,14 +233,6 @@
 			path = test/ios;
 			sourceTree = "<group>";
 		};
-		A992C3F9268DB1C0001EBBAB /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				A992C3FA268DB1F6001EBBAB /* BandyerConfig.plist */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		A992C3FC268DD07A001EBBAB /* Broadcast */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +262,14 @@
 				A992C40F268DD8BD001EBBAB /* valid_config.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		A992C429268E0752001EBBAB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A992C427268E074D001EBBAB /* BandyerConfig.plist */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		A9A1A3EE24586E6A0077A3DD /* Helpers */ = {
@@ -496,12 +496,12 @@
 		A9C31AEE22C22D1100BC33D5 = {
 			isa = PBXGroup;
 			children = (
-				A992C3F9268DB1C0001EBBAB /* Resources */,
 				62DD2611AEC250BFC5FD7619 /* Config */,
 				D64815E97D96849B6E3D60F1 /* Frameworks */,
 				A9C31AFC22C22D1100BC33D5 /* Info.plist */,
 				23F87D898896910F1885862F /* Pods */,
 				A9C31AF922C22D1100BC33D5 /* Products */,
+				A992C429268E0752001EBBAB /* Resources */,
 				A9C31B1822C22DE900BC33D5 /* Source */,
 				A9638002234CCAE90050AAA7 /* Test */,
 				A924CC35243782B300AD3805 /* www */,
@@ -672,7 +672,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A992C3FB268DB1F6001EBBAB /* BandyerConfig.plist in Resources */,
+				A992C428268E074D001EBBAB /* BandyerConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
