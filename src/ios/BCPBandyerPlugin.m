@@ -15,6 +15,7 @@
 #import "BCPUserDetailsFormatter.h"
 #import "CDVPluginResult+BCPFactoryMethods.h"
 #import "NSString+BandyerPlugin.h"
+#import "BCPBroadcastConfigurationPlistReader.h"
 
 #import <Bandyer/Bandyer.h>
 
@@ -112,6 +113,16 @@
             config.pushRegistryDelegate = [[BCPPushTokenEventsReporter alloc] initWithEventEmitter:self.eventEmitter];
             config.notificationPayloadKeyPath = args[kBCPVoipPushPayloadKey];
         }
+    }
+
+    if (@available(iOS 12.0, *))
+    {
+        BCPBroadcastConfigurationPlistReader *reader = [[BCPBroadcastConfigurationPlistReader alloc] init];
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"BandyerConfig" withExtension:@"plist"];
+        NSError *error = nil;
+        BDKBroadcastScreensharingToolConfiguration *toolConfig = [reader read:url error:&error];
+        if (error == nil && toolConfig != nil)
+            config.broadcastScreensharingConfiguration = toolConfig;
     }
 
     self.coordinator.fakeCapturerFilename = args[kBCPFakeCapturerFilenameKey];
