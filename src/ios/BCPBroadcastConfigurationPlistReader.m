@@ -33,13 +33,13 @@
     NSString *appGroupIdentifier = [values valueForKeyPath:@"broadcast.appGroupIdentifier"];
     NSString *extensionBundleIdentifier = [values valueForKeyPath:@"broadcast.extensionBundleIdentifier"];
 
-    if (appGroupIdentifier == nil || ![appGroupIdentifier isKindOfClass:NSString.class])
+    if (appGroupIdentifier == nil || ![appGroupIdentifier isKindOfClass:NSString.class] || [appGroupIdentifier isEqualToString:[NSString string]])
     {
         BCPSetObjectPointer(error, [BCPError createAppGroupMissingError]);
         return nil;
     }
 
-    if (extensionBundleIdentifier == nil || ![extensionBundleIdentifier isKindOfClass:NSString.class] )
+    if (extensionBundleIdentifier == nil || ![extensionBundleIdentifier isKindOfClass:NSString.class] || [extensionBundleIdentifier isEqualToString:[NSString string]])
     {
         BCPSetObjectPointer(error, [BCPError createExtensionBundleIdMissingError]);
         return nil;

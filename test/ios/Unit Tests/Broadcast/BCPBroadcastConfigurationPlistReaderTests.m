@@ -127,6 +127,30 @@ API_AVAILABLE(ios(12.0))
     assertThat(error, equalTo([NSError errorWithDomain:kBCPErrorDomain code:BCPBroadcastConfigurationReaderExtensionBundleIdMissingError userInfo:nil]));
 }
 
+- (void)testReadShouldReturnAnErrorWhenThePlistContainsAnEmptyStringValueAsTheAppGroupIdentifier
+{
+    BCPBroadcastConfigurationPlistReader *sut = [self makeSUT];
+
+    NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:@"empty_group" withExtension:@"plist"];
+    NSError *error = nil;
+    BDKBroadcastScreensharingToolConfiguration *config = [sut read:fileURL error:&error];
+
+    assertThat(config, nilValue());
+    assertThat(error, equalTo([NSError errorWithDomain:kBCPErrorDomain code:BCPBroadcastConfigurationReaderAppGroupMissingError userInfo:nil]));
+}
+
+- (void)testReadShouldReturnAnErrorWhenThePlistContainsAnEmptyStringValueAsTheExtensionBundleId
+{
+    BCPBroadcastConfigurationPlistReader *sut = [self makeSUT];
+
+    NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:@"empty_extension_identifier" withExtension:@"plist"];
+    NSError *error = nil;
+    BDKBroadcastScreensharingToolConfiguration *config = [sut read:fileURL error:&error];
+
+    assertThat(config, nilValue());
+    assertThat(error, equalTo([NSError errorWithDomain:kBCPErrorDomain code:BCPBroadcastConfigurationReaderExtensionBundleIdMissingError userInfo:nil]));
+}
+
 #pragma mark - Helpers
 
 - (BCPBroadcastConfigurationPlistReader *)makeSUT
