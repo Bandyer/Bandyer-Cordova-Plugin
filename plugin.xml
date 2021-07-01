@@ -33,8 +33,11 @@
             </feature>
         </config-file>
         <header-file src="src/ios/BCPMacros.h" />
+        <header-file src="src/ios/BCPFunctions.h" />
         <header-file src="src/ios/BCPConstants.h" />
         <source-file src="src/ios/BCPConstants.m" />
+        <header-file src="src/ios/BCPError.h" />
+        <source-file src="src/ios/BCPError.m" />
         <header-file src="src/ios/BCPBandyerEvents.h" />
         <source-file src="src/ios/BCPBandyerEvents.m" />
         <header-file src="src/ios/BCPBandyerPlugin.h" />
@@ -59,10 +62,15 @@
         <source-file src="src/ios/BCPUserDetailsFormatter.m" />
         <header-file src="src/ios/BCPFormatterProxy.h" />
         <source-file src="src/ios/BCPFormatterProxy.m" />
+        <header-file src="src/ios/BCPBroadcastConfigurationPlistReader.h" />
+        <source-file src="src/ios/BCPBroadcastConfigurationPlistReader.m" />
         <header-file src="src/ios/NSString+BandyerPlugin.h" />
         <source-file src="src/ios/NSString+BandyerPlugin.m" />
         <header-file src="src/ios/CDVPluginResult+BCPFactoryMethods.h" />
         <source-file src="src/ios/CDVPluginResult+BCPFactoryMethods.m" />
+
+        <resource-file src="src/ios/Resources/BandyerConfig.plist" />
+
         <podspec>
             <config>
                 <source url="https://cdn.cocoapods.org/" />
