@@ -18,35 +18,10 @@ cordova plugin add @bandyer/cordova-plugin-bandyer
 
 ### Advanced installation options
 
-Starting from the **0.8.0** version, the iOS plugin supports the broadcast screen sharing feature of the native BandyerSDK. In order to enable the broadcast screen sharing tool in your cordova app you must add the plugin providing some settings. Below you'll find a table containing the settings you can customize both from the CLI and from the config.xml file of your app
-
-| variable                    | example                        | default  | notes                                                                                            |
-|-----------------------------|--------------------------------|----------|----------------------------------------------------------------------------------------|
-| `IOS_APP_GROUP_IDENTIFIER` | group.com.acme.MyApp            | ""       | **iOS only** Represents the security app group identifier shared by the app and the upload extension. It's a mandatory argument, if you don't provide a value, a default empty value will be used but the broadcast tool will be disabled  |
-| `IOS_EXTENSION_BUNDLE_ID`  | com.acme.MyApp.UploadExtension | ""        | **iOS only** Represents the broadcast upload extension bundle identifier. It's a mandatory argument, if you don't provide any value a default empty value will be used but the broadcast tool will be disabled |
-
-#### Example
-
-From the CLI:
-
-```sh
-cordova plugin add @bandyer/cordova-plugin-bandyer \
- --variable IOS_APP_GROUP_IDENTIFIER=group.com.acme.MyApp \
- --variable IOS_EXTENSION_BUNDLE_ID=com.acme.MyApp.UploadExtension
-```
-
-In the config.xml:
-
-```xml
-<plugin name="@bandyer/cordova-plugin-bandyer">
-  <variable name="IOS_APP_GROUP_IDENTIFIER" value="group.com.acme.MyApp" />
-  <variable name="IOS_EXTENSION_BUNDLE_ID" value="com.acme.MyApp.UploadExtension" />
-</plugin>
-
-```
-
+Starting from the **0.8.0** version, the iOS plugin supports the broadcast screen sharing feature of the native BandyerSDK. In order to enable the broadcast screen sharing tool in your cordova app you must add the plugin providing some settings. For more information please take a look at [Bandyer Broadcast Extension Cordova Plugin][BroadcastExtension] documentation.
 
 ## How to link local plugin:
+
 Link the local plugin to the project
 
 ```sh
@@ -79,23 +54,26 @@ cordova run ios
 
 **iOS - simulator**
 To run on the iOS simulator it's required to copy the following file .mp4 in your app assets.
-[https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_simulator_video_sample.mp4](https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_simulator_video_sample.mp4)
+[https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_simulator_video_sample.mp4][SimulatorSample]. 
 You may run the following command at the root of your app, which will download and put the file in the assets folder
-```bash
+
+```sh
 cd {to your app root folder}
 mkdir www/assets & curl -o www/assets/bandyer_iOS_simulator_video_sample.mp4 https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_si
 mulator_video_sample.mp4
 ```
 
 Once downloaded you will need to declare the file your config.xml
+
 ```xml
 <platform name="ios">
-<resource-file src="www/assets/bandyer_iOS_simulator_video_sample.mp4" target="bandyer_iOS_simulator_video_sample.mp4" />
+	<resource-file src="www/assets/bandyer_iOS_simulator_video_sample.mp4" target="bandyer_iOS_simulator_video_sample.mp4" />
 </platform>
 ```
 
 **android**
-```bash
+
+```sh
 cordova run android
 ```
 
@@ -138,12 +116,12 @@ var bandyerPlugin = BandyerPlugin.setup({
 })
 ```
 
-**Android notificationKeyPath you may find an example here**
-https://github.com/Bandyer/Bandyer-Cordova-Example/blob/master/config.xml#L25-L43
+[**Android notificationKeyPath you may find an example here**][AndroidNotificationKeyPath]
 
 ## Plugin listen for errors/events
+
 To listen for events and/or errors register
-Check the documentation [here](https://bandyer.github.io/Bandyer-Cordova-Plugin//enums/events.html) for a complete list.
+Check the documentation [here][EventsDoc] for a complete list.
 
 Example:
 
@@ -152,6 +130,7 @@ bandyerPlugin.on(BandyerPlugin.events.callModuleStatusChanged, function (status)
 ```
 
 ## Listening for VoIP push token
+
 In order to get your device push token, you must listen for the **BandyerPlugin.events.iOSVoipPushTokenUpdated** event registering a callback as follows:
 
 ```javascript
@@ -163,6 +142,7 @@ The token provided in the callback is the **string** representation of your devi
 Here's an example of a device token: **dec105f879924349fd2fa9aa8bb8b70431d5f41d57bfa8e31a5d80a629774fd9**
 
 ## Plugin start
+
 To start a plugin means to connect an user to the bandyer system.
 
 ```javascript
@@ -171,9 +151,11 @@ bandyerPlugin.startFor('usr_xxx');
 ```
 
 ## Start a call
+
 To make a call you need to specify some params.
 
 ##### Start call params
+
 ```javascript
 bandyerPlugin.startCall({
                    userAliases: ['usr_yyy','usr_zzz'], //  an array of user aliases of the users you want to call
@@ -183,9 +165,11 @@ bandyerPlugin.startCall({
 ```
 
 ## Start a chat
+
 To make a chat you need to specify some params.
 
 ##### Start chat params
+
 ```javascript
 bandyerPlugin.startChat({
                     userAlias: 'usr_yyy', // the alias of the user you want to create a chat with
@@ -194,9 +178,12 @@ bandyerPlugin.startChat({
                     withAudioVideoCallCapability: {recording: false} // define if you want the audio&video call button in the chat UI, and set recording if you desire to be recorded
 });
 ```
+
 ## Set user details
+
 This method will allow you to set your user details DB from which the sdk will read when needed to show the information.
 > Be sure to have this always up to date, otherwise if an incoming call is received and the user is missing in this set the userAlias will be printed on the UI.
+
 ```javascript
 var arrayUserDetails = [
             {userAlias: "user_1", firstName : "User1Name", lastName:"User1Surname"},
@@ -207,7 +194,9 @@ bandyerPlugin.addUsersDetails(arrayUserDetails);
 ```
 
 ## Remove all user details
+
 This method will allow you to remove all the user info from the local app DB.
+
 ```javascript
 bandyerPlugin.removeUsersDetails();
 ```
@@ -217,6 +206,7 @@ This method will allow you to specify how you want your user details to be displ
 > Be aware that you can specify only keywords which exist in the UserDetails type.
 
 For example: if you wish to show only the firstName while your dataset contains also the lastName you may change it here.
+
 ```javascript
 bandyerPlugin.setUserDetailsFormat({
     default: "${firstName} ${lastName}",
@@ -225,6 +215,7 @@ bandyerPlugin.setUserDetailsFormat({
 ```
 
 ## Remove all the cached info in preferences and DBs
+
 ```javascript
 bandyerPlugin.clearUserCache();
 ```
@@ -239,10 +230,17 @@ bandyerPlugin.setDisplayModeForCurrentCall(CallDisplayMode.FOREGROUND); // CallD
 
 ## Verify user
 To verify a user for the current call.
+
 ```javascript
 bandyerPlugin.verifyCurrentCall(true);  
 ```
 
 ## TSDoc
 The API documentation is available on the github pages link:
-[https://bandyer.github.io/Bandyer-Cordova-Plugin/](https://bandyer.github.io/Bandyer-Cordova-Plugin/)
+[https://bandyer.github.io/Bandyer-Cordova-Plugin/][TSDoc]
+
+[BroadcastExtension]: https://github.com/Bandyer/Bandyer-Cordova-BroadcastExtension-Plugin
+[SimulatorSample]: https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_simulator_video_sample.mp4
+[AndroidNotificationKeyPath]: https://github.com/Bandyer/Bandyer-Cordova-Example/blob/master/config.xml#L25-L43
+[EventsDoc]: https://bandyer.github.io/Bandyer-Cordova-Plugin/enums/events.html
+[TSDoc]: https://bandyer.github.io/Bandyer-Cordova-Plugin/
