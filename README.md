@@ -1,7 +1,9 @@
 # Bandyer Cordova Plugin
+
 [![npm version](https://badge.fury.io/js/%40bandyer%2Fcordova-plugin-bandyer.svg)](https://badge.fury.io/js/%40bandyer%2Fcordova-plugin-bandyer)
 
 ## Requirements
+
 ```
 npm i xml2js // needed for android 
 cordova plugin add cordova-plugin-enable-multidex // plugin needed for android 64k max limit of methods
