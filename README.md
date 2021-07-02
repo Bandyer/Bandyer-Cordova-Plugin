@@ -1,3 +1,5 @@
+![Bandyer Logo](doc/img/Bandyer-logotype-white-1024x500.png)
+
 # Bandyer Cordova Plugin
 
 [![npm version](https://badge.fury.io/js/%40bandyer%2Fcordova-plugin-bandyer.svg)](https://badge.fury.io/js/%40bandyer%2Fcordova-plugin-bandyer)
