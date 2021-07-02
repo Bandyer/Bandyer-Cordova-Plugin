@@ -162,6 +162,72 @@
     [verify(sut.coordinator) setSdk:sdkMock];
 }
 
+- (void)testInitializeShouldReadTheBroadcastConfigurationFromTheConfigFileAndSetupTheBroadcastToolWithTheValuesFoundInTheConfigFile API_AVAILABLE(ios(12.0))
+{
+    if (@available(iOS 12.0, *))
+    {
+        BandyerSDK *sdkMock = [self makeSDKMock];
+        BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
+        NSURL *validConfigFileURL = [[NSBundle bundleForClass:self.class] URLForResource:@"valid_config" withExtension:@"plist"];
+        __strong Class bundleClassMock = mockClass([NSBundle class]);
+        NSBundle* bundleMock = mock([NSBundle class]);
+
+        stubSingleton(bundleClassMock, mainBundle);
+        [given([NSBundle mainBundle]) willReturn:bundleMock];
+        [given([bundleMock URLForResource:@"BandyerConfig" withExtension:@"plist"]) willReturn:validConfigFileURL];
+
+        CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{
+            @"environment" : @"sandbox",
+            @"appId" : @"appId",
+            @"ios_broadcastScreenSharingEnabled" : @YES
+        }];
+        [sut initializeBandyer:command];
+
+        HCArgumentCaptor *configCaptor = [HCArgumentCaptor new];
+        [verify(sdkMock) initializeWithApplicationId:@"appId" config:(id)configCaptor];
+        BDKConfig *config = configCaptor.value;
+        assertThat(config.broadcastScreensharingConfiguration, notNilValue());
+        assertThatBool(config.broadcastScreensharingConfiguration.isEnabled, isTrue());
+        assertThat(config.broadcastScreensharingConfiguration.appGroupIdentifier, equalTo(@"group.com.bandyer.AppName"));
+        assertThat(config.broadcastScreensharingConfiguration.broadcastExtensionBundleIdentifier, equalTo(@"com.bandyer.AppName.Extension"));
+    } else
+    {
+        XCTSkip("This test cannot be run on iOS < 12");
+    }
+}
+
+- (void)testInitializeShouldNotEnableBroadcastToolWhenTheConfigFileIsNotFound API_AVAILABLE(ios(12.0))
+{
+    if (@available(iOS 12.0, *))
+    {
+        BandyerSDK *sdkMock = [self makeSDKMock];
+        BCPBandyerPlugin *sut = [self makeExposedSUTWithSDK:sdkMock initializePlugin:YES];
+        NSURL *invalidURL = [NSURL URLWithString:@"https://www.bandyer.com"];
+        __strong Class bundleClassMock = mockClass([NSBundle class]);
+        NSBundle* bundleMock = mock([NSBundle class]);
+
+        stubSingleton(bundleClassMock, mainBundle);
+        [given([NSBundle mainBundle]) willReturn:bundleMock];
+        [given([bundleMock URLForResource:@"BandyerConfig" withExtension:@"plist"]) willReturn:invalidURL];
+
+        CDVInvokedUrlCommand *command = [self makeCommandWithPayload:@{
+            @"environment" : @"sandbox",
+            @"appId" : @"appId",
+            @"ios_broadcastScreenSharingEnabled" : @YES
+        }];
+        [sut initializeBandyer:command];
+
+        HCArgumentCaptor *configCaptor = [HCArgumentCaptor new];
+        [verify(sdkMock) initializeWithApplicationId:@"appId" config:(id)configCaptor];
+        BDKConfig *config = configCaptor.value;
+        assertThat(config.broadcastScreensharingConfiguration, notNilValue());
+        assertThatBool(config.broadcastScreensharingConfiguration.isEnabled, isFalse());
+    } else
+    {
+        XCTSkip("This test cannot be run on iOS < 12");
+    }
+}
+
 // MARK: Start
 
 - (void)testStartReportsErrorWhenUserAliasIsMissingFromArguments

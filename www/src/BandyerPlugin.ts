@@ -104,6 +104,7 @@ export default class BandyerPlugin extends EventListener {
             ios_callkit: callkit,
             ios_fakeCapturerFileName: params.iosConfig?.fakeCapturerFileName,
             ios_voipNotificationKeyPath: params.iosConfig?.voipNotificationKeyPath,
+            ios_broadcastScreenSharingEnabled: params.iosConfig?.broadcastScreenSharingEnabled || false,
             android_isCallEnabled: params.androidConfig?.callEnabled !== false,
             android_isFileSharingEnabled: params.androidConfig?.fileSharingEnabled !== false,
             android_isScreenSharingEnabled: params.androidConfig?.screenSharingEnabled !== false,

@@ -15,6 +15,7 @@
 #import "BCPUserDetailsFormatter.h"
 #import "CDVPluginResult+BCPFactoryMethods.h"
 #import "NSString+BandyerPlugin.h"
+#import "BCPBroadcastConfigurationPlistReader.h"
 
 #import <Bandyer/Bandyer.h>
 
@@ -111,6 +112,22 @@
 
             config.pushRegistryDelegate = [[BCPPushTokenEventsReporter alloc] initWithEventEmitter:self.eventEmitter];
             config.notificationPayloadKeyPath = args[kBCPVoipPushPayloadKey];
+        }
+    }
+
+    if (@available(iOS 12.0, *))
+    {
+        NSNumber *broadcastEnabled = args[kBCPBroadcastScreensharingEnabledKey];
+        if (broadcastEnabled != nil && [broadcastEnabled boolValue])
+        {
+            BCPBroadcastConfigurationPlistReader *reader = [[BCPBroadcastConfigurationPlistReader alloc] init];
+            NSURL *url = [[NSBundle mainBundle] URLForResource:@"BandyerConfig" withExtension:@"plist"];
+            NSError *error = nil;
+            BDKBroadcastScreensharingToolConfiguration *toolConfig = [reader read:url error:&error];
+            if (toolConfig != nil)
+                config.broadcastScreensharingConfiguration = toolConfig;
+            else
+                NSLog(@"An error occurred while setting up the broadcast screen sharing tool: %@", error);
         }
     }
 

@@ -44,4 +44,12 @@ export interface IosConfig {
      * <b><font color="blue">default</font>: null</b>
      */
     voipNotificationKeyPath: string;
+
+    /**
+     * A boolean flag specifying whether the broadcast screen sharing tool is enabled or not.
+     * <br/>
+     * <br/>
+     * <b><font color="blue">default</font>: false</b>
+     */
+    broadcastScreenSharingEnabled?: boolean;
 }

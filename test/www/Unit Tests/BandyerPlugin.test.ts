@@ -4,7 +4,7 @@
 //
 
 import {Environments} from "../../../www/src/Environments";
-import {BandyerPlugin} from "../../../www/src/BandyerPlugin";
+import BandyerPlugin from "../../../www/src/BandyerPlugin";
 import {CordovaSpy} from "./CordovaSpy";
 import {DeviceStub} from "./DeviceStub";
 import {BandyerPluginConfigs} from "../../../www/src/BandyerPluginConfigs";
@@ -85,7 +85,8 @@ describe('Plugin setup', function () {
                     enabled: true,
                     appIconName: "AppIcon",
                     ringtoneSoundName: "ringtone.mp3"
-                }
+                },
+                broadcastScreenSharingEnabled: true
             }
         };
 
@@ -109,6 +110,7 @@ describe('Plugin setup', function () {
         expect(firstArg["ios_callkit"]["ringtoneSoundName"]).toMatch("ringtone.mp3");
         expect(firstArg["ios_fakeCapturerFileName"]).toMatch('filename.mp4');
         expect(firstArg["ios_voipNotificationKeyPath"]).toMatch('VoIPKeyPath');
+        expect(firstArg["ios_broadcastScreenSharingEnabled"]).toEqual(true);
 
         expect(firstArg["android_isCallEnabled"]).toEqual(true);
         expect(firstArg["android_isFileSharingEnabled"]).toEqual(true);

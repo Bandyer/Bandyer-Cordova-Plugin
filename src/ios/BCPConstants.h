@@ -13,6 +13,7 @@ FOUNDATION_EXPORT NSString *const kBCPCallKitConfigEnabledKey;
 FOUNDATION_EXPORT NSString *const kBCPCallKitConfigRingtoneKey;
 FOUNDATION_EXPORT NSString *const kBCPCallKitConfigIconKey;
 FOUNDATION_EXPORT NSString *const kBCPVoipPushPayloadKey;
+FOUNDATION_EXPORT NSString *const kBCPBroadcastScreensharingEnabledKey;
 FOUNDATION_EXPORT NSString *const kBCPFakeCapturerFilenameKey;
 FOUNDATION_EXPORT NSString *const kBCPLogEnabledKey;
 FOUNDATION_EXPORT NSString *const kBCPUserAliasKey;

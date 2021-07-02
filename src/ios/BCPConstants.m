@@ -14,6 +14,7 @@ NSString *const kBCPCallKitConfigRingtoneKey = @"ringtoneSoundName";
 NSString *const kBCPCallKitConfigIconKey = @"appIconName";
 NSString *const kBCPFakeCapturerFilenameKey = @"ios_fakeCapturerFileName";
 NSString *const kBCPVoipPushPayloadKey = @"ios_voipNotificationKeyPath";
+NSString *const kBCPBroadcastScreensharingEnabledKey = @"ios_broadcastScreenSharingEnabled";
 NSString *const kBCPLogEnabledKey = @"logEnabled";
 NSString *const kBCPUserAliasKey = @"userAlias";
 NSString *const kBCPCalleeKey = @"callee";
