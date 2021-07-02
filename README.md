@@ -110,7 +110,8 @@ var bandyerPlugin = BandyerPlugin.setup({
                     ringtoneSoundName: "custom_ringtone.mp3" // optional
                 },
                 fakeCapturerFileName: null, // set this property to be able to execute on an ios simulator
-                voipNotificationKeyPath: 'keypath_to_bandyer_data' //this property is **required** if you enabled VoIP notifications in your app
+                voipNotificationKeyPath: 'keypath_to_bandyer_data', //this property is **required** if you enabled VoIP notifications in your app
+                broadcastScreenSharingEnabled: true // this flag should must be true if you want to enable the broadcast screen sharing feature
             },
             // optional you can disable one or more of the following capabilities, by default all additional modules are enabled
             androidConfig: {
