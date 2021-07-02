@@ -64,6 +64,7 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
+				<p><img src="doc/img/Bandyer-logotype-white-1024x500.png" alt="Bandyer Logo"></p>
 				<a href="#bandyer-cordova-plugin" id="bandyer-cordova-plugin" style="color: inherit; text-decoration: none;">
 					<h1>Bandyer Cordova Plugin</h1>
 				</a>
@@ -78,16 +79,20 @@ cordova <span class="hljs-keyword">plugin</span> add cordova-<span class="hljs-k
 					<h2>How to install the plugin:</h2>
 				</a>
 				<p>Open the <strong>terminal</strong> in your Cordova-App folder and run the following commands</p>
-				<pre><code>cordova plugin <span class="hljs-keyword">add</span><span class="bash"> @bandyer/cordova-plugin-bandyer</span></code></pre>
+				<pre><code class="language-sh">cordova plugin add @bandyer/cordova-plugin-bandyer</code></pre>
+				<a href="#advanced-installation-options" id="advanced-installation-options" style="color: inherit; text-decoration: none;">
+					<h3>Advanced installation options</h3>
+				</a>
+				<p>Starting from the <strong>0.8.0</strong> version, the iOS plugin supports the broadcast screen sharing feature of the native BandyerSDK. In order to enable the broadcast screen sharing tool in your cordova app you must add the plugin providing some settings. For more information please take a look at <a href="https://github.com/Bandyer/Bandyer-Cordova-BroadcastExtension-Plugin">Bandyer Broadcast Extension Cordova Plugin</a> documentation.</p>
 				<a href="#how-to-link-local-plugin" id="how-to-link-local-plugin" style="color: inherit; text-decoration: none;">
 					<h2>How to link local plugin:</h2>
 				</a>
 				<p>Link the local plugin to the project</p>
-				<pre><code class="language-bash">cordova plugin add @bandyer/cordova-plugin-bandyer --searchPath <span class="hljs-variable">${path-to-local-plugin}</span>  --link</code></pre>
+				<pre><code class="language-sh">cordova plugin add @bandyer/cordova-plugin-bandyer --searchPath <span class="hljs-variable">${path-to-local-plugin}</span>  --link</code></pre>
 				<a href="#how-to-remove-the-plugin" id="how-to-remove-the-plugin" style="color: inherit; text-decoration: none;">
 					<h2>How to remove the plugin:</h2>
 				</a>
-				<pre><code class="language-bash">cordova plugin remove @bandyer/cordova-plugin-bandyer</code></pre>
+				<pre><code class="language-sh">cordova plugin remove @bandyer/cordova-plugin-bandyer</code></pre>
 				<a href="#update-the-cordova-platforms" id="update-the-cordova-platforms" style="color: inherit; text-decoration: none;">
 					<h2>Update the Cordova platforms</h2>
 				</a>
@@ -100,21 +105,27 @@ cordova platforms add android ios</code></pre>
 				<a href="#how-to-run-the-cordova-app" id="how-to-run-the-cordova-app" style="color: inherit; text-decoration: none;">
 					<h2>How to run the cordova app</h2>
 				</a>
-				<p><strong>iOS - device</strong></p>
-				<pre><code class="language-bash">cordova run ios</code></pre>
-				<p><strong>iOS - simulator</strong>
-					To run on the iOS simulator it&#39;s required to copy the following file .mp4 in your app assets.
-					<a href="https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_simulator_video_sample.mp4">https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_simulator_video_sample.mp4</a>
+				<a href="#ios---device" id="ios---device" style="color: inherit; text-decoration: none;">
+					<h3>iOS - device</h3>
+				</a>
+				<pre><code class="language-sh">cordova run ios</code></pre>
+				<a href="#ios---simulator" id="ios---simulator" style="color: inherit; text-decoration: none;">
+					<h3>iOS - simulator</h3>
+				</a>
+				<p>To run on the iOS simulator it&#39;s required to copy the following file .mp4 in your app assets.
+					<a href="https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_simulator_video_sample.mp4">https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_simulator_video_sample.mp4</a>.
 				You may run the following command at the root of your app, which will download and put the file in the assets folder</p>
-				<pre><code class="language-bash"><span class="hljs-built_in">cd</span> {to your app root folder}
+				<pre><code class="language-sh"><span class="hljs-built_in">cd</span> {to your app root folder}
 mkdir www/assets &amp; curl -o www/assets/bandyer_iOS_simulator_video_sample.mp4 https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_si
 mulator_video_sample.mp4</code></pre>
 				<p>Once downloaded you will need to declare the file your config.xml</p>
 				<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">platform</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"ios"</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">resource-file</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"www/assets/bandyer_iOS_simulator_video_sample.mp4"</span> <span class="hljs-attr">target</span>=<span class="hljs-string">"bandyer_iOS_simulator_video_sample.mp4"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">resource-file</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"www/assets/bandyer_iOS_simulator_video_sample.mp4"</span> <span class="hljs-attr">target</span>=<span class="hljs-string">"bandyer_iOS_simulator_video_sample.mp4"</span> /&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">platform</span>&gt;</span></code></pre>
-				<p><strong>android</strong></p>
-				<pre><code class="language-bash">cordova run android</code></pre>
+				<a href="#android" id="android" style="color: inherit; text-decoration: none;">
+					<h3>Android</h3>
+				</a>
+				<pre><code class="language-sh">cordova run android</code></pre>
 				<a href="#how-to-use-the-plugin-in-your-cordova-app" id="how-to-use-the-plugin-in-your-cordova-app" style="color: inherit; text-decoration: none;">
 					<h2>How to use the plugin in your Cordova app</h2>
 				</a>
@@ -139,7 +150,8 @@ mulator_video_sample.mp4</code></pre>
                     <span class="hljs-attr">ringtoneSoundName</span>: <span class="hljs-string">"custom_ringtone.mp3"</span> <span class="hljs-comment">// optional</span>
                 },
                 <span class="hljs-attr">fakeCapturerFileName</span>: <span class="hljs-literal">null</span>, <span class="hljs-comment">// set this property to be able to execute on an ios simulator</span>
-                <span class="hljs-attr">voipNotificationKeyPath</span>: <span class="hljs-string">'keypath_to_bandyer_data'</span> <span class="hljs-comment">//this property is **required** if you enabled VoIP notifications in your app</span>
+                <span class="hljs-attr">voipNotificationKeyPath</span>: <span class="hljs-string">'keypath_to_bandyer_data'</span>, <span class="hljs-comment">//this property is **required** if you enabled VoIP notifications in your app</span>
+                <span class="hljs-attr">broadcastScreenSharingEnabled</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// this flag should must be true if you want to enable the broadcast screen sharing feature</span>
             },
             <span class="hljs-comment">// optional you can disable one or more of the following capabilities, by default all additional modules are enabled</span>
             <span class="hljs-attr">androidConfig</span>: {
@@ -150,13 +162,12 @@ mulator_video_sample.mp4</code></pre>
                 <span class="hljs-attr">whiteboardEnabled</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// enable whiteboard module on android</span>
             }
 })</code></pre>
-				<p><strong>Android notificationKeyPath you may find an example here</strong>
-				<a href="https://github.com/Bandyer/Bandyer-Cordova-Example/blob/master/config.xml#L25-L43">https://github.com/Bandyer/Bandyer-Cordova-Example/blob/master/config.xml#L25-L43</a></p>
+				<p><a href="https://github.com/Bandyer/Bandyer-Cordova-Example/blob/master/config.xml#L25-L43"><strong>Android notificationKeyPath you may find an example here</strong></a></p>
 				<a href="#plugin-listen-for-errorsevents" id="plugin-listen-for-errorsevents" style="color: inherit; text-decoration: none;">
 					<h2>Plugin listen for errors/events</h2>
 				</a>
 				<p>To listen for events and/or errors register
-				Check the documentation <a href="https://bandyer.github.io/Bandyer-Cordova-Plugin//enums/events.html">here</a> for a complete list.</p>
+				Check the documentation <a href="https://bandyer.github.io/Bandyer-Cordova-Plugin/enums/events.html">here</a> for a complete list.</p>
 				<p>Example:</p>
 				<pre><code class="language-javascript">bandyerPlugin.on(BandyerPlugin.events.callModuleStatusChanged, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">status</span>) </span>{});</code></pre>
 				<a href="#listening-for-voip-push-token" id="listening-for-voip-push-token" style="color: inherit; text-decoration: none;">

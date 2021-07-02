@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="@bandyer/cordova-plugin-bandyer" version="0.7.0">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="@bandyer/cordova-plugin-bandyer" version="0.8.0">
     <name>BandyerPlugin</name>
     <author>Bandyer S.r.l.</author>
     <description>This plugin allows you to add BandyerSDK to your application using Bandyer Mobile
@@ -15,14 +15,14 @@
     </js-module>
 
     <engines>
-        <engine name="cordova" version=">=9.0.0" />
-        <engine name="cordova-ios" version=">=6.0.0" />
-        <engine name="apple-ios" version=">=10.0.0" />
+        <engine name="cordova" version="&gt;=9.0.0" />
+        <engine name="cordova-ios" version="&gt;=6.0.0" />
+        <engine name="apple-ios" version="&gt;=10.0.0" />
     </engines>
 
     <platform name="ios">
-        <preference name="IOS_APP_GROUP_IDENTIFIER" default="" />
-        <preference name="IOS_EXTENSION_BUNDLE_ID" default="" />
+        <preference default="" name="IOS_APP_GROUP_IDENTIFIER" />
+        <preference default="" name="IOS_EXTENSION_BUNDLE_ID" />
 
         <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
             <string>Necessaria per l'utilizzo della libreria</string>
@@ -36,7 +36,7 @@
             </feature>
         </config-file>
 
-        <config-file target="*/BandyerConfig.plist" parent="broadcast">
+        <config-file parent="broadcast" target="*/BandyerConfig.plist">
             <dict>
                 <key>appGroupIdentifier</key>
                 <string>$IOS_APP_GROUP_IDENTIFIER</string>
