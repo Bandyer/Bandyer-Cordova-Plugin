@@ -51,12 +51,14 @@ cordova platforms add android ios
 
 ## How to run the cordova app
 
-**iOS - device**
-```bash
+### iOS - device
+
+```sh
 cordova run ios
 ```
 
-**iOS - simulator**
+### iOS - simulator
+
 To run on the iOS simulator it's required to copy the following file .mp4 in your app assets.
 [https://static.bandyer.com/corporate/iOS/assets/bandyer_iOS_simulator_video_sample.mp4][SimulatorSample]. 
 You may run the following command at the root of your app, which will download and put the file in the assets folder
@@ -75,7 +77,7 @@ Once downloaded you will need to declare the file your config.xml
 </platform>
 ```
 
-**android**
+### Android
 
 ```sh
 cordova run android
@@ -90,6 +92,7 @@ BandyerPlugin
 ```
 
 ## Plugin setup
+
 The first thing you need to do is to setup the plugin specifying your keys and your options.
 
 ##### Setup params
@@ -206,6 +209,7 @@ bandyerPlugin.removeUsersDetails();
 ```
 
 ## Set user details format
+
 This method will allow you to specify how you want your user details to be displayed.
 > Be aware that you can specify only keywords which exist in the UserDetails type.
 
@@ -225,6 +229,7 @@ bandyerPlugin.clearUserCache();
 ```
 
 ## Android change display mode
+
 This method is useful for use-cases where you need to show a prompt and don't want it to be invalidated by the call going into pip.
 For example: if you wish to show fingerprint dialog you should first put the current call in background, execute the fingerprint validation and then put back the call in foreground.
 
@@ -233,6 +238,7 @@ bandyerPlugin.setDisplayModeForCurrentCall(CallDisplayMode.FOREGROUND); // CallD
 ```
 
 ## Verify user
+
 To verify a user for the current call.
 
 ```javascript
@@ -240,6 +246,7 @@ bandyerPlugin.verifyCurrentCall(true);
 ```
 
 ## TSDoc
+
 The API documentation is available on the github pages link:
 [https://bandyer.github.io/Bandyer-Cordova-Plugin/][TSDoc]
 
