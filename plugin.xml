@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='UTF-8'?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="@bandyer/cordova-plugin-bandyer" version="0.8.0">
     <name>BandyerPlugin</name>
     <author>Bandyer S.r.l.</author>
@@ -15,9 +15,9 @@
     </js-module>
 
     <engines>
-        <engine name="cordova" version="&gt;=9.0.0" />
-        <engine name="cordova-ios" version="&gt;=6.0.0" />
-        <engine name="apple-ios" version="&gt;=10.0.0" />
+        <engine name="cordova" version=">=9.0.0" />
+        <engine name="cordova-ios" version=">=6.0.0" />
+        <engine name="apple-ios" version=">=10.0.0" />
     </engines>
 
     <platform name="ios">

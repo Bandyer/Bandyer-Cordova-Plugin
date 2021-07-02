@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from xml.sax.saxutils import unescape
 import sys
 import json
 
@@ -18,5 +19,6 @@ doc = ET.parse("plugin.xml")
 root = doc.getroot()
 root.set('id', id)
 root.set('version', version)
-out = ET.tostring(root,"UTF-8")
-doc.write("plugin.xml",  xml_declaration = True, encoding = 'utf-8', method = 'xml')
+out = unescape(ET.tostring(root,"UTF-8"))
+with open("plugin.xml", 'w') as f:
+    f.write(out)
