@@ -5,7 +5,7 @@ target 'Bandyer-Cordova-Plugin' do
   use_frameworks!
 
   pod 'Cordova', '~> 5.1'
-  pod 'Bandyer', '~> 2.0.0' 
+  pod 'Bandyer', '~> 2.1.0'
 end
 
 target 'Bandyer-Cordova-PluginTests' do
