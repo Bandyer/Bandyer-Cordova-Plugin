@@ -51,6 +51,8 @@
 		A91AAE2224530A6E007003AF /* BCPUserDetailsFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = A91AAE2024530A6E007003AF /* BCPUserDetailsFormatter.m */; };
 		A92581A1268E0D8900FD4202 /* empty_group.plist in Resources */ = {isa = PBXBuildFile; fileRef = A92581A0268E0D5200FD4202 /* empty_group.plist */; };
 		A92581A3268E0E0500FD4202 /* empty_extension_identifier.plist in Resources */ = {isa = PBXBuildFile; fileRef = A92581A2268E0DE600FD4202 /* empty_extension_identifier.plist */; };
+		A92CD25726A6B093001A3E04 /* not_available_group_identifier.plist in Resources */ = {isa = PBXBuildFile; fileRef = A92CD25626A6AF5E001A3E04 /* not_available_group_identifier.plist */; };
+		A92CD25926A6B0DA001A3E04 /* not_available_extension_identifier.plist in Resources */ = {isa = PBXBuildFile; fileRef = A92CD25826A6B0C4001A3E04 /* not_available_extension_identifier.plist */; };
 		A9637FFA234CC8C20050AAA7 /* Bandyer_Cordova_Plugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9C31AF822C22D1100BC33D5 /* Bandyer_Cordova_Plugin.framework */; };
 		A992C3FE268DD09E001EBBAB /* BCPBroadcastConfigurationPlistReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A992C3FD268DD09E001EBBAB /* BCPBroadcastConfigurationPlistReaderTests.m */; };
 		A992C402268DD149001EBBAB /* BCPBroadcastConfigurationPlistReader.h in Headers */ = {isa = PBXBuildFile; fileRef = A992C400268DD149001EBBAB /* BCPBroadcastConfigurationPlistReader.h */; };
@@ -140,6 +142,8 @@
 		A924CC35243782B300AD3805 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		A92581A0268E0D5200FD4202 /* empty_group.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = empty_group.plist; sourceTree = "<group>"; };
 		A92581A2268E0DE600FD4202 /* empty_extension_identifier.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = empty_extension_identifier.plist; sourceTree = "<group>"; };
+		A92CD25626A6AF5E001A3E04 /* not_available_group_identifier.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = not_available_group_identifier.plist; sourceTree = "<group>"; };
+		A92CD25826A6B0C4001A3E04 /* not_available_extension_identifier.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = not_available_extension_identifier.plist; sourceTree = "<group>"; };
 		A9637FF5234CC8C20050AAA7 /* Bandyer-Cordova-PluginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bandyer-Cordova-PluginTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A992C3FD268DD09E001EBBAB /* BCPBroadcastConfigurationPlistReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCPBroadcastConfigurationPlistReaderTests.m; sourceTree = "<group>"; };
 		A992C400268DD149001EBBAB /* BCPBroadcastConfigurationPlistReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCPBroadcastConfigurationPlistReader.h; sourceTree = "<group>"; };
@@ -257,13 +261,15 @@
 		A992C40C268DD6BE001EBBAB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A92581A0268E0D5200FD4202 /* empty_group.plist */,
 				A92581A2268E0DE600FD4202 /* empty_extension_identifier.plist */,
+				A92581A0268E0D5200FD4202 /* empty_group.plist */,
 				A992C41B268DEDAA001EBBAB /* mismatched_extension_identifier.plist */,
 				A992C419268DED35001EBBAB /* mismatched_group.plist */,
 				A992C417268DEB85001EBBAB /* missing_broadcast.plist */,
 				A992C415268DEAF0001EBBAB /* missing_extension_identifier.plist */,
 				A992C413268DE9F3001EBBAB /* missing_group.plist */,
+				A92CD25826A6B0C4001A3E04 /* not_available_extension_identifier.plist */,
+				A92CD25626A6AF5E001A3E04 /* not_available_group_identifier.plist */,
 				A992C40D268DD6E0001EBBAB /* text.txt */,
 				A992C40F268DD8BD001EBBAB /* valid_config.plist */,
 			);
@@ -665,7 +671,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A992C416268DEB10001EBBAB /* missing_extension_identifier.plist in Resources */,
+				A92CD25726A6B093001A3E04 /* not_available_group_identifier.plist in Resources */,
 				A992C41C268DEDB9001EBBAB /* mismatched_extension_identifier.plist in Resources */,
+				A92CD25926A6B0DA001A3E04 /* not_available_extension_identifier.plist in Resources */,
 				A992C41A268DED46001EBBAB /* mismatched_group.plist in Resources */,
 				A992C40E268DD6E0001EBBAB /* text.txt in Resources */,
 				A992C410268DD8BD001EBBAB /* valid_config.plist in Resources */,

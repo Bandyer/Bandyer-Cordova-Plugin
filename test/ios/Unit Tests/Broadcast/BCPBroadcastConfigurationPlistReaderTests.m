@@ -151,6 +151,30 @@ API_AVAILABLE(ios(12.0))
     assertThat(error, equalTo([NSError errorWithDomain:kBCPErrorDomain code:BCPBroadcastConfigurationReaderExtensionBundleIdMissingError userInfo:nil]));
 }
 
+- (void)testReadShouldReturnAnErrorWhenThePlistContainsNOT_AVAILABLEStringValueAsTheAppGroupIdentifier
+{
+    BCPBroadcastConfigurationPlistReader *sut = [self makeSUT];
+
+    NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:@"not_available_group_identifier" withExtension:@"plist"];
+    NSError *error = nil;
+    BDKBroadcastScreensharingToolConfiguration *config = [sut read:fileURL error:&error];
+
+    assertThat(config, nilValue());
+    assertThat(error, equalTo([NSError errorWithDomain:kBCPErrorDomain code:BCPBroadcastConfigurationReaderAppGroupMissingError userInfo:nil]));
+}
+
+- (void)testReadShouldReturnAnErrorWhenThePlistContainsNOT_AVAILABLEStringValueAsExtensionIdentifier
+{
+    BCPBroadcastConfigurationPlistReader *sut = [self makeSUT];
+
+    NSURL *fileURL = [[NSBundle bundleForClass:self.class] URLForResource:@"not_available_extension_identifier" withExtension:@"plist"];
+    NSError *error = nil;
+    BDKBroadcastScreensharingToolConfiguration *config = [sut read:fileURL error:&error];
+
+    assertThat(config, nilValue());
+    assertThat(error, equalTo([NSError errorWithDomain:kBCPErrorDomain code:BCPBroadcastConfigurationReaderExtensionBundleIdMissingError userInfo:nil]));
+}
+
 #pragma mark - Helpers
 
 - (BCPBroadcastConfigurationPlistReader *)makeSUT

@@ -21,8 +21,8 @@
     </engines>
 
     <platform name="ios">
-        <preference default="" name="IOS_APP_GROUP_IDENTIFIER" />
-        <preference default="" name="IOS_EXTENSION_BUNDLE_ID" />
+        <preference default="NOT_AVAILABLE" name="IOS_APP_GROUP_IDENTIFIER" />
+        <preference default="NOT_AVAILABLE" name="IOS_EXTENSION_BUNDLE_ID" />
 
         <config-file parent="NSCameraUsageDescription" target="*-Info.plist">
             <string>Necessaria per l'utilizzo della libreria</string>
